@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="fr.codesbusters.solidstock.controller.MainLayoutController" prefHeight="720.0"
+            prefWidth="1080.0">
+    <left>
+        <VBox fx:id="leftContent">
+            <Button text="Page 1" onAction="#loadPage1"/>
+            <Button text="Page 2" onAction="#loadPage2"/>
+            <!-- Place more buttons for other pages here -->
+        </VBox>
+    </left>
+
+    <center>
+        <Pane fx:id="mainContent">
+            <!-- The main content will be loaded here -->
+        </Pane>
+    </center>
+</BorderPane>
