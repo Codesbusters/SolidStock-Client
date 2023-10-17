@@ -1,23 +1,232 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import griffon.javafx.support.fontawesome.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="fr.codesbusters.solidstock.controller.MainLayoutController" prefHeight="720.0"
             prefWidth="1080.0">
     <left>
-        <VBox fx:id="leftContent">
-            <Button text="Page 1" onAction="#loadPage1"/>
-            <Button text="Page 2" onAction="#loadPage2"/>
-            <!-- Place more buttons for other pages here -->
-        </VBox>
+        <AnchorPane layoutX="-6.0" prefHeight="837.0" prefWidth="269.0" style="-fx-background-color: #292929;">
+            <children>
+                <HBox alignment="CENTER" prefHeight="62.0" prefWidth="256.0" AnchorPane.topAnchor="10.0">
+                    <children>
+                        <ImageView fitHeight="50.0" fitWidth="200.0">
+                            <image>
+                                <Image url="../../logo.png"></Image>
+                            </image>
+                        </ImageView>
+                    </children>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                </HBox>
+                <VBox layoutX="6.0" layoutY="86.0" prefHeight="747.0" prefWidth="256.0" spacing="30.0">
+                    <children>
+                        <AnchorPane id="dashboard" fx:id="dashboard">
+                            <children>
+                                <HBox>
+                                    <FontAwesomeIcon fontAwesome="FA_PIE_CHART" iconSize="30" fill="white"/>
+                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Tableau de bord"
+                                           textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="16.0"/>
+                                        </font>
+                                        <padding>
+                                            <Insets left="18.0"/>
+                                        </padding>
+                                    </Label>
+                                </HBox>
+
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </AnchorPane>
+                        <AnchorPane id="products" fx:id="products">
+                            <children>
+                                <HBox>
+                                    <FontAwesomeIcon fontAwesome="FA_CUBE" iconSize="30" fill="white"/>
+                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Produits"
+                                           textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="16.0"/>
+                                        </font>
+                                        <padding>
+                                            <Insets left="18.0"/>
+                                        </padding>
+                                    </Label>
+                                </HBox>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </AnchorPane>
+                        <AnchorPane id="inventory" fx:id="inventory">
+                            <children>
+                                <HBox>
+                                    <FontAwesomeIcon fontAwesome="FA_CUBES" iconSize="30" fill="white"/>
+                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Inventaire"
+                                           textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="16.0"/>
+                                        </font>
+                                        <padding>
+                                            <Insets left="18.0"/>
+                                        </padding>
+                                    </Label>
+                                </HBox>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </AnchorPane>
+                        <AnchorPane id="orders" fx:id="orders">
+                            <children>
+                                <HBox>
+                                    <FontAwesomeIcon fontAwesome="FA_TICKET" iconSize="30" fill="white"/>
+                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Commandes"
+                                           textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="16.0"/>
+                                        </font>
+                                        <padding>
+                                            <Insets left="18.0"/>
+                                        </padding>
+                                    </Label>
+                                </HBox>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane id="customers" fx:id="customers">
+                            <children>
+                                <HBox>
+                                    <FontAwesomeIcon fontAwesome="FA_USERS" iconSize="30" fill="white"/>
+                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Clients"
+                                           textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="16.0"/>
+                                        </font>
+                                        <padding>
+                                            <Insets left="18.0"/>
+                                        </padding>
+                                    </Label>
+                                </HBox>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </AnchorPane>
+                        <AnchorPane id="suppliers" fx:id="suppliers">
+                            <children>
+                                <HBox>
+                                    <FontAwesomeIcon fontAwesome="FA_TRUCK" iconSize="30" fill="white"/>
+                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Fournisseurs"
+                                           textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="16.0"/>
+                                        </font>
+                                        <padding>
+                                            <Insets left="18.0"/>
+                                        </padding>
+                                    </Label>
+                                </HBox>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </AnchorPane>
+                        <AnchorPane id="third_party" fx:id="third_party">
+                            <children>
+                                <HBox>
+                                    <FontAwesomeIcon fontAwesome="FA_BOOK" iconSize="30" fill="white"/>
+                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Tiers"
+                                           textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="16.0"/>
+                                        </font>
+                                        <padding>
+                                            <Insets left="18.0"/>
+                                        </padding>
+                                    </Label>
+                                </HBox>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </AnchorPane>
+                        <AnchorPane id="direct_sales" fx:id="direct_sales">
+                            <children>
+                                <HBox>
+                                    <FontAwesomeIcon fontAwesome="FA_SHOPPING_CART" iconSize="30" fill="white"/>
+                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Ventes Directes"
+                                           textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="16.0"/>
+                                        </font>
+                                        <padding>
+                                            <Insets left="18.0"/>
+                                        </padding>
+                                    </Label>
+                                </HBox>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </AnchorPane>
+                        <AnchorPane id="settings" fx:id="settings">
+                            <children>
+                                <HBox>
+                                    <FontAwesomeIcon fontAwesome="FA_COG" iconSize="30" fill="white"/>
+                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Paramètres"
+                                           textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="16.0"/>
+                                        </font>
+                                        <padding>
+                                            <Insets left="18.0"/>
+                                        </padding>
+                                    </Label>
+                                </HBox>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </AnchorPane>
+                    </children>
+                    <padding>
+                        <Insets left="30.0" top="20.0"/>
+                    </padding>
+                </VBox>
+            </children>
+            <cursor>
+                <Cursor fx:constant="DEFAULT"/>
+            </cursor>
+        </AnchorPane>
+
     </left>
 
     <center>
         <Pane fx:id="mainContent">
-            <!-- The main content will be loaded here -->
+            <AnchorPane id="customers">
+                <children>
+                    <Label layoutX="47.0" prefHeight="17.0" prefWidth="156.0" text="Clients"
+                           textAlignment="CENTER" textFill="WHITE">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Label>
+
+                </children>
+                <cursor>
+                    <Cursor fx:constant="HAND"/>
+                </cursor>
+            </AnchorPane>
+
         </Pane>
     </center>
 </BorderPane>
