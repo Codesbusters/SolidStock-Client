@@ -4,15 +4,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 
 @Controller
 public class MainLayoutController {
-    @FXML
-    private VBox leftContent;
     @FXML
     private Pane mainContent;
 
@@ -23,18 +20,92 @@ public class MainLayoutController {
     }
 
     @FXML
-    private void loadPage1() {
+    private void loadCustomer() {
         try {
-            loadPage("AddBook.fxml");
+            loadPage("customers.fxml");
         } catch (IOException e) {
             // Gérer les erreurs de chargement de la page
         }
     }
 
     @FXML
-    private void loadPage2() {
+    private void loadDashboard() {
         try {
-            loadPage("test.fxml");
+            loadPage("dashboard.fxml");
+        } catch (IOException e) {
+            // Gérer les erreurs de chargement de la page
+        }
+    }
+
+    @FXML
+    private void loadProducts() {
+        try {
+            loadPage("products.fxml");
+        } catch (IOException e) {
+            // Gérer les erreurs de chargement de la page
+        }
+    }
+
+    @FXML
+    private void loadInventory() {
+        try {
+            loadPage("inventory.fxml");
+        } catch (IOException e) {
+            // Gérer les erreurs de chargement de la page
+        }
+    }
+
+
+    @FXML
+    private void loadOrders() {
+        try {
+            loadPage("orders.fxml");
+        } catch (IOException e) {
+            // Gérer les erreurs de chargement de la page
+        }
+    }
+
+    @FXML
+    private void loadSuppliers() {
+        try {
+            loadPage("suppliers.fxml");
+        } catch (IOException e) {
+            // Gérer les erreurs de chargement de la page
+        }
+    }
+
+    @FXML
+    private void loadThirdParty() {
+        try {
+            loadPage("thirdParty.fxml");
+        } catch (IOException e) {
+            // Gérer les erreurs de chargement de la page
+        }
+    }
+
+    @FXML
+    private void loadDirectSales() {
+        try {
+            loadPage("directsSales.fxml");
+        } catch (IOException e) {
+            // Gérer les erreurs de chargement de la page
+        }
+    }
+
+    @FXML
+    private void loadSettings() {
+        try {
+            loadPage("settings.fxml");
+        } catch (IOException e) {
+            // Gérer les erreurs de chargement de la page
+        }
+    }
+
+
+    @FXML
+    private void loadCustomers() {
+        try {
+            loadPage("customers.fxml");
         } catch (IOException e) {
             // Gérer les erreurs de chargement de la page
         }

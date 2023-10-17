@@ -9,12 +9,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fr.codesbusters.solidstock.controller.MainLayoutController" prefHeight="720.0"
-            prefWidth="1080.0">
+            fx:controller="fr.codesbusters.solidstock.controller.MainLayoutController"
+            prefWidth="1320.0" prefHeight="720.0" minWidth="1320.0" minHeight="720.0">
     <left>
         <AnchorPane layoutX="-6.0" prefHeight="837.0" prefWidth="269.0" style="-fx-background-color: #292929;">
             <children>
-                <HBox alignment="CENTER" prefHeight="62.0" prefWidth="256.0" AnchorPane.topAnchor="10.0">
+                <HBox alignment="CENTER" prefHeight="80.0" prefWidth="300.0" AnchorPane.topAnchor="10.0">
                     <children>
                         <ImageView fitHeight="50.0" fitWidth="200.0">
                             <image>
@@ -22,176 +22,285 @@
                             </image>
                         </ImageView>
                     </children>
-                    <opaqueInsets>
-                        <Insets/>
-                    </opaqueInsets>
                 </HBox>
                 <VBox layoutX="6.0" layoutY="86.0" prefHeight="747.0" prefWidth="256.0" spacing="30.0">
+                    <Separator prefWidth="230" maxWidth="230"/>
                     <children>
-                        <AnchorPane id="dashboard" fx:id="dashboard">
+                        <AnchorPane id="dashboard" fx:id="dashboard" onMouseClicked="#loadDashboard">
                             <children>
-                                <HBox>
-                                    <FontAwesomeIcon fontAwesome="FA_PIE_CHART" iconSize="30" fill="white"/>
-                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Tableau de bord"
-                                           textAlignment="CENTER" textFill="WHITE">
-                                        <font>
-                                            <Font name="System Bold" size="16.0"/>
-                                        </font>
-                                        <padding>
-                                            <Insets left="18.0"/>
-                                        </padding>
-                                    </Label>
-                                </HBox>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
+                                                           prefWidth="40.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
+                                                           prefWidth="40.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <FontAwesomeIcon fontAwesome="FA_PIE_CHART" iconSize="30" fill="white"/>
+
+                                        <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Tableau de bord"
+                                               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
+                                            <font>
+                                                <Font name="System Bold" size="16.0"/>
+                                            </font>
+                                            <padding>
+                                                <Insets left="18.0"/>
+                                            </padding>
+                                        </Label>
+                                    </children>
+                                </GridPane>
 
                             </children>
                             <cursor>
                                 <Cursor fx:constant="HAND"/>
                             </cursor>
                         </AnchorPane>
-                        <AnchorPane id="products" fx:id="products">
+                        <AnchorPane id="products" fx:id="products" onMouseClicked="#loadProducts">
                             <children>
-                                <HBox>
-                                    <FontAwesomeIcon fontAwesome="FA_CUBE" iconSize="30" fill="white"/>
-                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Produits"
-                                           textAlignment="CENTER" textFill="WHITE">
-                                        <font>
-                                            <Font name="System Bold" size="16.0"/>
-                                        </font>
-                                        <padding>
-                                            <Insets left="18.0"/>
-                                        </padding>
-                                    </Label>
-                                </HBox>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
+                                                           prefWidth="40.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
+                                                           prefWidth="40.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <FontAwesomeIcon fontAwesome="FA_CUBE" iconSize="30" fill="white"/>
+
+                                        <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Produits"
+                                               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
+                                            <font>
+                                                <Font name="System Bold" size="16.0"/>
+                                            </font>
+                                            <padding>
+                                                <Insets left="18.0"/>
+                                            </padding>
+                                        </Label>
+                                    </children>
+                                </GridPane>
                             </children>
                             <cursor>
                                 <Cursor fx:constant="HAND"/>
                             </cursor>
                         </AnchorPane>
-                        <AnchorPane id="inventory" fx:id="inventory">
+                        <AnchorPane id="inventory" fx:id="inventory" onMouseClicked="#loadInventory">
                             <children>
-                                <HBox>
-                                    <FontAwesomeIcon fontAwesome="FA_CUBES" iconSize="30" fill="white"/>
-                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Inventaire"
-                                           textAlignment="CENTER" textFill="WHITE">
-                                        <font>
-                                            <Font name="System Bold" size="16.0"/>
-                                        </font>
-                                        <padding>
-                                            <Insets left="18.0"/>
-                                        </padding>
-                                    </Label>
-                                </HBox>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
+                                                           prefWidth="40.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
+                                                           prefWidth="40.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <FontAwesomeIcon fontAwesome="FA_CUBES" iconSize="30" fill="white"/>
+
+                                        <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Inventaire"
+                                               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
+                                            <font>
+                                                <Font name="System Bold" size="16.0"/>
+                                            </font>
+                                            <padding>
+                                                <Insets left="18.0"/>
+                                            </padding>
+                                        </Label>
+                                    </children>
+                                </GridPane>
                             </children>
                             <cursor>
                                 <Cursor fx:constant="HAND"/>
                             </cursor>
                         </AnchorPane>
-                        <AnchorPane id="orders" fx:id="orders">
+                        <AnchorPane id="orders" fx:id="orders" onMouseClicked="#loadOrders">
                             <children>
-                                <HBox>
-                                    <FontAwesomeIcon fontAwesome="FA_TICKET" iconSize="30" fill="white"/>
-                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Commandes"
-                                           textAlignment="CENTER" textFill="WHITE">
-                                        <font>
-                                            <Font name="System Bold" size="16.0"/>
-                                        </font>
-                                        <padding>
-                                            <Insets left="18.0"/>
-                                        </padding>
-                                    </Label>
-                                </HBox>
-                            </children>
-                        </AnchorPane>
-                        <AnchorPane id="customers" fx:id="customers">
-                            <children>
-                                <HBox>
-                                    <FontAwesomeIcon fontAwesome="FA_USERS" iconSize="30" fill="white"/>
-                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Clients"
-                                           textAlignment="CENTER" textFill="WHITE">
-                                        <font>
-                                            <Font name="System Bold" size="16.0"/>
-                                        </font>
-                                        <padding>
-                                            <Insets left="18.0"/>
-                                        </padding>
-                                    </Label>
-                                </HBox>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
+                                                           prefWidth="40.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
+                                                           prefWidth="40.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <FontAwesomeIcon fontAwesome="FA_TICKET" iconSize="30" fill="white"/>
+
+                                        <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Commandes"
+                                               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
+                                            <font>
+                                                <Font name="System Bold" size="16.0"/>
+                                            </font>
+                                            <padding>
+                                                <Insets left="18.0"/>
+                                            </padding>
+                                        </Label>
+                                    </children>
+                                </GridPane>
                             </children>
                             <cursor>
                                 <Cursor fx:constant="HAND"/>
                             </cursor>
                         </AnchorPane>
-                        <AnchorPane id="suppliers" fx:id="suppliers">
+                        <AnchorPane id="customers" fx:id="customers" onMouseClicked="#loadCustomers">
                             <children>
-                                <HBox>
-                                    <FontAwesomeIcon fontAwesome="FA_TRUCK" iconSize="30" fill="white"/>
-                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Fournisseurs"
-                                           textAlignment="CENTER" textFill="WHITE">
-                                        <font>
-                                            <Font name="System Bold" size="16.0"/>
-                                        </font>
-                                        <padding>
-                                            <Insets left="18.0"/>
-                                        </padding>
-                                    </Label>
-                                </HBox>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
+                                                           prefWidth="40.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
+                                                           prefWidth="40.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <FontAwesomeIcon fontAwesome="FA_USERS" iconSize="30" fill="white"/>
+
+                                        <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Clients"
+                                               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
+                                            <font>
+                                                <Font name="System Bold" size="16.0"/>
+                                            </font>
+                                            <padding>
+                                                <Insets left="18.0"/>
+                                            </padding>
+                                        </Label>
+                                    </children>
+                                </GridPane>
                             </children>
                             <cursor>
                                 <Cursor fx:constant="HAND"/>
                             </cursor>
                         </AnchorPane>
-                        <AnchorPane id="third_party" fx:id="third_party">
+                        <AnchorPane id="suppliers" fx:id="suppliers" onMouseClicked="#loadSuppliers">
                             <children>
-                                <HBox>
-                                    <FontAwesomeIcon fontAwesome="FA_BOOK" iconSize="30" fill="white"/>
-                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Tiers"
-                                           textAlignment="CENTER" textFill="WHITE">
-                                        <font>
-                                            <Font name="System Bold" size="16.0"/>
-                                        </font>
-                                        <padding>
-                                            <Insets left="18.0"/>
-                                        </padding>
-                                    </Label>
-                                </HBox>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
+                                                           prefWidth="40.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
+                                                           prefWidth="40.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <FontAwesomeIcon fontAwesome="FA_TRUCK" iconSize="30" fill="white"/>
+
+                                        <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Fournisseurs"
+                                               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
+                                            <font>
+                                                <Font name="System Bold" size="16.0"/>
+                                            </font>
+                                            <padding>
+                                                <Insets left="18.0"/>
+                                            </padding>
+                                        </Label>
+                                    </children>
+                                </GridPane>
                             </children>
                             <cursor>
                                 <Cursor fx:constant="HAND"/>
                             </cursor>
                         </AnchorPane>
-                        <AnchorPane id="direct_sales" fx:id="direct_sales">
+                        <AnchorPane id="third_party" fx:id="third_party" onMouseClicked="#loadThirdParty">
                             <children>
-                                <HBox>
-                                    <FontAwesomeIcon fontAwesome="FA_SHOPPING_CART" iconSize="30" fill="white"/>
-                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Ventes Directes"
-                                           textAlignment="CENTER" textFill="WHITE">
-                                        <font>
-                                            <Font name="System Bold" size="16.0"/>
-                                        </font>
-                                        <padding>
-                                            <Insets left="18.0"/>
-                                        </padding>
-                                    </Label>
-                                </HBox>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
+                                                           prefWidth="40.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
+                                                           prefWidth="40.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <FontAwesomeIcon fontAwesome="FA_BOOK" iconSize="30" fill="white"/>
+
+                                        <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Tiers"
+                                               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
+                                            <font>
+                                                <Font name="System Bold" size="16.0"/>
+                                            </font>
+                                            <padding>
+                                                <Insets left="18.0"/>
+                                            </padding>
+                                        </Label>
+                                    </children>
+                                </GridPane>
                             </children>
                             <cursor>
                                 <Cursor fx:constant="HAND"/>
                             </cursor>
                         </AnchorPane>
-                        <AnchorPane id="settings" fx:id="settings">
+                        <AnchorPane id="direct_sales" fx:id="direct_sales" onMouseClicked="#loadDirectSales">
                             <children>
-                                <HBox>
-                                    <FontAwesomeIcon fontAwesome="FA_COG" iconSize="30" fill="white"/>
-                                    <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Paramètres"
-                                           textAlignment="CENTER" textFill="WHITE">
-                                        <font>
-                                            <Font name="System Bold" size="16.0"/>
-                                        </font>
-                                        <padding>
-                                            <Insets left="18.0"/>
-                                        </padding>
-                                    </Label>
-                                </HBox>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
+                                                           prefWidth="40.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
+                                                           prefWidth="40.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <FontAwesomeIcon fontAwesome="FA_SHOPPING_CART" iconSize="30" fill="white"/>
+
+                                        <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Ventes Directes"
+                                               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
+                                            <font>
+                                                <Font name="System Bold" size="16.0"/>
+                                            </font>
+                                            <padding>
+                                                <Insets left="18.0"/>
+                                            </padding>
+                                        </Label>
+                                    </children>
+                                </GridPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </AnchorPane>
+                        <AnchorPane id="settings" fx:id="settings" onMouseClicked="#loadSettings">
+                            <children>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
+                                                           prefWidth="40.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
+                                                           prefWidth="40.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <FontAwesomeIcon fontAwesome="FA_COG" iconSize="30" fill="white"/>
+
+                                        <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Paramètres"
+                                               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
+                                            <font>
+                                                <Font name="System Bold" size="16.0"/>
+                                            </font>
+                                            <padding>
+                                                <Insets left="18.0"/>
+                                            </padding>
+                                        </Label>
+                                    </children>
+                                </GridPane>
                             </children>
                             <cursor>
                                 <Cursor fx:constant="HAND"/>
