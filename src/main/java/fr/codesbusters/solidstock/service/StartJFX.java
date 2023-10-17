@@ -33,10 +33,12 @@ public class StartJFX extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/main/MainLayout.fxml")));
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setMinWidth(1320.0);
         primaryStage.setMinHeight(720.0);
         primaryStage.setTitle("SolidStock - " + currentVersion);
+
         primaryStage.show();
         ScenicView.show(scene);
 

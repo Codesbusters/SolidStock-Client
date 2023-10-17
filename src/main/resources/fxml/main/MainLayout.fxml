@@ -23,10 +23,13 @@
                         </ImageView>
                     </children>
                 </HBox>
-                <VBox layoutX="6.0" layoutY="86.0" prefHeight="747.0" prefWidth="256.0" spacing="30.0">
-                    <Separator prefWidth="230" maxWidth="230"/>
+                <VBox prefHeight="747.0" prefWidth="256.0"
+                      spacing="10.0" style="-fx-padding: 120 35 20 35;"
+                >
+                    <Separator/>
                     <children>
-                        <AnchorPane id="dashboard" fx:id="dashboard" onMouseClicked="#loadDashboard">
+                        <AnchorPane id="dashboard" fx:id="dashboard" onMouseClicked="#loadDashboard"
+                                    styleClass="hoverItemMenu">
                             <children>
                                 <GridPane>
                                     <columnConstraints>
@@ -58,7 +61,8 @@
                                 <Cursor fx:constant="HAND"/>
                             </cursor>
                         </AnchorPane>
-                        <AnchorPane id="products" fx:id="products" onMouseClicked="#loadProducts">
+                        <AnchorPane id="products" fx:id="products" onMouseClicked="#loadProducts"
+                                    styleClass="hoverItemMenu">
                             <children>
                                 <GridPane>
                                     <columnConstraints>
@@ -89,7 +93,8 @@
                                 <Cursor fx:constant="HAND"/>
                             </cursor>
                         </AnchorPane>
-                        <AnchorPane id="inventory" fx:id="inventory" onMouseClicked="#loadInventory">
+                        <AnchorPane id="inventory" fx:id="inventory" onMouseClicked="#loadInventory"
+                                    styleClass="hoverItemMenu">
                             <children>
                                 <GridPane>
                                     <columnConstraints>
@@ -120,7 +125,7 @@
                                 <Cursor fx:constant="HAND"/>
                             </cursor>
                         </AnchorPane>
-                        <AnchorPane id="orders" fx:id="orders" onMouseClicked="#loadOrders">
+                        <AnchorPane id="orders" fx:id="orders" onMouseClicked="#loadOrders" styleClass="hoverItemMenu">
                             <children>
                                 <GridPane>
                                     <columnConstraints>
@@ -151,7 +156,8 @@
                                 <Cursor fx:constant="HAND"/>
                             </cursor>
                         </AnchorPane>
-                        <AnchorPane id="customers" fx:id="customers" onMouseClicked="#loadCustomers">
+                        <AnchorPane id="customers" fx:id="customers" onMouseClicked="#loadCustomers"
+                                    styleClass="hoverItemMenu">
                             <children>
                                 <GridPane>
                                     <columnConstraints>
@@ -182,7 +188,8 @@
                                 <Cursor fx:constant="HAND"/>
                             </cursor>
                         </AnchorPane>
-                        <AnchorPane id="suppliers" fx:id="suppliers" onMouseClicked="#loadSuppliers">
+                        <AnchorPane id="suppliers" fx:id="suppliers" onMouseClicked="#loadSuppliers"
+                                    styleClass="hoverItemMenu">
                             <children>
                                 <GridPane>
                                     <columnConstraints>
@@ -213,7 +220,8 @@
                                 <Cursor fx:constant="HAND"/>
                             </cursor>
                         </AnchorPane>
-                        <AnchorPane id="third_party" fx:id="third_party" onMouseClicked="#loadThirdParty">
+                        <AnchorPane id="third_party" fx:id="third_party" onMouseClicked="#loadThirdParty"
+                                    styleClass="hoverItemMenu">
                             <children>
                                 <GridPane>
                                     <columnConstraints>
@@ -244,7 +252,8 @@
                                 <Cursor fx:constant="HAND"/>
                             </cursor>
                         </AnchorPane>
-                        <AnchorPane id="direct_sales" fx:id="direct_sales" onMouseClicked="#loadDirectSales">
+                        <AnchorPane id="direct_sales" fx:id="direct_sales" onMouseClicked="#loadDirectSales"
+                                    styleClass="hoverItemMenu">
                             <children>
                                 <GridPane>
                                     <columnConstraints>
@@ -275,7 +284,8 @@
                                 <Cursor fx:constant="HAND"/>
                             </cursor>
                         </AnchorPane>
-                        <AnchorPane id="settings" fx:id="settings" onMouseClicked="#loadSettings">
+                        <AnchorPane id="settings" fx:id="settings" onMouseClicked="#loadSettings"
+                                    styleClass="hoverItemMenu">
                             <children>
                                 <GridPane>
                                     <columnConstraints>
