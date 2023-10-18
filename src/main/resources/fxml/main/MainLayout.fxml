@@ -29,9 +29,9 @@
                     <Separator/>
                     <children>
                         <AnchorPane id="dashboard" fx:id="dashboard" onMouseClicked="#loadDashboard"
-                                    styleClass="hoverItemMenu">
+                        >
                             <children>
-                                <GridPane>
+                                <GridPane styleClass="hoverItemMenu">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                            prefWidth="40.0"/>
@@ -62,9 +62,9 @@
                             </cursor>
                         </AnchorPane>
                         <AnchorPane id="products" fx:id="products" onMouseClicked="#loadProducts"
-                                    styleClass="hoverItemMenu">
+                        >
                             <children>
-                                <GridPane>
+                                <GridPane styleClass="hoverItemMenu">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                            prefWidth="40.0"/>
@@ -94,9 +94,9 @@
                             </cursor>
                         </AnchorPane>
                         <AnchorPane id="inventory" fx:id="inventory" onMouseClicked="#loadInventory"
-                                    styleClass="hoverItemMenu">
+                        >
                             <children>
-                                <GridPane>
+                                <GridPane styleClass="hoverItemMenu">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                            prefWidth="40.0"/>
@@ -125,9 +125,9 @@
                                 <Cursor fx:constant="HAND"/>
                             </cursor>
                         </AnchorPane>
-                        <AnchorPane id="orders" fx:id="orders" onMouseClicked="#loadOrders" styleClass="hoverItemMenu">
+                        <AnchorPane id="orders" fx:id="orders" onMouseClicked="#loadOrders">
                             <children>
-                                <GridPane>
+                                <GridPane styleClass="hoverItemMenu">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                            prefWidth="40.0"/>
@@ -157,9 +157,9 @@
                             </cursor>
                         </AnchorPane>
                         <AnchorPane id="customers" fx:id="customers" onMouseClicked="#loadCustomers"
-                                    styleClass="hoverItemMenu">
+                        >
                             <children>
-                                <GridPane>
+                                <GridPane styleClass="hoverItemMenu">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                            prefWidth="40.0"/>
@@ -189,9 +189,9 @@
                             </cursor>
                         </AnchorPane>
                         <AnchorPane id="suppliers" fx:id="suppliers" onMouseClicked="#loadSuppliers"
-                                    styleClass="hoverItemMenu">
+                        >
                             <children>
-                                <GridPane>
+                                <GridPane styleClass="hoverItemMenu">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                            prefWidth="40.0"/>
@@ -221,9 +221,9 @@
                             </cursor>
                         </AnchorPane>
                         <AnchorPane id="third_party" fx:id="third_party" onMouseClicked="#loadThirdParty"
-                                    styleClass="hoverItemMenu">
+                        >
                             <children>
-                                <GridPane>
+                                <GridPane styleClass="hoverItemMenu">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                            prefWidth="40.0"/>
@@ -253,9 +253,9 @@
                             </cursor>
                         </AnchorPane>
                         <AnchorPane id="direct_sales" fx:id="direct_sales" onMouseClicked="#loadDirectSales"
-                                    styleClass="hoverItemMenu">
+                        >
                             <children>
-                                <GridPane>
+                                <GridPane styleClass="hoverItemMenu">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                            prefWidth="40.0"/>
@@ -285,9 +285,9 @@
                             </cursor>
                         </AnchorPane>
                         <AnchorPane id="settings" fx:id="settings" onMouseClicked="#loadSettings"
-                                    styleClass="hoverItemMenu">
+                        >
                             <children>
-                                <GridPane>
+                                <GridPane styleClass="hoverItemMenu">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                            prefWidth="40.0"/>
