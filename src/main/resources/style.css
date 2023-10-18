@@ -1,7 +1,6 @@
 .hoverItemMenu {
     -fx-background-radius: 20;
     -fx-padding: 10;
-
 }
 
 .hoverItemMenu:hover {

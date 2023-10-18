@@ -14,9 +14,9 @@
     <left>
         <AnchorPane layoutX="-6.0" prefHeight="837.0" prefWidth="269.0" style="-fx-background-color: #292929;">
             <children>
-                <HBox alignment="CENTER" prefHeight="80.0" prefWidth="300.0" AnchorPane.topAnchor="10.0">
+                <HBox alignment="CENTER" prefHeight="80.0" prefWidth="350.0" AnchorPane.topAnchor="10.0">
                     <children>
-                        <ImageView fitHeight="50.0" fitWidth="200.0">
+                        <ImageView fitHeight="60.0" fitWidth="200.0">
                             <image>
                                 <Image url="@../../logo.png"></Image>
                             </image>

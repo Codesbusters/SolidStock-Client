@@ -41,7 +41,6 @@ public class StartJFX extends Application {
 
         primaryStage.show();
         ScenicView.show(scene);
-
     }
 
     @Override
