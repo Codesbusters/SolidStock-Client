@@ -330,21 +330,7 @@
     </left>
 
     <center>
-        <Pane fx:id="mainContent">
-            <AnchorPane id="customers">
-                <children>
-                    <Label layoutX="47.0" prefHeight="17.0" prefWidth="156.0" text="Clients"
-                           textAlignment="CENTER" textFill="WHITE">
-                        <font>
-                            <Font size="16.0"/>
-                        </font>
-                    </Label>
-
-                </children>
-                <cursor>
-                    <Cursor fx:constant="HAND"/>
-                </cursor>
-            </AnchorPane>
+        <Pane fx:id="mainContent" style="-fx-background-color: #b4b4b4;">
 
         </Pane>
     </center>
