@@ -28,15 +28,6 @@ public class MainLayoutController implements Initializable {
     }
 
     @FXML
-    private void loadCustomer() {
-        try {
-            loadPage("customers.fxml");
-        } catch (IOException e) {
-            // Gérer les erreurs de chargement de la page
-        }
-    }
-
-    @FXML
     private void loadDashboard() {
         try {
             loadPage("dashboard.fxml");

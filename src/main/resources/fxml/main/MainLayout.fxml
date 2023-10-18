@@ -330,7 +330,7 @@
     </left>
 
     <center>
-        <Pane fx:id="mainContent" style="-fx-background-color: #b4b4b4;">
+        <Pane fx:id="mainContent" style="-fx-background-color: white;">
 
         </Pane>
     </center>
