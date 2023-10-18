@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXRectangleToggleNode?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
-<?import javafx.geometry.*?>
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             xmlns="http://javafx.com/javafx"
-            stylesheets="@./css/comboBoxes.css"
+            stylesheets="@../css/ComboBoxes.css"
 >
     <VBox xmlns:fx="http://javafx.com/fxml/1" id="mainPane" alignment="CENTER" maxHeight="-Infinity"
           maxWidth="-Infinity"
@@ -17,7 +18,8 @@
 
         <children>
             <AnchorPane id="pane1" maxHeight="60.0" minHeight="70.0" minWidth="400.0" prefHeight="100.0"
-                        prefWidth="600.0" style="-fx-background-color: white; -fx-background-radius: 20;"
+                        prefWidth="600.0"
+                        style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                         VBox.vgrow="ALWAYS">
                 <children>
                     <VBox spacing="10.0">
@@ -46,22 +48,24 @@
                             <Insets top="10.0"/>
                         </padding>
                         <children>
-                            <MFXTextField floatMode="BORDER" floatingText="Recherche" promptText="Nom, email">
+                            <MFXTextField floatMode="BORDER" floatingText="Recherche" promptText="Libelle, Famille"
+                                          prefWidth="120">
                                 <HBox.margin>
                                     <Insets left="10.0"/>
                                 </HBox.margin>
                             </MFXTextField>
-                            <MFXComboBox floatMode="BORDER" floatingText="Attribute" prefHeight="37.0" prefWidth="118.0"
-                                         promptText="Propriété">
-                                <HBox.margin>
-                                    <Insets left="10.0"/>
-                                </HBox.margin>
-                            </MFXComboBox>
-                            <MFXComboBox fx:id="nBFCombo" floatMode="BORDER" floatingText="Border Float"
-                                         GridPane.rowIndex="2"/>
+                            <MFXRectangleToggleNode disable="true" selected="true" text="Disabled"
+                                                    GridPane.columnIndex="6"
+                                                    GridPane.rowIndex="5">
+                                <graphic>
+                                    <MFXFontIcon description="fas-eye" size="32.0"
+                                                 style="background-color: blue; color: white;"/>
+                                </graphic>
+                            </MFXRectangleToggleNode>
                         </children>
                     </HBox>
                 </children>
+
             </AnchorPane>
 
             <AnchorPane id="pane3" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="600.0"
