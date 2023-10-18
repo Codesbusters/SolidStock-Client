@@ -10,6 +10,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.scenicview.ScenicView;
@@ -41,6 +42,8 @@ public class StartJFX extends Application {
         primaryStage.setMinWidth(1320.0);
         primaryStage.setMinHeight(720.0);
         primaryStage.setTitle("SolidStock - " + currentVersion);
+        Image icon = new Image("icon.png");
+        primaryStage.getIcons().add(icon);
 
         primaryStage.show();
         ScenicView.show(scene);
