@@ -7,8 +7,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXCircleToggleNode?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
-           fx:controller="fr.codesbusters.solidstock.controller.ProductController" fx:id="stackPane">
+           fx:controller="fr.codesbusters.solidstock.controller.ProductController" fx:id="stackPane"
+           stylesheets="@../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <children>
             <AnchorPane id="pane1" maxHeight="60.0" minHeight="70.0" minWidth="400.0" prefHeight="100.0"
@@ -37,25 +40,38 @@
                         style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                         VBox.vgrow="ALWAYS">
                 <children>
-                    <HBox spacing="15.0">
+                    <HBox spacing="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <padding>
                             <Insets top="10.0"/>
                         </padding>
                         <children>
-                            <MFXTextField floatMode="BORDER" floatingText="Recherche" promptText="Libelle, Famille"
-                                          prefWidth="120">
+                            <HBox spacing="20.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                <children>
+                                    <MFXTextField floatMode="BORDER" floatingText="Recherche" prefWidth="240" maxWidth="500" promptText="Libelle, Famille" HBox.hgrow="ALWAYS">
+                                        <HBox.margin>
+                                            <Insets left="10.0"/>
+                                        </HBox.margin>
+                                    </MFXTextField>
+                                    <MFXButton style="-fx-background-color: -mfx-blue;" text="" prefHeight="38">
+                                        <graphic>
+                                            <MFXFontIcon description="fas-magnifying-glass" size="25.0" color="white"/>
+                                        </graphic>
+                                    </MFXButton>
+                                </children>
+                            </HBox>
+                            <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                                <children>
+                                    <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100" prefHeight="38" text="AJOUTER"
+                                               style="-fx-border-color: black; -fx-border-radius: 4" styleClass="outline-button" HBox.hgrow="ALWAYS"/>
+                                    <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100" text="MODIFIER" prefHeight="38"
+                                               buttonType="RAISED" style="-fx-background-color: #2196F3; -fx-font-weight: bold; -fx-text-fill: white;" HBox.hgrow="ALWAYS"/>
+                                    <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100" text="SUPPRIMER" prefHeight="38"
+                                               buttonType="RAISED" style="-fx-background-color: #FF6262; -fx-font-weight: bold; -fx-text-fill: white;" HBox.hgrow="ALWAYS"/>
+                                </children>
                                 <HBox.margin>
-                                    <Insets left="10.0"/>
+                                    <Insets right="10.0"/>
                                 </HBox.margin>
-                            </MFXTextField>
-                            <MFXRectangleToggleNode disable="true" selected="true" text="Disabled"
-                                                    GridPane.columnIndex="6"
-                                                    GridPane.rowIndex="5">
-                                <graphic>
-                                    <MFXFontIcon description="fas-eye" size="32.0"
-                                                 style="background-color: blue; color: white;"/>
-                                </graphic>
-                            </MFXRectangleToggleNode>
+                            </HBox>
                         </children>
                     </HBox>
                 </children>
