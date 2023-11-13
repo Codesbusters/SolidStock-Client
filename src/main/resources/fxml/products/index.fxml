@@ -7,16 +7,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
-           fx:controller="fr.codesbusters.solidstock.controller.ProductController" fx:id="stackPane"
-           stylesheets="@../css/MFXColors.css">
+           fx:controller="fr.codesbusters.solidstock.controller.products.ProductController" fx:id="stackPane"
+           stylesheets="@../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <children>
-            <AnchorPane id="pane1" maxHeight="60.0" minHeight="70.0" minWidth="400.0" prefHeight="100.0"
-                        prefWidth="600.0"
-                        style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+            <AnchorPane id="pane1" maxHeight="100.0" minHeight="100.0" minWidth="400.0" prefHeight="100.0"
+                        style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                         VBox.vgrow="ALWAYS">
                 <children>
-                    <VBox spacing="10.0">
+                    <VBox spacing="10.0" style="-fx-padding: 20px">
                         <children>
                             <Label text="Produits">
                                 <font>
@@ -34,7 +33,7 @@
 
             <AnchorPane id="pane2" maxHeight="60.0" minHeight="30.0" minWidth="400.0" prefHeight="100.0"
                         prefWidth="600.0"
-                        style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                        style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                         VBox.vgrow="ALWAYS">
                 <children>
                     <HBox spacing="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -45,12 +44,13 @@
                             <HBox spacing="20.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                 <children>
                                     <MFXTextField floatMode="BORDER" floatingText="Recherche" prefWidth="240"
-                                                  maxWidth="500" promptText="Libelle, Famille" HBox.hgrow="ALWAYS">
+                                                  maxWidth="500" HBox.hgrow="ALWAYS">
                                         <HBox.margin>
                                             <Insets left="10.0"/>
                                         </HBox.margin>
                                     </MFXTextField>
-                                    <MFXButton style="-fx-background-color: -mfx-blue;" text="" prefHeight="38">
+                                    <MFXButton style="-fx-background-color: -mfx-blue; -fx-cursor: hand;" text=""
+                                               prefHeight="38">
                                         <graphic>
                                             <MFXFontIcon description="fas-magnifying-glass" size="25.0" color="white"/>
                                         </graphic>
@@ -60,18 +60,19 @@
                             <HBox spacing="10.0" alignment="CENTER_RIGHT">
                                 <children>
                                     <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
-                                               prefHeight="38" text="AJOUTER"
-                                               style="-fx-border-color: black; -fx-border-radius: 4" buttonType="RAISED"
+                                               prefHeight="38" text="AJOUTER" onAction="#addProduct"
+                                               style="-fx-border-color: black; -fx-border-radius: 4; -fx-cursor: hand;"
+                                               buttonType="RAISED"
                                                styleClass="outline-button" HBox.hgrow="ALWAYS"/>
                                     <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
                                                text="MODIFIER" prefHeight="38"
                                                buttonType="RAISED"
-                                               style="-fx-background-color: #2196F3; -fx-font-weight: bold; -fx-text-fill: white;"
+                                               style="-fx-background-color: #2196F3; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
                                                HBox.hgrow="ALWAYS"/>
                                     <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
                                                text="SUPPRIMER" prefHeight="38"
                                                buttonType="RAISED"
-                                               style="-fx-background-color: #FF6262; -fx-font-weight: bold; -fx-text-fill: white;"
+                                               style="-fx-background-color: #FF6262; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
                                                HBox.hgrow="ALWAYS"/>
                                 </children>
                                 <HBox.margin>
@@ -86,13 +87,13 @@
 
 
             <AnchorPane id="pane3" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="600.0"
-                        style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                        style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                         VBox.vgrow="ALWAYS">
-                    <MFXPaginatedTableView fx:id="paginated" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="800.0"
-                                           GridPane.columnSpan="2147483647" GridPane.rowIndex="2"
-                                           AnchorPane.leftAnchor="0.0"
-                                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-                                           AnchorPane.bottomAnchor="0.0"/>
+                <MFXPaginatedTableView fx:id="paginated" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="800.0"
+                                       GridPane.columnSpan="2147483647" GridPane.rowIndex="2"
+                                       AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                                       AnchorPane.bottomAnchor="0.0"/>
             </AnchorPane>
         </children>
         <padding>

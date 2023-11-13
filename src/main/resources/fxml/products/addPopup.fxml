@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" minHeight="720.0" minWidth="1080.0" prefHeight="720.0"
             prefWidth="1080.0" xmlns="http://javafx.com/javafx/21"
-            fx:controller="fr.codesbusters.solidstock.controller.dashboard.DashboardAddController">
+            fx:controller="fr.codesbusters.solidstock.controller.products.ProductAddController">
     <center>
         <Pane fx:id="mainContent" style="-fx-background-color: white;">
             <children>

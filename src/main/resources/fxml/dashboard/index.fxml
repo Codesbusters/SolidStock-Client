@@ -1,25 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
-<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="fr.codesbusters.solidstock.controller.dashboard.DashboardController" fx:id="stackPane"
            stylesheets="@../../css/MFXColors.css">
     <VBox>
-        <MFXButton style="-fx-background-color: -mfx-blue; -fx-text-fill: white" fx:id="btnAdd" text="Ajouter"
-                   prefWidth="150.0" prefHeight="50.0" AnchorPane.bottomAnchor="10.0"
-                   AnchorPane.rightAnchor="10.0" onAction="#openAddPopUp"/>
-
-        <MFXButton style="-fx-background-color: -mfx-blue;" text="" onAction="#openAddPopUp">
-            <graphic>
-                <MFXFontIcon description="fas-magnifying-glass" size="25.0" color="white"/>
-            </graphic>
-        </MFXButton>
-
-        <MFXTextField></MFXTextField>
+        <Label>Dashboard</Label>
     </VBox>
 </StackPane>

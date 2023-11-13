@@ -47,7 +47,7 @@ public class MainLayoutController implements Initializable {
     @FXML
     private void loadProducts() {
         try {
-            loadPage("products.fxml");
+            loadPage("products/index.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
