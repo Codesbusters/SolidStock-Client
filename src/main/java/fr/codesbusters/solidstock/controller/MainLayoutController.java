@@ -38,7 +38,7 @@ public class MainLayoutController implements Initializable {
     @FXML
     private void loadDashboard() {
         try {
-            loadPage("dashboard.fxml");
+            loadPage("dashboard/index.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -118,3 +118,4 @@ public class MainLayoutController implements Initializable {
         }
     }
 }
+

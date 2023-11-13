@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXRectangleToggleNode?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.*?>
 <?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXCircleToggleNode?>
-<?import io.github.palexdev.materialfx.controls.MFXPaginatedTableView?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="fr.codesbusters.solidstock.controller.ProductController" fx:id="stackPane"
            stylesheets="@../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <children>
             <AnchorPane id="pane1" maxHeight="60.0" minHeight="70.0" minWidth="400.0" prefHeight="100.0"
+                        prefWidth="600.0"
                         style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                         VBox.vgrow="ALWAYS">
                 <children>
@@ -47,7 +44,8 @@
                         <children>
                             <HBox spacing="20.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                 <children>
-                                    <MFXTextField floatMode="BORDER" floatingText="Recherche" prefWidth="240" maxWidth="500" promptText="Libelle, Famille" HBox.hgrow="ALWAYS">
+                                    <MFXTextField floatMode="BORDER" floatingText="Recherche" prefWidth="240"
+                                                  maxWidth="500" promptText="Libelle, Famille" HBox.hgrow="ALWAYS">
                                         <HBox.margin>
                                             <Insets left="10.0"/>
                                         </HBox.margin>
@@ -61,12 +59,20 @@
                             </HBox>
                             <HBox spacing="10.0" alignment="CENTER_RIGHT">
                                 <children>
-                                    <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100" prefHeight="38" text="AJOUTER"
-                                               style="-fx-border-color: black; -fx-border-radius: 4" buttonType="RAISED" styleClass="outline-button" HBox.hgrow="ALWAYS"/>
-                                    <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100" text="MODIFIER" prefHeight="38"
-                                               buttonType="RAISED" style="-fx-background-color: #2196F3; -fx-font-weight: bold; -fx-text-fill: white;" HBox.hgrow="ALWAYS"/>
-                                    <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100" text="SUPPRIMER" prefHeight="38"
-                                               buttonType="RAISED" style="-fx-background-color: #FF6262; -fx-font-weight: bold; -fx-text-fill: white;" HBox.hgrow="ALWAYS"/>
+                                    <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                                               prefHeight="38" text="AJOUTER"
+                                               style="-fx-border-color: black; -fx-border-radius: 4" buttonType="RAISED"
+                                               styleClass="outline-button" HBox.hgrow="ALWAYS"/>
+                                    <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                                               text="MODIFIER" prefHeight="38"
+                                               buttonType="RAISED"
+                                               style="-fx-background-color: #2196F3; -fx-font-weight: bold; -fx-text-fill: white;"
+                                               HBox.hgrow="ALWAYS"/>
+                                    <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                                               text="SUPPRIMER" prefHeight="38"
+                                               buttonType="RAISED"
+                                               style="-fx-background-color: #FF6262; -fx-font-weight: bold; -fx-text-fill: white;"
+                                               HBox.hgrow="ALWAYS"/>
                                 </children>
                                 <HBox.margin>
                                     <Insets right="10.0"/>
@@ -75,15 +81,19 @@
                         </children>
                     </HBox>
                 </children>
+
             </AnchorPane>
+
 
             <AnchorPane id="pane3" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="600.0"
                         style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                         VBox.vgrow="ALWAYS">
                 <children>
                     <MFXPaginatedTableView fx:id="paginated" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="800.0"
-                                           GridPane.columnSpan="2147483647" GridPane.rowIndex="2" AnchorPane.leftAnchor="0.0"
-                                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"/>
+                                           GridPane.columnSpan="2147483647" GridPane.rowIndex="2"
+                                           AnchorPane.leftAnchor="0.0"
+                                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                                           AnchorPane.bottomAnchor="0.0"/>
                 </children>
             </AnchorPane>
         </children>

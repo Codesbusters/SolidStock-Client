@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" minHeight="720.0" minWidth="1080.0" prefHeight="720.0"
+            prefWidth="1080.0" xmlns="http://javafx.com/javafx/21"
+            fx:controller="fr.codesbusters.solidstock.controller.dashboard.DashboardAddController">
+    <center>
+        <Pane fx:id="mainContent" style="-fx-background-color: white;">
+            <children>
+                <StackPane prefHeight="676.0" prefWidth="1080.0">
+                    <children>
+                        <HBox>
+                            <MFXTextField floatMode="BORDER" floatingText="Recherche" prefWidth="240"
+                                          maxWidth="500" HBox.hgrow="ALWAYS">
+                                <HBox.margin>
+                                    <Insets left="10.0"/>
+                                </HBox.margin>
+                            </MFXTextField>
+                        </HBox>
+                    </children>
+                </StackPane>
+            </children>
+        </Pane>
+    </center>
+    <top>
+        <Label prefHeight="45.0" prefWidth="256.0" text="Ajouter un produit">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </Label>
+    </top>
+</BorderPane>
