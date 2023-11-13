@@ -1,18 +1,14 @@
 package fr.codesbusters.solidstock.controller.products;
 
-import io.github.palexdev.materialfx.controls.MFXPaginatedTableView;
+import fr.codesbusters.solidstock.model.ProductModel;
+import fr.codesbusters.solidstock.model.SolidStockModel;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
+import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
 import io.github.palexdev.materialfx.css.themes.Themes;
-import io.github.palexdev.materialfx.demo.model.Device;
-import io.github.palexdev.materialfx.demo.model.Model;
-import io.github.palexdev.materialfx.filter.EnumFilter;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
-import io.github.palexdev.materialfx.utils.others.observables.When;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,47 +33,22 @@ public class ProductController implements Initializable {
     private StackPane stackPane;
 
     @FXML
-    private MFXPaginatedTableView<Device> paginated;
+    private MFXTableView<ProductModel> table;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setupPaginated();
-
-        paginated.autosizeColumnsOnInitialization();
-
-        When.onChanged(paginated.currentPageProperty())
-                .then((oldValue, newValue) -> paginated.autosizeColumns())
-                .listen();
-
-        stackPane.heightProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                // Calculez le nouveau nombre de lignes par page en fonction de la nouvelle hauteur
-                int rowsPerPage = calculateRowsPerPage(newValue.doubleValue());
-                log.info("Rows per page: " + rowsPerPage);
-                paginated.setRowsPerPage(rowsPerPage);
-
-                // Redimensionnez les colonnes
-                paginated.autosizeColumns();
-                paginated.setPagesToShow(calculatePageToShow(Model.devices.size(), rowsPerPage));
-
-            }
-        });
-    }
-
-    private int calculateRowsPerPage(double newHeight) {
-        log.info("New height: " + newHeight);
-        return (int) (newHeight / 62);
-    }
-
-    private int calculatePageToShow(int itemsSize, int rowsPerPage) {
-        return (int) Math.ceil((double) itemsSize / rowsPerPage);
+        setupTable();
+        table.autosizeColumnsOnInitialization();
     }
 
 
     @FXML
     public void addProduct() {
         try {
+            // Récupérez la fenêtre principale (parent)
+            Stage primaryStage = (Stage) stackPane.getScene().getWindow();
+
+
             // Chargez le fichier FXML de la fenêtre pop-up
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/products/addPopup.fxml"));
             Parent root = loader.load();
@@ -89,48 +60,55 @@ public class ProductController implements Initializable {
 
             // Créez une nouvelle fenêtre modale pour la pop-up
             Stage popupStage = new Stage();
+            popupStage.setResizable(false);
             popupStage.setTitle("Ajouter un produit - SolidStock");
-            popupStage.initModality(Modality.APPLICATION_MODAL);
-            popupStage.initOwner(popupStage.getOwner());
+
+            // Utilisez Modality.WINDOW_MODAL pour lier la fenêtre pop-up au propriétaire (parent)
+            popupStage.initModality(Modality.WINDOW_MODAL);
+
+            // Définissez le propriétaire de la fenêtre pop-up
+            popupStage.initOwner(primaryStage);
 
             // Définissez la scène de la fenêtre pop-up
             popupStage.setScene(scene);
 
-            // Affichez la fenêtre pop-up et attendez qu'elle soit fermée avant de revenir à la fenêtre principale
+            // Ajoutez un écouteur pour détecter la fermeture de la fenêtre pop-up
             popupStage.showAndWait();
 
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void setupPaginated() {
-        MFXTableColumn<Device> idColumn = new MFXTableColumn<>("ID", false, Comparator.comparing(Device::getID));
-        MFXTableColumn<Device> nameColumn = new MFXTableColumn<>("Name", false, Comparator.comparing(Device::getName));
-        MFXTableColumn<Device> ipColumn = new MFXTableColumn<>("IP", false, Comparator.comparing(Device::getIP));
-        MFXTableColumn<Device> ownerColumn = new MFXTableColumn<>("Owner", false, Comparator.comparing(Device::getOwner));
-        MFXTableColumn<Device> stateColumn = new MFXTableColumn<>("State", false, Comparator.comparing(Device::getState));
 
-        idColumn.setRowCellFactory(device -> new MFXTableRowCell<>(Device::getID));
-        nameColumn.setRowCellFactory(device -> new MFXTableRowCell<>(Device::getName));
-        ipColumn.setRowCellFactory(device -> new MFXTableRowCell<>(Device::getIP) {{
+    private void setupTable() {
+        MFXTableColumn<ProductModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(ProductModel::getID));
+        MFXTableColumn<ProductModel> nameColumn = new MFXTableColumn<>("Libelle", true, Comparator.comparing(ProductModel::getName));
+        MFXTableColumn<ProductModel> productFamilyColumn = new MFXTableColumn<>("Famille", true, Comparator.comparing(ProductModel::getProductFamily));
+        MFXTableColumn<ProductModel> inStockColumn = new MFXTableColumn<>("En Stock", true, Comparator.comparing(ProductModel::getInStock));
+        MFXTableColumn<ProductModel> selledColumn = new MFXTableColumn<>("Vendus", true, Comparator.comparing(ProductModel::getSelled));
+
+        idColumn.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getID));
+        nameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getName));
+        productFamilyColumn.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getProductFamily));
+        inStockColumn.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getInStock) {{
             setAlignment(Pos.CENTER_RIGHT);
         }});
-        ownerColumn.setRowCellFactory(device -> new MFXTableRowCell<>(Device::getOwner));
-        stateColumn.setRowCellFactory(device -> new MFXTableRowCell<>(Device::getState));
-        ipColumn.setAlignment(Pos.CENTER_RIGHT);
 
-        paginated.getTableColumns().addAll(idColumn, nameColumn, ipColumn, ownerColumn, stateColumn);
-        paginated.getFilters().addAll(
-                new IntegerFilter<>("ID", Device::getID),
-                new StringFilter<>("Name", Device::getName),
-                new StringFilter<>("IP", Device::getIP),
-                new StringFilter<>("Owner", Device::getOwner),
-                new EnumFilter<>("State", Device::getState, Device.State.class)
+        selledColumn.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getSelled) {{
+            setAlignment(Pos.CENTER_RIGHT);
+        }});
+
+        table.getTableColumns().addAll(nameColumn, productFamilyColumn, inStockColumn, selledColumn);
+        table.getFilters().addAll(
+                new StringFilter<>("Réf.", ProductModel::getName),
+                new StringFilter<>("Libelle", ProductModel::getName),
+                new StringFilter<>("Famille", ProductModel::getProductFamily),
+                new IntegerFilter<>("Nombre en stock", ProductModel::getInStock),
+                new IntegerFilter<>("Nombre vendu", ProductModel::getSelled)
         );
-        paginated.setRowsPerPage(19);
-        paginated.setItems(Model.devices);
+        table.setItems(SolidStockModel.products);
+
 
     }
 
