@@ -1,10 +1,12 @@
 package fr.codesbusters.solidstock.controller;
 
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
@@ -24,7 +26,13 @@ public class MainLayoutController implements Initializable {
     public void loadPage(String pageFXML) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + pageFXML));
         Node page = loader.load();
-        mainContent.getChildren().setAll(page);
+
+        // Set constraints to make the StackPane fill the Pane
+        StackPane stackPane = new StackPane(page);
+        stackPane.prefWidthProperty().bind(mainContent.widthProperty());
+        stackPane.prefHeightProperty().bind(mainContent.heightProperty());
+
+        mainContent.getChildren().setAll(stackPane);
     }
 
     @FXML
@@ -32,7 +40,7 @@ public class MainLayoutController implements Initializable {
         try {
             loadPage("dashboard.fxml");
         } catch (IOException e) {
-            // Gérer les erreurs de chargement de la page
+            e.printStackTrace();
         }
     }
 
@@ -41,7 +49,7 @@ public class MainLayoutController implements Initializable {
         try {
             loadPage("products.fxml");
         } catch (IOException e) {
-            // Gérer les erreurs de chargement de la page
+            e.printStackTrace();
         }
     }
 
@@ -50,7 +58,7 @@ public class MainLayoutController implements Initializable {
         try {
             loadPage("inventory.fxml");
         } catch (IOException e) {
-            // Gérer les erreurs de chargement de la page
+            e.printStackTrace();
         }
     }
 
@@ -60,7 +68,7 @@ public class MainLayoutController implements Initializable {
         try {
             loadPage("orders.fxml");
         } catch (IOException e) {
-            // Gérer les erreurs de chargement de la page
+            e.printStackTrace();
         }
     }
 
@@ -69,7 +77,7 @@ public class MainLayoutController implements Initializable {
         try {
             loadPage("suppliers.fxml");
         } catch (IOException e) {
-            // Gérer les erreurs de chargement de la page
+            e.printStackTrace();
         }
     }
 
@@ -78,7 +86,7 @@ public class MainLayoutController implements Initializable {
         try {
             loadPage("thirdParty.fxml");
         } catch (IOException e) {
-            // Gérer les erreurs de chargement de la page
+            e.printStackTrace();
         }
     }
 
@@ -87,7 +95,7 @@ public class MainLayoutController implements Initializable {
         try {
             loadPage("directsSales.fxml");
         } catch (IOException e) {
-            // Gérer les erreurs de chargement de la page
+            e.printStackTrace();
         }
     }
 
@@ -96,7 +104,7 @@ public class MainLayoutController implements Initializable {
         try {
             loadPage("settings.fxml");
         } catch (IOException e) {
-            // Gérer les erreurs de chargement de la page
+            e.printStackTrace();
         }
     }
 
@@ -106,7 +114,7 @@ public class MainLayoutController implements Initializable {
         try {
             loadPage("customers.fxml");
         } catch (IOException e) {
-            // Gérer les erreurs de chargement de la page
+            e.printStackTrace();
         }
     }
 }

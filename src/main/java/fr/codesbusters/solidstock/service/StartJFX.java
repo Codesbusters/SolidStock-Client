@@ -39,8 +39,10 @@ public class StartJFX extends Application {
         MFXThemeManager.addOn(scene, Themes.DEFAULT, Themes.LEGACY);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
         primaryStage.setScene(scene);
-        primaryStage.setMinWidth(1320.0);
+        primaryStage.setMinWidth(1080.0);
         primaryStage.setMinHeight(720.0);
+        primaryStage.setMaximized(true);
+        primaryStage.setResizable(true);
         primaryStage.setTitle("SolidStock - " + currentVersion);
         Image icon = new Image("icon.png");
         primaryStage.getIcons().add(icon);

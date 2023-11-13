@@ -10,7 +10,7 @@
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="fr.codesbusters.solidstock.controller.MainLayoutController"
-            prefWidth="1320.0" prefHeight="720.0" minWidth="1320.0" minHeight="720.0">
+            prefWidth="1080.0" prefHeight="720.0" minWidth="1080.0" minHeight="720.0">
     <left>
         <AnchorPane layoutX="-6.0" prefHeight="837.0" prefWidth="269.0" style="-fx-background-color: #292929;">
             <children>

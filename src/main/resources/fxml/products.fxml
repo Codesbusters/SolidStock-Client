@@ -7,15 +7,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
-            xmlns="http://javafx.com/javafx"
-            stylesheets="@../css/ComboBoxes.css"
->
-    <VBox xmlns:fx="http://javafx.com/fxml/1" id="mainPane" alignment="CENTER" maxHeight="-Infinity"
-          maxWidth="-Infinity"
-          minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="30.0"
-          style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21">
-
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="fr.codesbusters.solidstock.controller.ProductController" fx:id="stackPane">
+    <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <children>
             <AnchorPane id="pane1" maxHeight="60.0" minHeight="70.0" minWidth="400.0" prefHeight="100.0"
                         prefWidth="600.0"
@@ -75,4 +69,4 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
         </padding>
     </VBox>
-</AnchorPane>
+</StackPane>
