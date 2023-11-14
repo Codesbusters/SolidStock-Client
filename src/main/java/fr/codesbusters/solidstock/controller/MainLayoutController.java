@@ -64,6 +64,24 @@ public class MainLayoutController implements Initializable {
 
 
     @FXML
+    private void loadInvoices() {
+        try {
+            loadPage("invoices.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void loadEstimates() {
+        try {
+            loadPage("estimates.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void loadOrders() {
         try {
             loadPage("orders.fxml");
