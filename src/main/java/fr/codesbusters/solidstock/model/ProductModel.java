@@ -1,9 +1,6 @@
 package fr.codesbusters.solidstock.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 public class ProductModel {
 
@@ -14,15 +11,15 @@ public class ProductModel {
     private final StringProperty productFamily = new SimpleStringProperty("");
 
     private final StringProperty barCode = new SimpleStringProperty("");
-    private final IntegerProperty sellPrice = new SimpleIntegerProperty();
+    private final DoubleProperty sellPrice = new SimpleDoubleProperty();
 
-    private final IntegerProperty buyPrice = new SimpleIntegerProperty();
+    private final DoubleProperty buyPrice = new SimpleDoubleProperty();
 
     private final IntegerProperty inStock = new SimpleIntegerProperty();
 
     private final IntegerProperty selled = new SimpleIntegerProperty();
 
-    public ProductModel(int id, String name, String description, String productFamily, String barCode, int sellPrice, int buyPrice, int inStock, int selled) {
+    public ProductModel(int id, String name, String description, String productFamily, String barCode, double sellPrice, double buyPrice, int inStock, int selled) {
         setID(id);
         setName(name);
         setDescription(description);
@@ -34,7 +31,7 @@ public class ProductModel {
         setSelled(selled);
     }
 
-    public static ProductModel ofSplit(int id, String name, String description, String productFamily, String barCode, int sellPrice, int buyPrice, int inStock, int selled) {
+    public static ProductModel ofSplit(int id, String name, String description, String productFamily, String barCode, double sellPrice, double buyPrice, int inStock, int selled) {
         return new ProductModel(id, name, description, productFamily, barCode, sellPrice, buyPrice, inStock, selled);
     }
 
@@ -86,27 +83,27 @@ public class ProductModel {
         return barCode;
     }
 
-    public int getSellPrice() {
+    public double getSellPrice() {
         return sellPrice.get();
     }
 
-    public void setSellPrice(int sellPrice) {
+    public void setSellPrice(double sellPrice) {
         this.sellPrice.set(sellPrice);
     }
 
-    public IntegerProperty sellPriceProperty() {
+    public DoubleProperty sellPriceProperty() {
         return sellPrice;
     }
 
-    public int getBuyPrice() {
+    public double getBuyPrice() {
         return buyPrice.get();
     }
 
-    public void setBuyPrice(int buyPrice) {
+    public void setBuyPrice(double buyPrice) {
         this.buyPrice.set(buyPrice);
     }
 
-    public IntegerProperty buyPriceProperty() {
+    public DoubleProperty buyPriceProperty() {
         return buyPrice;
     }
 
