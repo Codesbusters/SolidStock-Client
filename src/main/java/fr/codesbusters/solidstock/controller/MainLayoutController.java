@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,39 @@ import java.util.ResourceBundle;
 public class MainLayoutController implements Initializable {
     @FXML
     private Pane mainContent;
+
+    @FXML
+    private AnchorPane dashboard;
+
+    @FXML
+    private AnchorPane products;
+
+    @FXML
+    private AnchorPane inventory;
+
+    @FXML
+    private AnchorPane orders;
+
+    @FXML
+    private AnchorPane invoices;
+
+    @FXML
+    private AnchorPane estimates;
+
+    @FXML
+    private AnchorPane customers;
+
+    @FXML
+    private AnchorPane suppliers;
+
+    @FXML
+    private AnchorPane third_party;
+
+    @FXML
+    private AnchorPane direct_sales;
+
+    @FXML
+    private AnchorPane settings;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -35,105 +69,165 @@ public class MainLayoutController implements Initializable {
         mainContent.getChildren().setAll(stackPane);
     }
 
+
+
     @FXML
     private void loadDashboard() {
-        try {
-            loadPage("dashboard/index.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!dashboard.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
+            try {
+                loadPage("dashboard/index.fxml");
+                resetMenuStyles();
+                dashboard.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @FXML
     private void loadProducts() {
-        try {
-            loadPage("products/index.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!products.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
+            try {
+                loadPage("products/index.fxml");
+                resetMenuStyles();
+                products.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @FXML
     private void loadInventory() {
-        try {
-            loadPage("inventory.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!inventory.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
+            try {
+                loadPage("inventory.fxml");
+                resetMenuStyles();
+                inventory.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
 
     @FXML
     private void loadInvoices() {
-        try {
-            loadPage("invoices.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!invoices.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
+            try {
+                loadPage("invoices.fxml");
+                resetMenuStyles();
+                invoices.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @FXML
     private void loadEstimates() {
-        try {
-            loadPage("estimates.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!estimates.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
+            try {
+                loadPage("estimates.fxml");
+                resetMenuStyles();
+                estimates.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @FXML
     private void loadOrders() {
-        try {
-            loadPage("orders.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!orders.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
+            try {
+                loadPage("orders.fxml");
+                resetMenuStyles();
+                orders.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @FXML
     private void loadSuppliers() {
-        try {
-            loadPage("suppliers.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!suppliers.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
+            try {
+                loadPage("suppliers.fxml");
+                resetMenuStyles();
+                suppliers.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @FXML
     private void loadThirdParty() {
-        try {
+        if (!third_party.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
+            try {
             loadPage("thirdParty.fxml");
+            resetMenuStyles();
+            third_party.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
         } catch (IOException e) {
-            e.printStackTrace();
+                e.printStackTrace();
+            }
         }
     }
 
     @FXML
     private void loadDirectSales() {
-        try {
-            loadPage("directsSales.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!direct_sales.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
+            try {
+                loadPage("directsSales.fxml");
+                resetMenuStyles();
+                direct_sales.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @FXML
     private void loadSettings() {
-        try {
+        if (!settings.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
+            try {
             loadPage("settings.fxml");
+            resetMenuStyles();
+            settings.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
         } catch (IOException e) {
-            e.printStackTrace();
+                e.printStackTrace();
+            }
         }
     }
 
 
     @FXML
     private void loadCustomers() {
-        try {
+        if (!customers.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
+            try {
             loadPage("customers.fxml");
+            resetMenuStyles();
+            customers.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
         } catch (IOException e) {
-            e.printStackTrace();
+                e.printStackTrace();
+            }
         }
+    }
+
+    private void resetMenuStyles() {
+        dashboard.setStyle("");
+        customers.setStyle("");
+        settings.setStyle("");
+        inventory.setStyle("");
+        invoices.setStyle("");
+        direct_sales.setStyle("");
+        third_party.setStyle("");
+        suppliers.setStyle("");
+        orders.setStyle("");
+        estimates.setStyle("");
+        products.setStyle("");
     }
 }
 
