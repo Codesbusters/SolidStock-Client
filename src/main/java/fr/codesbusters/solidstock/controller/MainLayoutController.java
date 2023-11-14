@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import org.springframework.stereotype.Controller;
@@ -17,40 +18,43 @@ import java.util.ResourceBundle;
 @Controller
 public class MainLayoutController implements Initializable {
     @FXML
+    public AnchorPane leftPane;
+
+    @FXML
     private Pane mainContent;
 
     @FXML
-    private AnchorPane dashboard;
+    private GridPane dashboard;
 
     @FXML
-    private AnchorPane products;
+    private GridPane products;
 
     @FXML
-    private AnchorPane inventory;
+    private GridPane inventory;
 
     @FXML
-    private AnchorPane orders;
+    private GridPane orders;
 
     @FXML
-    private AnchorPane invoices;
+    private GridPane invoices;
 
     @FXML
-    private AnchorPane estimates;
+    private GridPane estimates;
 
     @FXML
-    private AnchorPane customers;
+    private GridPane customers;
 
     @FXML
-    private AnchorPane suppliers;
+    private GridPane suppliers;
 
     @FXML
-    private AnchorPane third_party;
+    private GridPane third_party;
 
     @FXML
-    private AnchorPane direct_sales;
+    private GridPane direct_sales;
 
     @FXML
-    private AnchorPane settings;
+    private GridPane settings;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -69,6 +73,16 @@ public class MainLayoutController implements Initializable {
         mainContent.getChildren().setAll(stackPane);
     }
 
+    @FXML
+    private void toggleMenu() {
+        if (leftPane.isVisible()) {
+            leftPane.setVisible(false);
+            leftPane.setManaged(false); // Ne pas gérer l'espace
+        } else {
+            leftPane.setVisible(true);
+            leftPane.setManaged(true); // Gérer l'espace
+        }
+    }
 
 
     @FXML
@@ -167,10 +181,10 @@ public class MainLayoutController implements Initializable {
     private void loadThirdParty() {
         if (!third_party.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
             try {
-            loadPage("thirdParty.fxml");
-            resetMenuStyles();
-            third_party.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
-        } catch (IOException e) {
+                loadPage("thirdParty.fxml");
+                resetMenuStyles();
+                third_party.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -193,10 +207,10 @@ public class MainLayoutController implements Initializable {
     private void loadSettings() {
         if (!settings.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
             try {
-            loadPage("settings.fxml");
-            resetMenuStyles();
-            settings.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
-        } catch (IOException e) {
+                loadPage("settings.fxml");
+                resetMenuStyles();
+                settings.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -207,10 +221,10 @@ public class MainLayoutController implements Initializable {
     private void loadCustomers() {
         if (!customers.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
             try {
-            loadPage("customers.fxml");
-            resetMenuStyles();
-            customers.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
-        } catch (IOException e) {
+                loadPage("customers.fxml");
+                resetMenuStyles();
+                customers.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

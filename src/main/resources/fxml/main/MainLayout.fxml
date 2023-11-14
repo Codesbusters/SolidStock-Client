@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import io.github.palexdev.mfxresources.fonts.*?>
 <?import javafx.geometry.*?>
@@ -13,8 +14,8 @@
             fx:controller="fr.codesbusters.solidstock.controller.MainLayoutController"
             prefWidth="1080.0" prefHeight="720.0" minWidth="1080.0" minHeight="720.0">
     <left>
-        <AnchorPane layoutX="-6.0" prefHeight="837.0" minWidth="372.0" prefWidth="372.0"
-                    style="-fx-background-color: #292929;">
+        <AnchorPane prefHeight="837.0" minWidth="372.0" prefWidth="372.0" maxWidth="372.0"
+                    style="-fx-background-color: #292929;" fx:id="leftPane">
             <children>
 
                 <MFXScrollPane fx:id="scroll1" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity"
@@ -32,10 +33,11 @@
                         </HBox>
                         <Separator style="-fx-padding: 20 0;"/>
                         <children>
-                            <AnchorPane id="dashboard" fx:id="dashboard" onMouseClicked="#loadDashboard"
+                            <AnchorPane
                             >
                                 <children>
-                                    <GridPane styleClass="hoverItemMenu">
+                                    <GridPane id="dashboard" fx:id="dashboard" onMouseClicked="#loadDashboard"
+                                              styleClass="hoverItemMenu">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                                prefWidth="40.0"/>
@@ -65,10 +67,11 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane id="products" fx:id="products" onMouseClicked="#loadProducts"
+                            <AnchorPane
                             >
                                 <children>
-                                    <GridPane styleClass="hoverItemMenu">
+                                    <GridPane styleClass="hoverItemMenu" id="products" fx:id="products"
+                                              onMouseClicked="#loadProducts">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                                prefWidth="40.0"/>
@@ -97,10 +100,11 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane id="inventory" fx:id="inventory" onMouseClicked="#loadInventory"
+                            <AnchorPane
                             >
                                 <children>
-                                    <GridPane styleClass="hoverItemMenu">
+                                    <GridPane styleClass="hoverItemMenu" id="inventory" fx:id="inventory"
+                                              onMouseClicked="#loadInventory">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                                prefWidth="40.0"/>
@@ -129,9 +133,10 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane id="orders" fx:id="orders" onMouseClicked="#loadOrders">
+                            <AnchorPane>
                                 <children>
-                                    <GridPane styleClass="hoverItemMenu">
+                                    <GridPane styleClass="hoverItemMenu" id="orders" fx:id="orders"
+                                              onMouseClicked="#loadOrders">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                                prefWidth="40.0"/>
@@ -160,9 +165,10 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane id="invoices" fx:id="invoices" onMouseClicked="#loadInvoices">
+                            <AnchorPane>
                                 <children>
-                                    <GridPane styleClass="hoverItemMenu">
+                                    <GridPane styleClass="hoverItemMenu" id="invoices" fx:id="invoices"
+                                              onMouseClicked="#loadInvoices">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                                prefWidth="40.0"/>
@@ -191,9 +197,10 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane id="estimates" fx:id="estimates" onMouseClicked="#loadEstimates">
+                            <AnchorPane>
                                 <children>
-                                    <GridPane styleClass="hoverItemMenu">
+                                    <GridPane styleClass="hoverItemMenu" id="estimates" fx:id="estimates"
+                                              onMouseClicked="#loadEstimates">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                                prefWidth="40.0"/>
@@ -222,10 +229,11 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane id="customers" fx:id="customers" onMouseClicked="#loadCustomers"
+                            <AnchorPane
                             >
                                 <children>
-                                    <GridPane styleClass="hoverItemMenu">
+                                    <GridPane styleClass="hoverItemMenu" id="customers" fx:id="customers"
+                                              onMouseClicked="#loadCustomers">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                                prefWidth="40.0"/>
@@ -254,10 +262,11 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane id="suppliers" fx:id="suppliers" onMouseClicked="#loadSuppliers"
+                            <AnchorPane
                             >
                                 <children>
-                                    <GridPane styleClass="hoverItemMenu">
+                                    <GridPane styleClass="hoverItemMenu" id="suppliers" fx:id="suppliers"
+                                              onMouseClicked="#loadSuppliers">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                                prefWidth="40.0"/>
@@ -287,10 +296,11 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane id="third_party" fx:id="third_party" onMouseClicked="#loadThirdParty"
+                            <AnchorPane
                             >
                                 <children>
-                                    <GridPane styleClass="hoverItemMenu">
+                                    <GridPane styleClass="hoverItemMenu" id="third_party" fx:id="third_party"
+                                              onMouseClicked="#loadThirdParty">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                                prefWidth="40.0"/>
@@ -319,10 +329,11 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane id="direct_sales" fx:id="direct_sales" onMouseClicked="#loadDirectSales"
+                            <AnchorPane
                             >
                                 <children>
-                                    <GridPane styleClass="hoverItemMenu">
+                                    <GridPane styleClass="hoverItemMenu" id="direct_sales" fx:id="direct_sales"
+                                              onMouseClicked="#loadDirectSales">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                                prefWidth="40.0"/>
@@ -352,10 +363,11 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane id="settings" fx:id="settings" onMouseClicked="#loadSettings"
+                            <AnchorPane
                             >
                                 <children>
-                                    <GridPane styleClass="hoverItemMenu">
+                                    <GridPane styleClass="hoverItemMenu" id="settings" fx:id="settings"
+                                              onMouseClicked="#loadSettings">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                                prefWidth="40.0"/>
@@ -399,8 +411,11 @@
     </left>
 
     <center>
-        <Pane fx:id="mainContent" style="-fx-background-color: white;">
+        <VBox>
+            <MFXButton onAction="#toggleMenu" style="-fx-">Ouvrir/Fermer le menu</MFXButton>
+            <Pane fx:id="mainContent" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
 
-        </Pane>
+            </Pane>
+        </VBox>
     </center>
 </BorderPane>
