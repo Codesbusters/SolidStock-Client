@@ -39,7 +39,7 @@ public class StartJFX extends Application {
         MFXThemeManager.addOn(scene, Themes.DEFAULT, Themes.LEGACY);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
         primaryStage.setScene(scene);
-        primaryStage.setMinWidth(1080.0);
+        primaryStage.setMinWidth(1266.0);
         primaryStage.setMinHeight(720.0);
         primaryStage.setMaximized(true);
         primaryStage.setResizable(true);

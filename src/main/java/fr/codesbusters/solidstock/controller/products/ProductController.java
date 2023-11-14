@@ -9,7 +9,6 @@ import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
 import io.github.palexdev.materialfx.css.themes.Themes;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,14 +18,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
-import javafx.util.converter.DoubleStringConverter;
 import lombok.extern.slf4j.Slf4j;
+import org.scenicview.ScenicView;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 
@@ -66,6 +63,7 @@ public class ProductController implements Initializable {
             Stage popupStage = new Stage();
             popupStage.setResizable(false);
             popupStage.setTitle("Ajouter un produit - SolidStock");
+            ScenicView.show(scene);
 
             // Utilisez Modality.WINDOW_MODAL pour lier la fenêtre pop-up au propriétaire (parent)
             popupStage.initModality(Modality.WINDOW_MODAL);
