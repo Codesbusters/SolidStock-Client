@@ -33,8 +33,7 @@
                         </HBox>
                         <Separator style="-fx-padding: 20 0;"/>
                         <children>
-                            <AnchorPane
-                            >
+                            <AnchorPane>
                                 <children>
                                     <GridPane id="dashboard" fx:id="dashboard" onMouseClicked="#loadDashboard"
                                               styleClass="hoverItemMenu">
@@ -67,8 +66,7 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane
-                            >
+                            <AnchorPane>
                                 <children>
                                     <GridPane styleClass="hoverItemMenu" id="products" fx:id="products"
                                               onMouseClicked="#loadProducts">
@@ -100,8 +98,7 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane
-                            >
+                            <AnchorPane>
                                 <children>
                                     <GridPane styleClass="hoverItemMenu" id="inventory" fx:id="inventory"
                                               onMouseClicked="#loadInventory">
@@ -229,8 +226,7 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane
-                            >
+                            <AnchorPane>
                                 <children>
                                     <GridPane styleClass="hoverItemMenu" id="customers" fx:id="customers"
                                               onMouseClicked="#loadCustomers">
@@ -262,8 +258,7 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane
-                            >
+                            <AnchorPane>
                                 <children>
                                     <GridPane styleClass="hoverItemMenu" id="suppliers" fx:id="suppliers"
                                               onMouseClicked="#loadSuppliers">
@@ -296,8 +291,7 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane
-                            >
+                            <AnchorPane>
                                 <children>
                                     <GridPane styleClass="hoverItemMenu" id="third_party" fx:id="third_party"
                                               onMouseClicked="#loadThirdParty">
@@ -329,8 +323,7 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane
-                            >
+                            <AnchorPane>
                                 <children>
                                     <GridPane styleClass="hoverItemMenu" id="direct_sales" fx:id="direct_sales"
                                               onMouseClicked="#loadDirectSales">
@@ -363,11 +356,42 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane
-                            >
+                            <AnchorPane>
                                 <children>
-                                    <GridPane styleClass="hoverItemMenu" id="settings" fx:id="settings"
-                                              onMouseClicked="#loadSettings">
+                                    <GridPane styleClass="hoverItemMenu" id="settings" fx:id="userSettings"
+                                              onMouseClicked="#loadUserSettings">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
+                                                               prefWidth="40.0"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
+                                                               prefWidth="40.0"/>
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                        </rowConstraints>
+                                        <children>
+                                            <MFXFontIcon description="fas-user-gear" size="30" color="white"/>
+
+                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Préférences"
+                                                   textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
+                                                <font>
+                                                    <Font name="System Bold" size="16.0"/>
+                                                </font>
+                                                <padding>
+                                                    <Insets left="18.0"/>
+                                                </padding>
+                                            </Label>
+                                        </children>
+                                    </GridPane>
+                                </children>
+                                <cursor>
+                                    <Cursor fx:constant="HAND"/>
+                                </cursor>
+                            </AnchorPane>
+                            <AnchorPane>
+                                <children>
+                                    <GridPane styleClass="hoverItemMenu" id="settings" fx:id="adminSettings"
+                                              onMouseClicked="#loadAdminSettings">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                                prefWidth="40.0"/>
@@ -414,7 +438,6 @@
         <VBox>
             <MFXButton onAction="#toggleMenu" style="-fx-cursor: hand;">Ouvrir/Fermer le menu</MFXButton>
             <Pane fx:id="mainContent" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
-
             </Pane>
         </VBox>
     </center>

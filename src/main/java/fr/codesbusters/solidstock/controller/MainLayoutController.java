@@ -54,7 +54,10 @@ public class MainLayoutController implements Initializable {
     private GridPane direct_sales;
 
     @FXML
-    private GridPane settings;
+    private GridPane userSettings;
+
+    @FXML
+    private GridPane adminSettings;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -204,12 +207,25 @@ public class MainLayoutController implements Initializable {
     }
 
     @FXML
-    private void loadSettings() {
-        if (!settings.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
+    private void loadUserSettings() {
+        if (!userSettings.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
             try {
-                loadPage("settings.fxml");
+                loadPage("userSettings.fxml");
                 resetMenuStyles();
-                settings.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
+                userSettings.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void loadAdminSettings() {
+        if (!adminSettings.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
+            try {
+                loadPage("adminSettings.fxml");
+                resetMenuStyles();
+                adminSettings.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -233,7 +249,8 @@ public class MainLayoutController implements Initializable {
     private void resetMenuStyles() {
         dashboard.setStyle("");
         customers.setStyle("");
-        settings.setStyle("");
+        userSettings.setStyle("");
+        adminSettings.setStyle("");
         inventory.setStyle("");
         invoices.setStyle("");
         direct_sales.setStyle("");
