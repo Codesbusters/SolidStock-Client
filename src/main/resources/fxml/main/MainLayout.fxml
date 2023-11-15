@@ -412,7 +412,7 @@
 
     <center>
         <VBox>
-            <MFXButton onAction="#toggleMenu" style="-fx-">Ouvrir/Fermer le menu</MFXButton>
+            <MFXButton onAction="#toggleMenu" style="-fx-cursor: hand;">Ouvrir/Fermer le menu</MFXButton>
             <Pane fx:id="mainContent" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
 
             </Pane>

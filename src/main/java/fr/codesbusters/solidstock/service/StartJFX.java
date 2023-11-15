@@ -12,6 +12,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.scenicview.ScenicView;
@@ -46,7 +49,7 @@ public class StartJFX extends Application {
                 scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
                 primaryStage.setScene(scene);
                 primaryStage.setMinWidth(1266.0);
-                primaryStage.setMinHeight(720.0);
+                primaryStage.setMinHeight(770.0);
                 primaryStage.setMaximized(true);
                 primaryStage.setResizable(true);
                 primaryStage.setTitle("SolidStock - " + currentVersion);
@@ -54,8 +57,20 @@ public class StartJFX extends Application {
                 primaryStage.getIcons().add(icon);
 
                 primaryStage.show();
-                ScenicView.show(scene);
+
                 splashScreen.hideSplash();
+
+
+                // Définissez la combinaison de touches (Ctrl + <)
+                KeyCombination keyCombination = new KeyCodeCombination(KeyCode.LESS, KeyCombination.CONTROL_DOWN);
+
+                // Ajoutez un gestionnaire d'événements pour la combinaison de touches
+                scene.setOnKeyPressed(event -> {
+                    if (keyCombination.match(event)) {
+                        // Déclenchez ScenicView.show(scene)
+                        ScenicView.show(scene);
+                    }
+                });
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } finally {
