@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fr.codesbusters.solidstock.controller.MainLayoutController"
+            fx:controller="fr.codesbusters.solidstock.controller.main.MainLayoutController"
             prefWidth="1080.0" prefHeight="720.0" minWidth="1080.0" minHeight="720.0">
     <left>
         <AnchorPane prefHeight="837.0" minWidth="372.0" prefWidth="372.0" maxWidth="372.0"
@@ -392,6 +392,39 @@
                                 <children>
                                     <GridPane styleClass="hoverItemMenu" id="settings" fx:id="adminSettings"
                                               onMouseClicked="#loadAdminSettings">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
+                                                               prefWidth="40.0"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
+                                                               prefWidth="40.0"/>
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                        </rowConstraints>
+                                        <children>
+                                            <MFXFontIcon description="fas-gear" size="30" color="white"/>
+
+                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Paramètres"
+                                                   textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
+                                                <font>
+                                                    <Font name="System Bold" size="16.0"/>
+                                                </font>
+                                                <padding>
+                                                    <Insets left="18.0"/>
+                                                </padding>
+                                            </Label>
+                                        </children>
+                                    </GridPane>
+                                </children>
+                                <cursor>
+                                    <Cursor fx:constant="HAND"/>
+                                </cursor>
+                            </AnchorPane>
+                            <AnchorPane
+                            >
+                                <children>
+                                    <GridPane styleClass="hoverItemMenu" id="settings" fx:id="test"
+                                              onMouseClicked="#loadTest">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                                prefWidth="40.0"/>

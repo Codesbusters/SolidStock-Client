@@ -1,5 +1,6 @@
 package fr.codesbusters.solidstock.controller.products;
 
+import fr.codesbusters.solidstock.component.SSDoubleField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -16,12 +17,19 @@ import java.util.ResourceBundle;
 @Controller
 public class ProductAddController implements Initializable {
 
+
+    @FXML
     public StackPane stackPane;
+    @FXML
     public ImageView imageView;
+    @FXML
+    public SSDoubleField sellPrice;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        
     }
+
 
     @FXML
     public void addProduct() {

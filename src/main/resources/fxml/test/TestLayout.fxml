@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import fr.codesbusters.solidstock.component.SSDoubleField?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
+            prefHeight="400.0" prefWidth="600.0"
+            fx:controller="fr.codesbusters.solidstock.controller.test.TestController">
+
+    <VBox spacing="10">
+        <MFXTextField floatMode="BORDER" floatingText="Prix de vente" fx:id="sellPrice"
+                      VBox.vgrow="ALWAYS"
+                      minWidth="187" maxWidth="187">
+            <VBox.margin>
+                <Insets left="10.0"/>
+            </VBox.margin>
+        </MFXTextField>
+
+        <SSDoubleField floatMode="BORDER" floatingText="Prix de vente" fx:id="sellPriceSS"
+                       VBox.vgrow="ALWAYS"
+                       minWidth="187" maxWidth="187">
+            <VBox.margin>
+                <Insets left="10.0"/>
+            </VBox.margin>
+        </SSDoubleField>
+    </VBox>
+
+</AnchorPane>

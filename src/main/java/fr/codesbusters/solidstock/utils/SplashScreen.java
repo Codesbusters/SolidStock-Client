@@ -25,7 +25,7 @@ public class SplashScreen extends Stage {
         // Créer la scène
         Scene scene = new Scene(stackPane, splashImage.getWidth(), splashImage.getHeight());
 
-        Image icon = new Image("icon.png");
+        Image icon = new Image("img/icon.png");
         getIcons().add(icon);
 
         // Appliquer la scène à la fenêtre

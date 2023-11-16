@@ -53,7 +53,7 @@ public class StartJFX extends Application {
                 primaryStage.setMaximized(true);
                 primaryStage.setResizable(true);
                 primaryStage.setTitle("SolidStock - " + currentVersion);
-                Image icon = new Image("icon.png");
+                Image icon = new Image("/img/icon.png");
                 primaryStage.getIcons().add(icon);
 
                 primaryStage.show();
