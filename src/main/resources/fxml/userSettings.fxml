@@ -12,12 +12,13 @@
 <?import io.github.palexdev.materialfx.controls.MFXTableView?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:id="stackPane"
            stylesheets="@../css/MFXColors.css">
-    <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
+    <VBox alignment="TOP_CENTER" spacing="30.0" style="-fx-background-color: white;">
         <children>
-            <AnchorPane id="pane2" maxHeight="60.0" minHeight="30.0" minWidth="400.0" prefHeight="100.0"
+            <AnchorPane id="pane2" maxHeight="-Infinity" minHeight="30.0" minWidth="400.0" prefHeight="100.0"
                         prefWidth="600.0"
                         style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                         VBox.vgrow="ALWAYS">
@@ -29,19 +30,132 @@
                         <children>
                             <HBox spacing="20.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                 <children>
-                                    <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                        <Label text="Préférences">
-                                            <font>
-                                                <Font name="System Bold" size="22.0"/>
-                                            </font>
-                                        </Label>
-                                    </HBox>
+                                    <VBox spacing="15">
+                                        <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                            <Label text="Préférences">
+                                                <font>
+                                                    <Font name="System Bold" size="22.0"/>
+                                                </font>
+                                            </Label>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                            <Label text="Page de paramètres pour les utilisateurs">
+                                                <font>
+                                                    <Font size="14.0"/>
+                                                </font>
+                                            </Label>
+                                        </HBox>
+                                        <padding>
+                                            <Insets top="5" bottom="5"/>
+                                        </padding>
+                                    </VBox>
                                 </children>
                                 <padding>
                                     <Insets left="10.0"/>
                                 </padding>
                             </HBox>
-                            <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                        </children>
+                    </HBox>
+                </children>
+            </AnchorPane>
+            <HBox HBox.hgrow="ALWAYS" style="-fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                  spacing="20" alignment="CENTER">
+                <AnchorPane id="pane2" maxHeight="400.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0"
+                            prefWidth="600.0"
+                            style="-fx-background-color: #ffffff; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                            HBox.hgrow="ALWAYS">
+                    <children>
+                        <VBox AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" spacing="20">
+                            <HBox HBox.hgrow="ALWAYS">
+                                <Label text="Compte Utilisateur">
+                                    <font>
+                                        <Font name="System Bold" size="18.0"/>
+                                    </font>
+                                </Label>
+                            </HBox>
+                                <VBox spacing="20">
+                                    <HBox spacing="15" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
+                                        <children>
+                                            <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                <children>
+                                                    <MFXTextField HBox.hgrow="ALWAYS" floatingText="Nom" floatMode="BORDER" prefWidth="400"/>
+                                                </children>
+                                            </HBox>
+                                            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                                <children>
+                                                    <MFXTextField HBox.hgrow="ALWAYS" floatingText="Prénom" floatMode="BORDER" prefWidth="400"/>
+                                                </children>
+                                            </HBox>
+                                        </children>
+                                    </HBox>
+                                    <HBox HBox.hgrow="ALWAYS">
+                                        <MFXTextField floatingText="Email" floatMode="BORDER" prefWidth="1000"/>
+                                    </HBox>
+                                    <HBox spacing="15" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
+                                        <children>
+                                            <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                <children>
+                                                    <MFXPasswordField floatMode="BORDER" promptText="Mot de passe" prefWidth="400" HBox.hgrow="ALWAYS"/>
+                                                </children>
+                                            </HBox>
+                                            <HBox>
+                                                <children>
+                                                    <MFXPasswordField floatMode="BORDER" promptText="Confirmation mot de passe" prefWidth="400" HBox.hgrow="ALWAYS"/>
+                                                </children>
+                                            </HBox>
+                                        </children>
+                                    </HBox>
+                                    <HBox HBox.hgrow="ALWAYS">
+                                        <MFXComboBox floatingText="Page par défault" floatMode="BORDER" prefWidth="1000"/>
+                                    </HBox>
+                                </VBox>
+                            <padding>
+                                <Insets right="15" top="15" bottom="15" left="15"/>
+                            </padding>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane id="pane3" maxHeight="400.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="600.0"
+                            style="-fx-background-color: #ffffff; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                            HBox.hgrow="ALWAYS">
+                    <children>
+                        <VBox AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" spacing="20">
+                            <HBox HBox.hgrow="ALWAYS">
+                                <Label text="Profil">
+                                    <font>
+                                        <Font name="System Bold" size="18.0"/>
+                                    </font>
+                                </Label>
+                            </HBox>
+                            <VBox spacing="20">
+                                <HBox HBox.hgrow="ALWAYS">
+                                    <MFXTextField floatingText="Rôle utilisateur" floatMode="BORDER" prefWidth="1000" disable="true"/>
+                                </HBox>
+                                <HBox HBox.hgrow="ALWAYS">
+                                    <MFXComboBox floatingText="Langage" floatMode="BORDER" prefWidth="1000"/>
+                                </HBox>
+                                <HBox HBox.hgrow="ALWAYS">
+                                    <MFXTextField floatingText="Dernière connexion" floatMode="BORDER" prefWidth="1000" disable="true"/>
+                                </HBox>
+                            </VBox>
+                            <padding>
+                                <Insets right="15" top="15" bottom="15" left="15"/>
+                            </padding>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </HBox>
+            <AnchorPane id="pane2" maxHeight="60.0" minHeight="30.0" minWidth="400.0" prefHeight="100.0"
+                        prefWidth="600.0"
+                        style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                        VBox.vgrow="ALWAYS">
+                <children>
+                    <HBox spacing="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" alignment="CENTER_RIGHT">
+                        <padding>
+                            <Insets top="10.0"/>
+                        </padding>
+                        <children>
+                            <HBox spacing="10.0">
                                 <children>
                                     <MFXButton id="custom" minHeight="27.0" minWidth="130.0" prefWidth="130"
                                                prefHeight="38" text="ANNULER"
@@ -65,68 +179,7 @@
                         </children>
                     </HBox>
                 </children>
-
             </AnchorPane>
-
-            <HBox HBox.hgrow="ALWAYS" style="-fx-background-color: #f0ff00; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
-                  spacing="20" alignment="CENTER">
-                <AnchorPane id="pane2" maxHeight="400.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0"
-                            prefWidth="600.0"
-                            style="-fx-background-color: #ffffff; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
-                            HBox.hgrow="ALWAYS">
-                    <children>
-                        <VBox spacing="10">
-                            <Label text="Compte Utilisateur">
-                                <font>
-                                    <Font name="System Bold" size="18.0"/>
-                                </font>
-                            </Label>
-                            <VBox spacing="15">
-                                <HBox>
-                                    <MFXTextField floatingText="Nom" floatMode="BORDER" prefWidth="150" maxWidth="150" prefHeight="30" maxHeight="30">
-                                    </MFXTextField>
-                                </HBox>
-                                <HBox>
-                                    <MFXTextField floatingText="Prénom" floatMode="BORDER" prefWidth="150"
-                                                  maxWidth="150" prefHeight="30" maxHeight="30">
-                                    </MFXTextField>
-                                </HBox>
-                                <HBox>
-                                    <MFXTextField floatingText="Email" floatMode="BORDER" prefWidth="150"
-                                                  maxWidth="150" prefHeight="30" maxHeight="30">
-                                    </MFXTextField>
-                                </HBox>
-                                <HBox>
-                                    <MFXPasswordField floatMode="BORDER" promptText="mot de passe" prefWidth="150"
-                                                      maxWidth="150" prefHeight="30" maxHeight="30">
-                                    </MFXPasswordField>
-                                </HBox>
-                                <HBox>
-                                    <MFXPasswordField floatMode="BORDER" promptText="confirmation mot de passe" prefWidth="150"
-                                                  maxWidth="150" prefHeight="30" maxHeight="30">
-                                    </MFXPasswordField>
-                                </HBox>
-                            </VBox>
-                            <padding>
-                                <Insets left="10" top="10"/>
-                            </padding>
-                        </VBox>
-                    </children>
-                </AnchorPane>
-                <AnchorPane id="pane3" maxHeight="400.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0"
-                            prefWidth="600.0"
-                            style="-fx-background-color: #ffffff; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
-                            HBox.hgrow="ALWAYS">
-                    <children>
-                        <!-- Contenu du deuxième AnchorPane -->
-                    </children>
-                </AnchorPane>
-                <padding>
-                    <Insets right="10" bottom="10" top="10" left="10"/>
-                </padding>
-            </HBox>
-
-
         </children>
         <padding>
             <Insets bottom="60.0" left="20.0" right="30.0" top="20.0"/>
