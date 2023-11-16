@@ -1,5 +1,9 @@
 package fr.codesbusters.solidstock.controller;
 
+import fr.codesbusters.solidstock.controller.selectors.ProductFamilySelectorController;
+import fr.codesbusters.solidstock.controller.selectors.SupplierSelectorController;
+import fr.codesbusters.solidstock.listener.ProductFamilySelectorListener;
+import fr.codesbusters.solidstock.listener.SupplierSelectorListener;
 import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
 import io.github.palexdev.materialfx.css.themes.Themes;
 import javafx.fxml.FXMLLoader;
@@ -66,4 +70,77 @@ public class DefaultController {
             e.printStackTrace();
         }
     }
+
+    public void openSupplierSelector(Scene scene, SupplierSelectorListener listener) {
+        try {
+            Stage primaryStage = (Stage) scene.getWindow();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/supplierSelector/supplierSelector.fxml"));
+            Parent root = loader.load();
+            Scene newScene = new Scene(root);
+            MFXThemeManager.addOn(newScene, Themes.DEFAULT, Themes.LEGACY);
+
+            Stage popupStage = new Stage();
+            popupStage.setResizable(false);
+            popupStage.setTitle("Sélectionner un fournisseur");
+            Image icon = new Image("/img/icon.png");
+            popupStage.getIcons().add(icon);
+
+            KeyCombination keyCombination = new KeyCodeCombination(KeyCode.LESS, KeyCombination.CONTROL_DOWN);
+            newScene.setOnKeyPressed(event -> {
+                if (keyCombination.match(event)) {
+                    ScenicView.show(newScene);
+                }
+            });
+
+            SupplierSelectorController controller = loader.getController();
+            controller.setStage(popupStage);
+            controller.setListener(listener);
+
+            popupStage.initModality(Modality.WINDOW_MODAL);
+            popupStage.initOwner(primaryStage);
+            popupStage.setScene(newScene);
+            popupStage.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openProductFamilySelector(Scene scene, ProductFamilySelectorListener listener) {
+        try {
+            Stage primaryStage = (Stage) scene.getWindow();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/supplierSelector/supplierSelector.fxml"));
+            Parent root = loader.load();
+            Scene newScene = new Scene(root);
+            MFXThemeManager.addOn(newScene, Themes.DEFAULT, Themes.LEGACY);
+
+            Stage popupStage = new Stage();
+            popupStage.setResizable(false);
+            popupStage.setTitle("Sélectionner un fournisseur");
+            Image icon = new Image("/img/icon.png");
+            popupStage.getIcons().add(icon);
+
+            KeyCombination keyCombination = new KeyCodeCombination(KeyCode.LESS, KeyCombination.CONTROL_DOWN);
+            newScene.setOnKeyPressed(event -> {
+                if (keyCombination.match(event)) {
+                    ScenicView.show(newScene);
+                }
+            });
+
+            ProductFamilySelectorController controller = loader.getController();
+            controller.setStage(popupStage);
+            controller.setListener(listener);
+
+            popupStage.initModality(Modality.WINDOW_MODAL);
+            popupStage.initOwner(primaryStage);
+            popupStage.setScene(newScene);
+            popupStage.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

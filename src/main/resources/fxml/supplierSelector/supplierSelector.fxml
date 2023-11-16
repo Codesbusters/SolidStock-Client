@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
+            prefHeight="400.0" prefWidth="600.0"
+            fx:controller="fr.codesbusters.solidstock.controller.selectors.SupplierSelectorController">
+    <HBox>
+        <TextField fx:id="supplierTextField"/>
+        <Button fx:id="submitButton" text="Envoyer" onAction="#submitAction"/>
+    </HBox>
+</AnchorPane>
