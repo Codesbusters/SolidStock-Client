@@ -5,6 +5,7 @@ import fr.codesbusters.solidstock.controller.DefaultController;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.StackPane;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.URL;
@@ -12,6 +13,9 @@ import java.util.ResourceBundle;
 
 @Slf4j
 public class UserSettingsController extends DefaultController implements Initializable {
+
+    @FXML
+    public StackPane stackPane;
 
     @FXML
     MFXTextField lastNameField;
@@ -42,7 +46,7 @@ public class UserSettingsController extends DefaultController implements Initial
 
     public void saveAction() {
         if (firstNameField.getText().equals("") || lastNameField.getText().equals("") || emailField.getText().equals("") || passwordField.getText().equals("") || confirmPasswordField.getText().equals("") || langageField.getText().equals("") || userRoleField.getText().equals("") || lastConnectionField.getText().equals("") || defaultLoadingPageField.getText().equals("")) {
-            openErrorDialog(lastNameField.getScene(), "Veuillez remplir tous les champs");
+            openErrorDialog(stackPane.getScene(), "Veuillez remplir tous les champs");
             return;
         }
         if (passwordField.getText().equals(confirmPasswordField.getText())) {

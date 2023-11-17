@@ -24,7 +24,7 @@ public class SupplierSelectorController extends DefaultController implements Ini
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-
+//TODO créer un service pour les fournisseurs
     }
 
     public void setStage(Stage parentStage) {

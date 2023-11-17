@@ -7,12 +7,11 @@ import fr.codesbusters.solidstock.listener.SupplierSelectorListener;
 import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
 import io.github.palexdev.materialfx.css.themes.Themes;
 import io.github.palexdev.materialfx.dialogs.MFXGenericDialog;
-import io.github.palexdev.materialfx.dialogs.MFXGenericDialogBuilder;
 import io.github.palexdev.materialfx.dialogs.MFXStageDialog;
-import io.github.palexdev.materialfx.enums.ScrimPriority;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -30,26 +29,15 @@ public class DefaultController {
 
     private MFXStageDialog dialog;
 
+
     public void openErrorDialog(Scene scene, String message) {
-
-        Stage primaryStage = (Stage) scene.getWindow();
-
-        this.dialogContent = MFXGenericDialogBuilder.build()
-                .setContentText(message)
-                .makeScrollable(true)
-                .get();
-        this.dialog = MFXGenericDialogBuilder.build(dialogContent)
-                .toStageDialogBuilder()
-                .initOwner(primaryStage)
-                .initModality(Modality.APPLICATION_MODAL)
-                .setDraggable(true)
-                .setTitle("Une erreur est survenue")
-                .setScrimPriority(ScrimPriority.WINDOW)
-                .setScrimOwner(true)
-                .get();
-
-        dialogContent.setMaxSize(400, 200);
-        dialog.showDialog();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Une erreur est survenue !");
+        alert.setContentText(message);
+        alert.setAlertType(Alert.AlertType.ERROR);
+        alert.setHeaderText(null);
+        alert.initOwner(scene.getWindow());
+        alert.showAndWait();
     }
 
     public void openPopUp(String fxmlPath, Scene scene, String title) {
