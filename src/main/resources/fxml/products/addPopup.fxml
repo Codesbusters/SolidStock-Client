@@ -96,14 +96,14 @@
                                         <HBox VBox.vgrow="ALWAYS" spacing="5">
                                             <MFXTextField floatMode="BORDER" floatingText="Fournisseur"
                                                           prefWidth="310"
-                                                          maxWidth="268">
+                                                          maxWidth="268" fx:id="supplierID">
 
                                             </MFXTextField>
                                             <MFXButton id="accept" minHeight="27.0" minWidth="38.0" prefWidth="38.0"
                                                        prefHeight="38" text=""
                                                        style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
                                                        buttonType="RAISED" styleClass="mfx-button"
-                                                       HBox.hgrow="ALWAYS">
+                                                       HBox.hgrow="ALWAYS" onAction="#selectSupplier">
                                                 <graphic>
                                                     <MFXFontIcon description="fas-ellipsis" size="20" color="WHITE"/>
                                                 </graphic>
