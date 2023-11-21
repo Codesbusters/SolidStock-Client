@@ -7,6 +7,8 @@ public class SolidStockModel {
 
     public static final ObservableList<ProductModel> products;
 
+    public static final ObservableList<String> languages;
+
     static {
         products = FXCollections.observableArrayList(
                 ProductModel.ofSplit(1, "Jambon", "Un joli jambon tout droit venu de corse", "Charcuterie", "123456789", 10, 5.00, 10, 0),
@@ -28,6 +30,11 @@ public class SolidStockModel {
                 ProductModel.ofSplit(17, "Bleu de Gex", "Un joli bleu de Gex tout droit venu de Franche comté", "Fromage", "123456789", 10, 5, 10, 0),
                 ProductModel.ofSplit(18, "Bleu de Bresse", "Un joli bleu de Bresse tout droit venu de Franche comté", "Fromage", "123456789", 10, 5, 10, 0),
                 ProductModel.ofSplit(19, "Camambert", "Un joli camambert tout droit venu de Normandie", "Fromage", "123456789", 10, 5, 10, 0)
+        );
+
+        languages = FXCollections.observableArrayList(
+                "Français",
+                "English"
         );
     }
 }
