@@ -1,6 +1,9 @@
-package fr.codesbusters.solidstock.buisness;
+package fr.codesbusters.solidstock.business;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 

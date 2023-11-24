@@ -1,4 +1,4 @@
-package fr.codesbusters.solidstock.buisness;
+package fr.codesbusters.solidstock.business;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @ToString
-public class Vat {
+public class QuantityType {
 
     private Integer id;
 
@@ -18,7 +18,7 @@ public class Vat {
 
     private String description;
 
-    private String percent;
+    private String unit;
 
     private Date createdAt;
 

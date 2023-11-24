@@ -1,4 +1,4 @@
-package fr.codesbusters.solidstock.buisness;
+package fr.codesbusters.solidstock.business;
 
 import lombok.*;
 
@@ -10,19 +10,14 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @ToString
-public class User {
+public class ProductFamily {
 
     private Integer id;
 
     private String name;
 
-    private Integer thirdPartyId;
-
-    private String password;
-
-    private String role;
-
     private Date createdAt;
 
     private Date updatedAt;
+
 }

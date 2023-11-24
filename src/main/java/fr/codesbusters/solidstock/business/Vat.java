@@ -1,4 +1,4 @@
-package fr.codesbusters.solidstock.buisness;
+package fr.codesbusters.solidstock.business;
 
 import lombok.*;
 
@@ -10,11 +10,15 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @ToString
-public class Role {
+public class Vat {
 
     private Integer id;
 
     private String name;
+
+    private String description;
+
+    private String percent;
 
     private Date createdAt;
 

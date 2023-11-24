@@ -1,4 +1,4 @@
-package fr.codesbusters.solidstock.buisness;
+package fr.codesbusters.solidstock.business;
 
 import lombok.*;
 
@@ -10,17 +10,17 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @ToString
-public class StockProduct {
+public class Location {
 
     private Integer id;
 
-    private Integer productId;
+    private String name;
 
-    private Integer locationId;
+    private String description;
+
+    private String position;
 
     private Date createdAt;
 
     private Date updatedAt;
-
-    private Date selledAt;
 }

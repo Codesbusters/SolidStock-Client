@@ -1,6 +1,6 @@
 package fr.codesbusters.solidstock.controller.userSettings;
 
-import fr.codesbusters.solidstock.buisness.UserSettings;
+import fr.codesbusters.solidstock.business.UserSettings;
 import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.model.SolidStockModel;
 import io.github.palexdev.materialfx.controls.MFXComboBox;

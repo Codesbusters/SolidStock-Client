@@ -1,4 +1,4 @@
-package fr.codesbusters.solidstock.buisness;
+package fr.codesbusters.solidstock.business;
 
 import lombok.*;
 
@@ -10,15 +10,15 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @ToString
-public class Location {
+public class Invoice {
 
     private Integer id;
 
-    private String name;
+    private String subject;
 
-    private String description;
+    private Integer customerId;
 
-    private String position;
+    private Integer estimateId;
 
     private Date createdAt;
 

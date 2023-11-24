@@ -1,6 +1,9 @@
-package fr.codesbusters.solidstock.buisness;
+package fr.codesbusters.solidstock.business;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
@@ -11,27 +14,27 @@ import java.util.Date;
 public class Customer {
 
     private Integer id;
-    
+
     private String name;
-    
+
     private Integer thirdPartyId;
 
     private String address;
-    
+
     private Boolean corporation;
-    
+
     private String corporateName;
-    
+
     private Integer siren;
-    
+
     private Integer siret;
-    
+
     private String rib;
-    
+
     private Integer rcsInteger;
-    
+
     private Date createdAt;
-    
+
     private Date updatedAt;
 
 }

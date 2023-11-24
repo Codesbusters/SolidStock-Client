@@ -1,4 +1,4 @@
-package fr.codesbusters.solidstock.buisness;
+package fr.codesbusters.solidstock.business;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderForm {
+public class Estimate {
 
     private Integer id;
 
@@ -19,11 +19,9 @@ public class OrderForm {
 
     private String description;
 
-    private Integer customer;
+    private Integer customerId;
 
-    private Date dueDate;
-
-    private Integer estimateId;
+    private Date expiryDate;
 
     private Date createdAt;
 
