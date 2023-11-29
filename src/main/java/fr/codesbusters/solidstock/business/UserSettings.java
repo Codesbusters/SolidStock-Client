@@ -1,4 +1,4 @@
-package fr.codesbusters.solidstock.buisness;
+package fr.codesbusters.solidstock.business;
 
 import lombok.*;
 import org.joda.time.DateTime;
@@ -24,4 +24,6 @@ public class UserSettings {
     private String langage;
 
     private DateTime lastConnection;
+
+
 }

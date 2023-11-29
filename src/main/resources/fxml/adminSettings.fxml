@@ -1,10 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
-            xmlns="http://javafx.com/javafx"
-            prefHeight="400.0" prefWidth="600.0">
-    <Label text="Paramètres Administrateur"></Label>
-</AnchorPane>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           xmlns="http://javafx.com/javafx"
+           fx:controller="fr.codesbusters.solidstock.controller.adminSettings.AdminSettingsController"
+           fx:id="stackPane"
+           stylesheets="@../css/MFXColors.css">
+    <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
+        <children>
+            <AnchorPane id="pane1" maxHeight="100.0" minHeight="100.0" minWidth="400.0" prefHeight="100.0"
+                        style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                        VBox.vgrow="ALWAYS">
+                <children>
+                    <VBox spacing="10.0" style="-fx-padding: 20px">
+                        <children>
+                            <Label text="Paramètres administrateur">
+                                <font>
+                                    <Font name="System Bold" size="22.0"/>
+                                </font>
+                            </Label>
+                            <Label text="Liens API / site web"/>
+                        </children>
+                        <padding>
+                            <Insets left="10.0"/>
+                        </padding>
+                    </VBox>
+                </children>
+            </AnchorPane>
+            <AnchorPane id="pane2" maxHeight="400.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0"
+                        prefWidth="600.0"
+                        style="-fx-background-color: #ffffff; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                        HBox.hgrow="ALWAYS">
+                <children>
+                    <VBox AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" spacing="20">
+                        <HBox HBox.hgrow="ALWAYS">
+                            <Label text="Compte Utilisateur">
+                                <font>
+                                    <Font name="System Bold" size="18.0"/>
+                                </font>
+                            </Label>
+                        </HBox>
+                        <VBox spacing="15" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" alignment="CENTER">
+                            <children>
+                                <MFXTextField fx:id="urlApi" HBox.hgrow="ALWAYS"
+                                              floatingText="Url API" floatMode="BORDER" prefWidth="400"/>
+                                <MFXTextField fx:id="urlWeb" HBox.hgrow="ALWAYS"
+                                              floatingText="Url web" floatMode="BORDER" prefWidth="400"/>
+                            </children>
+                        </VBox>
+                        <padding>
+                            <Insets right="15" top="15" bottom="15" left="15"/>
+                        </padding>
+                    </VBox>
+                </children>
+            </AnchorPane>
+            <AnchorPane id="pane2" maxHeight="60.0" minHeight="30.0" minWidth="400.0" prefHeight="100.0"
+                        prefWidth="600.0"
+                        style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                        VBox.vgrow="ALWAYS">
+                <children>
+                    <HBox spacing="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                          alignment="CENTER_RIGHT">
+                        <padding>
+                            <Insets top="10.0"/>
+                        </padding>
+                        <children>
+                            <HBox spacing="10.0">
+                                <children>
+                                    <MFXButton id="custom" minHeight="27.0" minWidth="130.0" prefWidth="130"
+                                               prefHeight="38" text="ANNULER"
+                                               style="-fx-border-color: black; -fx-font-weight: bold;  -fx-border-radius: 4; -fx-cursor: hand;"
+                                               buttonType="RAISED"
+                                               styleClass="outline-button" HBox.hgrow="ALWAYS"/>
+                                    <MFXButton id="custom" minHeight="27.0" minWidth="130.0" prefWidth="130.0"
+                                               text="SAUVEGARDER" prefHeight="38"
+                                               buttonType="RAISED"
+                                               style="-fx-background-color: #2196F3; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
+                                               HBox.hgrow="ALWAYS" onAction="#saveSettings">
+                                        <graphic>
+                                            <MFXFontIcon description="fas-floppy-disk" color="white"/>
+                                        </graphic>
+                                    </MFXButton>
+                                </children>
+                                <HBox.margin>
+                                    <Insets right="10.0"/>
+                                </HBox.margin>
+                            </HBox>
+                        </children>
+                    </HBox>
+                </children>
+            </AnchorPane>
+        </children>
+        <padding>
+            <Insets bottom="60.0" left="20.0" right="30.0" top="20.0"/>
+        </padding>
+    </VBox>
+</StackPane>
