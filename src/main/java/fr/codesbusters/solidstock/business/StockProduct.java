@@ -1,7 +1,9 @@
 package fr.codesbusters.solidstock.business;
 
 import lombok.*;
+import org.joda.time.DateTime;
 
+import java.beans.Transient;
 import java.util.Date;
 
 @Getter
@@ -12,15 +14,11 @@ import java.util.Date;
 @ToString
 public class StockProduct {
 
-    private Integer id;
+    private int id;
 
-    private Integer productId;
+    private int productId;
 
-    private Integer locationId;
+    private int locationId;
 
-    private Date createdAt;
-
-    private Date updatedAt;
-
-    private Date selledAt;
+    private DateTime selledAt;
 }

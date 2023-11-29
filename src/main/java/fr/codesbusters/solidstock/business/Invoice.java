@@ -12,15 +12,12 @@ import java.util.Date;
 @ToString
 public class Invoice {
 
-    private Integer id;
+    private int id;
 
     private String subject;
 
-    private Integer customerId;
+    private int customerId;
 
-    private Integer estimateId;
+    private int estimateId;
 
-    private Date createdAt;
-
-    private Date updatedAt;
 }

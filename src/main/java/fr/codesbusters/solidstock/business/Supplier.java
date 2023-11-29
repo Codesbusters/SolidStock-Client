@@ -14,14 +14,14 @@ import java.util.Date;
 @AllArgsConstructor
 public class Supplier {
 
-    private Integer id;
+    private int id;
 
     private String name;
 
     private String thirdPartyId;
 
-    private Date createdAt;
 
-    private Date updatedAt;
+
+
 
 }

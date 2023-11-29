@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.joda.time.DateTime;
 
 import java.util.Date;
 
@@ -13,20 +14,18 @@ import java.util.Date;
 @AllArgsConstructor
 public class OrderForm {
 
-    private Integer id;
+    private int id;
 
     private String subject;
 
     private String description;
 
-    private Integer customer;
+    private int customerId;
 
-    private Date dueDate;
+    private DateTime dueDate;
 
-    private Integer estimateId;
+    private int estimateId;
 
-    private Date createdAt;
 
-    private Date updatedAt;
 
 }

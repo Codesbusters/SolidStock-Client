@@ -13,28 +13,24 @@ import java.util.Date;
 @AllArgsConstructor
 public class Customer {
 
-    private Integer id;
+    private int id;
 
     private String name;
 
-    private Integer thirdPartyId;
+    private int thirdPartyId;
 
     private String address;
 
-    private Boolean corporation;
+    private boolean corporation;
 
     private String corporateName;
 
-    private Integer siren;
+    private int siren;
 
-    private Integer siret;
+    private int siret;
 
     private String rib;
 
-    private Integer rcsInteger;
-
-    private Date createdAt;
-
-    private Date updatedAt;
+    private int rcs;
 
 }

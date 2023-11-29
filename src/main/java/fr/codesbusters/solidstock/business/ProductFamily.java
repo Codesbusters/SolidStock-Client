@@ -12,12 +12,10 @@ import java.util.Date;
 @ToString
 public class ProductFamily {
 
-    private Integer id;
+    private int id;
 
     private String name;
 
-    private Date createdAt;
-
-    private Date updatedAt;
+    private String description;
 
 }

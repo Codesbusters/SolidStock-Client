@@ -12,15 +12,12 @@ import java.util.Date;
 @ToString
 public class Location {
 
-    private Integer id;
+    private int id;
 
     private String name;
 
     private String description;
 
-    private String position;
+    private int parentLocationId;
 
-    private Date createdAt;
-
-    private Date updatedAt;
 }

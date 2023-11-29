@@ -5,15 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class thirdParty {
+public class ThirdParty {
 
-    private Integer thirdPartyId;
+    private int id;
 
     private String firstName;
 
@@ -21,18 +19,14 @@ public class thirdParty {
 
     private String city;
 
-    private Integer zipCode;
+    private int zipCode;
 
     private String address;
 
-    private Integer streetNumber;
+    private int streetNumber;
 
     private String email;
 
     private String mobilePhone;
-
-    private Date createdAt;
-
-    private Date updatedAt;
 
 }

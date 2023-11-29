@@ -12,17 +12,14 @@ import java.util.Date;
 @ToString
 public class User {
 
-    private Integer id;
+    private int id;
 
     private String name;
 
-    private Integer thirdPartyId;
+    private int thirdPartyId;
 
     private String password;
 
-    private String role;
+    private int roleId;
 
-    private Date createdAt;
-
-    private Date updatedAt;
 }

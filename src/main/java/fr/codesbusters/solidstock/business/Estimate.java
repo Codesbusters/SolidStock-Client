@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.joda.time.DateTime;
 
 import java.util.Date;
 
@@ -13,18 +14,14 @@ import java.util.Date;
 @AllArgsConstructor
 public class Estimate {
 
-    private Integer id;
+    private int id;
 
     private String subject;
 
     private String description;
 
-    private Integer customerId;
+    private int customerId;
 
-    private Date expiryDate;
-
-    private Date createdAt;
-
-    private Date updatedAt;
+    private DateTime expiryDate;
 
 }

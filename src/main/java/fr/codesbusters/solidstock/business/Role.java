@@ -12,11 +12,11 @@ import java.util.Date;
 @ToString
 public class Role {
 
-    private Integer id;
+    private int id;
 
     private String name;
 
-    private Date createdAt;
+    private String description;
 
-    private Date updatedAt;
+
 }

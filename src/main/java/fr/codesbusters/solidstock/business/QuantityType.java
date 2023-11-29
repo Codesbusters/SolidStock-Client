@@ -12,7 +12,7 @@ import java.util.Date;
 @ToString
 public class QuantityType {
 
-    private Integer id;
+    private int id;
 
     private String name;
 
@@ -20,7 +20,7 @@ public class QuantityType {
 
     private String unit;
 
-    private Date createdAt;
 
-    private Date updatedAt;
+
+
 }

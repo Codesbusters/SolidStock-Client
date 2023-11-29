@@ -12,15 +12,12 @@ import java.util.Date;
 @ToString
 public class Vat {
 
-    private Integer id;
+    private int id;
 
     private String name;
 
     private String description;
 
-    private String percent;
+    private double percent;
 
-    private Date createdAt;
-
-    private Date updatedAt;
 }

@@ -13,20 +13,20 @@ import java.util.Date;
 @AllArgsConstructor
 public class ProductDetail {
 
-    private Integer id;
+    private int id;
 
-    private Integer productId;
+    private int productId;
 
-    private Integer OrderFormId;
+    private int OrderFormId;
 
-    private Integer invoiceId;
+    private int invoiceId;
 
-    private Integer estimateId;
+    private int estimateId;
 
-    private Integer quantity;
+    private int quantity;
 
-    private Date createdAt;
 
-    private Date updatedAt;
+
+
 
 }
