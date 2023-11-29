@@ -24,7 +24,4 @@ public class UserSettings {
     private String langage;
 
     private DateTime lastConnection;
-
-
-
 }
