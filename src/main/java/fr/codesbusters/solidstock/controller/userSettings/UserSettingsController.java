@@ -1,5 +1,6 @@
 package fr.codesbusters.solidstock.controller.userSettings;
 
+import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.business.UserSettings;
 import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.model.SolidStockModel;
@@ -50,7 +51,7 @@ public class UserSettingsController extends DefaultController implements Initial
 
     public void saveAction() {
         if (firstNameField.getText().isEmpty() || lastNameField.getText().isEmpty() || emailField.getText().isEmpty() || passwordField.getText().isEmpty() || confirmPasswordField.getText().isEmpty() || langageField.getText().isEmpty()) {
-            openErrorDialog(stackPane.getScene(), "Veuillez remplir tous les champs");
+            openDialog(stackPane.getScene(), "Veuillez remplir tous les champs", DialogType.ERROR);
             return;
         }
         if (passwordField.getText().equals(confirmPasswordField.getText())) {
@@ -62,7 +63,7 @@ public class UserSettingsController extends DefaultController implements Initial
             userSettings.setLangage(langageField.getText());
             log.info(userSettings.toString());
         } else {
-            openErrorDialog(stackPane.getScene(), "Les mots de passe ne correspondent pas");
+            openDialog(stackPane.getScene(), "Les mots de passe ne correspondent pas", DialogType.ERROR);
         }
     }
 

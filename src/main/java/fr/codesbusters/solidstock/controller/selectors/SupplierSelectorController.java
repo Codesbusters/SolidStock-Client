@@ -1,7 +1,9 @@
 package fr.codesbusters.solidstock.controller.selectors;
 
+import fr.codesbusters.solidstock.business.ProductDetail;
 import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.listener.SupplierSelectorListener;
+import io.github.palexdev.materialfx.controls.MFXTableView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,13 +20,16 @@ public class SupplierSelectorController extends DefaultController implements Ini
     @FXML
     TextField supplierTextField;
 
+    @FXML
+    MFXTableView<ProductDetail> table;
+
     private Stage parentStage;
 
     private SupplierSelectorListener listener;
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-//TODO créer un service pour les fournisseurs
+
     }
 
     public void setStage(Stage parentStage) {
@@ -37,7 +42,10 @@ public class SupplierSelectorController extends DefaultController implements Ini
 
     @FXML
     private void submitAction(ActionEvent event) {
-        String supplierContent = supplierTextField.getText();
+
+
+
+       /* String supplierContent = supplierTextField.getText();
 
         // Appelez la méthode du parent via l'interface
         if (listener != null) {
@@ -46,6 +54,11 @@ public class SupplierSelectorController extends DefaultController implements Ini
         }
 
         // Fermez la fenêtre pop-up
+        parentStage.close();*/
+    }
+
+    @FXML
+    private void cancel() {
         parentStage.close();
     }
 }

@@ -30,11 +30,20 @@ public class DefaultController {
     private MFXStageDialog dialog;
 
 
-    public void openErrorDialog(Scene scene, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Une erreur est survenue !");
+    public void openDialog(Scene scene, String message, Alert.AlertType dialogType) {
+        Alert alert = new Alert(dialogType);
+        if (dialogType == Alert.AlertType.ERROR)
+            alert.setTitle("Erreur");
+        else if (dialogType == Alert.AlertType.INFORMATION)
+            alert.setTitle("Information");
+        else if (dialogType == Alert.AlertType.WARNING)
+            alert.setTitle("Attention");
+        else if (dialogType == Alert.AlertType.CONFIRMATION)
+            alert.setTitle("Confirmation");
+        else
+            alert.setTitle("Alerte");
         alert.setContentText(message);
-        alert.setAlertType(Alert.AlertType.ERROR);
+        alert.setAlertType(dialogType);
         alert.setHeaderText(null);
         alert.initOwner(scene.getWindow());
         alert.showAndWait();

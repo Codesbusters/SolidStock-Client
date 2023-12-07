@@ -1,5 +1,6 @@
 package fr.codesbusters.solidstock.controller.products;
 
+import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.model.ProductModel;
 import fr.codesbusters.solidstock.model.SolidStockModel;
@@ -83,5 +84,29 @@ public class ProductController extends DefaultController implements Initializabl
 
 
     }
+
+    @FXML
+    public void showProduct() {
+        ProductModel product = table.getSelectionModel().getSelectedValue();
+
+        if (product == null) {
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR);
+            return;
+        }
+        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getName(), DialogType.CONFIRMATION);
+    }
+
+    //on double click on a row
+    @FXML
+    public void showProductDetails() {
+        ProductModel product = table.getSelectionModel().getSelectedValue();
+
+        if (product == null) {
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR);
+            return;
+        }
+        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getName(), DialogType.CONFIRMATION);
+    }
+
 
 }

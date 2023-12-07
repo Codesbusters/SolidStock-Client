@@ -1,6 +1,7 @@
 package fr.codesbusters.solidstock.controller.adminSettings;
 
 import fr.codesbusters.solidstock.business.AdminSettings;
+import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultController;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
@@ -32,7 +33,7 @@ public class AdminSettingsController extends DefaultController implements Initia
     @FXML
     public void saveSettings() {
         if (urlApi.getText().isEmpty() || urlWeb.getText().isEmpty()) {
-            openErrorDialog(stackPane.getScene(), "Veuillez remplir tous les champs...");
+            openDialog(stackPane.getScene(), "Veuillez remplir tous les champs...", DialogType.ERROR);
             return;
         }
 
