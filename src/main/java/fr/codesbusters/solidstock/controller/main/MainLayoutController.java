@@ -19,8 +19,6 @@ import java.util.ResourceBundle;
 public class MainLayoutController implements Initializable {
     @FXML
     public AnchorPane leftPane;
-    @FXML
-    public GridPane test;
 
     @FXML
     private Pane mainContent;
@@ -60,6 +58,9 @@ public class MainLayoutController implements Initializable {
 
     @FXML
     private GridPane adminSettings;
+
+    @FXML
+    private GridPane users;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -249,12 +250,12 @@ public class MainLayoutController implements Initializable {
     }
 
     @FXML
-    private void loadTest() {
-        if (!test.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
-            try {
-                loadPage("/test/TestLayout.fxml");
+    private void loadUsers(){
+        if (!users.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
+            try{
+                loadPage("users.fxml");
                 resetMenuStyles();
-                test.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
+                users.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -274,6 +275,7 @@ public class MainLayoutController implements Initializable {
         orders.setStyle("");
         estimates.setStyle("");
         products.setStyle("");
+        users.setStyle("");
     }
 }
 

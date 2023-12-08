@@ -6,8 +6,8 @@ import javafx.collections.ObservableList;
 public class SolidStockModel {
 
     public static final ObservableList<ProductModel> products;
-
     public static final ObservableList<String> languages;
+    public static final ObservableList<UsersModel> users;
 
     static {
         products = FXCollections.observableArrayList(
@@ -35,6 +35,15 @@ public class SolidStockModel {
         languages = FXCollections.observableArrayList(
                 "Français",
                 "English"
+        );
+
+        users = FXCollections.observableArrayList(
+                UsersModel.ofSplit(1, "Jean","Didier", 3, "bonjouurtoi", 3, "Ouvrier", "Fatiguant","didier.jean@solidstock.fr","01 02 03 04 05", "DidiJO"),
+                UsersModel.ofSplit(2, "Jean", "Robert",2, "salut", 6, "comptable", "Chiant à mourir","robert.jean@solidstock.fr","01 02 03 04 05", "RobJO"),
+                UsersModel.ofSplit(3, "Jean","Pascal" ,1, "hello", 8, "chef", "Je commande","pascal.jean@solidstock.fr","01 02 03 04 05", "PascJO"),
+                UsersModel.ofSplit(4, "Jean","Marie" ,2, "buenos dias", 9, "patron", "Je fais ce que je veux","marie.jean@solidstock.fr","01 02 03 04 05", "MarreJO"),
+                UsersModel.ofSplit(5, "Jean","Pierre" ,5, "hey", 2, "actionnaire", "J'aime l'argent","pierre.jean@solidstock.fr","01 02 03 04 05", "CaillouxJO"),
+                UsersModel.ofSplit(6, "Jean","François" ,6, "yo", 5, "Livreur", "Je vais vite","françois.jean@solidstock.fr","01 02 03 04 05", "FRJO")
         );
     }
 }
