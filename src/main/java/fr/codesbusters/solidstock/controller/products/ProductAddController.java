@@ -2,6 +2,7 @@ package fr.codesbusters.solidstock.controller.products;
 
 import fr.codesbusters.solidstock.component.SSDoubleField;
 import fr.codesbusters.solidstock.controller.DefaultController;
+import fr.codesbusters.solidstock.listener.ProductFamilySelectorListener;
 import fr.codesbusters.solidstock.listener.SupplierSelectorListener;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
@@ -20,7 +21,7 @@ import java.util.ResourceBundle;
 
 @Slf4j
 @Controller
-public class ProductAddController extends DefaultController implements Initializable, SupplierSelectorListener {
+public class ProductAddController extends DefaultController implements Initializable, SupplierSelectorListener, ProductFamilySelectorListener {
 
 
     @FXML
@@ -31,16 +32,22 @@ public class ProductAddController extends DefaultController implements Initializ
     public SSDoubleField sellPrice;
     @FXML
     public MFXTextField supplierID;
+    @FXML
+    public MFXTextField productFamilyID;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         sellPrice.setTextLimit(8);
-
     }
 
     @FXML
     public void selectSupplier() {
         openSupplierSelector(stackPane.getScene(), this);
+    }
+
+    @FXML
+    public void selectProductFamily() {
+        openProductFamilySelector(stackPane.getScene(), this);
     }
 
 
@@ -74,5 +81,11 @@ public class ProductAddController extends DefaultController implements Initializ
     @Override
     public void processSupplierContent(String supplierContent) {
         supplierID.setText(supplierContent);
+    }
+
+
+    @Override
+    public void processProductFamilyContent(String productFamilyContent) {
+        productFamilyID.setText(productFamilyContent);
     }
 }

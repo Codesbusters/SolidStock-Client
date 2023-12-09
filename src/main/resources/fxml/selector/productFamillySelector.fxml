@@ -9,7 +9,7 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             xmlns="http://javafx.com/javafx"
             prefHeight="400.0" prefWidth="1000.0"
-            fx:controller="fr.codesbusters.solidstock.controller.selectors.SupplierSelectorController">
+            fx:controller="fr.codesbusters.solidstock.controller.selectors.ProductFamilySelectorController">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <children>
             <AnchorPane id="pane1" maxHeight="100.0" minHeight="100.0" minWidth="1000.0" prefHeight="100.0"
@@ -86,7 +86,7 @@
 
             </AnchorPane>
 
-            <AnchorPane id="pane3" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="600.0"
+            <AnchorPane id="pane3" minHeight="500.0" minWidth="400.0" prefHeight="100.0" prefWidth="600.0"
                         style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                         VBox.vgrow="ALWAYS">
                 <children>
@@ -113,8 +113,8 @@
                                    style="-fx-border-color: black; -fx-background-radius: 8; -fx-border-radius: 8;  -fx-font-weight: bold; -fx-cursor: hand;"
                                    HBox.hgrow="ALWAYS" onAction="#cancel"/>
 
-                        <MFXButton id="accept" minHeight="27.0" minWidth="70.0" prefWidth="100"
-                                   prefHeight="38" text="AJOUTER"
+                        <MFXButton id="accept" minHeight="27.0" minWidth="70.0" prefWidth="150"
+                                   prefHeight="38" text="SÉLECTIONNER"
                                    style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
                                    buttonType="RAISED" styleClass="mfx-button"
                                    HBox.hgrow="ALWAYS" onAction="#submitAction"/>

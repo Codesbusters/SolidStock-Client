@@ -102,7 +102,7 @@ public class DefaultController {
         try {
             Stage primaryStage = (Stage) scene.getWindow();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/supplierSelector/supplierSelector.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/selector/supplierSelector.fxml"));
             Parent root = loader.load();
             Scene newScene = new Scene(root);
             MFXThemeManager.addOn(newScene, Themes.DEFAULT, Themes.LEGACY);
@@ -138,14 +138,14 @@ public class DefaultController {
         try {
             Stage primaryStage = (Stage) scene.getWindow();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/supplierSelector/supplierSelector.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/selector/productFamillySelector.fxml"));
             Parent root = loader.load();
             Scene newScene = new Scene(root);
             MFXThemeManager.addOn(newScene, Themes.DEFAULT, Themes.LEGACY);
 
             Stage popupStage = new Stage();
             popupStage.setResizable(false);
-            popupStage.setTitle("Sélectionner un fournisseur");
+            popupStage.setTitle("Sélectionner une famille de produit");
             Image icon = new Image("/img/icon.png");
             popupStage.getIcons().add(icon);
 
