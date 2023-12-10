@@ -250,10 +250,10 @@ public class MainLayoutController implements Initializable {
     }
 
     @FXML
-    private void loadUsers(){
+    private void loadUsers() {
         if (!users.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
-            try{
-                loadPage("users.fxml");
+            try {
+                loadPage("users/users.fxml");
                 resetMenuStyles();
                 users.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
             } catch (IOException e) {
