@@ -1,5 +1,6 @@
 package fr.codesbusters.solidstock.utils;
 
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,6 +25,12 @@ public class SplashScreen extends Stage {
 
         // Créer la scène
         Scene scene = new Scene(stackPane, splashImage.getWidth(), splashImage.getHeight());
+
+        // Définir le curseur sur "WAIT" (loading) au survol
+        scene.setOnMouseEntered(event -> scene.setCursor(Cursor.WAIT));
+
+        // Revenir au curseur par défaut lorsque la souris quitte la zone du splash screen
+        scene.setOnMouseExited(event -> scene.setCursor(Cursor.DEFAULT));
 
         Image icon = new Image("img/icon.png");
         getIcons().add(icon);

@@ -2,34 +2,21 @@ package fr.codesbusters.solidstock.service;
 
 
 import fr.codesbusters.solidstock.SolidStockApplication;
-import fr.codesbusters.solidstock.utils.ApplicationPropertiesReader;
+import fr.codesbusters.solidstock.utils.LoginScreen;
 import fr.codesbusters.solidstock.utils.SplashScreen;
-import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
-import io.github.palexdev.materialfx.css.themes.Themes;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
-import org.scenicview.ScenicView;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
-import java.util.Objects;
 
 @Slf4j
 @Service
 public class StartJFX extends Application {
 
-    private final String currentVersion = new ApplicationPropertiesReader().getProperty("build.version");
+
     private ConfigurableApplicationContext applicationContext;
 
     @Override
@@ -43,42 +30,17 @@ public class StartJFX extends Application {
         splashScreen.showSplash();
         Platform.runLater(() -> {
             try {
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/main/MainLayout.fxml")));
-                Scene scene = new Scene(root);
-                MFXThemeManager.addOn(scene, Themes.DEFAULT, Themes.LEGACY);
-                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
-                primaryStage.setScene(scene);
-                primaryStage.setMinWidth(1266.0);
-                primaryStage.setMinHeight(770.0);
-                primaryStage.setMaximized(true);
-                primaryStage.setResizable(true);
-                primaryStage.setTitle("SolidStock - " + currentVersion);
-                Image icon = new Image("/img/icon.png");
-                primaryStage.getIcons().add(icon);
+                LoginScreen loginScreen = new LoginScreen();
+                loginScreen.showLogin();
 
-                primaryStage.show();
-
-                splashScreen.hideSplash();
-
-
-                // Définissez la combinaison de touches (Ctrl + <)
-                KeyCombination keyCombination = new KeyCodeCombination(KeyCode.LESS, KeyCombination.CONTROL_DOWN);
-
-                // Ajoutez un gestionnaire d'événements pour la combinaison de touches
-                scene.setOnKeyPressed(event -> {
-                    if (keyCombination.match(event)) {
-                        // Déclenchez ScenicView.show(scene)
-                        ScenicView.show(scene);
-                    }
-                });
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                
             } finally {
                 // Fermer l'écran de chargement une fois que le reste de l'interface utilisateur est chargé
                 splashScreen.hideSplash();
             }
         });
     }
+
 
     @Override
     public void stop() {

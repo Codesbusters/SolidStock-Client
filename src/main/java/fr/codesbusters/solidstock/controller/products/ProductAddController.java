@@ -133,6 +133,10 @@ public class ProductAddController extends DefaultController implements Initializ
         product.setImage(imageBase64);
 
         log.info("Product to add : {}", product);
+
+        cancel();
+
+        openDialog(stackPane.getScene(), "Produit " + product.getName() + " créer avec succès", DialogType.INFORMATION);
     }
 
     private String validateImage() {

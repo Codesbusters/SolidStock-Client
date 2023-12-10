@@ -144,6 +144,10 @@ public class ProductEditController extends DefaultShowController implements Init
         product.setImage(imageBase64);
 
         log.info("Product to add : {}", product);
+
+        cancel();
+
+        openDialog(stackPane.getScene(), "Produit " + product.getName() + " modifié avec succès", DialogType.INFORMATION);
     }
 
     private String validateImage() {
