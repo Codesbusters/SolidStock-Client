@@ -53,7 +53,7 @@
                 </children>
             </AnchorPane>
 
-            <AnchorPane id="pane3" minHeight="250.0" minWidth="300.0" prefHeight="100.0" prefWidth="400.0"
+            <AnchorPane id="pane2" minHeight="250.0" minWidth="300.0" prefHeight="100.0" prefWidth="400.0"
                         style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                         VBox.vgrow="ALWAYS">
                 <children>
