@@ -3,7 +3,7 @@ package fr.codesbusters.solidstock.controller.products;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.business.Product;
 import fr.codesbusters.solidstock.component.SSDoubleField;
-import fr.codesbusters.solidstock.controller.DefaultController;
+import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.listener.ProductFamilySelectorListener;
 import fr.codesbusters.solidstock.listener.SupplierSelectorListener;
 import fr.codesbusters.solidstock.model.QuantityTypeModel;
@@ -32,11 +32,13 @@ import java.util.ResourceBundle;
 
 @Slf4j
 @Controller
-public class ProductAddController extends DefaultController implements Initializable, SupplierSelectorListener, ProductFamilySelectorListener {
+public class ProductEditController extends DefaultShowController implements Initializable, SupplierSelectorListener, ProductFamilySelectorListener {
 
 
     @FXML
     public StackPane stackPane;
+    @FXML
+    public MFXTextField productId;
     @FXML
     public ImageView imageView;
     @FXML
@@ -63,6 +65,8 @@ public class ProductAddController extends DefaultController implements Initializ
         ObservableList<QuantityTypeModel> quantityTypes = SolidStockModel.quantityType;
 
         quantityType.setItems(quantityTypes);
+
+        productId.setText(String.valueOf(getId()));
     }
 
     @FXML
@@ -77,7 +81,14 @@ public class ProductAddController extends DefaultController implements Initializ
 
 
     @FXML
-    public void addProduct() throws NumberFormatException, UnsupportedEncodingException {
+    public void cancel() {
+        Stage stage = (Stage) stackPane.getScene().getWindow();
+        stage.close();
+    }
+
+
+    @FXML
+    public void editProduct() throws NumberFormatException, UnsupportedEncodingException {
         String nameString = productName.getText();
         String descriptionString = description.getText();
         String supplierIdString = supplierID.getText();
@@ -158,7 +169,6 @@ public class ProductAddController extends DefaultController implements Initializ
         return imageBase64;
     }
 
-
     @FXML
     public void imageSelect() {
 
@@ -174,12 +184,6 @@ public class ProductAddController extends DefaultController implements Initializ
             Image image = new Image(selectedFile.toURI().toString());
             imageView.setImage(image);
         }
-    }
-
-    @FXML
-    public void cancel() {
-        Stage stage = (Stage) stackPane.getScene().getWindow();
-        stage.close();
     }
 
     @Override

@@ -3,6 +3,7 @@ package fr.codesbusters.solidstock.controls;
 import com.sun.javafx.scene.control.DoubleField;
 import com.sun.javafx.scene.control.skin.DoubleFieldSkin;
 import fr.codesbusters.solidstock.component.SSDoubleField;
+import javafx.scene.AccessibleAction;
 import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.text.Text;
@@ -43,6 +44,17 @@ public class BoundDoubleField extends DoubleField {
         textField = null;
     }
 
+    @Override
+    public void executeAccessibleAction(AccessibleAction action, Object... parameters) {
+        switch (action) {
+            case SET_VALUE: {
+                if (textField != null) setValue(textField.getValue());
+                break;
+            }
+            default:
+                super.executeAccessibleAction(action, parameters);
+        }
+    }
 
     private class CustomTextFieldSkin extends DoubleFieldSkin {
 

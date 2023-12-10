@@ -1,7 +1,7 @@
 package fr.codesbusters.solidstock.controller.products;
 
 import fr.codesbusters.solidstock.business.DialogType;
-import fr.codesbusters.solidstock.controller.DefaultController;
+import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.model.ProductModel;
 import fr.codesbusters.solidstock.model.SolidStockModel;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 @Slf4j
 @Controller
-public class ProductController extends DefaultController implements Initializable {
+public class ProductController extends DefaultShowController implements Initializable {
     @FXML
     private StackPane stackPane;
 
@@ -93,8 +93,41 @@ public class ProductController extends DefaultController implements Initializabl
             openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR);
             return;
         }
-        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getName(), DialogType.CONFIRMATION);
+
+        setId(product.getID());
+
+        openPopUp("products/showPopup.fxml", stackPane.getScene(), "Détails du produit");
+
     }
+
+    @FXML
+    public void editProduct() {
+        ProductModel product = table.getSelectionModel().getSelectedValue();
+
+        if (product == null) {
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR);
+            return;
+        }
+
+        setId(product.getID());
+
+        openPopUp("products/editPopup.fxml", stackPane.getScene(), "Modification du produit");
+
+    }
+
+    @FXML
+    public void removeProduct() {
+        ProductModel product = table.getSelectionModel().getSelectedValue();
+
+        if (product == null) {
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR);
+            return;
+        }
+
+        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le produit " + product.getName() + " ?", DialogType.CONFIRMATION);
+
+    }
+
 
     //on double click on a row
     @FXML

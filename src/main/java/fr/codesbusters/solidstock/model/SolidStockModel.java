@@ -10,6 +10,7 @@ public class SolidStockModel {
     public static final ObservableList<UsersModel> users;
     public static final ObservableList<SupplierModel> suppliers;
     public static final ObservableList<ProductFamilyModel> productFamily;
+    public static final ObservableList<QuantityTypeModel> quantityType;
 
     static {
         products = FXCollections.observableArrayList(
@@ -59,6 +60,18 @@ public class SolidStockModel {
                 ProductFamilyModel.ofSplit(1, "Charcuterie", "Charcuterie fraiche"),
                 ProductFamilyModel.ofSplit(2, "Boulangerie", "Pain francais"),
                 ProductFamilyModel.ofSplit(3, "Fromage", "Fromage francais")
+        );
+
+        quantityType = FXCollections.observableArrayList(
+                QuantityTypeModel.ofSplit(1, "Gramme", "g", "Unitée de mesure de masse"),
+                QuantityTypeModel.ofSplit(2, "Kilogramme", "kg", "Unitée de mesure de masse"),
+                QuantityTypeModel.ofSplit(3, "Litre", "L", "Unitée de mesure de volume"),
+                QuantityTypeModel.ofSplit(4, "Millilitre", "mL", "Unitée de mesure de volume"),
+                QuantityTypeModel.ofSplit(5, "Piece", "pc", "Unitée de mesure de quantité"),
+                QuantityTypeModel.ofSplit(6, "Mètre", "m", "Unitée de mesure de longueur"),
+                QuantityTypeModel.ofSplit(7, "Centimètre", "cm", "Unitée de mesure de longueur"),
+                QuantityTypeModel.ofSplit(8, "Millimètre", "mm", "Unitée de mesure de longueur"),
+                QuantityTypeModel.ofSplit(9, "Kilomètre", "km", "Unitée de mesure de longueur")
         );
     }
 }
