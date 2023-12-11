@@ -74,7 +74,7 @@ public class ProductController extends DefaultShowController implements Initiali
 
         table.getTableColumns().addAll(idColumn, nameColumn, productFamilyColumn, inStockColumn, selledColumn, sellPrice, buyPrice);
         table.getFilters().addAll(
-                new StringFilter<>("Réf.", ProductModel::getName),
+                new IntegerFilter<>("Réf.", ProductModel::getID),
                 new StringFilter<>("Libelle", ProductModel::getName),
                 new StringFilter<>("Famille", ProductModel::getProductFamily),
                 new IntegerFilter<>("Nombre en stock", ProductModel::getInStock),
