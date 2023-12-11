@@ -118,10 +118,10 @@ public class MainLayoutController implements Initializable {
     }
 
     @FXML
-    private void loadInventory() {
+    private void loadStockMouvement() {
         if (!inventory.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
             try {
-                loadPage("inventory.fxml");
+                loadPage("stockMouvement/index.fxml");
                 resetMenuStyles();
                 inventory.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
             } catch (IOException e) {
@@ -135,7 +135,7 @@ public class MainLayoutController implements Initializable {
     private void loadInvoices() {
         if (!invoices.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
             try {
-                loadPage("invoices.fxml");
+                loadPage("invoices/index.fxml");
                 resetMenuStyles();
                 invoices.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
             } catch (IOException e) {
@@ -148,7 +148,7 @@ public class MainLayoutController implements Initializable {
     private void loadEstimates() {
         if (!estimates.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
             try {
-                loadPage("estimates.fxml");
+                loadPage("estimates/index.fxml");
                 resetMenuStyles();
                 estimates.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
             } catch (IOException e) {
@@ -161,7 +161,7 @@ public class MainLayoutController implements Initializable {
     private void loadOrders() {
         if (!orders.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
             try {
-                loadPage("orders.fxml");
+                loadPage("orders/index.fxml");
                 resetMenuStyles();
                 orders.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
             } catch (IOException e) {
@@ -174,7 +174,7 @@ public class MainLayoutController implements Initializable {
     private void loadSuppliers() {
         if (!suppliers.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
             try {
-                loadPage("suppliers.fxml");
+                loadPage("suppliers/index.fxml");
                 resetMenuStyles();
                 suppliers.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
             } catch (IOException e) {
@@ -187,7 +187,7 @@ public class MainLayoutController implements Initializable {
     private void loadThirdParty() {
         if (!third_party.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
             try {
-                loadPage("thirdParty.fxml");
+                loadPage("thirdParty/index.fxml");
                 resetMenuStyles();
                 third_party.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
             } catch (IOException e) {
@@ -200,7 +200,7 @@ public class MainLayoutController implements Initializable {
     private void loadDirectSales() {
         if (!direct_sales.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
             try {
-                loadPage("directsSales.fxml");
+                loadPage("directsSales/index.fxml");
                 resetMenuStyles();
                 direct_sales.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
             } catch (IOException e) {
@@ -213,7 +213,7 @@ public class MainLayoutController implements Initializable {
     private void loadUserSettings() {
         if (!userSettings.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
             try {
-                loadPage("userSettings.fxml");
+                loadPage("userSettings/index.fxml");
                 resetMenuStyles();
                 userSettings.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
             } catch (IOException e) {
@@ -226,7 +226,7 @@ public class MainLayoutController implements Initializable {
     private void loadAdminSettings() {
         if (!adminSettings.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
             try {
-                loadPage("adminSettings.fxml");
+                loadPage("adminSettings/index.fxml");
                 resetMenuStyles();
                 adminSettings.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
             } catch (IOException e) {
