@@ -23,6 +23,8 @@ public class CustomerEditController extends DefaultShowController implements Ini
     @FXML
     public StackPane stackPane;
     @FXML
+    public MFXTextField customerId;
+    @FXML
     public MFXTextField customerName;
     @FXML
     public MFXTextField customerThirdParty;
@@ -42,7 +44,7 @@ public class CustomerEditController extends DefaultShowController implements Ini
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        customerId.setText(String.valueOf(getId()));
     }
 
     @FXML
@@ -54,6 +56,7 @@ public class CustomerEditController extends DefaultShowController implements Ini
 
     @FXML
     public void editCustomer() throws NumberFormatException, UnsupportedEncodingException {
+        int idInteger = Integer.parseInt(customerId.getText());
         String nameString = customerName.getText();
         String thirdPartyString = customerThirdParty.getText();
         String addressString = customerAddress.getText();
@@ -113,6 +116,7 @@ public class CustomerEditController extends DefaultShowController implements Ini
 
         // Création de l'objet Customer
         Customer customer = new Customer();
+        customer.setId(idInteger);
         customer.setName(nameString);
         customer.setThirdPartyId(Integer.parseInt(thirdPartyString));
         customer.setAddress(addressString);
