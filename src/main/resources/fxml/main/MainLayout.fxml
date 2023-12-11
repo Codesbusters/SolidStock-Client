@@ -101,7 +101,7 @@
                             <AnchorPane>
                                 <children>
                                     <GridPane styleClass="hoverItemMenu" id="inventory" fx:id="inventory"
-                                              onMouseClicked="#loadInventory">
+                                              onMouseClicked="#loadStockMouvement">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                                prefWidth="40.0"/>
@@ -114,7 +114,8 @@
                                         <children>
                                             <MFXFontIcon description="fas-cubes" size="30" color="white"/>
 
-                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Inventaire"
+                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0"
+                                                   text="Mouvement de Stock"
                                                    textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
                                                 <font>
                                                     <Font name="System Bold" size="16.0"/>
@@ -404,7 +405,8 @@
                                         <children>
                                             <MFXFontIcon description="fas-users" size="30" color="white"/>
 
-                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Utilisateurs"
+                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0"
+                                                   text="Utilisateurs"
                                                    textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
                                                 <font>
                                                     <Font name="System Bold" size="16.0"/>

@@ -11,7 +11,7 @@
            xmlns="http://javafx.com/javafx"
            fx:controller="fr.codesbusters.solidstock.controller.adminSettings.AdminSettingsController"
            fx:id="stackPane"
-           stylesheets="@../css/MFXColors.css">
+           stylesheets="@../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <children>
             <AnchorPane id="pane1" maxHeight="100.0" minHeight="100.0" minWidth="400.0" prefHeight="100.0"

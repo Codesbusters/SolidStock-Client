@@ -56,6 +56,7 @@ public class LoginScreen extends Stage {
             LoginController controller = loader.getController();
             controller.setLoginScreen(this);
 
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

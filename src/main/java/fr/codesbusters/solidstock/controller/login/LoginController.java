@@ -28,11 +28,22 @@ public class LoginController extends DefaultController {
     private LoginScreen loginScreen;
 
     @FXML
-    private void initialize() {
+    private void initialize() throws IOException {
+
         stackPane.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 try {
                     handleLoginButtonClick();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        stackPane.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                try {
+                    loginScreen.launchNextScreen();
+                    loginScreen.hideLogin();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
