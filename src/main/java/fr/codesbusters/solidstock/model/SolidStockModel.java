@@ -13,6 +13,8 @@ public class SolidStockModel {
     public static final ObservableList<QuantityTypeModel> quantityType;
     public static final ObservableList<RoleModel> roles;
 
+    public static final ObservableList<CustomerModel> customers;
+
     static {
         products = FXCollections.observableArrayList(
                 ProductModel.ofSplit(1, "Jambon", "Un joli jambon tout droit venu de corse", "Charcuterie", "123456789", 10, 5.00, 10, 0),
@@ -81,6 +83,13 @@ public class SolidStockModel {
                 RoleModel.ofSplit(3, "Gestionnaire", "Peut gérer le stock"),
                 RoleModel.ofSplit(4, "Vendeur", "Peut voir le stock et vendre"),
                 RoleModel.ofSplit(5, "Visiteur", "Peut accéder uniquement au site web")
+        );
+
+        customers = FXCollections.observableArrayList(
+                CustomerModel.ofSplit(1, "LAURENT Michel", 5, "Rue du pont, 69696", false, "", 1, 1, "rib", 1),
+                CustomerModel.ofSplit(2, "CORNADO Thibault", 5, "Rue du pont, 69696", false, "", 1, 1, "rib", 1),
+                CustomerModel.ofSplit(3, "TACOS Renault", 5, "Rue du pont, 69696", false, "", 1, 1, "rib", 1),
+                CustomerModel.ofSplit(4, "DELENNE Xavier", 5, "Rue du pont, 69696", false, "", 1, 1, "rib", 1)
         );
     }
 }
