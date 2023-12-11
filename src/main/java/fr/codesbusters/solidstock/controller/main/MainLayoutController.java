@@ -240,7 +240,7 @@ public class MainLayoutController implements Initializable {
     private void loadCustomers() {
         if (!customers.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
             try {
-                loadPage("customers.fxml");
+                loadPage("customers/index.fxml");
                 resetMenuStyles();
                 customers.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
             } catch (IOException e) {
@@ -278,4 +278,3 @@ public class MainLayoutController implements Initializable {
         users.setStyle("");
     }
 }
-
