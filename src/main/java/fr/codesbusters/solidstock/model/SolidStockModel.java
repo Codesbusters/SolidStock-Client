@@ -11,6 +11,7 @@ public class SolidStockModel {
     public static final ObservableList<SupplierModel> suppliers;
     public static final ObservableList<ProductFamilyModel> productFamily;
     public static final ObservableList<QuantityTypeModel> quantityType;
+    public static final ObservableList<RoleModel> roles;
 
     static {
         products = FXCollections.observableArrayList(
@@ -72,6 +73,14 @@ public class SolidStockModel {
                 QuantityTypeModel.ofSplit(7, "Centimètre", "cm", "Unitée de mesure de longueur"),
                 QuantityTypeModel.ofSplit(8, "Millimètre", "mm", "Unitée de mesure de longueur"),
                 QuantityTypeModel.ofSplit(9, "Kilomètre", "km", "Unitée de mesure de longueur")
+        );
+
+        roles = FXCollections.observableArrayList(
+                RoleModel.ofSplit(1, "Administrateur", "Contrôle tout"),
+                RoleModel.ofSplit(2, "Superviseur", "Peut réaliser toute actions non critiques"),
+                RoleModel.ofSplit(3, "Gestionnaire", "Peut gérer le stock"),
+                RoleModel.ofSplit(4, "Vendeur", "Peut voir le stock et vendre"),
+                RoleModel.ofSplit(5, "Visiteur", "Peut accéder uniquement au site web")
         );
     }
 }

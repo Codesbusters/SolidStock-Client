@@ -2,24 +2,31 @@ package fr.codesbusters.solidstock.business;
 
 import lombok.*;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @ToString
 public class User {
 
     private int id;
 
-    private String name;
+    private String lastName;
+
+    private String firstName;
+
+    private String mail;
+
+    private String mobileNumber;
+
+    private String login;
 
     private int thirdPartyId;
 
     private String password;
 
     private int roleId;
+
+    private String roleName;
 
 }

@@ -1,8 +1,8 @@
 package fr.codesbusters.solidstock.controller.users;
 
 import fr.codesbusters.solidstock.controller.DefaultController;
-import fr.codesbusters.solidstock.model.UsersModel;
 import fr.codesbusters.solidstock.model.SolidStockModel;
+import fr.codesbusters.solidstock.model.UsersModel;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
@@ -27,6 +27,7 @@ public class UsersController extends DefaultController implements Initializable 
 
     @FXML
     private MFXTableView<UsersModel> table;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupTable();
@@ -34,7 +35,9 @@ public class UsersController extends DefaultController implements Initializable 
     }
 
     @FXML
-    public void addUser(){openPopUp("products/addPopup.fxml", stackPane.getScene(),"Ajouter un utilisateur");}
+    public void addUser() {
+        openPopUp("users/addPopup.fxml", stackPane.getScene(), "Ajouter un utilisateur");
+    }
 
     private void setupTable() {
         MFXTableColumn<UsersModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(UsersModel::getID));
@@ -61,7 +64,7 @@ public class UsersController extends DefaultController implements Initializable 
         phoneNumberColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getPhoneNumber));
         userLoginNameColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getUserLoginName));
 
-        table.getTableColumns().addAll(surNameColumn, firstNameColumn, emailColumn, phoneNumberColumn, userLoginNameColumn, roleNameColumn, roleDescriptionColumn);
+        table.getTableColumns().addAll(idColumn, surNameColumn, firstNameColumn, emailColumn, phoneNumberColumn, userLoginNameColumn, roleNameColumn, roleDescriptionColumn);
         table.getFilters().addAll(
                 new StringFilter<>("Nom", UsersModel::getSurName),
                 new StringFilter<>("Prénom", UsersModel::getFirstName),
