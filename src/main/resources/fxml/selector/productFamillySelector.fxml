@@ -18,12 +18,12 @@
                 <children>
                     <VBox spacing="10.0" style="-fx-padding: 20px">
                         <children>
-                            <Label text="Sélctionner un fournisseur">
+                            <Label text="Sélctionner une famille de produit">
                                 <font>
                                     <Font name="System Bold" size="22.0"/>
                                 </font>
                             </Label>
-                            <Label text="Veuillez choisir un fournisseur"/>
+                            <Label text="Veuillez choisir une famille de produit"/>
                         </children>
                         <padding>
                             <Insets left="10.0"/>

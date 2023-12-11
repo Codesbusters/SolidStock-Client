@@ -34,7 +34,7 @@ public class LoginScreen extends Stage {
             scene = new Scene(root);
 
             setMinWidth(400);
-            setMinHeight(400);
+            setMinHeight(600);
 
             MFXThemeManager.addOn(scene, Themes.DEFAULT, Themes.LEGACY);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
@@ -46,6 +46,7 @@ public class LoginScreen extends Stage {
                     ScenicView.show(scene);
                 }
             });
+            setTitle("SolidStock - Connexion");
 
             Image icon = new Image("/img/icon.png");
             getIcons().add(icon);

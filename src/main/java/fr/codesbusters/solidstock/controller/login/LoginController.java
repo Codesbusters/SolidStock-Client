@@ -7,11 +7,16 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.StackPane;
 import lombok.Setter;
 
 import java.io.IOException;
 
 public class LoginController extends DefaultController {
+
+    @FXML
+    private StackPane stackPane;
 
     @FXML
     private MFXTextField username;
@@ -24,7 +29,15 @@ public class LoginController extends DefaultController {
 
     @FXML
     private void initialize() {
-        // Vous pouvez ajouter des initialisations ici si nécessaire
+        stackPane.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                try {
+                    handleLoginButtonClick();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
     @FXML
