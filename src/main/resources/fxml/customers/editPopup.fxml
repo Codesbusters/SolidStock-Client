@@ -39,6 +39,13 @@
                             <children>
                                 <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
                                     <children>
+                                        <MFXTextField floatMode="BORDER" floatingText="Référence"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="customerId" disable="true">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
                                         <MFXTextField floatMode="BORDER" floatingText="Nom du client"
                                                       prefWidth="310"
                                                       maxWidth="310" fx:id="customerName">
