@@ -64,7 +64,7 @@ public class UsersController extends DefaultController implements Initializable 
         phoneNumberColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getPhoneNumber));
         userLoginNameColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getUserLoginName));
 
-        table.getTableColumns().addAll(idColumn, surNameColumn, firstNameColumn, emailColumn, phoneNumberColumn, userLoginNameColumn, roleNameColumn, roleDescriptionColumn);
+        table.getTableColumns().addAll(idColumn, surNameColumn, firstNameColumn, emailColumn, phoneNumberColumn, userLoginNameColumn, roleNameColumn);
         table.getFilters().addAll(
                 new StringFilter<>("Nom", UsersModel::getSurName),
                 new StringFilter<>("Prénom", UsersModel::getFirstName),

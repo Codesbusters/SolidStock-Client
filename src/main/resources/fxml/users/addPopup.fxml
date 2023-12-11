@@ -69,7 +69,7 @@
                                         </MFXTextField>
                                         <MFXTextField floatMode="BORDER" floatingText="Téléphone"
                                                       prefWidth="310"
-                                                      maxWidth="310" fx:id="userMobilePhone">
+                                                      maxWidth="310" fx:id="userMobilePhone" textLimit="10">
                                             <VBox.margin>
                                                 <Insets left="10.0"/>
                                             </VBox.margin>
