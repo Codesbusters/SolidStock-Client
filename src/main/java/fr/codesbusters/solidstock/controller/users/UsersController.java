@@ -1,6 +1,7 @@
 package fr.codesbusters.solidstock.controller.users;
 
-import fr.codesbusters.solidstock.controller.DefaultController;
+import fr.codesbusters.solidstock.business.DialogType;
+import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.model.SolidStockModel;
 import fr.codesbusters.solidstock.model.UsersModel;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
@@ -20,7 +21,7 @@ import java.util.ResourceBundle;
 
 @Slf4j
 @Controller
-public class UsersController extends DefaultController implements Initializable {
+public class UsersController extends DefaultShowController implements Initializable {
 
     @FXML
     private StackPane stackPane;
@@ -37,6 +38,36 @@ public class UsersController extends DefaultController implements Initializable 
     @FXML
     public void addUser() {
         openPopUp("users/addPopup.fxml", stackPane.getScene(), "Ajouter un utilisateur");
+    }
+
+    @FXML
+    public void editUser() {
+        UsersModel user = table.getSelectionModel().getSelectedValue();
+
+        if (user == null) {
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un utilisateur", DialogType.ERROR);
+            return;
+        }
+
+        setId(user.getID());
+
+        openPopUp("users/editPopup.fxml", stackPane.getScene(), "Modification de l'utilisateur");
+
+    }
+
+    @FXML
+    public void showUser() {
+        UsersModel user = table.getSelectionModel().getSelectedValue();
+
+        if (user == null) {
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un utilisateur", DialogType.ERROR);
+            return;
+        }
+
+        setId(user.getID());
+
+        openPopUp("users/showPopup.fxml", stackPane.getScene(), "Détails de l'utilisateur");
+
     }
 
     private void setupTable() {
@@ -64,7 +95,7 @@ public class UsersController extends DefaultController implements Initializable 
         phoneNumberColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getPhoneNumber));
         userLoginNameColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getUserLoginName));
 
-        table.getTableColumns().addAll(idColumn, surNameColumn, firstNameColumn, emailColumn, phoneNumberColumn, userLoginNameColumn, roleNameColumn, roleDescriptionColumn);
+        table.getTableColumns().addAll(idColumn, surNameColumn, firstNameColumn, emailColumn, phoneNumberColumn, userLoginNameColumn, roleNameColumn);
         table.getFilters().addAll(
                 new StringFilter<>("Nom", UsersModel::getSurName),
                 new StringFilter<>("Prénom", UsersModel::getFirstName),

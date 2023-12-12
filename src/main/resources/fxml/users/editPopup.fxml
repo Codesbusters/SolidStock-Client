@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import fr.codesbusters.solidstock.component.SSDoubleField?>
 <?import io.github.palexdev.materialfx.controls.*?>
-<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
-           fx:controller="fr.codesbusters.solidstock.controller.products.ProductEditController" fx:id="stackPane"
+           fx:controller="fr.codesbusters.solidstock.controller.users.UsersEditController" fx:id="stackPane"
            stylesheets="@../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <children>
@@ -21,12 +16,12 @@
                 <children>
                     <VBox spacing="10.0" style="-fx-padding: 20px">
                         <children>
-                            <Label text="Modification du produit">
+                            <Label text="Modification de l'utilisateur">
                                 <font>
                                     <Font name="System Bold" size="22.0"/>
                                 </font>
                             </Label>
-                            <Label text="Voir un produit"/>
+                            <Label text="Voir un utilisateur"/>
                         </children>
                         <padding>
                             <Insets left="10.0"/>
@@ -34,7 +29,6 @@
                     </VBox>
                 </children>
             </AnchorPane>
-
             <AnchorPane id="pane2" minHeight="490.0" minWidth="440.0" prefHeight="130.0" prefWidth="600.0"
                         style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                         VBox.vgrow="ALWAYS">
@@ -42,131 +36,82 @@
                     <children>
                         <HBox alignment="CENTER" spacing="10.0">
                             <children>
-                                <HBox alignment="CENTER" spacing="10.0"
-                                      minWidth="250"
-                                      maxWidth="250"
-                                      HBox.hgrow="ALWAYS">
-                                    <MFXButton
-                                            style="-fx-cursor: hand; -fx-padding: 5; -fx-border-style: none; -fx-border-width: 0; -fx-border-insets: 0;"
-                                            text="" onAction="#imageSelect">
-                                        <graphic>
-                                            <ImageView fx:id="imageView" fitWidth="145.0" fitHeight="145.0"
-                                                       style="-fx-background-radius: 8;" preserveRatio="true">
-                                                <image>
-                                                    <Image url="@../../img/addImage.png"/>
-                                                </image>
-                                            </ImageView>
-                                        </graphic>
-                                    </MFXButton>
-                                </HBox>
-                                <VBox alignment="CENTER_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
+                                <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <MFXTextField floatMode="BORDER" floatingText="Référence" prefWidth="310"
-                                                      maxWidth="310" fx:id="productId" disable="true">
+                                        <MFXTextField floatMode="BORDER" floatingText="ID"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="userId" disable="true">
                                             <VBox.margin>
                                                 <Insets left="10.0"/>
                                             </VBox.margin>
                                         </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Nom du produit" prefWidth="310"
-                                                      maxWidth="310" fx:id="productName">
+                                        <MFXTextField floatMode="BORDER" floatingText="Nom"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="userLastName">
                                             <VBox.margin>
                                                 <Insets left="10.0"/>
                                             </VBox.margin>
                                         </MFXTextField>
-                                        <MFXComboBox floatMode="BORDER" floatingText="Type de quantitée"
+                                        <MFXTextField floatMode="BORDER" floatingText="Prénom"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="userFirstName">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXTextField floatMode="BORDER" floatingText="Nom d'utilisateur"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="userLogin" onMouseClicked="#userLogin">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXTextField floatMode="BORDER" floatingText="Email"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="userMail">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXTextField floatMode="BORDER" floatingText="Téléphone"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="userMobilePhone" textLimit="10">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXPasswordField floatMode="BORDER"
+                                                          floatingText="Mot de passe"
+                                                          prefWidth="310"
+                                                          maxWidth="310" fx:id="userPassword">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXPasswordField>
+                                        <MFXPasswordField floatMode="BORDER" floatingText="Confirmation du mot de passe"
+                                                          prefWidth="310"
+                                                          maxWidth="310" fx:id="userConfirmPassword">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXPasswordField>
+                                        <MFXComboBox floatMode="BORDER" floatingText="Rôle"
                                                      prefWidth="310"
-                                                     maxWidth="310" fx:id="quantityType">
+                                                     maxWidth="310" fx:id="role">
                                             <VBox.margin>
                                                 <Insets left="10.0"/>
                                             </VBox.margin>
                                         </MFXComboBox>
-                                        <HBox VBox.vgrow="ALWAYS" spacing="5">
-                                            <MFXTextField floatMode="BORDER" floatingText="Famille de Produit"
-                                                          prefWidth="310"
-                                                          maxWidth="268" fx:id="productFamilyID" disable="true">
-
-                                            </MFXTextField>
-                                            <MFXButton id="accept" minHeight="27.0" minWidth="38.0" prefWidth="38.0"
-                                                       prefHeight="38" text=""
-                                                       style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
-                                                       buttonType="RAISED" styleClass="mfx-button"
-                                                       HBox.hgrow="ALWAYS" onAction="#selectProductFamily">
-                                                <graphic>
-                                                    <MFXFontIcon description="fas-ellipsis" size="20" color="WHITE"/>
-                                                </graphic>
-                                            </MFXButton>
-                                            <padding>
-                                                <Insets left="10.0"/>
-                                            </padding>
-                                        </HBox>
-                                        <HBox VBox.vgrow="ALWAYS" spacing="5">
-                                            <MFXTextField floatMode="BORDER" floatingText="Fournisseur"
-                                                          prefWidth="310"
-                                                          maxWidth="268" fx:id="supplierID" disable="true">
-
-                                            </MFXTextField>
-                                            <MFXButton id="accept" minHeight="27.0" minWidth="38.0" prefWidth="38.0"
-                                                       prefHeight="38" text=""
-                                                       style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
-                                                       buttonType="RAISED" styleClass="mfx-button"
-                                                       HBox.hgrow="ALWAYS" onAction="#selectSupplier">
-                                                <graphic>
-                                                    <MFXFontIcon description="fas-ellipsis" size="20" color="WHITE"/>
-                                                </graphic>
-                                            </MFXButton>
-                                            <padding>
-                                                <Insets left="10.0"/>
-                                            </padding>
-                                        </HBox>
                                     </children>
                                 </VBox>
                             </children>
                         </HBox>
-
-                        <HBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
-                            <children>
-                                <SSDoubleField floatMode="BORDER" floatingText="Prix d'achat" HBox.hgrow="ALWAYS"
-
-                                               fx:id="buyPrice"
-                                               minWidth="187" maxWidth="187">
-                                    <VBox.margin>
-                                        <Insets left="10.0"/>
-                                    </VBox.margin>
-                                </SSDoubleField>
-                                <SSDoubleField floatMode="BORDER" floatingText="Prix de vente" fx:id="sellPrice"
-
-                                               HBox.hgrow="ALWAYS"
-                                               minWidth="187" maxWidth="187">
-
-                                    <VBox.margin>
-                                        <Insets left="10.0"/>
-                                    </VBox.margin>
-                                </SSDoubleField>
-                                <SSDoubleField floatMode="BORDER" floatingText="Taux de TVA" HBox.hgrow="ALWAYS"
-
-                                               fx:id="vat"
-                                               minWidth="187" maxWidth="187">
-                                    <VBox.margin>
-                                        <Insets left="10.0"/>
-                                    </VBox.margin>
-                                </SSDoubleField>
-                            </children>
-                        </HBox>
-
-                        <VBox spacing="5" VBox.vgrow="ALWAYS">
-                            <Label text="Description :"></Label>
-                            <TextArea maxWidth="585" minWidth="585" minHeight="140" maxHeight="140"
-                                      VBox.vgrow="ALWAYS" fx:id="description"/>
-                        </VBox>
                     </children>
                     <padding>
                         <Insets left="10.0" right="10.0" top="10.0" bottom="10.0"/>
                     </padding>
                 </VBox>
-
-
             </AnchorPane>
-
             <AnchorPane id="pane3" maxHeight="70.0" minHeight="70.0" minWidth="400.0" prefHeight="70.0"
                         prefWidth="600.0"
                         style="-fx-background-color: white; -fx-background-radius: 8;  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
@@ -183,7 +128,7 @@
                                    prefHeight="38" text="Modifier"
                                    style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
                                    buttonType="RAISED" styleClass="mfx-button"
-                                   HBox.hgrow="ALWAYS" onAction="#editProduct"/>
+                                   HBox.hgrow="ALWAYS" onAction="#editUser"/>
                     </children>
                     <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>

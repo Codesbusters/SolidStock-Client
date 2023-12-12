@@ -40,11 +40,16 @@ public class UsersAddController extends DefaultController implements Initializab
     @FXML
     public MFXTextField userMobilePhone;
     @FXML
-    public MFXTextField roleName;
-    @FXML
-    public MFXTextField roleDescriptionTextField;
-    @FXML
     public MFXComboBox<RoleModel> role;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        ObservableList<RoleModel> roles = SolidStockModel.roles;
+
+        role.setItems(roles);
+    }
+
 
     @FXML
     public void userLogin() {
@@ -71,62 +76,84 @@ public class UsersAddController extends DefaultController implements Initializab
         String userMobilePhoneString = userMobilePhone.getText();
         String lastNameString = userLastName.getText();
         String firstNameString = userFirstName.getText();
-        String nameString = roleName.getText();
-        RoleModel selectedItem = role.getSelectionModel().getSelectedItem();
         String roleString = null;
-        String descriptionString = roleDescriptionTextField.getText();
+        RoleModel selectedItem = role.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            roleString = String.valueOf(selectedItem.getID());
+            roleString = selectedItem.getRoleName();
         }
 
         // Vérification du nom
         if (lastNameString.isBlank() || lastNameString.isEmpty()) {
+            log.info("lastNameString : {}", lastNameString);
             openDialog(stackPane.getScene(), "Veuillez renseigner un nom", DialogType.ERROR);
+            return;
+        } else {
+            log.info("lastNameString : {}", lastNameString);
         }
 
         // Vérification du prénom
         if (firstNameString.isBlank() || firstNameString.isEmpty()) {
+            log.info("firstNameString : {}", firstNameString);
             openDialog(stackPane.getScene(), "Veuillez renseigner un prénom", DialogType.ERROR);
+            return;
+        } else {
+            log.info("firstNameString : {}", firstNameString);
         }
 
         // Vérification du login
         if (userLoginString.isBlank() || userLoginString.isEmpty()) {
+            log.info("userLoginString : {}", userLoginString);
             openDialog(stackPane.getScene(), "Veuillez renseigner un identifiant", DialogType.ERROR);
+            return;
+        } else {
+            log.info("userLoginString : {}", userLoginString);
         }
 
         // Vérification du mail
         if (userMailString.isBlank() || userMailString.isEmpty()) {
+            log.info("userMailString : {}", userMailString);
             openDialog(stackPane.getScene(), "Veuillez renseigner un mail", DialogType.ERROR);
-        }
-
-        // Vérification du mot de passe
-        if (userPasswordString.isBlank() || userPasswordString.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner un mot de passe", DialogType.ERROR);
-        }
-
-        // Vérification de la confirmation du mot de passe
-        if (userConfirmPasswordString.isBlank() || userConfirmPasswordString.isEmpty() || !userConfirmPasswordString.equals(userPasswordString)) {
-            openDialog(stackPane.getScene(), "Veuillez confirmer le mot de passe", DialogType.ERROR);
+            return;
+        } else {
+            log.info("userMailString : {}", userMailString);
         }
 
         // Vérification du numéro de téléphone
         if (userMobilePhoneString.isBlank() || userMobilePhoneString.isEmpty()) {
+            log.info("userMobilePhoneString : {}", userMobilePhoneString);
             openDialog(stackPane.getScene(), "Veuillez renseigner un numéro de téléphone", DialogType.ERROR);
+            return;
+        } else {
+            log.info("userMobilePhoneString : {}", userMobilePhoneString);
+        }
+
+        // Vérification du mot de passe
+        if (userPasswordString.isBlank() || userPasswordString.isEmpty()) {
+            log.info("userPasswordString : {}", userPasswordString);
+            openDialog(stackPane.getScene(), "Veuillez renseigner un mot de passe", DialogType.ERROR);
+            return;
+        } else {
+            log.info("userPasswordString : {}", userPasswordString);
+        }
+
+        // Vérification de la confirmation du mot de passe
+        if (userConfirmPasswordString.isBlank() || userConfirmPasswordString.isEmpty()) {
+            log.info("userConfirmPasswordString : {}", userConfirmPasswordString);
+            openDialog(stackPane.getScene(), "Veuillez confirmer le mot de passe", DialogType.ERROR);
+            return;
+        } else if (!userConfirmPasswordString.equals(userPasswordString)) {
+            log.info("userConfirmPasswordString : {}", userConfirmPasswordString);
+            openDialog(stackPane.getScene(), "Les mots de passe ne correspondent pas", DialogType.ERROR);
+            return;
         }
 
         // Vérification du rôle
-        if (nameString.isBlank() || nameString.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner un nom", DialogType.ERROR);
-        }
-
-        // Vérfication du rôle
-        if (roleString == null || roleString.trim().isEmpty()) {
+        if (role.getText().isBlank() || role.getText().isEmpty()) {
+            log.info("roleString : {}", roleString);
             openDialog(stackPane.getScene(), "Veuillez renseigner un rôle", DialogType.ERROR);
-        }
-
-        // Vérification de la description
-        if (descriptionString.isBlank() || descriptionString.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner une description", DialogType.ERROR);
+            return;
+        } else {
+            log.info("roleString : {}", roleString);
         }
 
         // Création de l'objet User
@@ -134,31 +161,22 @@ public class UsersAddController extends DefaultController implements Initializab
         user.setFirstName(firstNameString);
         user.setLastName(lastNameString);
         user.setLogin(userLoginString);
-        assert selectedItem != null;
         user.setRoleId(selectedItem.getID());
         user.setMail(userMailString);
         user.setPassword(userPasswordString);
         user.setMobileNumber(userMobilePhoneString);
         user.setRoleName(roleString);
 
-        log.info("User to add : {}", user);
+        log.info("Utilisateur à ajouter : {}", user);
 
         cancel();
 
-        openDialog(stackPane.getScene(), "Utilisateur " + user.getFirstName() + " " + user.getLastName() + " créer avec succès", DialogType.INFORMATION);
+        openDialog(stackPane.getScene(), "Utilisateur " + user.getLogin() + " créé avec succès", DialogType.INFORMATION);
     }
 
     @FXML
     public void cancel() {
         Stage stage = (Stage) stackPane.getScene().getWindow();
         stage.close();
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        ObservableList<RoleModel> roles = SolidStockModel.roles;
-
-        role.setItems(roles);
     }
 }
