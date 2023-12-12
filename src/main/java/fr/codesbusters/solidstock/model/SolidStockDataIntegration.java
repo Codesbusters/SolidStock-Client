@@ -3,7 +3,7 @@ package fr.codesbusters.solidstock.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class SolidStockModel {
+public class SolidStockDataIntegration {
 
     public static final ObservableList<ProductModel> products;
     public static final ObservableList<String> languages;
@@ -14,6 +14,8 @@ public class SolidStockModel {
     public static final ObservableList<RoleModel> roles;
 
     public static final ObservableList<CustomerModel> customers;
+
+    public static final ObservableList<StockMovementModel> stockMovements;
 
     static {
         products = FXCollections.observableArrayList(
@@ -90,6 +92,15 @@ public class SolidStockModel {
                 CustomerModel.ofSplit(2, "CORNADO Thibault", 5, "Rue du pont, 69696", false, "", 1, 1, "rib", 1),
                 CustomerModel.ofSplit(3, "TACOS Renault", 5, "Rue du pont, 69696", false, "", 1, 1, "rib", 1),
                 CustomerModel.ofSplit(4, "DELENNE Xavier", 5, "Rue du pont, 69696", false, "", 1, 1, "rib", 1)
+        );
+
+        stockMovements = FXCollections.observableArrayList(
+                StockMovementModel.ofSplit(1, 1, "Jambon", "10", "01/01/2020", true),
+                StockMovementModel.ofSplit(2, 2, "Pain", "10", "01/01/2020", true),
+                StockMovementModel.ofSplit(3, 3, "Pain au chocolat", "10", "01/01/2020", false),
+                StockMovementModel.ofSplit(4, 4, "Croissant", "10", "01/01/2020", false),
+                StockMovementModel.ofSplit(5, 5, "Pain aux raisins", "10", "01/01/2020", false),
+                StockMovementModel.ofSplit(6, 6, "Rosette", "10", "01/01/2020", true)
         );
     }
 }

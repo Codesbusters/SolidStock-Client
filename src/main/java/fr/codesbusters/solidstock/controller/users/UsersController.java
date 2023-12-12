@@ -1,7 +1,7 @@
 package fr.codesbusters.solidstock.controller.users;
 
 import fr.codesbusters.solidstock.controller.DefaultController;
-import fr.codesbusters.solidstock.model.SolidStockModel;
+import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
 import fr.codesbusters.solidstock.model.UsersModel;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
@@ -72,6 +72,6 @@ public class UsersController extends DefaultController implements Initializable 
                 new IntegerFilter<>("Id Tiers", UsersModel::getThirdPartyId),
                 new StringFilter<>("Rôle", UsersModel::getRoleName)
         );
-        table.setItems(SolidStockModel.users);
+        table.setItems(SolidStockDataIntegration.users);
     }
 }

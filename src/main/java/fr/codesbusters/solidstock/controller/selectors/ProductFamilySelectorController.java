@@ -4,7 +4,7 @@ import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.listener.ProductFamilySelectorListener;
 import fr.codesbusters.solidstock.model.ProductFamilyModel;
-import fr.codesbusters.solidstock.model.SolidStockModel;
+import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
@@ -58,7 +58,7 @@ public class ProductFamilySelectorController extends DefaultController implement
                 new StringFilter<>("Libelle", ProductFamilyModel::getName),
                 new StringFilter<>("Description", ProductFamilyModel::getDescription)
         );
-        table.setItems(SolidStockModel.productFamily);
+        table.setItems(SolidStockDataIntegration.productFamily);
 
 
     }

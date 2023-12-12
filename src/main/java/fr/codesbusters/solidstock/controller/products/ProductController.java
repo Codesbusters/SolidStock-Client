@@ -3,7 +3,7 @@ package fr.codesbusters.solidstock.controller.products;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.model.ProductModel;
-import fr.codesbusters.solidstock.model.SolidStockModel;
+import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
@@ -80,7 +80,7 @@ public class ProductController extends DefaultShowController implements Initiali
                 new IntegerFilter<>("Nombre en stock", ProductModel::getInStock),
                 new IntegerFilter<>("Nombre vendu", ProductModel::getSelled)
         );
-        table.setItems(SolidStockModel.products);
+        table.setItems(SolidStockDataIntegration.products);
 
 
     }

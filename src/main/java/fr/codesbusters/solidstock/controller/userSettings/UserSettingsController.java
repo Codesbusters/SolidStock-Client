@@ -3,7 +3,7 @@ package fr.codesbusters.solidstock.controller.userSettings;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.business.UserSettings;
 import fr.codesbusters.solidstock.controller.DefaultController;
-import fr.codesbusters.solidstock.model.SolidStockModel;
+import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.ObservableList;
@@ -70,7 +70,7 @@ public class UserSettingsController extends DefaultController implements Initial
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        ObservableList<String> languages = SolidStockModel.languages;
+        ObservableList<String> languages = SolidStockDataIntegration.languages;
 
         langageField.setItems(languages);
 
