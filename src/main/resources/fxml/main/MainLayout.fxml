@@ -241,7 +241,7 @@
                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                                         </rowConstraints>
                                         <children>
-                                            <MFXFontIcon description="fas-users" size="30" color="white"/>
+                                            <MFXFontIcon description="fas-user-group" size="30" color="white"/>
 
                                             <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Clients"
                                                    textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">

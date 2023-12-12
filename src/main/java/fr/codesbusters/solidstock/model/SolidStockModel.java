@@ -16,6 +16,10 @@ public class SolidStockModel {
     public static final ObservableList<CustomerModel> customers;
     public static final ObservableList<ThirdPartyModel> thirdParties;
 
+    public static final ObservableList<OrdersModel> orders;
+
+    public static final ObservableList<EstimateModel> estimates;
+
     static {
         products = FXCollections.observableArrayList(
                 ProductModel.ofSplit(1, "Jambon", "Un joli jambon tout droit venu de corse", "Charcuterie", "123456789", 10, 5.00, 10, 0),
@@ -98,6 +102,22 @@ public class SolidStockModel {
                 ThirdPartyModel.ofSplit(2, "Arthur", "Dupres", "Paris", 75000, "Rue du pont, 69696", 56, "dupres.arthur@test.com", "9876543210"),
                 ThirdPartyModel.ofSplit(3, "Jean", "Deschamps", "Marseille", 13000, "Rue du pont, 69696", 2, "deschamps.jean@test.com", "9753102468"),
                 ThirdPartyModel.ofSplit(4, "Jacques", "Deville", "Grenoble", 38000, "Rue du pont, 69696", 20, "deville.jacques@test.com", "0246897531")
+        );
+
+        orders = FXCollections.observableArrayList(
+                OrdersModel.ofSplit(1, "Commande 1", "Description 1", 1, "LAURENT Michel", "01/01/2021", 1, 1, "En cours"),
+                OrdersModel.ofSplit(2, "Commande 2", "Description 2", 2, "CORNADO Thibault", "01/01/2021", 2, 2, "Refusée"),
+                OrdersModel.ofSplit(3, "Commande 3", "Description 3", 3, "TACOS Renault", "01/01/2021", 3, 3, "En cours"),
+                OrdersModel.ofSplit(4, "Commande 4", "Description 4", 4, "DELENNE Xavier", "01/01/2021", 4, 4, "Validée"),
+                OrdersModel.ofSplit(5, "Commande 5", "Description 5", 1, "LAURENT Michel", "01/01/2021", 5, 5, "Refusée")
+        );
+
+        estimates = FXCollections.observableArrayList(
+                EstimateModel.ofSplit(1, "Devis 1", "Description 1", 1, "LAURENT Michel", "01/01/2021"),
+                EstimateModel.ofSplit(2, "Devis 2", "Description 2", 2, "CORNADO Thibault", "01/01/2021"),
+                EstimateModel.ofSplit(3, "Devis 3", "Description 3", 3, "TACOS Renault", "01/01/2021"),
+                EstimateModel.ofSplit(4, "Devis 4", "Description 4", 4, "DELENNE Xavier", "01/01/2021"),
+                EstimateModel.ofSplit(5, "Devis 5", "Description 5", 1, "LAURENT Michel", "01/01/2021")
         );
     }
 }

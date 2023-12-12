@@ -108,7 +108,7 @@ public class UsersController extends DefaultShowController implements Initializa
         phoneNumberColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getPhoneNumber));
         userLoginNameColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getUserLoginName));
 
-        table.getTableColumns().addAll(idColumn, surNameColumn, firstNameColumn, emailColumn, phoneNumberColumn, userLoginNameColumn, roleNameColumn);
+        table.getTableColumns().addAll(idColumn, surNameColumn, firstNameColumn, userLoginNameColumn, emailColumn, phoneNumberColumn, roleNameColumn);
         table.getFilters().addAll(
                 new StringFilter<>("Nom", UsersModel::getSurName),
                 new StringFilter<>("Prénom", UsersModel::getFirstName),
