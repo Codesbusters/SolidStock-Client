@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.*?>
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
@@ -46,13 +47,27 @@
                                                 <Insets left="10.0"/>
                                             </VBox.margin>
                                         </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Tier"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="customerThirdParty">
-                                            <VBox.margin>
+                                        <HBox VBox.vgrow="ALWAYS" spacing="5" alignment="CENTER">
+                                            <MFXTextField floatMode="BORDER" floatingText="Tier"
+                                                          prefWidth="267"
+                                                          maxWidth="267" fx:id="customerThirdParty" disable="true">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXButton id="accept" minHeight="27.0" minWidth="38.0" prefWidth="38.0"
+                                                       prefHeight="38" text=""
+                                                       style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
+                                                       buttonType="RAISED" styleClass="mfx-button"
+                                                       HBox.hgrow="ALWAYS" onAction="#selectThirdParty">
+                                                <graphic>
+                                                    <MFXFontIcon description="fas-ellipsis" size="20" color="WHITE"/>
+                                                </graphic>
+                                            </MFXButton>
+                                            <padding>
                                                 <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
+                                            </padding>
+                                        </HBox>
                                         <MFXTextField floatMode="BORDER" floatingText="Adresse"
                                                       prefWidth="310"
                                                       maxWidth="310" fx:id="customerAddress">
