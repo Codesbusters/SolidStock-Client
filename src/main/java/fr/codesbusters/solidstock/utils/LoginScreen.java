@@ -55,8 +55,8 @@ public class LoginScreen extends Stage {
 
             LoginController controller = loader.getController();
             controller.setLoginScreen(this);
-
             
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -94,6 +94,18 @@ public class LoginScreen extends Stage {
                 setTitle("SolidStock - " + currentVersion);
                 Image icon = new Image("/img/icon.png");
                 getIcons().add(icon);
+
+                // Définissez la combinaison de touches (Ctrl + <)
+                KeyCombination keyCombination = new KeyCodeCombination(KeyCode.LESS, KeyCombination.CONTROL_DOWN);
+
+                // Ajoutez un gestionnaire d'événements pour la combinaison de touches
+                scene.setOnKeyPressed(event -> {
+                    if (keyCombination.match(event)) {
+                        // Déclenchez ScenicView.show(scene)
+                        ScenicView.show(scene);
+                    }
+                });
+
                 show();
             } catch (IOException e) {
                 throw new RuntimeException(e);
