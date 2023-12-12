@@ -3,6 +3,7 @@ package fr.codesbusters.solidstock.controller.customers;
 import fr.codesbusters.solidstock.business.Customer;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultController;
+import fr.codesbusters.solidstock.listener.ThirdPartySelectorListener;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,7 +18,7 @@ import java.util.ResourceBundle;
 
 @Slf4j
 @Controller
-public class CustomerAddController extends DefaultController implements Initializable {
+public class CustomerAddController extends DefaultController implements Initializable, ThirdPartySelectorListener {
 
 
     @FXML
@@ -128,4 +129,13 @@ public class CustomerAddController extends DefaultController implements Initiali
         stage.close();
     }
 
+    @FXML
+    public void selectThirdParty() {
+        openThirdPartySelector(stackPane.getScene(), this);
+    }
+
+    @Override
+    public void processThirdPartyContent(String thirdPartyContent) {
+        customerThirdParty.setText(thirdPartyContent);
+    }
 }

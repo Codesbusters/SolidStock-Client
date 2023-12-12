@@ -156,6 +156,4 @@ public class CustomerController extends DefaultShowController implements Initial
         }
         openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getName(), DialogType.CONFIRMATION);
     }
-
-
 }

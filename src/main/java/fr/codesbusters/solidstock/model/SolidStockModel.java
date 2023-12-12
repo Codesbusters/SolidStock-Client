@@ -14,7 +14,6 @@ public class SolidStockModel {
     public static final ObservableList<RoleModel> roles;
 
     public static final ObservableList<CustomerModel> customers;
-
     public static final ObservableList<ThirdPartyModel> thirdParties;
 
     static {
