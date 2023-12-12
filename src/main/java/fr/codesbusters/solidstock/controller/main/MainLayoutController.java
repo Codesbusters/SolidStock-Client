@@ -118,10 +118,10 @@ public class MainLayoutController implements Initializable {
     }
 
     @FXML
-    private void loadStockMouvement() {
+    private void loadStockMovement() {
         if (!inventory.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
             try {
-                loadPage("stockMouvement/index.fxml");
+                loadPage("stockMovement/index.fxml");
                 resetMenuStyles();
                 inventory.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
             } catch (IOException e) {

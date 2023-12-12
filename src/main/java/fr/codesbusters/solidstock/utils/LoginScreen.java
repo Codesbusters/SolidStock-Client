@@ -55,7 +55,7 @@ public class LoginScreen extends Stage {
 
             LoginController controller = loader.getController();
             controller.setLoginScreen(this);
-            
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,15 +86,6 @@ public class LoginScreen extends Stage {
                 Scene scene = new Scene(root);
                 MFXThemeManager.addOn(scene, Themes.DEFAULT, Themes.LEGACY);
                 scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
-                setScene(scene);
-                setMinWidth(1266.0);
-                setMinHeight(770.0);
-                setMaximized(true);
-                setResizable(true);
-                setTitle("SolidStock - " + currentVersion);
-                Image icon = new Image("/img/icon.png");
-                getIcons().add(icon);
-
                 // Définissez la combinaison de touches (Ctrl + <)
                 KeyCombination keyCombination = new KeyCodeCombination(KeyCode.LESS, KeyCombination.CONTROL_DOWN);
 
@@ -105,6 +96,15 @@ public class LoginScreen extends Stage {
                         ScenicView.show(scene);
                     }
                 });
+                setScene(scene);
+                setMinWidth(1266.0);
+                setMinHeight(770.0);
+                setMaximized(true);
+                setResizable(true);
+                setTitle("SolidStock - " + currentVersion);
+                Image icon = new Image("/img/icon.png");
+                getIcons().add(icon);
+
 
                 show();
             } catch (IOException e) {

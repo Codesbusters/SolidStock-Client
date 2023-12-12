@@ -101,7 +101,7 @@
                             <AnchorPane>
                                 <children>
                                     <GridPane styleClass="hoverItemMenu" id="inventory" fx:id="inventory"
-                                              onMouseClicked="#loadStockMouvement">
+                                              onMouseClicked="#loadStockMovement">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                                prefWidth="40.0"/>
@@ -114,7 +114,7 @@
                                         <children>
                                             <MFXFontIcon description="fas-cubes" size="30" color="white"/>
 
-                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0"
+                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="190.0"
                                                    text="Mouvement de Stock"
                                                    textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
                                                 <font>
