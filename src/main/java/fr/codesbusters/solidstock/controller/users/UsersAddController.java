@@ -170,8 +170,8 @@ public class UsersAddController extends DefaultController implements Initializab
         log.info("Utilisateur à ajouter : {}", user);
 
         cancel();
-        
-        openDialog(stackPane.getScene(), "Utilisateur " + user.getLogin() + " créer avec succès", DialogType.INFORMATION);
+
+        openDialog(stackPane.getScene(), "Utilisateur " + user.getLogin() + " créé avec succès", DialogType.INFORMATION);
     }
 
     @FXML
