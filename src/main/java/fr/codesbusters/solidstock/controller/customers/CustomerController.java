@@ -47,7 +47,7 @@ public class CustomerController extends DefaultShowController implements Initial
         MFXTableColumn<CustomerModel> nameColumn = new MFXTableColumn<>("Libelle", true, Comparator.comparing(CustomerModel::getName));
         MFXTableColumn<CustomerModel> thirdPartyColumn = new MFXTableColumn<>("Tier", true, Comparator.comparing(CustomerModel::getThirdPartyId));
         MFXTableColumn<CustomerModel> addressColumn = new MFXTableColumn<>("Adresse", true, Comparator.comparing(CustomerModel::getAddress));
-        MFXTableColumn<CustomerModel> corporationColumn = new MFXTableColumn<>("B2B", true, Comparator.comparing(CustomerModel::getCorporation));
+        MFXTableColumn<CustomerModel> corporationColumn = new MFXTableColumn<>("Professionnel", true, Comparator.comparing(CustomerModel::getCorporation));
         MFXTableColumn<CustomerModel> corporationNameColumn = new MFXTableColumn<>("Nom de l'entreprise", true, Comparator.comparing(CustomerModel::getCorporateName));
         MFXTableColumn<CustomerModel> sirenColumn = new MFXTableColumn<>("Siren", true, Comparator.comparing(CustomerModel::getSiren));
         MFXTableColumn<CustomerModel> siretColumn = new MFXTableColumn<>("Siret", true, Comparator.comparing(CustomerModel::getSiret));
