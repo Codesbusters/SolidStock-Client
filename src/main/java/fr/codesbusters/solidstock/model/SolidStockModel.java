@@ -15,6 +15,8 @@ public class SolidStockModel {
 
     public static final ObservableList<CustomerModel> customers;
 
+    public static final ObservableList<ThirdPartyModel> thirdParties;
+
     static {
         products = FXCollections.observableArrayList(
                 ProductModel.ofSplit(1, "Jambon", "Un joli jambon tout droit venu de corse", "Charcuterie", "123456789", 10, 5.00, 10, 0),
@@ -90,6 +92,13 @@ public class SolidStockModel {
                 CustomerModel.ofSplit(2, "CORNADO Thibault", 5, "Rue du pont, 69696", false, "", 1, 1, "rib", 1),
                 CustomerModel.ofSplit(3, "TACOS Renault", 5, "Rue du pont, 69696", false, "", 1, 1, "rib", 1),
                 CustomerModel.ofSplit(4, "DELENNE Xavier", 5, "Rue du pont, 69696", false, "", 1, 1, "rib", 1)
+        );
+
+        thirdParties = FXCollections.observableArrayList(
+                ThirdPartyModel.ofSplit(1, "Robert", "Dupont", "Lyon", 69000, "Rue du pont, 69696", 42, "dupont.robert@test.com", "0123456789"),
+                ThirdPartyModel.ofSplit(2, "Arthur", "Dupres", "Paris", 75000, "Rue du pont, 69696", 56, "dupres.arthur@test.com", "9876543210"),
+                ThirdPartyModel.ofSplit(3, "Jean", "Deschamps", "Marseille", 13000, "Rue du pont, 69696", 2, "deschamps.jean@test.com", "9753102468"),
+                ThirdPartyModel.ofSplit(4, "Jacques", "Deville", "Grenoble", 38000, "Rue du pont, 69696", 20, "deville.jacques@test.com", "0246897531")
         );
     }
 }

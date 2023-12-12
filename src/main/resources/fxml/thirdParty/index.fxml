@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.*?>
 <?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
@@ -8,6 +8,7 @@
 <?import javafx.scene.text.Font?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:id="stackPane"
+           fx:controller="fr.codesbusters.solidstock.controller.thirdParty.ThirdPartyController"
            stylesheets="@../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <children>
@@ -47,7 +48,7 @@
                                                prefHeight="38" text="  VISUALISER"
                                                style="-fx-background-color: #9b9b9b; -fx-background-radius: 4; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
                                                buttonType="RAISED"
-                                               HBox.hgrow="ALWAYS">
+                                               HBox.hgrow="ALWAYS" onAction="#showThirdParty">
                                         <graphic>
                                             <MFXFontIcon description="fas-eye" color="white"/>
                                         </graphic>
@@ -62,16 +63,16 @@
                                     <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
                                                prefHeight="38" text="AJOUTER"
                                                style="-fx-border-color: black; -fx-font-weight: bold;  -fx-border-radius: 4; -fx-cursor: hand;"
-                                               buttonType="RAISED"
+                                               buttonType="RAISED" onAction="#addThirdParty"
                                                styleClass="outline-button" HBox.hgrow="ALWAYS"/>
                                     <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
                                                text="MODIFIER" prefHeight="38"
-                                               buttonType="RAISED"
+                                               buttonType="RAISED" onAction="#editThirdParty"
                                                style="-fx-background-color: #2196F3; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
                                                HBox.hgrow="ALWAYS"/>
                                     <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
                                                text="SUPPRIMER" prefHeight="38"
-                                               buttonType="RAISED"
+                                               buttonType="RAISED" onAction="#removeThirdParty"
                                                style="-fx-background-color: #FF6262; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
                                                HBox.hgrow="ALWAYS"/>
                                 </children>
@@ -83,6 +84,15 @@
                     </HBox>
                 </children>
 
+            </AnchorPane>
+            <AnchorPane id="pane3" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="600.0"
+                        style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                        VBox.vgrow="ALWAYS">
+                <MFXTableView fx:id="table" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="800.0"
+                              GridPane.columnSpan="2147483647" GridPane.rowIndex="2"
+                              AnchorPane.leftAnchor="0.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                              AnchorPane.bottomAnchor="0.0"/>
             </AnchorPane>
         </children>
         <padding>

@@ -70,6 +70,19 @@ public class UsersController extends DefaultShowController implements Initializa
 
     }
 
+    @FXML
+    public void removeUser() {
+        UsersModel user = table.getSelectionModel().getSelectedValue();
+
+        if (user == null) {
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un utilisateur", DialogType.ERROR);
+            return;
+        }
+
+        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer l'utilisateur " + user.getUserLoginName() + " ?", DialogType.CONFIRMATION);
+
+    }
+
     private void setupTable() {
         MFXTableColumn<UsersModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(UsersModel::getID));
         MFXTableColumn<UsersModel> surNameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(UsersModel::getSurName));
