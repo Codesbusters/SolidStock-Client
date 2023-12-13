@@ -48,17 +48,8 @@
                                                 <Insets left="10.0"/>
                                             </VBox.margin>
                                         </MFXTextField>
-                                        <TextArea maxWidth="585" minWidth="585" prefHeight="80" text="Description"
-                                                  VBox.vgrow="ALWAYS" fx:id="description" disable="true"/>
-                                        <MFXTextField floatMode="BORDER" floatingText="Client Id"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="customerId">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
                                         <HBox VBox.vgrow="ALWAYS" spacing="5" alignment="CENTER">
-                                            <MFXTextField floatMode="BORDER" floatingText="Client Nom"
+                                            <MFXTextField floatMode="BORDER" floatingText="Client Id - Nom"
                                                           prefWidth="267"
                                                           maxWidth="267" fx:id="customerName" disable="true">
                                                 <VBox.margin>
@@ -78,7 +69,7 @@
                                                 <Insets left="10.0"/>
                                             </padding>
                                         </HBox>
-                                        <MFXDatePicker floatMode="BORDER" floatingText="Date de commande"
+                                        <MFXDatePicker floatMode="BORDER" floatingText="Date de livraison estimé"
                                                        prefWidth="310"
                                                        maxWidth="310" fx:id="dueDate">
                                             <VBox.margin>
@@ -113,6 +104,8 @@
                                                 <Insets left="10.0"/>
                                             </VBox.margin>
                                         </MFXTextField>
+                                        <TextArea maxWidth="310" minWidth="310" prefHeight="80" text="Description"
+                                                  VBox.vgrow="ALWAYS" fx:id="description"/>
                                     </children>
                                 </VBox>
                             </children>

@@ -24,23 +24,23 @@ import java.util.ResourceBundle;
 public class UsersAddController extends DefaultController implements Initializable {
 
     @FXML
-    public StackPane stackPane;
+    StackPane stackPane;
     @FXML
-    public MFXTextField userFirstName;
+    MFXTextField userFirstName;
     @FXML
-    public MFXTextField userLastName;
+    MFXTextField userLastName;
     @FXML
-    public MFXTextField userLogin;
+    MFXTextField userLogin;
     @FXML
-    public MFXTextField userMail;
+    MFXTextField userMail;
     @FXML
-    public MFXTextField userPassword;
+    MFXTextField userPassword;
     @FXML
-    public MFXTextField userConfirmPassword;
+    MFXTextField userConfirmPassword;
     @FXML
-    public MFXTextField userMobilePhone;
+    MFXTextField userMobilePhone;
     @FXML
-    public MFXComboBox<RoleModel> role;
+    MFXComboBox<RoleModel> role;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

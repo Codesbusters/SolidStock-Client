@@ -9,7 +9,8 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             xmlns="http://javafx.com/javafx"
             prefHeight="400.0" prefWidth="1000.0"
-            fx:controller="fr.codesbusters.solidstock.controller.selectors.CustomerSelectorController">
+            fx:controller="fr.codesbusters.solidstock.controller.selectors.CustomerSelectorController"
+            fx:id="anchorPane">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <children>
             <AnchorPane id="pane1" maxHeight="100.0" minHeight="100.0" minWidth="1000.0" prefHeight="100.0"
@@ -18,7 +19,7 @@
                 <children>
                     <VBox spacing="10.0" style="-fx-padding: 20px">
                         <children>
-                            <Label text="Sélctionner un client">
+                            <Label text="Sélectionner un client">
                                 <font>
                                     <Font name="System Bold" size="22.0"/>
                                 </font>
@@ -47,7 +48,7 @@
                                     <MFXButton id="custom" minHeight="27.0" minWidth="90.0" prefWidth="120.0"
                                                prefHeight="38" text="  VISUALISER"
                                                style="-fx-background-color: #9b9b9b; -fx-background-radius: 4; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
-                                               buttonType="RAISED"
+                                               buttonType="RAISED" onAction="#showCustomer"
                                                HBox.hgrow="ALWAYS">
                                         <graphic>
                                             <MFXFontIcon description="fas-eye" color="white"/>
@@ -63,16 +64,16 @@
                                     <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
                                                prefHeight="38" text="AJOUTER"
                                                style="-fx-border-color: black; -fx-font-weight: bold;  -fx-border-radius: 4; -fx-cursor: hand;"
-                                               buttonType="RAISED"
+                                               buttonType="RAISED" onAction="#addCustomer"
                                                styleClass="outline-button" HBox.hgrow="ALWAYS"/>
                                     <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
                                                text="MODIFIER" prefHeight="38"
-                                               buttonType="RAISED"
+                                               buttonType="RAISED" onAction="#editCustomer"
                                                style="-fx-background-color: #2196F3; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
                                                HBox.hgrow="ALWAYS"/>
                                     <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
                                                text="SUPPRIMER" prefHeight="38"
-                                               buttonType="RAISED"
+                                               buttonType="RAISED" onAction="#deleteCustomer"
                                                style="-fx-background-color: #FF6262; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
                                                HBox.hgrow="ALWAYS"/>
                                 </children>

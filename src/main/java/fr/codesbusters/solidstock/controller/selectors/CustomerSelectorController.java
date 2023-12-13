@@ -1,7 +1,7 @@
 package fr.codesbusters.solidstock.controller.selectors;
 
 import fr.codesbusters.solidstock.business.DialogType;
-import fr.codesbusters.solidstock.controller.DefaultController;
+import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.listener.CustomerSelectorListener;
 import fr.codesbusters.solidstock.model.CustomerModel;
 import fr.codesbusters.solidstock.model.SolidStockModel;
@@ -12,11 +12,19 @@ import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
 
 import java.util.Comparator;
 
-public class CustomerSelectorController extends DefaultController implements Initializable {
+@Slf4j
+@Controller
+public class CustomerSelectorController extends DefaultShowController implements Initializable {
+
+    @FXML
+    AnchorPane anchorPane;
 
     @FXML
     MFXTableView<CustomerModel> table;
@@ -43,16 +51,19 @@ public class CustomerSelectorController extends DefaultController implements Ini
         MFXTableColumn<CustomerModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(CustomerModel::getID));
         MFXTableColumn<CustomerModel> nameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(CustomerModel::getName));
         MFXTableColumn<CustomerModel> addressColumn = new MFXTableColumn<>("Adresse", true, Comparator.comparing(CustomerModel::getAddress));
+        MFXTableColumn<CustomerModel> corporationNameColumn = new MFXTableColumn<>("Entreprise", true, Comparator.comparing(CustomerModel::getCorporateName));
 
-        idColumn.setRowCellFactory(product -> new MFXTableRowCell<>(CustomerModel::getID));
-        nameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(CustomerModel::getName));
-        addressColumn.setRowCellFactory(product -> new MFXTableRowCell<>(CustomerModel::getAddress));
+        idColumn.setRowCellFactory(customer -> new MFXTableRowCell<>(CustomerModel::getID));
+        nameColumn.setRowCellFactory(customer -> new MFXTableRowCell<>(CustomerModel::getName));
+        addressColumn.setRowCellFactory(customer -> new MFXTableRowCell<>(CustomerModel::getAddress));
+        corporationNameColumn.setRowCellFactory(customer -> new MFXTableRowCell<>(CustomerModel::getCorporateName));
 
-        table.getTableColumns().addAll(idColumn, nameColumn, addressColumn);
+        table.getTableColumns().addAll(idColumn, nameColumn, addressColumn, corporationNameColumn);
         table.getFilters().addAll(
                 new StringFilter<>("Réf.", CustomerModel::getName),
                 new StringFilter<>("Libelle", CustomerModel::getName),
-                new StringFilter<>("Adresse", CustomerModel::getAddress)
+                new StringFilter<>("Adresse", CustomerModel::getAddress),
+                new StringFilter<>("Entreprise", CustomerModel::getCorporateName)
         );
         table.setItems(SolidStockModel.customers);
     }
@@ -66,8 +77,9 @@ public class CustomerSelectorController extends DefaultController implements Ini
         // Vérifiez si l'ID est nul
         if (selectedValue != null) {
             String customerId = String.valueOf(selectedValue.getID());
+            String customerName = selectedValue.getName();
             if (listener != null) {
-                listener.processCustomerContent(customerId);
+                listener.processCustomerContent(customerId + " - " + customerName);
             } else {
                 openDialog(table.getScene(), "Une erreur est survenue, veuillez réessayer", DialogType.ERROR);
             }
@@ -77,6 +89,51 @@ public class CustomerSelectorController extends DefaultController implements Ini
         } else {
             openDialog(table.getScene(), "Veuillez sélectionner un client", DialogType.ERROR);
         }
+    }
+
+    @FXML
+    public void addCustomer() {
+        openPopUp("customers/addPopup.fxml", anchorPane.getScene(), "Ajouter un client");
+    }
+
+    @FXML
+    public void showCustomer() {
+        CustomerModel customer = table.getSelectionModel().getSelectedValue();
+
+        if (customer == null) {
+            openDialog(anchorPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR);
+            return;
+        }
+
+        setId(customer.getID());
+
+        openPopUp("customers/showPopup.fxml", anchorPane.getScene(), "Détails du client");
+    }
+
+    @FXML
+    public void editCustomer() {
+        CustomerModel customer = table.getSelectionModel().getSelectedValue();
+
+        if (customer == null) {
+            openDialog(anchorPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR);
+            return;
+        }
+
+        setId(customer.getID());
+
+        openPopUp("customers/editPopup.fxml", anchorPane.getScene(), "Modifier le client");
+    }
+
+    @FXML
+    public void deleteCustomer() {
+        CustomerModel customer = table.getSelectionModel().getSelectedValue();
+
+        if (customer == null) {
+            openDialog(anchorPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR);
+            return;
+        }
+
+        openDialog(anchorPane.getScene(), "Êtes-vous sûr de vouloir supprimer le client " + customer.getName() + " ?", DialogType.CONFIRMATION);
     }
 
     @FXML

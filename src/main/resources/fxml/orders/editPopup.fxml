@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.*?>
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
@@ -38,69 +40,71 @@
                             <children>
                                 <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <MFXTextField floatMode="BORDER" floatingText="Id"
-                                                      prefWidth="310" disable="true"
-                                                      maxWidth="310" fx:id="thirdPartyId">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Nom"
+                                        <MFXTextField floatMode="BORDER" floatingText="Sujet"
                                                       prefWidth="310"
-                                                      maxWidth="310" fx:id="thirdPartyLastName">
+                                                      maxWidth="310" fx:id="subject">
                                             <VBox.margin>
                                                 <Insets left="10.0"/>
                                             </VBox.margin>
                                         </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Prénom"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="thirdPartyFirstName">
+                                        <HBox VBox.vgrow="ALWAYS" spacing="5" alignment="CENTER">
+                                            <MFXTextField floatMode="BORDER" floatingText="Client Id - Nom"
+                                                          prefWidth="267"
+                                                          maxWidth="267" fx:id="customerName" disable="true">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXButton id="accept" minHeight="27.0" minWidth="38.0" prefWidth="38.0"
+                                                       prefHeight="38"
+                                                       style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
+                                                       buttonType="RAISED" styleClass="mfx-button"
+                                                       HBox.hgrow="ALWAYS" onAction="#selectCustomer">
+                                                <graphic>
+                                                    <MFXFontIcon description="fas-ellipsis" size="20" color="WHITE"/>
+                                                </graphic>
+                                            </MFXButton>
+                                            <padding>
+                                                <Insets left="10.0"/>
+                                            </padding>
+                                        </HBox>
+                                        <MFXDatePicker floatMode="BORDER" floatingText="Date de livraison estimé"
+                                                       prefWidth="310"
+                                                       maxWidth="310" fx:id="dueDate">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXDatePicker>
+                                        <HBox VBox.vgrow="ALWAYS" spacing="5" alignment="CENTER">
+                                            <MFXTextField floatMode="BORDER" floatingText="Numéro de devis"
+                                                          prefWidth="267" disable="true"
+                                                          maxWidth="267" fx:id="estimateId">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXButton id="accept" minHeight="27.0" minWidth="38.0" prefWidth="38.0"
+                                                       prefHeight="38"
+                                                       style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
+                                                       buttonType="RAISED" styleClass="mfx-button"
+                                                       HBox.hgrow="ALWAYS" onAction="#selectEstimate">
+                                                <graphic>
+                                                    <MFXFontIcon description="fas-ellipsis" size="20" color="WHITE"/>
+                                                </graphic>
+                                            </MFXButton>
+                                            <padding>
+                                                <Insets left="10.0"/>
+                                            </padding>
+                                        </HBox>
+                                        <MFXTextField floatMode="BORDER" floatingText="Statut"
+                                                      prefWidth="310" disable="true" text="En cours"
+                                                      maxWidth="310" fx:id="statusName">
                                             <VBox.margin>
                                                 <Insets left="10.0"/>
                                             </VBox.margin>
                                         </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Ville"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="thirdPartyCity">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Code postal"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="thirdPartyZipCode" textLimit="5">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Adresse"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="thirdPartyAddress">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Numéro de rue"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="thirdPartyStreetNumber">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Email"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="thirdPartyEmail">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Téléphone"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="thirdPartyMobilePhone" textLimit="10">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
+                                        <TextArea maxWidth="310" minWidth="310" prefHeight="80" text="Description"
+                                                  VBox.vgrow="ALWAYS" fx:id="description"/>
                                     </children>
                                 </VBox>
                             </children>
@@ -127,7 +131,7 @@
                                    prefHeight="38" text="Modifier"
                                    style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
                                    buttonType="RAISED" styleClass="mfx-button"
-                                   HBox.hgrow="ALWAYS" onAction="#editThirdParty"/>
+                                   HBox.hgrow="ALWAYS" onAction="#editOrder"/>
                     </children>
                     <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>

@@ -2,7 +2,7 @@ package fr.codesbusters.solidstock.controller.orders;
 
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.business.OrderForm;
-import fr.codesbusters.solidstock.controller.DefaultShowController;
+import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.listener.CustomerSelectorListener;
 import fr.codesbusters.solidstock.listener.EstimateSelectorListener;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -20,48 +20,36 @@ import java.io.UnsupportedEncodingException;
 
 @Slf4j
 @Controller
-public class OrdersAddController extends DefaultShowController implements Initializable {
+public class OrdersAddController extends DefaultController implements Initializable, CustomerSelectorListener, EstimateSelectorListener {
 
     @FXML
-    public StackPane stackPane;
+    StackPane stackPane;
     @FXML
-    public MFXTextField subject;
+    MFXTextField subject;
     @FXML
-    public TextArea description;
+    TextArea description;
     @FXML
-    public MFXTextField customerId;
+    MFXTextField customerId;
     @FXML
-    public MFXTextField customerName;
+    MFXTextField customerName;
     @FXML
-    public MFXTextField dueDate;
+    MFXTextField dueDate;
     @FXML
-    public MFXTextField estimateId;
+    MFXTextField estimateId;
     @FXML
-    public MFXTextField statusId;
-    @FXML
-    public MFXTextField statusName;
+    MFXTextField statusName;
 
     @FXML
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        customerId.setText(String.valueOf(getId()));
-        estimateId.setText(String.valueOf(getId()));
     }
 
-    @FXML
-    public void cancel() {
-        Stage stage = (Stage) stackPane.getScene().getWindow();
-        stage.close();
-    }
 
     @FXML
     public void addOrders() throws NumberFormatException, UnsupportedEncodingException {
         String subjectString = subject.getText();
         String descriptionString = description.getText();
-        int customerIdInteger = Integer.parseInt(customerId.getText());
         String customerNameString = customerName.getText();
         DateTime dueDateString = DateTime.parse(dueDate.getText());
-        int estimateIdInteger = Integer.parseInt(estimateId.getText());
-        int statusIdIntegrr = Integer.parseInt(statusId.getText());
         String statusNameString = statusName.getText();
 
         // Vérification du sujet
@@ -113,11 +101,8 @@ public class OrdersAddController extends DefaultShowController implements Initia
         OrderForm order = new OrderForm();
         order.setSubject(subjectString);
         order.setDescription(descriptionString);
-        order.setCustomerId(customerIdInteger);
         order.setCustomerName(customerNameString);
         order.setDueDate(dueDateString);
-        order.setEstimateId(estimateIdInteger);
-        order.setStatusId(statusIdIntegrr);
         order.setStatusName(statusNameString);
 
         log.info("Order to add : {}", order);
@@ -128,35 +113,28 @@ public class OrdersAddController extends DefaultShowController implements Initia
     }
 
     @FXML
-    public void selectCustomer() {
-        openCustomerSelector(stackPane.getScene(), new CustomerSelectorListener() {
-            @Override
-            public void processCustomerContent(String customerContent) {
-                log.info("Customer content : {}", customerContent);
-            }
+    public void cancel() {
+        Stage stage = (Stage) stackPane.getScene().getWindow();
+        stage.close();
+    }
 
-            @Override
-            public void onCustomerSelected(int customerId, String customerName) {
-                OrdersAddController.this.customerId.setText(String.valueOf(customerId));
-                OrdersAddController.this.customerName.setText(customerName);
-            }
-        });
+    @FXML
+    public void selectCustomer() {
+        openCustomerSelector(stackPane.getScene(), this);
+    }
+
+    @FXML
+    public void processCustomerContent(String customerContent) {
+        customerName.setText(customerContent);
     }
 
     @FXML
     public void selectEstimate() {
-        openEstimateSelector(stackPane.getScene(), new EstimateSelectorListener() {
-            @Override
-            public void processEstimateContent(String estimateContent) {
-                log.info("Estimate content : {}", estimateContent);
-            }
-
-            @Override
-            public void onEstimateSelected(int estimateId, String estimateName) {
-                OrdersAddController.this.estimateId.setText(String.valueOf(estimateId));
-                OrdersAddController.this.subject.setText(subject.getText());
-            }
-        });
+        openEstimateSelector(stackPane.getScene(), this);
     }
 
+    @FXML
+    public void processEstimateContent(String estimateContent) {
+        estimateId.setText(estimateContent);
+    }
 }

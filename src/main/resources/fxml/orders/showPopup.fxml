@@ -89,7 +89,7 @@
                                                 <Insets left="10.0"/>
                                             </VBox.margin>
                                         </MFXTextField>
-                                        <TextArea maxWidth="585" minWidth="585" prefHeight="80" text="Description"
+                                        <TextArea maxWidth="310" minWidth="310" prefHeight="80" text="Description"
                                                   VBox.vgrow="ALWAYS" fx:id="description" disable="true"/>
                                     </children>
                                 </VBox>

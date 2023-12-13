@@ -1,7 +1,7 @@
 package fr.codesbusters.solidstock.controller.selectors;
 
 import fr.codesbusters.solidstock.business.DialogType;
-import fr.codesbusters.solidstock.controller.DefaultController;
+import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.listener.EstimateSelectorListener;
 import fr.codesbusters.solidstock.model.EstimateModel;
 import fr.codesbusters.solidstock.model.SolidStockModel;
@@ -13,12 +13,19 @@ import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
 
 import java.util.Comparator;
 
-public class EstimateSelectorController extends DefaultController implements Initializable {
+@Slf4j
+@Controller
+public class EstimateSelectorController extends DefaultShowController implements Initializable {
 
+    @FXML
+    AnchorPane anchorPane;
     @FXML
     MFXTableView<EstimateModel> table;
 

@@ -20,23 +20,23 @@ public class OrdersShowController extends DefaultShowController implements Initi
 
 
     @FXML
-    public StackPane stackPane;
+    StackPane stackPane;
     @FXML
-    public MFXTextField subject;
+    MFXTextField subject;
     @FXML
-    public TextArea description;
+    TextArea description;
     @FXML
-    public MFXTextField customerId;
+    MFXTextField customerId;
     @FXML
-    public MFXTextField customerName;
+    MFXTextField customerName;
     @FXML
-    public MFXDatePicker dueDate;
+    MFXDatePicker dueDate;
     @FXML
-    public MFXTextField estimateId;
+    MFXTextField estimateId;
     @FXML
-    public MFXTextField statusId;
+    MFXTextField statusId;
     @FXML
-    public MFXTextField statusName;
+    MFXTextField statusName;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

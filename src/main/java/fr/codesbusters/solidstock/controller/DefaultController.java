@@ -179,7 +179,7 @@ public class DefaultController {
 
             Stage popupStage = new Stage();
             popupStage.setResizable(false);
-            popupStage.setTitle("Sélectionner un client");
+            popupStage.setTitle("Sélectionner un");
             Image icon = new Image("/img/icon.png");
             popupStage.getIcons().add(icon);
 
