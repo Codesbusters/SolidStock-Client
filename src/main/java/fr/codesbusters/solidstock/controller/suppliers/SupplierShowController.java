@@ -1,4 +1,4 @@
-package fr.codesbusters.solidstock.controller.customers;
+package fr.codesbusters.solidstock.controller.suppliers;
 
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -14,34 +14,20 @@ import java.util.ResourceBundle;
 
 @Slf4j
 @Controller
-public class CustomerShowController extends DefaultShowController implements Initializable {
-
+public class SupplierShowController extends DefaultShowController implements Initializable {
 
     @FXML
     public StackPane stackPane;
     @FXML
-    public MFXTextField customerId;
+    public MFXTextField supplierId;
     @FXML
-    public MFXTextField customerName;
+    public MFXTextField supplierName;
     @FXML
-    public MFXTextField customerThirdParty;
-    @FXML
-    public MFXTextField customerAddress;
-    @FXML
-    public MFXTextField customerCorporateName;
-    @FXML
-    public MFXTextField customerSiren;
-    @FXML
-    public MFXTextField customerSiret;
-    @FXML
-    public MFXTextField customerRib;
-
-    @FXML
-    public MFXTextField customerRcs;
+    public MFXTextField supplierAddress;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        customerId.setText(String.valueOf(getId()));
+        supplierId.setText(String.valueOf(getId()));
     }
 
     @FXML

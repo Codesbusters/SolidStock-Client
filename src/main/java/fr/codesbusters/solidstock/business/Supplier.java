@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 
 @Getter
 @Setter
@@ -18,10 +16,6 @@ public class Supplier {
 
     private String name;
 
-    private String thirdPartyId;
-
-
-
-
+    private String address;
 
 }

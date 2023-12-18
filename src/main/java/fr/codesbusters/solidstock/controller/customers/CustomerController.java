@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 @Slf4j
 @Controller
 public class CustomerController extends DefaultShowController implements Initializable {
+
     @FXML
     private StackPane stackPane;
 
