@@ -22,7 +22,7 @@
                                     <Font name="System Bold" size="22.0"/>
                                 </font>
                             </Label>
-                            <Label text="Enregistrer un nouveau un fournisseur"/>
+                            <Label text="Enregistrer un nouveau fournisseur"/>
                         </children>
                         <padding>
                             <Insets left="10.0"/>

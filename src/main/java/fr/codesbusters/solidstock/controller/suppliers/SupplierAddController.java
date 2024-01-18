@@ -57,7 +57,7 @@ public class SupplierAddController extends DefaultController implements Initiali
 
         cancel();
 
-        openDialog(stackPane.getScene(), "Fournisseur " + supplier.getName() + " créer avec succès", DialogType.INFORMATION);
+        openDialog(stackPane.getScene(), "Fournisseur " + supplier.getName() + " créé avec succès", DialogType.INFORMATION);
     }
 
     @FXML
