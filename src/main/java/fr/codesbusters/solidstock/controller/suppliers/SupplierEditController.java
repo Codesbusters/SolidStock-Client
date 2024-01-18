@@ -63,7 +63,7 @@ public class SupplierEditController extends DefaultShowController implements Ini
         supplier.setName(nameString);
         supplier.setAddress(addressString);
 
-        log.info("Supplier to add : {}", supplier);
+        log.info("Supplier to edit : {}", supplier);
 
         cancel();
 
