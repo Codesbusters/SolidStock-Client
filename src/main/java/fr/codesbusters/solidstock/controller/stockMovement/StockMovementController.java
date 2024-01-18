@@ -88,5 +88,7 @@ public class StockMovementController extends DefaultShowController implements In
 
     }
 
-
+    public void openDeliveryPopup() {
+        openPopUp("stockMovement/deliveryPopup.fxml", stackPane.getScene(), "Nouvelle livraison");
+    }
 }
