@@ -17,7 +17,7 @@ public class Supplier {
 
     private String address;
 
-    private String aditionnalAddress;
+    private String additionnalAddress;
 
     private String zipCode;
 
@@ -30,7 +30,5 @@ public class Supplier {
     private String email;
 
     private String website;
-
-    private ThirdParty[] thirdParty;
 
 }

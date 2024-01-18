@@ -58,10 +58,10 @@ public class SolidStockModel {
         );
 
         suppliers = FXCollections.observableArrayList(
-                SupplierModel.ofSplit(1, "Jean Lain", "12 rue Patrice le BG - 73000 Chambéry "),
-                SupplierModel.ofSplit(2, "Jean Michel", "12 rue Patrice le BG - 73000 Chambéry "),
-                SupplierModel.ofSplit(3, "Jean Claude", "12 rue Patrice le BG - 73000 Chambéry "),
-                SupplierModel.ofSplit(4, "Jean Pierre", "12 rue Patrice le BG - 73000 Chambéry ")
+                SupplierModel.ofSplit(1, "Jean Lain", "12 rue Patrice le BG - 73000 Chambéry ", "Batîment B", "69696", "Lille", "0606060606", "ggg@ggg", "monsitede***", "country"),
+                SupplierModel.ofSplit(2, "Jean Michel", "12 rue Patrice le BG - 73000 Chambéry ", "Batîment B", "69696", "Lille", "0606060606", "ggg@ggg", "monsitede***", "country"),
+                SupplierModel.ofSplit(3, "Jean Claude", "12 rue Patrice le BG - 73000 Chambéry ", "Batîment B", "69696", "Lille", "0606060606", "ggg@ggg", "monsitede***", "country"),
+                SupplierModel.ofSplit(4, "Jean Pierre", "12 rue Patrice le BG - 73000 Chambéry ", "Batîment B", "69696", "Lille", "0606060606", "ggg@ggg", "monsitede***", "country")
         );
 
         productFamily = FXCollections.observableArrayList(

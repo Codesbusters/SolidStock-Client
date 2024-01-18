@@ -24,6 +24,26 @@ public class SupplierShowController extends DefaultShowController implements Ini
     public MFXTextField supplierName;
     @FXML
     public MFXTextField supplierAddress;
+    @FXML
+    public MFXTextField supplierAdditionalAddress;
+
+    @FXML
+    public MFXTextField supplierZipCode;
+
+    @FXML
+    public MFXTextField supplierCity;
+
+    @FXML
+    public MFXTextField supplierPhone;
+
+    @FXML
+    public MFXTextField supplierEmail;
+
+    @FXML
+    public MFXTextField supplierWebsite;
+
+    @FXML
+    public MFXTextField supplierCountry;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

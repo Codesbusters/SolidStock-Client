@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
@@ -50,6 +49,55 @@
                                         <MFXTextField floatMode="BORDER" floatingText="Adresse"
                                                       prefWidth="310"
                                                       maxWidth="310" fx:id="supplierAddress">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXTextField floatMode="BORDER" floatingText="Complément d'adresse"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="supplierAdditionalAddress">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXTextField floatMode="BORDER" floatingText="Code postal"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="supplierZipCode">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXTextField floatMode="BORDER" floatingText="Ville"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="supplierCity">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXTextField floatMode="BORDER" floatingText="Pays"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="supplierCountry">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXTextField floatMode="BORDER" floatingText="Téléphone"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="supplierPhone">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXTextField floatMode="BORDER" floatingText="Adresse mail"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="supplierEmail">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXTextField floatMode="BORDER" floatingText="Site web"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="supplierWebsite">
                                             <VBox.margin>
                                                 <Insets left="10.0"/>
                                             </VBox.margin>

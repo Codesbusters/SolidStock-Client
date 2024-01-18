@@ -30,7 +30,7 @@
                 </children>
             </AnchorPane>
 
-            <AnchorPane id="pane2" minHeight="440.0" minWidth="440.0" prefHeight="130.0" prefWidth="600.0"
+            <AnchorPane id="pane2" minHeight="500.0" minWidth="440.0" prefHeight="130.0" prefWidth="600.0"
                         style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                         VBox.vgrow="ALWAYS">
                 <VBox alignment="CENTER" VBox.vgrow="ALWAYS" spacing="20.0" minWidth="600" maxWidth="600">
@@ -56,6 +56,55 @@
                                         <MFXTextField floatMode="BORDER" floatingText="Adresse"
                                                       prefWidth="310"
                                                       maxWidth="310" fx:id="supplierAddress">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXTextField floatMode="BORDER" floatingText="Complément d'adresse"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="supplierAdditionalAddress">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXTextField floatMode="BORDER" floatingText="Code postal"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="supplierZipCode">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXTextField floatMode="BORDER" floatingText="Ville"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="supplierCity">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXTextField floatMode="BORDER" floatingText="Pays"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="supplierCountry">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXTextField floatMode="BORDER" floatingText="Téléphone"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="supplierPhone">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXTextField floatMode="BORDER" floatingText="Adresse mail"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="supplierEmail">
+                                            <VBox.margin>
+                                                <Insets left="10.0"/>
+                                            </VBox.margin>
+                                        </MFXTextField>
+                                        <MFXTextField floatMode="BORDER" floatingText="Site web"
+                                                      prefWidth="310"
+                                                      maxWidth="310" fx:id="supplierWebsite">
                                             <VBox.margin>
                                                 <Insets left="10.0"/>
                                             </VBox.margin>

@@ -28,6 +28,30 @@ public class SupplierEditController extends DefaultShowController implements Ini
     @FXML
     public MFXTextField supplierAddress;
 
+    @FXML
+    public MFXTextField supplierAdditionalAddress;
+
+    @FXML
+    public MFXTextField supplierZipCode;
+
+    @FXML
+    public MFXTextField supplierCity;
+
+    @FXML
+    public MFXTextField supplierPhone;
+
+    @FXML
+    public MFXTextField supplierEmail;
+
+    @FXML
+    public MFXTextField supplierWebsite;
+
+    @FXML
+    public MFXTextField supplierThirdParty;
+
+    @FXML
+    public MFXTextField supplierCountry;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         supplierId.setText(String.valueOf(getId()));
@@ -44,6 +68,13 @@ public class SupplierEditController extends DefaultShowController implements Ini
         int idInteger = Integer.parseInt(supplierId.getText());
         String nameString = supplierName.getText();
         String addressString = supplierAddress.getText();
+        String additionalAddressString = supplierAdditionalAddress.getText();
+        String zipCodeString = supplierZipCode.getText();
+        String cityString = supplierCity.getText();
+        String countryString = supplierCountry.getText();
+        String phoneString = supplierPhone.getText();
+        String emailString = supplierEmail.getText();
+        String webSiteString = supplierWebsite.getText();
 
         // Vérification du nom du fournisseur
         if (nameString.isBlank()) {
@@ -57,11 +88,60 @@ public class SupplierEditController extends DefaultShowController implements Ini
             return;
         }
 
+        // Vérification du complément d'adresse
+        if (additionalAddressString.isBlank()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner les informations complémentaires", DialogType.ERROR);
+            return;
+        }
+
+        // Vérification du code postal
+        if (zipCodeString.isBlank()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner le code postal du fournisseur", DialogType.ERROR);
+            return;
+        }
+
+        // Vérification de la ville
+        if (cityString.isBlank()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner la ville du fournisseur", DialogType.ERROR);
+            return;
+        }
+
+        // Vérification du pays
+        if (countryString.isBlank()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner le pays du fournisseur", DialogType.ERROR);
+            return;
+        }
+
+        // Vérification du téléphone
+        if (phoneString.isBlank()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de téléphone du fournisseur", DialogType.ERROR);
+            return;
+        }
+
+        // Vérification de l'email
+        if (emailString.isBlank()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse mail du fournisseur", DialogType.ERROR);
+            return;
+        }
+
+        // Vérification du site web
+        if (webSiteString.isBlank()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner le site web du fournisseur", DialogType.ERROR);
+            return;
+        }
+
         // Création de l'objet Supplier
         Supplier supplier = new Supplier();
         supplier.setId(idInteger);
         supplier.setName(nameString);
         supplier.setAddress(addressString);
+        supplier.setAdditionnalAddress(additionalAddressString);
+        supplier.setZipCode(zipCodeString);
+        supplier.setCity(cityString);
+        supplier.setCountry(countryString);
+        supplier.setPhone(phoneString);
+        supplier.setEmail(emailString);
+        supplier.setWebsite(webSiteString);
 
         log.info("Supplier to edit : {}", supplier);
 
