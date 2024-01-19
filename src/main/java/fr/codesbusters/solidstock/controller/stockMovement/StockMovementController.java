@@ -13,6 +13,8 @@ import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 import java.util.Comparator;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 @Slf4j
@@ -45,6 +48,7 @@ public class StockMovementController extends DefaultShowController implements In
         MFXTableColumn<StockMovementModel> productNameColumn = new MFXTableColumn<>("Nom Produit", true, Comparator.comparing(StockMovementModel::getProductName));
         MFXTableColumn<StockMovementModel> quantityColumn = new MFXTableColumn<>("Quantité", true, Comparator.comparing(StockMovementModel::getQuantite));
         MFXTableColumn<StockMovementModel> dateActionColumn = new MFXTableColumn<>("Date", true, Comparator.comparing(StockMovementModel::getDateAction));
+        MFXTableColumn<StockMovementModel> motifColumn = new MFXTableColumn<>("Motif", true, Comparator.comparing(StockMovementModel::getMotif));
         icon.setRowCellFactory(stockMovementModel -> new MFXTableRowCell<>(StockMovementModel::getInOut) {{
             MFXFontIcon iconPlus = new MFXFontIcon("fas-plus");
             iconPlus.setColor(Color.rgb(0, 255, 0));
@@ -71,16 +75,18 @@ public class StockMovementController extends DefaultShowController implements In
         dateActionColumn.setRowCellFactory(stockMovementModel -> new MFXTableRowCell<>(StockMovementModel::getDateAction) {{
             setAlignment(Pos.CENTER_RIGHT);
         }});
+        motifColumn.setRowCellFactory(stockMovementModel -> new MFXTableRowCell<>(StockMovementModel::getMotif));
 
 
-        table.getTableColumns().addAll(icon, idColumn, refProductColumn, productNameColumn, quantityColumn, dateActionColumn);
+        table.getTableColumns().addAll(icon, idColumn, refProductColumn, productNameColumn, quantityColumn, dateActionColumn, motifColumn);
         table.getFilters().addAll(
                 new IntegerFilter<>("Réf.", StockMovementModel::getID),
                 new IntegerFilter<>("Réf. Produit", StockMovementModel::getRefProfuct),
                 new StringFilter<>("Nom Produit", StockMovementModel::getProductName),
                 new StringFilter<>("Quantité", StockMovementModel::getQuantite),
                 new StringFilter<>("Date", StockMovementModel::getDateAction),
-                new BooleanFilter<>("Type", StockMovementModel::getInOut)
+                new BooleanFilter<>("Type", StockMovementModel::getInOut),
+                new StringFilter<>("Motif", StockMovementModel::getMotif)
 
         );
         table.setItems(SolidStockDataIntegration.stockMovements);
@@ -88,6 +94,19 @@ public class StockMovementController extends DefaultShowController implements In
 
     }
 
+    @FXML
+    public void openConfirmRemove() {
+
+        //get the row selected
+        Optional<ButtonType> result = openDialog(stackPane.getScene(), "Êtes-vous sûr de vouloir annuler le mouvement de stock n° " + table.getSelectionModel().getSelectedValue().getID() + " ?", Alert.AlertType.CONFIRMATION);
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Set the movement on canceled
+        }
+
+    }
+
+    @FXML
     public void openDeliveryPopup() {
         openPopUp("stockMovement/deliveryPopup.fxml", stackPane.getScene(), "Nouvelle livraison");
     }

@@ -4,25 +4,27 @@ import javafx.beans.property.*;
 
 public class StockMovementModel {
 
-    
+
     private final IntegerProperty id = new SimpleIntegerProperty();
     private final IntegerProperty refProfuct = new SimpleIntegerProperty();
     private final StringProperty productName = new SimpleStringProperty("");
     private final StringProperty quantite = new SimpleStringProperty("");
     private final StringProperty dateAction = new SimpleStringProperty("");
     private final BooleanProperty inOut = new SimpleBooleanProperty();
+    private final StringProperty motif = new SimpleStringProperty("");
 
-    public StockMovementModel(int id, int refProfuct, String productName, String quantite, String dateAction, boolean inOut) {
+    public StockMovementModel(int id, int refProfuct, String productName, String quantite, String dateAction, boolean inOut, String motif) {
         setID(id);
         setRefProfuct(refProfuct);
         setProductName(productName);
         setQuantite(quantite);
         setDateAction(dateAction);
         setInOut(inOut);
+        setMotif(motif);
     }
 
-    public static StockMovementModel ofSplit(int id, int refProfuct, String productName, String quantite, String dateAction, boolean inOut) {
-        return new StockMovementModel(id, refProfuct, productName, quantite, dateAction, inOut);
+    public static StockMovementModel ofSplit(int id, int refProfuct, String productName, String quantite, String dateAction, boolean inOut, String motif) {
+        return new StockMovementModel(id, refProfuct, productName, quantite, dateAction, inOut, motif);
     }
 
     public int getID() {
@@ -96,6 +98,18 @@ public class StockMovementModel {
 
     public BooleanProperty inOutProperty() {
         return inOut;
+    }
+
+    public String getMotif() {
+        return motif.get();
+    }
+
+    public void setMotif(String motif) {
+        this.motif.set(motif);
+    }
+
+    public StringProperty motifProperty() {
+        return motif;
     }
 
 }

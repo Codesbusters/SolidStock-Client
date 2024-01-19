@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -22,6 +23,7 @@ import org.scenicview.ScenicView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 public class DefaultController {
 
@@ -30,7 +32,7 @@ public class DefaultController {
     private MFXStageDialog dialog;
 
 
-    public void openDialog(Scene scene, String message, Alert.AlertType dialogType) {
+    public Optional<ButtonType> openDialog(Scene scene, String message, Alert.AlertType dialogType) {
         Alert alert = new Alert(dialogType);
         if (dialogType == Alert.AlertType.ERROR)
             alert.setTitle("Erreur");
@@ -46,7 +48,7 @@ public class DefaultController {
         alert.setAlertType(dialogType);
         alert.setHeaderText(null);
         alert.initOwner(scene.getWindow());
-        alert.showAndWait();
+        return alert.showAndWait();
     }
 
     public void openPopUp(String fxmlPath, Scene scene, String title) {

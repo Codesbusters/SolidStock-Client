@@ -95,12 +95,12 @@ public class SolidStockDataIntegration {
         );
 
         stockMovements = FXCollections.observableArrayList(
-                StockMovementModel.ofSplit(1, 1, "Jambon", "10", "01/01/2020", true),
-                StockMovementModel.ofSplit(2, 2, "Pain", "10", "01/01/2020", true),
-                StockMovementModel.ofSplit(3, 3, "Pain au chocolat", "10", "01/01/2020", false),
-                StockMovementModel.ofSplit(4, 4, "Croissant", "10", "01/01/2020", false),
-                StockMovementModel.ofSplit(5, 5, "Pain aux raisins", "10", "01/01/2020", false),
-                StockMovementModel.ofSplit(6, 6, "Rosette", "10", "01/01/2020", true)
+                StockMovementModel.ofSplit(1, 1, "Jambon", "10", "01/01/2020", true, "Livraison Fournisseur"),
+                StockMovementModel.ofSplit(2, 2, "Pain", "10", "01/01/2020", true, "Livraison Fournisseur"),
+                StockMovementModel.ofSplit(3, 3, "Pain au chocolat", "10", "01/01/2020", false, "Vente Directe"),
+                StockMovementModel.ofSplit(4, 4, "Croissant", "10", "01/01/2020", false, "Péremption"),
+                StockMovementModel.ofSplit(5, 5, "Pain aux raisins", "10", "01/01/2020", false, "Casse"),
+                StockMovementModel.ofSplit(6, 6, "Rosette", "10", "01/01/2020", true, "Livraison Fournisseur")
         );
     }
 }

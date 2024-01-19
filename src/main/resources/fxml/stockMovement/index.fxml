@@ -48,7 +48,7 @@
                                                prefHeight="38" text="ANNULER LE MOUVEMENT"
                                                style="-fx-background-color: #9b9b9b; -fx-background-radius: 4; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
                                                buttonType="RAISED"
-                                               HBox.hgrow="ALWAYS">
+                                               HBox.hgrow="ALWAYS" onAction="#openConfirmRemove">
 
                                     </MFXButton>
                                 </children>
