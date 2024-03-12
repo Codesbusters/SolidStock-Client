@@ -1,6 +1,7 @@
 package fr.codesbusters.solidstock.controller.adminSettings;
 
 import fr.codesbusters.solidstock.business.AdminSettings;
+
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultController;
 import io.github.palexdev.materialfx.controls.MFXTextField;

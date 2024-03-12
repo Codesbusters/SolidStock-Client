@@ -1,5 +1,6 @@
 package fr.codesbusters.solidstock.controller.products;
 
+
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.business.Product;
 import fr.codesbusters.solidstock.component.SSDoubleField;
@@ -94,6 +95,8 @@ public class ProductAddController extends DefaultController implements Initializ
 
         // Vérification du nom du produit
         if (nameString.isBlank()) {
+            System.out.println(com.sun.javafx.runtime.VersionInfo.getRuntimeVersion());
+
             openDialog(stackPane.getScene(), "Veuillez renseigner le nom du produit", DialogType.ERROR);
             return;
         }

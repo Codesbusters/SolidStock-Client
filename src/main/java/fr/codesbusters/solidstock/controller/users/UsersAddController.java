@@ -1,5 +1,6 @@
 package fr.codesbusters.solidstock.controller.users;
 
+
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.business.User;
 import fr.codesbusters.solidstock.controller.DefaultController;

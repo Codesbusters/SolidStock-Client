@@ -1,12 +1,15 @@
 package fr.codesbusters.solidstock.controller.customers;
 
 import fr.codesbusters.solidstock.business.Customer;
+
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.listener.ThirdPartySelectorListener;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;

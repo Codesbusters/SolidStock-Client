@@ -1,5 +1,6 @@
 package fr.codesbusters.solidstock.controller.products;
 
+
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.business.Product;
 import fr.codesbusters.solidstock.component.SSDoubleField;

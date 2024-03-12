@@ -44,7 +44,7 @@ public class DashboardController implements Initializable {
         series.getData().add(new XYChart.Data<>("07/2023", 0));
 
         // Ajout de la série au BarChart
-        barChart.getData().add(series);
+       // barChart.getData().add(series);
 
         // Optionnel : Configuration des axes et du titre
         barXAxis.setLabel("Mois");

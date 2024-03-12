@@ -1,5 +1,6 @@
 package fr.codesbusters.solidstock.controller;
 
+
 import fr.codesbusters.solidstock.controller.selectors.*;
 import fr.codesbusters.solidstock.listener.*;
 import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
@@ -7,13 +8,20 @@ import io.github.palexdev.materialfx.css.themes.Themes;
 import io.github.palexdev.materialfx.dialogs.MFXGenericDialog;
 import io.github.palexdev.materialfx.dialogs.MFXStageDialog;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.scenicview.ScenicView;
@@ -27,25 +35,82 @@ public class DefaultController {
 
     private MFXStageDialog dialog;
 
-
     public void openDialog(Scene scene, String message, Alert.AlertType dialogType) {
-        Alert alert = new Alert(dialogType);
-        if (dialogType == Alert.AlertType.ERROR)
-            alert.setTitle("Erreur");
-        else if (dialogType == Alert.AlertType.INFORMATION)
-            alert.setTitle("Information");
-        else if (dialogType == Alert.AlertType.WARNING)
-            alert.setTitle("Attention");
-        else if (dialogType == Alert.AlertType.CONFIRMATION)
-            alert.setTitle("Confirmation");
-        else
-            alert.setTitle("Alerte");
-        alert.setContentText(message);
-        alert.setAlertType(dialogType);
-        alert.setHeaderText(null);
-        alert.initOwner(scene.getWindow());
-        alert.showAndWait();
+        Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        if (dialogType == Alert.AlertType.ERROR) {
+            dialog.setTitle("Erreur");
+        } else if (dialogType == Alert.AlertType.WARNING) {
+            dialog.setTitle("Attention");
+        } else if (dialogType == Alert.AlertType.INFORMATION) {
+            dialog.setTitle("Information");
+        } else if (dialogType == Alert.AlertType.CONFIRMATION) {
+            dialog.setTitle("Confirmation");
+        }
+
+        dialog.initOwner(scene.getWindow());
+        dialog.setResizable(false);
+
+        Label label = new Label(message);
+        Button okButton = new Button("Ok");
+        okButton.setOnAction(e -> dialog.close());
+
+        okButton.setStyle(" -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 5px;");
+
+        if (dialogType == Alert.AlertType.INFORMATION) {
+            okButton.setStyle(okButton.getStyle() + "-fx-background-color: #3f84ff; -fx-text-fill: #ffffff;");
+        }
+        if (dialogType == Alert.AlertType.ERROR) {
+            okButton.setStyle(okButton.getStyle() + "-fx-background-color: #ff4242; -fx-text-fill: #ffffff;");
+        }
+        if (dialogType == Alert.AlertType.WARNING) {
+            okButton.setStyle(okButton.getStyle() + "-fx-background-color: #ffab41; -fx-text-fill: #ffffff;");
+        }
+        if (dialogType == Alert.AlertType.CONFIRMATION) {
+            okButton.setStyle(okButton.getStyle() + "-fx-background-color: #5dff5d; -fx-text-fill: #ffffff;");
+        }
+        okButton.setStyle(okButton.getStyle() + "");
+        //if Confirmation display Cancel button and when clic stop code in the calling method
+        if (dialogType == Alert.AlertType.CONFIRMATION) {
+            Button cancelButton = new Button("Annuler");
+            cancelButton.setOnAction(e -> dialog.close());
+            cancelButton.setStyle("-fx-background-color: #656565; -fx-text-fill: #ffffff; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 5px;");
+
+            cancelButton.setTranslateX(10);
+            HBox hBox = new HBox();
+            hBox.setAlignment(Pos.CENTER_RIGHT);
+            hBox.getChildren().addAll(okButton, cancelButton);
+            hBox.setPadding(new Insets(0, 20, 20, 0));
+            VBox vBox = new VBox(10);
+            vBox.getChildren().add(label);
+            vBox.setAlignment(Pos.CENTER_LEFT);
+            vBox.setPadding(new Insets(20, 20, 20, 20));
+            VBox dialogVBox = new VBox();
+            dialogVBox.getChildren().addAll(vBox, hBox);
+            Scene dialogScene = new Scene(dialogVBox);
+            dialog.setScene(dialogScene);
+            dialog.showAndWait();
+        } else {
+            VBox vBox = new VBox(10);
+            vBox.getChildren().add(label);
+            vBox.setAlignment(Pos.CENTER_LEFT);
+            vBox.setPadding(new Insets(20, 20, 20, 20));
+            HBox hBox = new HBox();
+            hBox.setAlignment(Pos.CENTER_RIGHT);
+            hBox.getChildren().add(okButton);
+            hBox.setPadding(new Insets(0, 20, 20, 0));
+            VBox dialogVBox = new VBox();
+            dialogVBox.getChildren().addAll(vBox, hBox);
+            Scene dialogScene = new Scene(dialogVBox);
+            dialog.setScene(dialogScene);
+            dialog.show();
+        }
     }
+
+
+
+
+
 
     public void openPopUp(String fxmlPath, Scene scene, String title) {
         try {
@@ -272,8 +337,10 @@ public class DefaultController {
             popupStage.setScene(newScene);
             popupStage.showAndWait();
 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }

@@ -1,5 +1,6 @@
 package fr.codesbusters.solidstock.controller.thirdParty;
 
+
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.model.SolidStockModel;
