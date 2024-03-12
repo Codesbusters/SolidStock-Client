@@ -97,7 +97,7 @@ public class ThirdPartyController extends DefaultShowController implements Initi
         ThirdPartyModel thirdParties = table.getSelectionModel().getSelectedValue();
 
         if (thirdParties == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un tiers", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un tiers", DialogType.ERROR, 0);
             return;
         }
 
@@ -112,7 +112,7 @@ public class ThirdPartyController extends DefaultShowController implements Initi
         ThirdPartyModel thirdParties = table.getSelectionModel().getSelectedValue();
 
         if (thirdParties == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un tiers", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un tiers", DialogType.ERROR, 0);
             return;
         }
 
@@ -127,11 +127,11 @@ public class ThirdPartyController extends DefaultShowController implements Initi
         ThirdPartyModel thirdParties = table.getSelectionModel().getSelectedValue();
 
         if (thirdParties == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un tiers", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un tiers", DialogType.ERROR, 0);
             return;
         }
 
-        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le tiers " + thirdParties.getLastName() + " " + thirdParties.getFirstName() + " ?", DialogType.CONFIRMATION);
+        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le tiers " + thirdParties.getLastName() + " " + thirdParties.getFirstName() + " ?", DialogType.CONFIRMATION, 0);
 
     }
 
@@ -142,10 +142,10 @@ public class ThirdPartyController extends DefaultShowController implements Initi
         ThirdPartyModel thirdParties = table.getSelectionModel().getSelectedValue();
 
         if (thirdParties == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un tiers", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un tiers", DialogType.ERROR, 0);
             return;
         }
-        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getLastName(), DialogType.CONFIRMATION);
+        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getLastName(), DialogType.CONFIRMATION, 0);
     }
 
 

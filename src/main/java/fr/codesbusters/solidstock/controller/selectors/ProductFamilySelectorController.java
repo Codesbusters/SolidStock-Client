@@ -76,13 +76,13 @@ public class ProductFamilySelectorController extends DefaultController implement
             if (listener != null) {
                 listener.processProductFamilyContent(productFamilyId);
             } else {
-                openDialog(table.getScene(), "Une erreur est survenue, veuillez réessayer.", DialogType.ERROR);
+                openDialog(table.getScene(), "Une erreur est survenue, veuillez réessayer.", DialogType.ERROR, 0);
             }
 
             // Fermez la fenêtre pop-up
             parentStage.close();
         } else {
-            openDialog(table.getScene(), "Veuillez séléctionner une famille de produit", DialogType.ERROR);
+            openDialog(table.getScene(), "Veuillez séléctionner une famille de produit", DialogType.ERROR, 0);
         }
     }
 

@@ -58,49 +58,49 @@ public class ThirdPartyAddController extends DefaultController implements Initia
 
         // Vérification du nom du tiers
         if (FirstNameString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le prénom", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le prénom", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du tiers
         if (LastNameString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le nom", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le nom", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification de l'adresse
         if (addressString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse'", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse'", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification de la ville
         if (cityNameString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner la ville", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner la ville", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du code postal
         if (zipCodeString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le code postal", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le code postal", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du numéro de rue
         if (streetNumberString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de rue", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de rue", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification de l'email
         if (emailString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner l'email", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner l'email", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du numéro de téléphone
         if (mobilePhoneString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de téléphone", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de téléphone", DialogType.ERROR, 0);
             return;
         }
 
@@ -119,7 +119,7 @@ public class ThirdPartyAddController extends DefaultController implements Initia
 
         cancel();
 
-        openDialog(stackPane.getScene(), "Tiers " + thirdParty.getLastName() + " " + thirdParty.getFirstName() + " créé avec succès", DialogType.INFORMATION);
+        openDialog(stackPane.getScene(), "Tiers " + thirdParty.getLastName() + " " + thirdParty.getFirstName() + " créé avec succès", DialogType.INFORMATION, 0);
     }
 
     @FXML

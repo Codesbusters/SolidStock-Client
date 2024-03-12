@@ -97,7 +97,7 @@ public class SupplierController extends DefaultShowController implements Initial
         SupplierModel supplier = table.getSelectionModel().getSelectedValue();
 
         if (supplier == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR, 0);
             return;
         }
 
@@ -111,7 +111,7 @@ public class SupplierController extends DefaultShowController implements Initial
         SupplierModel supplier = table.getSelectionModel().getSelectedValue();
 
         if (supplier == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR, 0);
             return;
         }
 
@@ -126,11 +126,11 @@ public class SupplierController extends DefaultShowController implements Initial
         SupplierModel supplier = table.getSelectionModel().getSelectedValue();
 
         if (supplier == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR, 0);
             return;
         }
 
-        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le fournisseur " + supplier.getName() + " ?", DialogType.CONFIRMATION);
+        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le fournisseur " + supplier.getName() + " ?", DialogType.CONFIRMATION, 0);
 
     }
 
@@ -140,9 +140,9 @@ public class SupplierController extends DefaultShowController implements Initial
         SupplierModel supplier = table.getSelectionModel().getSelectedValue();
 
         if (supplier == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR, 0);
             return;
         }
-        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getName(), DialogType.CONFIRMATION);
+        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getName(), DialogType.CONFIRMATION, 0);
     }
 }

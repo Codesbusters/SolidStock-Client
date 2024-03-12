@@ -86,13 +86,13 @@ public class EstimateSelectorController extends DefaultShowController implements
             if (listener != null) {
                 listener.processEstimateContent(estimateId);
             } else {
-                openDialog(table.getScene(), "Une erreur est survenue, veuillez réessayer", DialogType.ERROR);
+                openDialog(table.getScene(), "Une erreur est survenue, veuillez réessayer", DialogType.ERROR, 0);
             }
 
             // Fermez la fenêtre pop-up
             parentStage.close();
         } else {
-            openDialog(table.getScene(), "Veuillez sélectionner un devis", DialogType.ERROR);
+            openDialog(table.getScene(), "Veuillez sélectionner un devis", DialogType.ERROR, 0);
         }
     }
 

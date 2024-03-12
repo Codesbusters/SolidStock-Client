@@ -64,7 +64,7 @@ public class LoginController extends DefaultController {
             loginScreen.launchNextScreen();
             loginScreen.hideLogin();
         } else {
-            openDialog(username.getScene(), "Le nom d'utilisateur ou le mot de passe est incorrect. Veuillez réessayer.", DialogType.ERROR);
+            openDialog(username.getScene(), "Le nom d'utilisateur ou le mot de passe est incorrect. Veuillez réessayer.", DialogType.ERROR, 0);
         }
     }
 

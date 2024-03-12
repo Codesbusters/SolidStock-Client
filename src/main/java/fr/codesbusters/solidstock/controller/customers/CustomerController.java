@@ -108,7 +108,7 @@ public class CustomerController extends DefaultShowController implements Initial
         CustomerModel customer = table.getSelectionModel().getSelectedValue();
 
         if (customer == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR, 0);
             return;
         }
 
@@ -123,7 +123,7 @@ public class CustomerController extends DefaultShowController implements Initial
         CustomerModel customer = table.getSelectionModel().getSelectedValue();
 
         if (customer == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR, 0);
             return;
         }
 
@@ -138,11 +138,11 @@ public class CustomerController extends DefaultShowController implements Initial
         CustomerModel customer = table.getSelectionModel().getSelectedValue();
 
         if (customer == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR, 0);
             return;
         }
 
-        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le client " + customer.getName() + " ?", DialogType.CONFIRMATION);
+        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le client " + customer.getName() + " ?", DialogType.CONFIRMATION, 0);
 
     }
 
@@ -153,9 +153,9 @@ public class CustomerController extends DefaultShowController implements Initial
         CustomerModel customer = table.getSelectionModel().getSelectedValue();
 
         if (customer == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR, 0);
             return;
         }
-        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getName(), DialogType.CONFIRMATION);
+        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getName(), DialogType.CONFIRMATION, 0);
     }
 }

@@ -110,7 +110,7 @@ public class OrdersAddController extends DefaultController implements Initializa
 
         cancel();
 
-        openDialog(stackPane.getScene(), "Commande " + order.getSubject() + " créée avec succès", DialogType.INFORMATION);
+        openDialog(stackPane.getScene(), "Commande " + order.getSubject() + " créée avec succès", DialogType.INFORMATION, 0);
     }
 
     @FXML

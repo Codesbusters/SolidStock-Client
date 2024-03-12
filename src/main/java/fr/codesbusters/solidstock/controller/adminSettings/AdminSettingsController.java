@@ -34,7 +34,7 @@ public class AdminSettingsController extends DefaultController implements Initia
     @FXML
     public void saveSettings() {
         if (urlApi.getText().isEmpty() || urlWeb.getText().isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez remplir tous les champs...", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez remplir tous les champs...", DialogType.ERROR, 0);
             return;
         }
 

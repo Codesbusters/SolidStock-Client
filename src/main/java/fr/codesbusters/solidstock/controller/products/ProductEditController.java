@@ -106,26 +106,26 @@ public class ProductEditController extends DefaultShowController implements Init
 
         // Vérification du nom du produit
         if (nameString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le nom du produit", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le nom du produit", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification de la famille de produit
         if (productFamily.isBlank() || !productFamily.matches("\\d+")) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner une famille de produit", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner une famille de produit", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du fournisseur
         if (supplierIdString.isBlank() || !supplierIdString.matches("\\d+")) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner un fournisseur valide", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner un fournisseur valide", DialogType.ERROR, 0);
             return;
         }
 
 
         // Vérification du type de quantité
         if (quantityTypeString == null || quantityTypeString.trim().isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner un type de quantité", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner un type de quantité", DialogType.ERROR, 0);
             return;
         }
 
@@ -148,7 +148,7 @@ public class ProductEditController extends DefaultShowController implements Init
 
         cancel();
 
-        openDialog(stackPane.getScene(), "Produit " + product.getName() + " modifié avec succès", DialogType.INFORMATION);
+        openDialog(stackPane.getScene(), "Produit " + product.getName() + " modifié avec succès", DialogType.INFORMATION, 0);
     }
 
     private String validateImage() {
@@ -159,7 +159,7 @@ public class ProductEditController extends DefaultShowController implements Init
             File imageFile = new File(imageUrl);
             if (!imageFile.getPath().endsWith("\\img\\addImage.png")) {
                 if (!imageFile.exists()) {
-                    openDialog(stackPane.getScene(), "Veuillez renseigner une image valide", DialogType.ERROR);
+                    openDialog(stackPane.getScene(), "Veuillez renseigner une image valide", DialogType.ERROR, 0);
                 } else {
                     imageBase64 = Base64Converter.convertImageToBase64(imageFile);
                 }
@@ -168,7 +168,7 @@ public class ProductEditController extends DefaultShowController implements Init
             }
         } catch (Exception e) {
             log.error("Error decoding image URL", e);
-            openDialog(stackPane.getScene(), "Erreur lors de la récupération de l'image", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Erreur lors de la récupération de l'image", DialogType.ERROR, 0);
         }
 
         return imageBase64;

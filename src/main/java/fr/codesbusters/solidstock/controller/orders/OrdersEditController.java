@@ -60,27 +60,27 @@ public class OrdersEditController extends DefaultController implements Initializ
 
         // Vérification du sujet
         if (subjectString.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez saisir un sujet", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez saisir un sujet", DialogType.ERROR, 0);
         }
 
         // Vérification de la description
         if (descriptionString.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez saisir une description", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez saisir une description", DialogType.ERROR, 0);
         }
 
         // Vérification du nom du client
         if (customerNameString.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez saisir un nom de client", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez saisir un nom de client", DialogType.ERROR, 0);
         }
 
         // Vérification de la date d'échéance
         if (dueDadescriptionring.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez saisir une date d'échéance", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez saisir une date d'échéance", DialogType.ERROR, 0);
         }
 
         // Vérification du nom du statut
         if (statusNameString.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez saisir un nom de statut", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez saisir un nom de statut", DialogType.ERROR, 0);
         }
 
         // Modification de l'objet Orders
@@ -100,7 +100,7 @@ public class OrdersEditController extends DefaultController implements Initializ
 
         cancel();
 
-        openDialog(stackPane.getScene(), "Commande " + ordersModel.getSubject() + " modifiée avec succès", DialogType.INFORMATION);
+        openDialog(stackPane.getScene(), "Commande " + ordersModel.getSubject() + " modifiée avec succès", DialogType.INFORMATION, 0);
     }
 
     @FXML

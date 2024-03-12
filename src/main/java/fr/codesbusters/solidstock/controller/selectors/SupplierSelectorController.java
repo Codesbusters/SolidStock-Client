@@ -76,13 +76,13 @@ public class SupplierSelectorController extends DefaultController implements Ini
             if (listener != null) {
                 listener.processSupplierContent(supplierId);
             } else {
-                openDialog(table.getScene(), "Une erreur est survenue, veuillez réessayer.", DialogType.ERROR);
+                openDialog(table.getScene(), "Une erreur est survenue, veuillez réessayer.", DialogType.ERROR, 0);
             }
 
             // Fermez la fenêtre pop-up
             parentStage.close();
         } else {
-            openDialog(table.getScene(), "Veuillez séléctionner un fournisseur", DialogType.ERROR);
+            openDialog(table.getScene(), "Veuillez séléctionner un fournisseur", DialogType.ERROR, 0);
         }
     }
 

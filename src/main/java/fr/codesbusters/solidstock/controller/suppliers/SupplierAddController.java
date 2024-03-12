@@ -66,43 +66,43 @@ public class SupplierAddController extends DefaultController implements Initiali
 
         // Vérification du nom du fournisseur
         if (nameString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le nom du fournisseur", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le nom du fournisseur", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification de l'adresse
         if (addressString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse du fournisseur", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse du fournisseur", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du code postal
         if (zipCodeString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le code postal du fournisseur", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le code postal du fournisseur", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification de la ville
         if (cityString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner la ville du fournisseur", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner la ville du fournisseur", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du pays
         if (countryString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le pays du fournisseur", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le pays du fournisseur", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du téléphone
         if (phoneString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de téléphone du fournisseur", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de téléphone du fournisseur", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification de l'email
         if (emailString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse mail du fournisseur", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse mail du fournisseur", DialogType.ERROR, 0);
             return;
         }
 
@@ -122,7 +122,7 @@ public class SupplierAddController extends DefaultController implements Initiali
 
         cancel();
 
-        openDialog(stackPane.getScene(), "Fournisseur " + supplier.getName() + " créé avec succès", DialogType.INFORMATION);
+        openDialog(stackPane.getScene(), "Fournisseur " + supplier.getName() + " créé avec succès", DialogType.INFORMATION, 0);
     }
 
     @FXML

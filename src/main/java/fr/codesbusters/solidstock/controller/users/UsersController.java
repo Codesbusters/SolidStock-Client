@@ -46,7 +46,7 @@ public class UsersController extends DefaultShowController implements Initializa
         UsersModel user = table.getSelectionModel().getSelectedValue();
 
         if (user == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un utilisateur", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un utilisateur", DialogType.ERROR, 0);
             return;
         }
 
@@ -61,7 +61,7 @@ public class UsersController extends DefaultShowController implements Initializa
         UsersModel user = table.getSelectionModel().getSelectedValue();
 
         if (user == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un utilisateur", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un utilisateur", DialogType.ERROR, 0);
             return;
         }
 
@@ -76,11 +76,11 @@ public class UsersController extends DefaultShowController implements Initializa
         UsersModel user = table.getSelectionModel().getSelectedValue();
 
         if (user == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un utilisateur", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un utilisateur", DialogType.ERROR, 0);
             return;
         }
 
-        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer l'utilisateur " + user.getUserLoginName() + " ?", DialogType.CONFIRMATION);
+        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer l'utilisateur " + user.getUserLoginName() + " ?", DialogType.CONFIRMATION, 0);
 
     }
 

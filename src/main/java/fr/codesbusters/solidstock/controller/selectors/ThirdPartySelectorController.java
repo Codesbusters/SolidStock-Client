@@ -92,13 +92,13 @@ public class ThirdPartySelectorController extends DefaultShowController implemen
             if (listener != null) {
                 listener.processThirdPartyContent(thirdPartyId);
             } else {
-                openDialog(table.getScene(), "Une erreur est survenue, veuillez réessayer.", DialogType.ERROR);
+                openDialog(table.getScene(), "Une erreur est survenue, veuillez réessayer.", DialogType.ERROR, 0);
             }
 
             // Fermez la fenêtre pop-up
             parentStage.close();
         } else {
-            openDialog(table.getScene(), "Veuillez séléctionner un tier", DialogType.ERROR);
+            openDialog(table.getScene(), "Veuillez séléctionner un tier", DialogType.ERROR, 0);
         }
     }
 
@@ -117,7 +117,7 @@ public class ThirdPartySelectorController extends DefaultShowController implemen
         ThirdPartyModel thirdParties = table.getSelectionModel().getSelectedValue();
 
         if (thirdParties == null) {
-            openDialog(anchorPane.getScene(), "Veuillez sélectionner un tiers", DialogType.ERROR);
+            openDialog(anchorPane.getScene(), "Veuillez sélectionner un tiers", DialogType.ERROR, 0);
             return;
         }
 
@@ -132,7 +132,7 @@ public class ThirdPartySelectorController extends DefaultShowController implemen
         ThirdPartyModel thirdParties = table.getSelectionModel().getSelectedValue();
 
         if (thirdParties == null) {
-            openDialog(anchorPane.getScene(), "Veuillez sélectionner un tiers", DialogType.ERROR);
+            openDialog(anchorPane.getScene(), "Veuillez sélectionner un tiers", DialogType.ERROR, 0);
             return;
         }
 
@@ -147,11 +147,11 @@ public class ThirdPartySelectorController extends DefaultShowController implemen
         ThirdPartyModel thirdParties = table.getSelectionModel().getSelectedValue();
 
         if (thirdParties == null) {
-            openDialog(anchorPane.getScene(), "Veuillez sélectionner un tiers", DialogType.ERROR);
+            openDialog(anchorPane.getScene(), "Veuillez sélectionner un tiers", DialogType.ERROR, 0);
             return;
         }
 
-        openDialog(anchorPane.getScene(), "Voulez-vous vraiment supprimer le tiers " + thirdParties.getLastName() + " " + thirdParties.getFirstName() + " ?", DialogType.CONFIRMATION);
+        openDialog(anchorPane.getScene(), "Voulez-vous vraiment supprimer le tiers " + thirdParties.getLastName() + " " + thirdParties.getFirstName() + " ?", DialogType.CONFIRMATION, 0);
 
     }
 }

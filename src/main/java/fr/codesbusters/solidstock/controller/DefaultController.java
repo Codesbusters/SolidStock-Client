@@ -35,7 +35,7 @@ public class DefaultController {
 
     private MFXStageDialog dialog;
 
-    public void openDialog(Scene scene, String message, Alert.AlertType dialogType) {
+    public void openDialog(Scene scene, String message, Alert.AlertType dialogType, int width) {
         Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         if (dialogType == Alert.AlertType.ERROR) {
@@ -47,11 +47,23 @@ public class DefaultController {
         } else if (dialogType == Alert.AlertType.CONFIRMATION) {
             dialog.setTitle("Confirmation");
         }
+        dialog.getIcons().add(new Image("/img/icon.png"));
+        if (width == 0) {
+            width = 600;
+        }
+
+        dialog.setMinWidth(width);
+        dialog.setWidth(width);
+
 
         dialog.initOwner(scene.getWindow());
         dialog.setResizable(false);
-
+        //label break line if message is too long
         Label label = new Label(message);
+        label.setWrapText(true);
+
+        label.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+
         Button okButton = new Button("Ok");
         okButton.setOnAction(e -> dialog.close());
 

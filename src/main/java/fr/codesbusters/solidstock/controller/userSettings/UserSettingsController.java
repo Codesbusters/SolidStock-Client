@@ -52,7 +52,7 @@ public class UserSettingsController extends DefaultController implements Initial
 
     public void saveAction() {
         if (firstNameField.getText().isEmpty() || lastNameField.getText().isEmpty() || emailField.getText().isEmpty() || passwordField.getText().isEmpty() || confirmPasswordField.getText().isEmpty() || langageField.getText().isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez remplir tous les champs", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez remplir tous les champs", DialogType.ERROR, 0);
             return;
         }
         if (passwordField.getText().equals(confirmPasswordField.getText())) {
@@ -64,7 +64,7 @@ public class UserSettingsController extends DefaultController implements Initial
             userSettings.setLangage(langageField.getText());
             log.info(userSettings.toString());
         } else {
-            openDialog(stackPane.getScene(), "Les mots de passe ne correspondent pas", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Les mots de passe ne correspondent pas", DialogType.ERROR, 0);
         }
     }
 

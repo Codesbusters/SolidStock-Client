@@ -86,7 +86,7 @@ public class OrdersController extends DefaultShowController implements Initializ
         OrdersModel product = table.getSelectionModel().getSelectedValue();
 
         if (product == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner une commande", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner une commande", DialogType.ERROR, 0);
             return;
         }
 
@@ -101,7 +101,7 @@ public class OrdersController extends DefaultShowController implements Initializ
         OrdersModel product = table.getSelectionModel().getSelectedValue();
 
         if (product == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner une commande", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner une commande", DialogType.ERROR, 0);
             return;
         }
 
@@ -116,11 +116,11 @@ public class OrdersController extends DefaultShowController implements Initializ
         OrdersModel product = table.getSelectionModel().getSelectedValue();
 
         if (product == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner une commande", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner une commande", DialogType.ERROR, 0);
             return;
         }
 
-        openDialog(stackPane.getScene(), "Voulez-vous vraiment annuler la commande n° " + orders.getFirst().getID() + " du client " + orders.getFirst().getCustomerName() + " ?", DialogType.CONFIRMATION);
+        openDialog(stackPane.getScene(), "Voulez-vous vraiment annuler la commande n° " + orders.getFirst().getID() + " du client " + orders.getFirst().getCustomerName() + " ?", DialogType.CONFIRMATION, 0);
 
     }
 }

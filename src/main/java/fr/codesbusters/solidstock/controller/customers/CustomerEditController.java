@@ -69,49 +69,49 @@ public class CustomerEditController extends DefaultShowController implements Ini
 
         // Vérification du nom du produit
         if (nameString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le nom du client", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le nom du client", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du tier
         if (thirdPartyString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le tier", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le tier", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification de l'adresse
         if (addressString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse du client'", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse du client'", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du nom de l'entreprise
         if (corporateNameString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le nom de l'entreprise", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le nom de l'entreprise", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du numéro de siren
         if (sirenString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de siren", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de siren", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du numéro de siret
         if (siretString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de siret", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de siret", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du RIB
         if (ribString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le RIB du client", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le RIB du client", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du RCS
         if (rcsString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le RCS du client", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le RCS du client", DialogType.ERROR, 0);
             return;
         }
 
@@ -131,7 +131,7 @@ public class CustomerEditController extends DefaultShowController implements Ini
 
         cancel();
 
-        openDialog(stackPane.getScene(), "Client " + customer.getName() + " modifié avec succès", DialogType.INFORMATION);
+        openDialog(stackPane.getScene(), "Client " + customer.getName() + " modifié avec succès", DialogType.INFORMATION, 0);
     }
 
 }

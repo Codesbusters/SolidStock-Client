@@ -59,7 +59,7 @@ public class UsersAddController extends DefaultController implements Initializab
 
         // Vérification que les champs ne sont pas vides
         if (firstNameString.isBlank() || firstNameString.isEmpty() || lastNameString.isBlank() || lastNameString.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner un nom et un prénom", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner un nom et un prénom", DialogType.ERROR, 0);
         } else {
             if (userLogin.getText().isEmpty()) {
                 String loginString = firstNameString.toLowerCase() + "." + lastNameString.toLowerCase();
@@ -86,7 +86,7 @@ public class UsersAddController extends DefaultController implements Initializab
         // Vérification du nom
         if (lastNameString.isBlank() || lastNameString.isEmpty()) {
             log.info("lastNameString : {}", lastNameString);
-            openDialog(stackPane.getScene(), "Veuillez renseigner un nom", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner un nom", DialogType.ERROR, 0);
             return;
         } else {
             log.info("lastNameString : {}", lastNameString);
@@ -95,7 +95,7 @@ public class UsersAddController extends DefaultController implements Initializab
         // Vérification du prénom
         if (firstNameString.isBlank() || firstNameString.isEmpty()) {
             log.info("firstNameString : {}", firstNameString);
-            openDialog(stackPane.getScene(), "Veuillez renseigner un prénom", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner un prénom", DialogType.ERROR, 0);
             return;
         } else {
             log.info("firstNameString : {}", firstNameString);
@@ -104,7 +104,7 @@ public class UsersAddController extends DefaultController implements Initializab
         // Vérification du login
         if (userLoginString.isBlank() || userLoginString.isEmpty()) {
             log.info("userLoginString : {}", userLoginString);
-            openDialog(stackPane.getScene(), "Veuillez renseigner un identifiant", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner un identifiant", DialogType.ERROR, 0);
             return;
         } else {
             log.info("userLoginString : {}", userLoginString);
@@ -113,7 +113,7 @@ public class UsersAddController extends DefaultController implements Initializab
         // Vérification du mail
         if (userMailString.isBlank() || userMailString.isEmpty()) {
             log.info("userMailString : {}", userMailString);
-            openDialog(stackPane.getScene(), "Veuillez renseigner un mail", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner un mail", DialogType.ERROR, 0);
             return;
         } else {
             log.info("userMailString : {}", userMailString);
@@ -122,7 +122,7 @@ public class UsersAddController extends DefaultController implements Initializab
         // Vérification du numéro de téléphone
         if (userMobilePhoneString.isBlank() || userMobilePhoneString.isEmpty()) {
             log.info("userMobilePhoneString : {}", userMobilePhoneString);
-            openDialog(stackPane.getScene(), "Veuillez renseigner un numéro de téléphone", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner un numéro de téléphone", DialogType.ERROR, 0);
             return;
         } else {
             log.info("userMobilePhoneString : {}", userMobilePhoneString);
@@ -131,7 +131,7 @@ public class UsersAddController extends DefaultController implements Initializab
         // Vérification du mot de passe
         if (userPasswordString.isBlank() || userPasswordString.isEmpty()) {
             log.info("userPasswordString : {}", userPasswordString);
-            openDialog(stackPane.getScene(), "Veuillez renseigner un mot de passe", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner un mot de passe", DialogType.ERROR, 0);
             return;
         } else {
             log.info("userPasswordString : {}", userPasswordString);
@@ -140,18 +140,18 @@ public class UsersAddController extends DefaultController implements Initializab
         // Vérification de la confirmation du mot de passe
         if (userConfirmPasswordString.isBlank() || userConfirmPasswordString.isEmpty()) {
             log.info("userConfirmPasswordString : {}", userConfirmPasswordString);
-            openDialog(stackPane.getScene(), "Veuillez confirmer le mot de passe", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez confirmer le mot de passe", DialogType.ERROR, 0);
             return;
         } else if (!userConfirmPasswordString.equals(userPasswordString)) {
             log.info("userConfirmPasswordString : {}", userConfirmPasswordString);
-            openDialog(stackPane.getScene(), "Les mots de passe ne correspondent pas", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Les mots de passe ne correspondent pas", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du rôle
         if (role.getText().isBlank() || role.getText().isEmpty()) {
             log.info("roleString : {}", roleString);
-            openDialog(stackPane.getScene(), "Veuillez renseigner un rôle", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez renseigner un rôle", DialogType.ERROR, 0);
             return;
         } else {
             log.info("roleString : {}", roleString);
@@ -172,7 +172,7 @@ public class UsersAddController extends DefaultController implements Initializab
 
         cancel();
 
-        openDialog(stackPane.getScene(), "Utilisateur " + user.getLogin() + " créé avec succès", DialogType.INFORMATION);
+        openDialog(stackPane.getScene(), "Utilisateur " + user.getLogin() + " créé avec succès", DialogType.INFORMATION, 0);
     }
 
     @FXML

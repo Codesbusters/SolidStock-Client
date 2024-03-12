@@ -82,13 +82,13 @@ public class CustomerSelectorController extends DefaultShowController implements
             if (listener != null) {
                 listener.processCustomerContent(customerId + " - " + customerName);
             } else {
-                openDialog(table.getScene(), "Une erreur est survenue, veuillez réessayer", DialogType.ERROR);
+                openDialog(table.getScene(), "Une erreur est survenue, veuillez réessayer", DialogType.ERROR, 0);
             }
 
             // Fermez la fenêtre pop-up
             parentStage.close();
         } else {
-            openDialog(table.getScene(), "Veuillez sélectionner un client", DialogType.ERROR);
+            openDialog(table.getScene(), "Veuillez sélectionner un client", DialogType.ERROR, 0);
         }
     }
 
@@ -102,7 +102,7 @@ public class CustomerSelectorController extends DefaultShowController implements
         CustomerModel customer = table.getSelectionModel().getSelectedValue();
 
         if (customer == null) {
-            openDialog(anchorPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR);
+            openDialog(anchorPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR, 0);
             return;
         }
 
@@ -116,7 +116,7 @@ public class CustomerSelectorController extends DefaultShowController implements
         CustomerModel customer = table.getSelectionModel().getSelectedValue();
 
         if (customer == null) {
-            openDialog(anchorPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR);
+            openDialog(anchorPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR, 0);
             return;
         }
 
@@ -130,11 +130,11 @@ public class CustomerSelectorController extends DefaultShowController implements
         CustomerModel customer = table.getSelectionModel().getSelectedValue();
 
         if (customer == null) {
-            openDialog(anchorPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR);
+            openDialog(anchorPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR, 0);
             return;
         }
 
-        openDialog(anchorPane.getScene(), "Êtes-vous sûr de vouloir supprimer le client " + customer.getName() + " ?", DialogType.CONFIRMATION);
+        openDialog(anchorPane.getScene(), "Êtes-vous sûr de vouloir supprimer le client " + customer.getName() + " ?", DialogType.CONFIRMATION, 0);
     }
 
     @FXML

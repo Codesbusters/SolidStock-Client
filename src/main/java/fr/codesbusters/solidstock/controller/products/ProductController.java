@@ -91,7 +91,7 @@ public class ProductController extends DefaultShowController implements Initiali
         ProductModel product = table.getSelectionModel().getSelectedValue();
 
         if (product == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR, 0);
             return;
         }
 
@@ -106,7 +106,7 @@ public class ProductController extends DefaultShowController implements Initiali
         ProductModel product = table.getSelectionModel().getSelectedValue();
 
         if (product == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR, 0);
             return;
         }
 
@@ -121,11 +121,11 @@ public class ProductController extends DefaultShowController implements Initiali
         ProductModel product = table.getSelectionModel().getSelectedValue();
 
         if (product == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR, 0);
             return;
         }
 
-        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le produit " + product.getName() + " ?", DialogType.CONFIRMATION);
+        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le produit " + product.getName() + " ?", DialogType.CONFIRMATION, 0);
 
     }
 
@@ -136,10 +136,10 @@ public class ProductController extends DefaultShowController implements Initiali
         ProductModel product = table.getSelectionModel().getSelectedValue();
 
         if (product == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR, 0);
             return;
         }
-        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getName(), DialogType.CONFIRMATION);
+        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getName(), DialogType.CONFIRMATION, 0);
     }
 
 
