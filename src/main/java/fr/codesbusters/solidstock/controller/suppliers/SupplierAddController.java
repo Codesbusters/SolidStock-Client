@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -45,9 +44,6 @@ public class SupplierAddController extends DefaultController implements Initiali
     public MFXTextField supplierWebsite;
 
     @FXML
-    public MFXTextField supplierThirdParty;
-
-    @FXML
     public MFXTextField supplierCountry;
 
     @Override
@@ -56,7 +52,7 @@ public class SupplierAddController extends DefaultController implements Initiali
     }
 
     @FXML
-    public void addSupplier() throws NumberFormatException, UnsupportedEncodingException {
+    public void addSupplier() throws NumberFormatException {
         String nameString = supplierName.getText();
         String addressString = supplierAddress.getText();
         String additionalAddressString = supplierAdditionalAddress.getText();
@@ -76,12 +72,6 @@ public class SupplierAddController extends DefaultController implements Initiali
         // Vérification de l'adresse
         if (addressString.isBlank()) {
             openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse du fournisseur", DialogType.ERROR);
-            return;
-        }
-
-        // Vérification du complément d'adresse
-        if (additionalAddressString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner les informations complémentaires", DialogType.ERROR);
             return;
         }
 
@@ -112,12 +102,6 @@ public class SupplierAddController extends DefaultController implements Initiali
         // Vérification de l'email
         if (emailString.isBlank()) {
             openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse mail du fournisseur", DialogType.ERROR);
-            return;
-        }
-
-        // Vérification du site web
-        if (webSiteString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le site web du fournisseur", DialogType.ERROR);
             return;
         }
 

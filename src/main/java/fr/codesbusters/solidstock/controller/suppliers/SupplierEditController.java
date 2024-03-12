@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -47,9 +46,6 @@ public class SupplierEditController extends DefaultShowController implements Ini
     public MFXTextField supplierWebsite;
 
     @FXML
-    public MFXTextField supplierThirdParty;
-
-    @FXML
     public MFXTextField supplierCountry;
 
     @Override
@@ -64,7 +60,7 @@ public class SupplierEditController extends DefaultShowController implements Ini
     }
 
     @FXML
-    public void editSupplier() throws NumberFormatException, UnsupportedEncodingException {
+    public void editSupplier() throws NumberFormatException {
         int idInteger = Integer.parseInt(supplierId.getText());
         String nameString = supplierName.getText();
         String addressString = supplierAddress.getText();
@@ -85,12 +81,6 @@ public class SupplierEditController extends DefaultShowController implements Ini
         // Vérification de l'adresse
         if (addressString.isBlank()) {
             openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse du fournisseur", DialogType.ERROR);
-            return;
-        }
-
-        // Vérification du complément d'adresse
-        if (additionalAddressString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner les informations complémentaires", DialogType.ERROR);
             return;
         }
 
@@ -121,12 +111,6 @@ public class SupplierEditController extends DefaultShowController implements Ini
         // Vérification de l'email
         if (emailString.isBlank()) {
             openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse mail du fournisseur", DialogType.ERROR);
-            return;
-        }
-
-        // Vérification du site web
-        if (webSiteString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le site web du fournisseur", DialogType.ERROR);
             return;
         }
 
