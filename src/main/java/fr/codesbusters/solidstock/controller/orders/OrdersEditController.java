@@ -95,7 +95,7 @@ public class OrdersEditController extends DefaultController implements Initializ
                 statusNameString
         );
 
-        log.info("Product to add : {}", ordersModel);
+        log.info("Order to add : {}", ordersModel);
 
         cancel();
 

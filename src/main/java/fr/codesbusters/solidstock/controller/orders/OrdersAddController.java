@@ -5,6 +5,7 @@ import fr.codesbusters.solidstock.business.OrderForm;
 import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.listener.CustomerSelectorListener;
 import fr.codesbusters.solidstock.listener.EstimateSelectorListener;
+import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,10 +14,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
-import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
 
 @Slf4j
 @Controller
@@ -33,7 +34,7 @@ public class OrdersAddController extends DefaultController implements Initializa
     @FXML
     MFXTextField customerName;
     @FXML
-    MFXTextField dueDate;
+    MFXDatePicker dueDate;
     @FXML
     MFXTextField estimateId;
     @FXML
@@ -49,8 +50,11 @@ public class OrdersAddController extends DefaultController implements Initializa
         String subjectString = subject.getText();
         String descriptionString = description.getText();
         String customerNameString = customerName.getText();
-        DateTime dueDateString = DateTime.parse(dueDate.getText());
+
+        LocalDate dueDateValue = dueDate.getValue();
+        String dueDateString = dueDateValue.toString();
         String statusNameString = statusName.getText();
+        log.info("Date sélectionnée : " + dueDateString);
 
         // Vérification du sujet
         if (subjectString.isEmpty()) {
@@ -59,6 +63,7 @@ public class OrdersAddController extends DefaultController implements Initializa
             alert.setHeaderText("Le sujet est vide");
             alert.setContentText("Veuillez saisir un sujet");
             alert.showAndWait();
+            return;
         }
 
         // Vérification de la description
@@ -79,15 +84,6 @@ public class OrdersAddController extends DefaultController implements Initializa
             alert.showAndWait();
         }
 
-        // Vérification de la date d'échéance
-        if (dueDateString == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("La date d'échéance est vide");
-            alert.setContentText("Veuillez saisir une date d'échéance");
-            alert.showAndWait();
-        }
-
         // Vérification du nom du statut
         if (statusNameString.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -97,18 +93,26 @@ public class OrdersAddController extends DefaultController implements Initializa
             alert.showAndWait();
         }
 
+        if (dueDateString.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("La date est vide");
+            alert.setContentText("Veuillez saisir une date");
+            alert.showAndWait();
+        }
+        
         // Création de l'objet Orders
         OrderForm order = new OrderForm();
         order.setSubject(subjectString);
         order.setDescription(descriptionString);
         order.setCustomerName(customerNameString);
-        order.setDueDate(dueDateString);
+        order.setDueDate(dueDateValue); // Utilisation de la date analysée
         order.setStatusName(statusNameString);
 
-        log.info("Order to add : {}", order);
+        log.info("Order to add : {} {}", order.getSubject(), order.getDueDate());
+        log.info("Taille de la chaîne dueDateString : {}", dueDateString.length());
 
         cancel();
-
         openDialog(stackPane.getScene(), "Commande " + order.getSubject() + " créée avec succès", DialogType.INFORMATION);
     }
 
