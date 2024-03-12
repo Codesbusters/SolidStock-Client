@@ -108,7 +108,6 @@ public class OrdersController extends DefaultShowController implements Initializ
         setId(product.getID());
 
         openPopUp("orders/editPopup.fxml", stackPane.getScene(), "Modification de la commande");
-
     }
 
     @FXML
@@ -122,5 +121,6 @@ public class OrdersController extends DefaultShowController implements Initializ
 
         openDialog(stackPane.getScene(), "Voulez-vous vraiment annuler la commande n° " + orders.getFirst().getID() + " du client " + orders.getFirst().getCustomerName() + " ?", DialogType.CONFIRMATION, 0);
 
+        openDialog(stackPane.getScene(), "La suppression de la commande n° " + orders.getFirst().getID() + " du client " + orders.getFirst().getCustomerName() + " a été réalisée avec succès.", DialogType.INFORMATION);
     }
 }
