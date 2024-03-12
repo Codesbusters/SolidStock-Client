@@ -23,7 +23,7 @@ import static fr.codesbusters.solidstock.model.SolidStockModel.orders;
 
 @Slf4j
 @Controller
-public class OrdersController extends DefaultShowController implements Initializable {
+public class OrdersFormController extends DefaultShowController implements Initializable {
 
     @FXML
     private StackPane stackPane;
@@ -121,6 +121,6 @@ public class OrdersController extends DefaultShowController implements Initializ
 
         openDialog(stackPane.getScene(), "Voulez-vous vraiment annuler la commande n° " + orders.getFirst().getID() + " du client " + orders.getFirst().getCustomerName() + " ?", DialogType.CONFIRMATION, 0);
 
-        openDialog(stackPane.getScene(), "La suppression de la commande n° " + orders.getFirst().getID() + " du client " + orders.getFirst().getCustomerName() + " a été réalisée avec succès.", DialogType.INFORMATION);
+        openDialog(stackPane.getScene(), "La suppression de la commande n° " + orders.getFirst().getID() + " du client " + orders.getFirst().getCustomerName() + " a été réalisée avec succès.", DialogType.INFORMATION, 0);
     }
 }
