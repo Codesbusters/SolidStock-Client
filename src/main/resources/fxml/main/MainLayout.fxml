@@ -273,7 +273,7 @@
                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                                         </rowConstraints>
                                         <children>
-                                            <MFXFontIcon description="fas-truck-ramp-box" size="30" color="white"/>
+                                            <MFXFontIcon description="fas-truck-arrow-right" size="30" color="white"/>
 
                                             <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0"
                                                    text="Fournisseurs"

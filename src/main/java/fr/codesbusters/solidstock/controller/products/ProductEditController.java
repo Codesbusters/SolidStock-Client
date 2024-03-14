@@ -8,7 +8,7 @@ import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.listener.ProductFamilySelectorListener;
 import fr.codesbusters.solidstock.listener.SupplierSelectorListener;
 import fr.codesbusters.solidstock.model.QuantityTypeModel;
-import fr.codesbusters.solidstock.model.SolidStockModel;
+import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
 import fr.codesbusters.solidstock.utils.Base64Converter;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -63,7 +63,7 @@ public class ProductEditController extends DefaultShowController implements Init
     public void initialize(URL location, ResourceBundle resources) {
         sellPrice.setTextLimit(8);
 
-        ObservableList<QuantityTypeModel> quantityTypes = SolidStockModel.quantityType;
+        ObservableList<QuantityTypeModel> quantityTypes = SolidStockDataIntegration.quantityType;
 
         quantityType.setItems(quantityTypes);
 

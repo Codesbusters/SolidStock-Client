@@ -4,7 +4,7 @@ package fr.codesbusters.solidstock.controller.selectors;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.listener.SupplierSelectorListener;
-import fr.codesbusters.solidstock.model.SolidStockModel;
+import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
 import fr.codesbusters.solidstock.model.SupplierModel;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
@@ -59,7 +59,7 @@ public class SupplierSelectorController extends DefaultController implements Ini
                 new StringFilter<>("Libelle", SupplierModel::getCompanyName),
                 new StringFilter<>("Adresse", SupplierModel::getAddress)
         );
-        table.setItems(SolidStockModel.suppliers);
+        table.setItems(SolidStockDataIntegration.suppliers);
 
 
     }

@@ -4,7 +4,7 @@ package fr.codesbusters.solidstock.controller.customers;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.model.CustomerModel;
-import fr.codesbusters.solidstock.model.SolidStockModel;
+import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
@@ -98,7 +98,7 @@ public class CustomerController extends DefaultShowController implements Initial
                 new StringFilter<>("Libelle", CustomerModel::getName),
                 new IntegerFilter<>("Tier", CustomerModel::getThirdPartyId)
         );
-        table.setItems(SolidStockModel.customers);
+        table.setItems(SolidStockDataIntegration.customers);
 
 
     }
