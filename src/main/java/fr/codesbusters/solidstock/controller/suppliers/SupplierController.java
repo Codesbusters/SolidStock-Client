@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.supplier.GetSupplierDto;
-import fr.codesbusters.solidstock.model.SolidStockModel;
 import fr.codesbusters.solidstock.model.SupplierModel;
 import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
@@ -14,13 +13,11 @@ import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
@@ -109,7 +106,6 @@ public class SupplierController extends DefaultShowController implements Initial
     }
 
 
-
     @FXML
     public void showSupplier() {
         SupplierModel supplier = table.getSelectionModel().getSelectedValue();
@@ -150,7 +146,7 @@ public class SupplierController extends DefaultShowController implements Initial
             return;
         }
 
-        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le fournisseur " + supplier.getName() + " ?", DialogType.CONFIRMATION, 0);
+        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le fournisseur " + supplier.getCompanyName() + " ?", DialogType.CONFIRMATION, 0);
         reloadSupplier();
     }
 
@@ -176,13 +172,16 @@ public class SupplierController extends DefaultShowController implements Initial
         ObjectMapper mapper = new ObjectMapper();
         List<GetSupplierDto> supplierList = null;
         try {
-            supplierList = mapper.readValue(responseEntity.getBody(), new TypeReference<List<GetSupplierDto>>() {});
+            supplierList = mapper.readValue(responseEntity.getBody(), new TypeReference<List<GetSupplierDto>>() {
+            });
         } catch (Exception e) {
             log.error("Error while parsing supplier list", e);
         }
 
         for (GetSupplierDto supplier : supplierList) {
-            table.getItems().add(new SupplierModel(supplier.getId(), supplier.getCompanyName(), supplier.getAddress(), "", supplier.getZipCode(), supplier.getCity(), supplier.getHomePhone(),supplier.getEmail(), supplier.getWebsite(), supplier.getCountry() ));
+            SupplierModel supplierModel = new SupplierModel();
+            supplierModel.setID(supplier.getId());
+            table.getItems().add(supplierModel);
         }
     }
 }

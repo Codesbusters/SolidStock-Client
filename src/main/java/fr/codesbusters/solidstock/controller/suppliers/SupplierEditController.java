@@ -4,7 +4,6 @@ package fr.codesbusters.solidstock.controller.suppliers;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
-import fr.codesbusters.solidstock.business.Supplier;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.supplier.GetSupplierDto;
 import fr.codesbusters.solidstock.service.RequestAPI;
@@ -91,21 +90,22 @@ public class SupplierEditController extends DefaultShowController implements Ini
 
         RequestAPI requestAPI = new RequestAPI();
 
-        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/supplier/"+String.valueOf(getId()), String.class, true);
+        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/supplier/" + getId(), String.class, true);
         ObjectMapper mapper = new ObjectMapper();
         GetSupplierDto supplier = null;
         try {
-            supplier = mapper.readValue(responseEntity.getBody(), new TypeReference<GetSupplierDto>() {});
+            supplier = mapper.readValue(responseEntity.getBody(), new TypeReference<GetSupplierDto>() {
+            });
         } catch (Exception e) {
             log.error("Error while parsing supplier list", e);
         }
 
-        supplierName.setText(supplier.getCompanyName());
+        supplierCompanyName.setText(supplier.getCompanyName());
         supplierAddress.setText(supplier.getAddress());
-        supplierAdditionalAddress.setText("");
+        supplierStreetNumber.setText("");
         supplierZipCode.setText(supplier.getZipCode());
         supplierCity.setText(supplier.getCity());
-        supplierPhone.setText(supplier.getHomePhone());
+        supplierMobilePhone.setText(supplier.getHomePhone());
         supplierEmail.setText(supplier.getEmail());
         supplierWebsite.setText(supplier.getWebsite());
         supplierCountry.setText(supplier.getCountry());
@@ -141,20 +141,20 @@ public class SupplierEditController extends DefaultShowController implements Ini
         String noteString = supplierNote.getText();
 
         // Vérification du nom du fournisseur
-        if (companyNameString.isBlank()) {
+        if (companyNameString.isEmpty()) {
             openDialog(stackPane.getScene(), "Veuillez renseigner le nom de la société.", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du prénom du fournisseur
-        if (firstNameString.isBlank()) {
+        if (firstNameString.isEmpty()) {
             openDialog(stackPane.getScene(), "Veuillez renseigner le prénom du fournisseur.", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du nom du fournisseur
-        if (nameString.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le nom du fournisseur", DialogType.ERROR, 0)
+        if (lastNameString.isEmpty()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner le nom du fournisseur", DialogType.ERROR, 0);
             return;
         }
 
@@ -183,7 +183,7 @@ public class SupplierEditController extends DefaultShowController implements Ini
         }
 
         // Vérification du téléphone
-        if (phoneString.isEmpty()) {
+        if (mobilePhoneString.isEmpty()) {
             openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de téléphone du fournisseur", DialogType.ERROR, 0);
             return;
         }
@@ -227,7 +227,7 @@ public class SupplierEditController extends DefaultShowController implements Ini
         } catch (Exception e) {
             log.error("Error while parsing supplier list", e);
         }
-        requestAPI.sendPutRequest("/supplier/"+String.valueOf(idInteger), json, String.class, true);
+        requestAPI.sendPutRequest("/supplier/" + idInteger, json, String.class, true);
 
         cancel();
         openDialog(stackPane.getScene(), "Fournisseur " + supplier.getCompanyName() + " modifié avec succès", DialogType.INFORMATION, 0);
