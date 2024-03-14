@@ -178,9 +178,52 @@ public class SupplierController extends DefaultShowController implements Initial
             log.error("Error while parsing supplier list", e);
         }
 
+        /* private final IntegerProperty id = new SimpleIntegerProperty();
+    private final StringProperty nameCompany = new SimpleStringProperty("");
+    private final StringProperty firstName = new SimpleStringProperty("");
+    private final StringProperty lastName = new SimpleStringProperty("");
+
+    private final StringProperty address = new SimpleStringProperty("");
+    private final StringProperty streetNumber = new SimpleStringProperty("");
+    private final StringProperty zipCode = new SimpleStringProperty("");
+    private final StringProperty city = new SimpleStringProperty("");
+    private final StringProperty country = new SimpleStringProperty("");
+    private final StringProperty mobilePhone = new SimpleStringProperty("");
+    private final StringProperty homePhone = new SimpleStringProperty("");
+    private final StringProperty workPhone = new SimpleStringProperty("");
+    private final StringProperty siren = new SimpleStringProperty("");
+    private final StringProperty siret = new SimpleStringProperty("");
+    private final StringProperty rib = new SimpleStringProperty("");
+    private final IntegerProperty rcs = new SimpleIntegerProperty();
+    private final StringProperty email = new SimpleStringProperty("");
+    private final StringProperty website = new SimpleStringProperty("");
+    private final StringProperty fax = new SimpleStringProperty("");
+    private final StringProperty note = new SimpleStringProperty("");*/
+
+
         for (GetSupplierDto supplier : supplierList) {
             SupplierModel supplierModel = new SupplierModel();
             supplierModel.setID(supplier.getId());
+            supplierModel.setCompanyName(supplier.getCompanyName());
+            supplierModel.setFirstName(supplier.getFirstName());
+            supplierModel.setLastName(supplier.getLastName());
+            supplierModel.setAddress(supplier.getAddress());
+            supplierModel.setStreetNumber(supplier.getStreetNumber());
+            supplierModel.setZipCode(supplier.getZipCode());
+            supplierModel.setCity(supplier.getCity());
+            supplierModel.setCountry(supplier.getCountry());
+            supplierModel.setMobilePhone(supplier.getMobilePhone());
+            supplierModel.setHomePhone(supplier.getHomePhone());
+            supplierModel.setWorkPhone(supplier.getWorkPhone());
+            supplierModel.setSiren(supplier.getSiren());
+            supplierModel.setSiret(supplier.getSiret());
+            supplierModel.setRib(supplier.getRib());
+            supplierModel.setRcs(supplier.getRcs());
+            supplierModel.setEmail(supplier.getEmail());
+            supplierModel.setWebsite(supplier.getWebsite());
+            supplierModel.setFax(supplier.getFax());
+            supplierModel.setNote(supplier.getNote());
+
             table.getItems().add(supplierModel);
         }
     }
