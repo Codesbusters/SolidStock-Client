@@ -1,13 +1,16 @@
 package fr.codesbusters.solidstock.controller.dashboard;
 
+import fr.codesbusters.solidstock.service.SessionManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+@Slf4j
 @Controller
 public class DashboardController implements Initializable {
 
@@ -50,5 +53,7 @@ public class DashboardController implements Initializable {
         barXAxis.setLabel("Mois");
         barYAxis.setLabel("Quantitée Vendue");
         barChart.setTitle("Nombre de produits vendus par mois");
+
+        log.info(SessionManager.getInstance().getAttribute("token").toString());
     }
 }

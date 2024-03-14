@@ -1,15 +1,20 @@
 package fr.codesbusters.solidstock.controller.suppliers;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.business.Supplier;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
+import fr.codesbusters.solidstock.dto.supplier.GetSupplierDto;
+import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
@@ -83,6 +88,27 @@ public class SupplierEditController extends DefaultShowController implements Ini
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         supplierId.setText(String.valueOf(getId()));
+
+        RequestAPI requestAPI = new RequestAPI();
+
+        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/supplier/"+String.valueOf(getId()), String.class, true);
+        ObjectMapper mapper = new ObjectMapper();
+        GetSupplierDto supplier = null;
+        try {
+            supplier = mapper.readValue(responseEntity.getBody(), new TypeReference<GetSupplierDto>() {});
+        } catch (Exception e) {
+            log.error("Error while parsing supplier list", e);
+        }
+
+        supplierName.setText(supplier.getCompanyName());
+        supplierAddress.setText(supplier.getAddress());
+        supplierAdditionalAddress.setText("");
+        supplierZipCode.setText(supplier.getZipCode());
+        supplierCity.setText(supplier.getCity());
+        supplierPhone.setText(supplier.getHomePhone());
+        supplierEmail.setText(supplier.getEmail());
+        supplierWebsite.setText(supplier.getWebsite());
+        supplierCountry.setText(supplier.getCountry());
     }
 
     @FXML
@@ -127,103 +153,49 @@ public class SupplierEditController extends DefaultShowController implements Ini
         }
 
         // Vérification du nom du fournisseur
-        if (lastNameString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le nom du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du siren du fournisseur
-        if (sirenString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le siren de la société.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du siret du fournisseur
-        if (siretString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le siret de la société.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du rib du fournisseur
-        if (ribString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le rib de la société.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du rcs du fournisseur
-        if (rcsInt == 0) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le rcs de la société.", DialogType.ERROR, 0);
+        if (nameString.isEmpty()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner le nom du fournisseur", DialogType.ERROR, 0)
             return;
         }
 
         // Vérification de l'adresse
-        if (addressString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification de le numéro de rue
-        if (streetNumberString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de rue du fournisseur.", DialogType.ERROR, 0);
+        if (addressString.isEmpty()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse du fournisseur", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du code postal
-        if (zipCodeString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le code postal du fournisseur.", DialogType.ERROR, 0);
+        if (zipCodeString.isEmpty()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner le code postal du fournisseur", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification de la ville
-        if (cityString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner la ville du fournisseur.", DialogType.ERROR, 0);
+        if (cityString.isEmpty()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner la ville du fournisseur", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du pays
-        if (countryString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le pays du fournisseur.", DialogType.ERROR, 0);
+        if (countryString.isEmpty()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner le pays du fournisseur", DialogType.ERROR, 0);
             return;
         }
 
-        // Vérification du téléphone personnel
-        if (mobilePhoneString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de téléphone personnel du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du téléphone domicile
-        if (homePhoneString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de téléphone domicile du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du téléphone professionnel
-        if (workPhoneString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de téléphone professionnel du fournisseur.", DialogType.ERROR, 0);
+        // Vérification du téléphone
+        if (phoneString.isEmpty()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de téléphone du fournisseur", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification de l'email
-        if (emailString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse mail du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du site web
-        if (webSiteString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le site web du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du fax
-        if (faxString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le fax du fournisseur.", DialogType.ERROR, 0);
+        if (emailString.isEmpty()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse mail du fournisseur", DialogType.ERROR, 0);
             return;
         }
 
         // Création de l'objet Supplier
-        Supplier supplier = new Supplier();
+        GetSupplierDto supplier = new GetSupplierDto();
         supplier.setId(idInteger);
         supplier.setCompanyName(companyNameString);
         supplier.setFirstName(firstNameString);
@@ -245,10 +217,19 @@ public class SupplierEditController extends DefaultShowController implements Ini
         supplier.setFax(faxString);
         supplier.setNote(noteString);
 
-        log.info("Supplier to edit : {}", supplier);
+        // Envoi de la requête
+        RequestAPI requestAPI = new RequestAPI();
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(supplier);
+        } catch (Exception e) {
+            log.error("Error while parsing supplier list", e);
+        }
+        requestAPI.sendPutRequest("/supplier/"+String.valueOf(idInteger), json, String.class, true);
 
         cancel();
-
-        openDialog(stackPane.getScene(), "Fournisseur " + supplier.getLastName() + " " + supplier.getFirstName() + " de la société " + supplier.getCompanyName() + " modifié avec succès", DialogType.INFORMATION, 0);
+        openDialog(stackPane.getScene(), "Fournisseur " + supplier.getCompanyName() + " modifié avec succès", DialogType.INFORMATION, 0);
     }
 }

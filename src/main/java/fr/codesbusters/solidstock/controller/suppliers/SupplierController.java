@@ -1,24 +1,32 @@
 package fr.codesbusters.solidstock.controller.suppliers;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
+import fr.codesbusters.solidstock.dto.supplier.GetSupplierDto;
 import fr.codesbusters.solidstock.model.SolidStockModel;
 import fr.codesbusters.solidstock.model.SupplierModel;
+import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Slf4j
@@ -96,8 +104,11 @@ public class SupplierController extends DefaultShowController implements Initial
                 new StringFilter<>("Email", SupplierModel::getEmail),
                 new StringFilter<>("Site web", SupplierModel::getWebsite)
         );
-        table.setItems(SolidStockModel.suppliers);
+
+        reloadSupplier();
     }
+
+
 
     @FXML
     public void showSupplier() {
@@ -111,6 +122,7 @@ public class SupplierController extends DefaultShowController implements Initial
         setId(supplier.getID());
 
         openPopUp("suppliers/showPopup.fxml", stackPane.getScene(), "Détails du fournisseur");
+        reloadSupplier();
     }
 
     @FXML
@@ -125,6 +137,7 @@ public class SupplierController extends DefaultShowController implements Initial
         setId(supplier.getID());
 
         openPopUp("suppliers/editPopup.fxml", stackPane.getScene(), "Modification du fournisseur");
+        reloadSupplier();
 
     }
 
@@ -137,8 +150,8 @@ public class SupplierController extends DefaultShowController implements Initial
             return;
         }
 
-        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le fournisseur " + supplier.getFirstName() + " " + supplier.getLastName() + " de la société " + supplier.getCompanyName() + " ?", DialogType.CONFIRMATION, 0);
-
+        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le fournisseur " + supplier.getName() + " ?", DialogType.CONFIRMATION, 0);
+        reloadSupplier();
     }
 
     //on double click on a row
@@ -151,5 +164,25 @@ public class SupplierController extends DefaultShowController implements Initial
             return;
         }
         openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getCompanyName(), DialogType.CONFIRMATION, 0);
+    }
+
+    @FXML
+    public void reloadSupplier() {
+        table.getItems().clear();
+
+        RequestAPI requestAPI = new RequestAPI();
+
+        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/supplier/all", String.class, true);
+        ObjectMapper mapper = new ObjectMapper();
+        List<GetSupplierDto> supplierList = null;
+        try {
+            supplierList = mapper.readValue(responseEntity.getBody(), new TypeReference<List<GetSupplierDto>>() {});
+        } catch (Exception e) {
+            log.error("Error while parsing supplier list", e);
+        }
+
+        for (GetSupplierDto supplier : supplierList) {
+            table.getItems().add(new SupplierModel(supplier.getId(), supplier.getCompanyName(), supplier.getAddress(), "", supplier.getZipCode(), supplier.getCity(), supplier.getHomePhone(),supplier.getEmail(), supplier.getWebsite(), supplier.getCountry() ));
+        }
     }
 }
