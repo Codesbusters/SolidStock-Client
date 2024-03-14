@@ -44,21 +44,28 @@ public class SupplierController extends DefaultShowController implements Initial
 
     private void setupTable() {
         MFXTableColumn<SupplierModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(SupplierModel::getID));
-        MFXTableColumn<SupplierModel> nameColumn = new MFXTableColumn<>("Raison sociale", true, Comparator.comparing(SupplierModel::getName));
-        MFXTableColumn<SupplierModel> addressColumn = new MFXTableColumn<>("Adresse", true, Comparator.comparing(SupplierModel::getAddress));
-        MFXTableColumn<SupplierModel> additionnalAddressColumn = new MFXTableColumn<>("Complément", true, Comparator.comparing(SupplierModel::getAdditionnalAddress));
+        MFXTableColumn<SupplierModel> companyNameColumn = new MFXTableColumn<>("Nom Entreprise", true, Comparator.comparing(SupplierModel::getCompanyName));
+        MFXTableColumn<SupplierModel> firstNameColumn = new MFXTableColumn<>("Prénom", true, Comparator.comparing(SupplierModel::getFirstName));
+        MFXTableColumn<SupplierModel> lastNameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(SupplierModel::getLastName));
         MFXTableColumn<SupplierModel> zipCodeColumn = new MFXTableColumn<>("Code postal", true, Comparator.comparing(SupplierModel::getZipCode));
         MFXTableColumn<SupplierModel> cityColumn = new MFXTableColumn<>("Ville", true, Comparator.comparing(SupplierModel::getCity));
-        MFXTableColumn<SupplierModel> phoneColumn = new MFXTableColumn<>("Téléphone", true, Comparator.comparing(SupplierModel::getEmail));
-        MFXTableColumn<SupplierModel> websiteColumn = new MFXTableColumn<>("Site web", true, Comparator.comparing(SupplierModel::getWebsite));
         MFXTableColumn<SupplierModel> countryColumn = new MFXTableColumn<>("Pays", true, Comparator.comparing(SupplierModel::getCountry));
+        MFXTableColumn<SupplierModel> emailColumn = new MFXTableColumn<>("Émail", true, Comparator.comparing(SupplierModel::getEmail));
+        MFXTableColumn<SupplierModel> workPhoneColumn = new MFXTableColumn<>("Téléphone travail", true, Comparator.comparing(SupplierModel::getWorkPhone));
+        MFXTableColumn<SupplierModel> websiteColumn = new MFXTableColumn<>("Site web", true, Comparator.comparing(SupplierModel::getWebsite));
 
         idColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getID));
-        nameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getName));
-        addressColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getAddress) {{
+
+        companyNameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getCompanyName) {{
             setAlignment(Pos.CENTER_RIGHT);
         }});
-        additionnalAddressColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getAdditionnalAddress) {{
+        firstNameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getFirstName) {{
+            setAlignment(Pos.CENTER_RIGHT);
+        }});
+        lastNameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getLastName) {{
+            setAlignment(Pos.CENTER_RIGHT);
+        }});
+        emailColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getEmail) {{
             setAlignment(Pos.CENTER_RIGHT);
         }});
         zipCodeColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getZipCode) {{
@@ -67,7 +74,7 @@ public class SupplierController extends DefaultShowController implements Initial
         cityColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getCity) {{
             setAlignment(Pos.CENTER_RIGHT);
         }});
-        phoneColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getPhone) {{
+        workPhoneColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getWorkPhone) {{
             setAlignment(Pos.CENTER_RIGHT);
         }});
         websiteColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getWebsite) {{
@@ -77,12 +84,12 @@ public class SupplierController extends DefaultShowController implements Initial
             setAlignment(Pos.CENTER_RIGHT);
         }});
 
-        table.getTableColumns().addAll(idColumn, nameColumn, addressColumn, additionnalAddressColumn, zipCodeColumn, cityColumn, phoneColumn, websiteColumn, countryColumn);
+        table.getTableColumns().addAll(idColumn, companyNameColumn, firstNameColumn, lastNameColumn, emailColumn, zipCodeColumn, cityColumn, countryColumn, workPhoneColumn, websiteColumn);
         table.getFilters().addAll(
                 new IntegerFilter<>("Réf.", SupplierModel::getID),
-                new StringFilter<>("Raison sociale", SupplierModel::getName),
-                new StringFilter<>("Adresse", SupplierModel::getAddress),
-                new StringFilter<>("Complément d'adresse", SupplierModel::getAdditionnalAddress),
+                new StringFilter<>("Nom entreprise", SupplierModel::getCompanyName),
+                new StringFilter<>("Nom", SupplierModel::getLastName),
+                new StringFilter<>("Prénom", SupplierModel::getFirstName),
                 new StringFilter<>("Code postal", SupplierModel::getZipCode),
                 new StringFilter<>("Ville", SupplierModel::getCity),
                 new StringFilter<>("Pays", SupplierModel::getCountry),
@@ -130,7 +137,7 @@ public class SupplierController extends DefaultShowController implements Initial
             return;
         }
 
-        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le fournisseur " + supplier.getName() + " ?", DialogType.CONFIRMATION, 0);
+        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le fournisseur " + supplier.getFirstName() + " " + supplier.getLastName() + " de la société " + supplier.getCompanyName() + " ?", DialogType.CONFIRMATION, 0);
 
     }
 
@@ -143,6 +150,6 @@ public class SupplierController extends DefaultShowController implements Initial
             openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR, 0);
             return;
         }
-        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getName(), DialogType.CONFIRMATION, 0);
+        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getCompanyName(), DialogType.CONFIRMATION, 0);
     }
 }

@@ -8,32 +8,52 @@ import javafx.beans.property.StringProperty;
 public class SupplierModel {
 
     private final IntegerProperty id = new SimpleIntegerProperty();
-    private final StringProperty name = new SimpleStringProperty("");
+    private final StringProperty nameCompany = new SimpleStringProperty("");
+    private final StringProperty firstName = new SimpleStringProperty("");
+    private final StringProperty lastName = new SimpleStringProperty("");
 
     private final StringProperty address = new SimpleStringProperty("");
-    private final StringProperty additionnalAddress = new SimpleStringProperty("");
+    private final StringProperty streetNumber = new SimpleStringProperty("");
     private final StringProperty zipCode = new SimpleStringProperty("");
     private final StringProperty city = new SimpleStringProperty("");
     private final StringProperty country = new SimpleStringProperty("");
-    private final StringProperty phone = new SimpleStringProperty("");
+    private final StringProperty mobilePhone = new SimpleStringProperty("");
+    private final StringProperty homePhone = new SimpleStringProperty("");
+    private final StringProperty workPhone = new SimpleStringProperty("");
+    private final StringProperty siren = new SimpleStringProperty("");
+    private final StringProperty siret = new SimpleStringProperty("");
+    private final StringProperty rib = new SimpleStringProperty("");
+    private final IntegerProperty rcs = new SimpleIntegerProperty();
     private final StringProperty email = new SimpleStringProperty("");
     private final StringProperty website = new SimpleStringProperty("");
+    private final StringProperty fax = new SimpleStringProperty("");
+    private final StringProperty note = new SimpleStringProperty("");
 
-    public SupplierModel(int id, String name, String address, String additionnalAddress, String zipCode, String city, String phone, String email, String website, String country) {
+    public SupplierModel(int id, String nameCompany, String firstName, String lastName, String address, String streetNumber, String zipCode, String city, String mobilePhone, String homePhone, String workHome, String siret, String siren, String rib, int rcs, String email, String website, String country, String fax, String note) {
         setID(id);
-        setName(name);
+        setCompanyName(nameCompany);
+        setFirstName(firstName);
+        setLastName(lastName);
         setAddress(address);
-        setAdditionnalAddress(additionnalAddress);
+        setStreetNumber(streetNumber);
         setZipCode(zipCode);
         setCity(city);
         setCountry(country);
-        setPhone(phone);
+        setMobilePhone(mobilePhone);
+        setHomePhone(homePhone);
+        setWorkPhone(workHome);
+        setSiren(siren);
+        setSiret(siret);
+        setRib(rib);
+        setRcs(rcs);
         setEmail(email);
         setWebsite(website);
+        setFax(fax);
+        setNote(note);
     }
 
-    public static SupplierModel ofSplit(int id, String name, String address, String additionnalAddress, String zipCode, String city, String phone, String email, String website, String country) {
-        return new SupplierModel(id, name, address, additionnalAddress, zipCode, city, phone, email, website, country);
+    public static SupplierModel ofSplit(int id, String nameCompany, String firstName, String lastName, String address, String streetNumber, String zipCode, String city, String mobilePhone, String homePhone, String workPhone, String siret, String siren, String rib, Integer rcs, String email, String website, String country, String fax, String note) {
+        return new SupplierModel(id, nameCompany, firstName, lastName, address, streetNumber, zipCode, city, mobilePhone, homePhone, workPhone, siret, siren, rib, rcs, email, website, country, fax, note);
     }
 
     public int getID() {
@@ -48,16 +68,40 @@ public class SupplierModel {
         return id;
     }
 
-    public String getName() {
-        return name.get();
+    public String getCompanyName() {
+        return nameCompany.get();
     }
 
-    public void setName(String name) {
-        this.name.set(name);
+    public void setCompanyName(String nameCompany) {
+        this.nameCompany.set(nameCompany);
     }
 
-    public StringProperty nameProperty() {
-        return name;
+    public StringProperty nameCompanyProperty() {
+        return nameCompany;
+    }
+
+    public String getFirstName() {
+        return firstName.get();
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName.set(firstName);
+    }
+
+    public StringProperty firstNameProperty() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName.get();
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName.set(lastName);
+    }
+
+    public StringProperty lastNameProperty() {
+        return lastName;
     }
 
     public String getAddress() {
@@ -72,16 +116,16 @@ public class SupplierModel {
         return address;
     }
 
-    public String getAdditionnalAddress() {
-        return additionnalAddress.get();
+    public String getStreetNumber() {
+        return streetNumber.get();
     }
 
-    public void setAdditionnalAddress(String additionnalAddress) {
-        this.additionnalAddress.set(additionnalAddress);
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber.set(streetNumber);
     }
 
-    public StringProperty additionnalAddressProperty() {
-        return additionnalAddress;
+    public StringProperty streetNumberProperty() {
+        return streetNumber;
     }
 
     public String getZipCode() {
@@ -108,16 +152,89 @@ public class SupplierModel {
         return city;
     }
 
-    public String getPhone() {
-        return phone.get();
+    public String getMobilePhone() {
+        return mobilePhone.get();
     }
 
-    public void setPhone(String phone) {
-        this.phone.set(phone);
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone.set(mobilePhone);
     }
 
-    public StringProperty phoneProperty() {
-        return phone;
+    public StringProperty mobilePhoneProperty() {
+        return mobilePhone;
+    }
+
+    public String getHomePhone() {
+        return homePhone.get();
+    }
+
+    public void setHomePhone(String homePhone) {
+        this.homePhone.set(homePhone);
+    }
+
+    public StringProperty homePhoneProperty() {
+        return homePhone;
+    }
+
+    public String getWorkPhone() {
+        return workPhone.get();
+    }
+
+    public void setWorkPhone(String workPhone) {
+        this.workPhone.set(workPhone);
+    }
+
+    public StringProperty workPhoneProperty() {
+        return workPhone;
+    }
+
+    public String getSiren() {
+        return siren.get();
+    }
+
+    public void setSiren(String siren) {
+        this.siren.set(siren);
+    }
+
+    public StringProperty sirenProperty() {
+        return siren;
+    }
+
+
+    public String getSiret() {
+        return siret.get();
+    }
+
+    public void setSiret(String siret) {
+        this.siret.set(siret);
+    }
+
+    public StringProperty siretProperty() {
+        return siret;
+    }
+
+    public String getRib() {
+        return rib.get();
+    }
+
+    public void setRib(String rib) {
+        this.rib.set(rib);
+    }
+
+    public StringProperty ribProperty() {
+        return rib;
+    }
+
+    public int getRcs() {
+        return rcs.get();
+    }
+
+    public void setRcs(int rcs) {
+        this.rcs.set(rcs);
+    }
+
+    public IntegerProperty rscProperty() {
+        return rcs;
     }
 
     public String getEmail() {
@@ -154,5 +271,29 @@ public class SupplierModel {
 
     public StringProperty countryProperty() {
         return country;
+    }
+
+    public String getFax() {
+        return fax.get();
+    }
+
+    public void setFax(String fax) {
+        this.fax.set(fax);
+    }
+
+    public StringProperty faxProperty() {
+        return fax;
+    }
+
+    public String getNote() {
+        return note.get();
+    }
+
+    public void setNote(String note) {
+        this.note.set(note);
+    }
+
+    public StringProperty noteProperty() {
+        return note;
     }
 }

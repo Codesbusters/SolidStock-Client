@@ -46,17 +46,17 @@ public class SupplierSelectorController extends DefaultController implements Ini
 
     private void setupTable() {
         MFXTableColumn<SupplierModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(SupplierModel::getID));
-        MFXTableColumn<SupplierModel> nameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(SupplierModel::getName));
+        MFXTableColumn<SupplierModel> nameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(SupplierModel::getCompanyName));
         MFXTableColumn<SupplierModel> addressColumn = new MFXTableColumn<>("Adresse", true, Comparator.comparing(SupplierModel::getAddress));
 
         idColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getID));
-        nameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getName));
+        nameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getCompanyName));
         addressColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getAddress));
 
         table.getTableColumns().addAll(idColumn, nameColumn, addressColumn);
         table.getFilters().addAll(
-                new StringFilter<>("Réf.", SupplierModel::getName),
-                new StringFilter<>("Libelle", SupplierModel::getName),
+                new StringFilter<>("Réf.", SupplierModel::getCompanyName),
+                new StringFilter<>("Libelle", SupplierModel::getCompanyName),
                 new StringFilter<>("Adresse", SupplierModel::getAddress)
         );
         table.setItems(SolidStockModel.suppliers);
