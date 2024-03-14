@@ -28,13 +28,20 @@ public class SupplierEditController extends DefaultShowController implements Ini
     public StackPane stackPane;
     @FXML
     public MFXTextField supplierId;
+
     @FXML
-    public MFXTextField supplierName;
+    public MFXTextField supplierCompanyName;
+
+    @FXML
+    public MFXTextField supplierFirstName;
+
+    @FXML
+    public MFXTextField supplierLastName;
     @FXML
     public MFXTextField supplierAddress;
 
     @FXML
-    public MFXTextField supplierAdditionalAddress;
+    public MFXTextField supplierStreetNumber;
 
     @FXML
     public MFXTextField supplierZipCode;
@@ -43,16 +50,40 @@ public class SupplierEditController extends DefaultShowController implements Ini
     public MFXTextField supplierCity;
 
     @FXML
-    public MFXTextField supplierPhone;
+    public MFXTextField supplierMobilePhone;
+
+    @FXML
+    public MFXTextField supplierWorkPhone;
+
+    @FXML
+    public MFXTextField supplierHomePhone;
 
     @FXML
     public MFXTextField supplierEmail;
+
+    @FXML
+    public MFXTextField supplierSiret;
+
+    @FXML
+    public MFXTextField supplierSiren;
+
+    @FXML
+    public MFXTextField supplierRib;
+
+    @FXML
+    public MFXTextField supplierRcs;
 
     @FXML
     public MFXTextField supplierWebsite;
 
     @FXML
     public MFXTextField supplierCountry;
+
+    @FXML
+    public MFXTextField supplierFax;
+
+    @FXML
+    public MFXTextField supplierNote;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -89,19 +120,41 @@ public class SupplierEditController extends DefaultShowController implements Ini
     @FXML
     public void editSupplier() throws NumberFormatException {
         int idInteger = Integer.parseInt(supplierId.getText());
-        String nameString = supplierName.getText();
+        String companyNameString = supplierCompanyName.getText();
+        String firstNameString = supplierFirstName.getText();
+        String lastNameString = supplierLastName.getText();
+        String sirenString = supplierSiren.getText();
+        String siretString = supplierSiret.getText();
+        String ribString = supplierRib.getText();
+        int rcsInt = Integer.parseInt(supplierRcs.getText());
         String addressString = supplierAddress.getText();
-        String additionalAddressString = supplierAdditionalAddress.getText();
+        String streetNumberString = supplierStreetNumber.getText();
         String zipCodeString = supplierZipCode.getText();
         String cityString = supplierCity.getText();
         String countryString = supplierCountry.getText();
-        String phoneString = supplierPhone.getText();
+        String mobilePhoneString = supplierMobilePhone.getText();
+        String homePhoneString = supplierHomePhone.getText();
+        String workPhoneString = supplierWorkPhone.getText();
         String emailString = supplierEmail.getText();
         String webSiteString = supplierWebsite.getText();
+        String faxString = supplierFax.getText();
+        String noteString = supplierNote.getText();
+
+        // Vérification du nom du fournisseur
+        if (companyNameString.isBlank()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner le nom de la société.", DialogType.ERROR, 0);
+            return;
+        }
+
+        // Vérification du prénom du fournisseur
+        if (firstNameString.isBlank()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner le prénom du fournisseur.", DialogType.ERROR, 0);
+            return;
+        }
 
         // Vérification du nom du fournisseur
         if (nameString.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le nom du fournisseur", DialogType.ERROR, 0);
+            openDialog(stackPane.getScene(), "Veuillez renseigner le nom du fournisseur", DialogType.ERROR, 0)
             return;
         }
 
@@ -144,14 +197,25 @@ public class SupplierEditController extends DefaultShowController implements Ini
         // Création de l'objet Supplier
         GetSupplierDto supplier = new GetSupplierDto();
         supplier.setId(idInteger);
-        supplier.setCompanyName(nameString);
+        supplier.setCompanyName(companyNameString);
+        supplier.setFirstName(firstNameString);
+        supplier.setLastName(lastNameString);
         supplier.setAddress(addressString);
+        supplier.setSiren(sirenString);
+        supplier.setSiret(siretString);
+        supplier.setRib(ribString);
+        supplier.setRcs(rcsInt);
+        supplier.setStreetNumber(streetNumberString);
         supplier.setZipCode(zipCodeString);
         supplier.setCity(cityString);
         supplier.setCountry(countryString);
-        supplier.setHomePhone(phoneString);
+        supplier.setMobilePhone(mobilePhoneString);
+        supplier.setHomePhone(homePhoneString);
+        supplier.setWorkPhone(workPhoneString);
         supplier.setEmail(emailString);
         supplier.setWebsite(webSiteString);
+        supplier.setFax(faxString);
+        supplier.setNote(noteString);
 
         // Envoi de la requête
         RequestAPI requestAPI = new RequestAPI();
@@ -166,7 +230,6 @@ public class SupplierEditController extends DefaultShowController implements Ini
         requestAPI.sendPutRequest("/supplier/"+String.valueOf(idInteger), json, String.class, true);
 
         cancel();
-
         openDialog(stackPane.getScene(), "Fournisseur " + supplier.getCompanyName() + " modifié avec succès", DialogType.INFORMATION, 0);
     }
 }

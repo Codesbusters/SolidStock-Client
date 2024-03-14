@@ -13,11 +13,15 @@ public class Supplier {
 
     private int id;
 
-    private String name;
+    private String companyName;
+
+    private String firstName;
+
+    private String lastName;
 
     private String address;
 
-    private String additionnalAddress;
+    private String streetNumber;
 
     private String zipCode;
 
@@ -25,10 +29,25 @@ public class Supplier {
 
     private String country;
 
-    private String phone;
+    private String mobilePhone;
+
+    private String workPhone;
+
+    private String homePhone;
+
+    private String siret;
+
+    private String siren;
+
+    private String rib;
+
+    private int rcs;
 
     private String email;
 
     private String website;
 
+    private String fax;
+
+    private String note;
 }

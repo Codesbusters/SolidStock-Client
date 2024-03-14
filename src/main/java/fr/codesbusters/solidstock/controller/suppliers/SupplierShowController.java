@@ -26,12 +26,20 @@ public class SupplierShowController extends DefaultShowController implements Ini
     public StackPane stackPane;
     @FXML
     public MFXTextField supplierId;
+
     @FXML
-    public MFXTextField supplierName;
+    public MFXTextField supplierCompanyName;
+
+    @FXML
+    public MFXTextField supplierFirstName;
+
+    @FXML
+    public MFXTextField supplierLastName;
     @FXML
     public MFXTextField supplierAddress;
+
     @FXML
-    public MFXTextField supplierAdditionalAddress;
+    public MFXTextField supplierStreetNumber;
 
     @FXML
     public MFXTextField supplierZipCode;
@@ -40,16 +48,40 @@ public class SupplierShowController extends DefaultShowController implements Ini
     public MFXTextField supplierCity;
 
     @FXML
-    public MFXTextField supplierPhone;
+    public MFXTextField supplierMobilePhone;
+
+    @FXML
+    public MFXTextField supplierWorkPhone;
+
+    @FXML
+    public MFXTextField supplierHomePhone;
 
     @FXML
     public MFXTextField supplierEmail;
+
+    @FXML
+    public MFXTextField supplierSiret;
+
+    @FXML
+    public MFXTextField supplierSiren;
+
+    @FXML
+    public MFXTextField supplierRib;
+
+    @FXML
+    public MFXTextField supplierRcs;
 
     @FXML
     public MFXTextField supplierWebsite;
 
     @FXML
     public MFXTextField supplierCountry;
+
+    @FXML
+    public MFXTextField supplierFax;
+
+    @FXML
+    public MFXTextField supplierNote;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

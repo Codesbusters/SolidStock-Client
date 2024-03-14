@@ -46,9 +46,9 @@
                                                 <Insets left="10.0"/>
                                             </VBox.margin>
                                         </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Nom du fournisseur"
+                                        <MFXTextField floatMode="BORDER" floatingText="Nom de société"
                                                       prefWidth="310"
-                                                      maxWidth="310" fx:id="supplierName" disable="true">
+                                                      maxWidth="310" fx:id="supplierCompanyName" disable="true">
                                             <VBox.margin>
                                                 <Insets left="10.0"/>
                                             </VBox.margin>
@@ -60,9 +60,9 @@
                                                 <Insets left="10.0"/>
                                             </VBox.margin>
                                         </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Complément d'adresse"
+                                        <MFXTextField floatMode="BORDER" floatingText="Numéro"
                                                       prefWidth="310"
-                                                      maxWidth="310" fx:id="supplierAdditionalAddress" disable="true">
+                                                      maxWidth="310" fx:id="supplierStreetNumber" disable="true">
                                             <VBox.margin>
                                                 <Insets left="10.0"/>
                                             </VBox.margin>
@@ -88,9 +88,9 @@
                                                 <Insets left="10.0"/>
                                             </VBox.margin>
                                         </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Téléphone"
+                                        <MFXTextField floatMode="BORDER" floatingText="Portable personnel"
                                                       prefWidth="310"
-                                                      maxWidth="310" fx:id="supplierPhone" disable="true">
+                                                      maxWidth="310" fx:id="supplierMobilePhone" disable="true">
                                             <VBox.margin>
                                                 <Insets left="10.0"/>
                                             </VBox.margin>

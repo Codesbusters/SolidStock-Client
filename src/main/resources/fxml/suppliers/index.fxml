@@ -99,7 +99,7 @@
             <AnchorPane id="pane3" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="600.0"
                         style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                         VBox.vgrow="ALWAYS">
-                <MFXTableView fx:id="table" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="800.0"
+                <MFXTableView fx:id="table" maxWidth="-Infinity" prefWidth="800.0"
                               GridPane.columnSpan="2147483647" GridPane.rowIndex="2"
                               AnchorPane.leftAnchor="0.0"
                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
