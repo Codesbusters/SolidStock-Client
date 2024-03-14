@@ -97,12 +97,11 @@ public class SupplierShowController extends DefaultShowController implements Ini
             log.error("Error while parsing supplier list", e);
         }
 
-        supplierName.setText(supplier.getCompanyName());
+        supplierCompanyName.setText(supplier.getCompanyName());
         supplierAddress.setText(supplier.getAddress());
-        supplierAdditionalAddress.setText("");
         supplierZipCode.setText(supplier.getZipCode());
         supplierCity.setText(supplier.getCity());
-        supplierPhone.setText(supplier.getHomePhone());
+        supplierHomePhone.setText(supplier.getHomePhone());
         supplierEmail.setText(supplier.getEmail());
         supplierWebsite.setText(supplier.getWebsite());
         supplierCountry.setText(supplier.getCountry());

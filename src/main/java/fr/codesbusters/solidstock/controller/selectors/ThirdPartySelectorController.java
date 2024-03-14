@@ -4,7 +4,7 @@ package fr.codesbusters.solidstock.controller.selectors;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.listener.ThirdPartySelectorListener;
-import fr.codesbusters.solidstock.model.SolidStockModel;
+import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
 import fr.codesbusters.solidstock.model.ThirdPartyModel;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
@@ -76,7 +76,7 @@ public class ThirdPartySelectorController extends DefaultShowController implemen
                 new StringFilter<>("Email", ThirdPartyModel::getEmail),
                 new StringFilter<>("Téléphone", ThirdPartyModel::getMobilePhone)
         );
-        table.setItems(SolidStockModel.thirdParties);
+        table.setItems(SolidStockDataIntegration.thirdParties);
 
     }
 

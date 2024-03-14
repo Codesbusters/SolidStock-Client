@@ -5,7 +5,7 @@ import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.business.User;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.model.RoleModel;
-import fr.codesbusters.solidstock.model.SolidStockModel;
+import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.ObservableList;
@@ -49,7 +49,7 @@ public class UsersEditController extends DefaultShowController implements Initia
     public void initialize(URL location, ResourceBundle resources) {
         userId.setText(String.valueOf(getId()));
 
-        ObservableList<RoleModel> roles = SolidStockModel.roles;
+        ObservableList<RoleModel> roles = SolidStockDataIntegration.roles;
 
         role.setItems(roles);
     }

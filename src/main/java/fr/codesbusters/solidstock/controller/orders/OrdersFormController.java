@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 
-import static fr.codesbusters.solidstock.model.SolidStockModel.orders;
+import static fr.codesbusters.solidstock.model.SolidStockDataIntegration.orders;
 
 @Slf4j
 @Controller

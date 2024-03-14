@@ -3,7 +3,7 @@ package fr.codesbusters.solidstock.controller.thirdParty;
 
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
-import fr.codesbusters.solidstock.model.SolidStockModel;
+import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
 import fr.codesbusters.solidstock.model.ThirdPartyModel;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
@@ -89,7 +89,7 @@ public class ThirdPartyController extends DefaultShowController implements Initi
                 new StringFilter<>("Adresse", ThirdPartyModel::getAddress),
                 new StringFilter<>("Téléphone", ThirdPartyModel::getMobilePhone)
         );
-        table.setItems(SolidStockModel.thirdParties);
+        table.setItems(SolidStockDataIntegration.thirdParties);
     }
 
     @FXML

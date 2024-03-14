@@ -5,7 +5,7 @@ import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.listener.EstimateSelectorListener;
 import fr.codesbusters.solidstock.model.EstimateModel;
-import fr.codesbusters.solidstock.model.SolidStockModel;
+import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
@@ -71,7 +71,7 @@ public class EstimateSelectorController extends DefaultShowController implements
                 new IntegerFilter<>("ID Client", EstimateModel::getCustomerId),
                 new StringFilter<>("Nom Client", EstimateModel::getCustomerName)
         );
-        table.setItems(SolidStockModel.estimates);
+        table.setItems(SolidStockDataIntegration.estimates);
     }
 
     @FXML

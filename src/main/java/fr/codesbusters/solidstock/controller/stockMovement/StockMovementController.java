@@ -89,7 +89,7 @@ public class StockMovementController extends DefaultShowController implements In
                 new StringFilter<>("Motif", StockMovementModel::getMotif)
 
         );
-        table.setItems(SolidStockDataIntegration.stockMovements);
+        //table.setItems(SolidStockDataIntegration.stockMovements);
 
 
     }
@@ -98,11 +98,11 @@ public class StockMovementController extends DefaultShowController implements In
     public void openConfirmRemove() {
 
         //get the row selected
-        Optional<ButtonType> result = openDialog(stackPane.getScene(), "Êtes-vous sûr de vouloir annuler le mouvement de stock n° " + table.getSelectionModel().getSelectedValue().getID() + " ?", Alert.AlertType.CONFIRMATION);
+     //   Optional<ButtonType> result = openDialog(stackPane.getScene(), "Êtes-vous sûr de vouloir annuler le mouvement de stock n° " + table.getSelectionModel().getSelectedValue().getID() + " ?", Alert.AlertType.CONFIRMATION);
 
-        if (result.isPresent() && result.get() == ButtonType.OK) {
+       // if (result.isPresent() && result.get() == ButtonType.OK) {
             // Set the movement on canceled
-        }
+        //}
 
     }
 

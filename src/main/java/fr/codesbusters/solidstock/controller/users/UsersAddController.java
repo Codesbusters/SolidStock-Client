@@ -5,7 +5,7 @@ import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.business.User;
 import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.model.RoleModel;
-import fr.codesbusters.solidstock.model.SolidStockModel;
+import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.ObservableList;
@@ -46,7 +46,7 @@ public class UsersAddController extends DefaultController implements Initializab
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        ObservableList<RoleModel> roles = SolidStockModel.roles;
+        ObservableList<RoleModel> roles = SolidStockDataIntegration.roles;
 
         role.setItems(roles);
     }
