@@ -183,18 +183,6 @@ public class MainLayoutController implements Initializable {
         }
     }
 
-    @FXML
-    private void loadThirdParty() {
-        if (!third_party.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
-            try {
-                loadPage("thirdParty/index.fxml");
-                resetMenuStyles();
-                third_party.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     @FXML
     private void loadDirectSales() {
@@ -270,7 +258,6 @@ public class MainLayoutController implements Initializable {
         inventory.setStyle("");
         invoices.setStyle("");
         direct_sales.setStyle("");
-        third_party.setStyle("");
         suppliers.setStyle("");
         orders.setStyle("");
         estimates.setStyle("");

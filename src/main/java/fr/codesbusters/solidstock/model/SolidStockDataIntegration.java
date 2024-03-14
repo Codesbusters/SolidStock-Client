@@ -14,8 +14,6 @@ public class SolidStockDataIntegration {
     public static final ObservableList<RoleModel> roles;
 
     public static final ObservableList<CustomerModel> customers;
-    public static final ObservableList<ThirdPartyModel> thirdParties;
-
     public static final ObservableList<OrdersModel> orders;
 
     public static final ObservableList<EstimateModel> estimates;
@@ -133,12 +131,7 @@ public class SolidStockDataIntegration {
                 CustomerModel.ofSplit(4, "DELENNE Xavier", 5, "Rue du pont, 69696", false, "", 1, 1, "rib", 1)
         );
 
-        thirdParties = FXCollections.observableArrayList(
-                ThirdPartyModel.ofSplit(1, "Robert", "Dupont", "Lyon", 69000, "Rue du pont, 69696", 42, "dupont.robert@test.com", "0123456789"),
-                ThirdPartyModel.ofSplit(2, "Arthur", "Dupres", "Paris", 75000, "Rue du pont, 69696", 56, "dupres.arthur@test.com", "9876543210"),
-                ThirdPartyModel.ofSplit(3, "Jean", "Deschamps", "Marseille", 13000, "Rue du pont, 69696", 2, "deschamps.jean@test.com", "9753102468"),
-                ThirdPartyModel.ofSplit(4, "Jacques", "Deville", "Grenoble", 38000, "Rue du pont, 69696", 20, "deville.jacques@test.com", "0246897531")
-        );
+
 
         orders = FXCollections.observableArrayList(
                 OrdersModel.ofSplit(1, "Commande 1", "Description 1", 1, "LAURENT Michel", "01/01/2021", 1, 1, "En cours"),
