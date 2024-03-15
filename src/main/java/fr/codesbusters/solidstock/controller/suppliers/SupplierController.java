@@ -13,6 +13,8 @@ import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -45,6 +47,7 @@ public class SupplierController extends DefaultShowController implements Initial
     @FXML
     public void addSupplier() {
         openPopUp("suppliers/addPopup.fxml", stackPane.getScene(), "Ajouter un fournisseur");
+        reloadSupplier();
     }
 
     private void setupTable() {
@@ -131,8 +134,16 @@ public class SupplierController extends DefaultShowController implements Initial
             openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR, 0);
             return;
         }
-
         openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le fournisseur " + supplier.getName() + " ?", DialogType.CONFIRMATION, 0);
+
+        RequestAPI requestAPI = new RequestAPI();
+        ResponseEntity<String> responseEntity = requestAPI.sendDeleteRequest("/supplier/" + supplier.getID(), String.class, true);
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            log.info("Supplier remove successfully : {}", supplier);
+            openDialog(stackPane.getScene(), "Fournisseur " + supplier.getName() + " supprimé avec succès", DialogType.INFORMATION, 0);
+        } else {
+            openDialog(stackPane.getScene(), "Erreur lors de la suppression du fournisseur", DialogType.ERROR, 0);
+        }
         reloadSupplier();
     }
 
@@ -164,7 +175,7 @@ public class SupplierController extends DefaultShowController implements Initial
             log.error("Error while parsing supplier list", e);
         }
 
-
+        ObservableList<SupplierModel> supplierModels = FXCollections.observableArrayList();
         for (GetSupplierDto supplier : supplierList) {
             SupplierModel supplierModel = new SupplierModel();
             supplierModel.setID(supplier.getId());
@@ -190,7 +201,9 @@ public class SupplierController extends DefaultShowController implements Initial
             supplierModel.setFax(supplier.getFax());
             supplierModel.setNote(supplier.getNote());
 
-            table.getItems().add(supplierModel);
+            supplierModels.add(supplierModel);
         }
+        supplierModels.sort(Comparator.comparingInt(SupplierModel::getID));
+        table.getItems().addAll(supplierModels);
     }
 }

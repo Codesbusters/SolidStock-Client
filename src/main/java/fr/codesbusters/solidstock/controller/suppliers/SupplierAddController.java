@@ -2,14 +2,16 @@ package fr.codesbusters.solidstock.controller.suppliers;
 
 
 import fr.codesbusters.solidstock.business.DialogType;
-import fr.codesbusters.solidstock.business.Supplier;
 import fr.codesbusters.solidstock.controller.DefaultController;
+import fr.codesbusters.solidstock.dto.supplier.PostSupplierDto;
+import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
@@ -93,7 +95,17 @@ public class SupplierAddController extends DefaultController implements Initiali
         String sirenString = supplierSiren.getText();
         String siretString = supplierSiret.getText();
         String ribString = supplierRib.getText();
-        int rcsInt = Integer.parseInt(supplierRcs.getText());
+        int rcsInt;
+        if (supplierRcs.getText().isEmpty()) {
+            rcsInt = 0;
+        } else {
+            try {
+                rcsInt = Integer.parseInt(supplierRcs.getText());
+            } catch (NumberFormatException e) {
+                openDialog(stackPane.getScene(), "La valeur du RCS n'est pas valide", DialogType.ERROR, 0);
+                return;
+            }
+        }
         String addressString = supplierAddress.getText();
         String streetNumberString = supplierStreetNumber.getText();
         String zipCodeString = supplierZipCode.getText();
@@ -107,116 +119,14 @@ public class SupplierAddController extends DefaultController implements Initiali
         String faxString = supplierFax.getText();
         String noteString = supplierNote.getText();
 
-        // Vérification du nom du fournisseur
-        if (companyNameString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le nom de la société.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du prénom du fournisseur
-        if (firstNameString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le prénom du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du nom du fournisseur
-        if (lastNameString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le nom du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du siren du fournisseur
-        if (sirenString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le siren de la société.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du siret du fournisseur
-        if (siretString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le siret de la société.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du rib du fournisseur
-        if (ribString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le rib de la société.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du rcs du fournisseur
-        if (rcsInt == 0) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le rcs de la société.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification de l'adresse
-        if (addressString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification de le numéro de rue
-        if (streetNumberString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de rue du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du code postal
-        if (zipCodeString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le code postal du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification de la ville
-        if (cityString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner la ville du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du pays
-        if (countryString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le pays du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du téléphone personnel
-        if (mobilePhoneString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de téléphone personnel du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du téléphone domicile
-        if (homePhoneString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de téléphone fixe du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du téléphone professionnel
-        if (workPhoneString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de téléphone professionnel du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification de l'email
-        if (emailString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse mail du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du site web
-        if (webSiteString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le site web du fournisseur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du fax
-        if (faxString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le fax du fournisseur.", DialogType.ERROR, 0);
+        // Vérification du nom du fournisseur ou du prénom ou nom de société
+        if (companyNameString.isEmpty() && firstNameString.isEmpty() && lastNameString.isEmpty()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner un des champs suivants : (Nom / Prénom / Nom société)", DialogType.ERROR, 0);
             return;
         }
 
         // Création de l'objet Supplier
-        Supplier supplier = new Supplier();
+        PostSupplierDto supplier = new PostSupplierDto();
         supplier.setCompanyName(companyNameString);
         supplier.setFirstName(firstNameString);
         supplier.setLastName(lastNameString);
@@ -237,11 +147,16 @@ public class SupplierAddController extends DefaultController implements Initiali
         supplier.setFax(faxString);
         supplier.setNote(noteString);
 
-        log.info("Supplier to add : {}", supplier);
 
-        cancel();
-
-        openDialog(stackPane.getScene(), "Fournisseur " + supplier.getLastName() + " " + supplier.getFirstName() + " de la société " + supplier.getCompanyName() + " crée avec succès", DialogType.INFORMATION, 0);
+        RequestAPI requestAPI = new RequestAPI();
+        ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/supplier/add", supplier, String.class, true);
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            log.info("Supplier added successfully : {}", supplier);
+            cancel();
+            openDialog(stackPane.getScene(), "Fournisseur " + supplier.getFirstName() + " " + supplier.getLastName() + " crée avec succès", DialogType.INFORMATION, 0);
+        } else {
+            openDialog(stackPane.getScene(), "Erreur lors de l'ajout du fournisseur", DialogType.ERROR, 0);
+        }
     }
 
     @FXML
