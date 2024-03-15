@@ -49,14 +49,14 @@ public class SupplierController extends DefaultShowController implements Initial
 
     private void setupTable() {
         MFXTableColumn<SupplierModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(SupplierModel::getID));
-        MFXTableColumn<SupplierModel> companyNameColumn = new MFXTableColumn<>("Nom Entreprise", true, Comparator.comparing(SupplierModel::getCompanyName));
+        MFXTableColumn<SupplierModel> companyNameColumn = new MFXTableColumn<>("Entreprise", true, Comparator.comparing(SupplierModel::getCompanyName));
         MFXTableColumn<SupplierModel> firstNameColumn = new MFXTableColumn<>("Prénom", true, Comparator.comparing(SupplierModel::getFirstName));
         MFXTableColumn<SupplierModel> lastNameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(SupplierModel::getLastName));
         MFXTableColumn<SupplierModel> zipCodeColumn = new MFXTableColumn<>("Code postal", true, Comparator.comparing(SupplierModel::getZipCode));
         MFXTableColumn<SupplierModel> cityColumn = new MFXTableColumn<>("Ville", true, Comparator.comparing(SupplierModel::getCity));
         MFXTableColumn<SupplierModel> countryColumn = new MFXTableColumn<>("Pays", true, Comparator.comparing(SupplierModel::getCountry));
-        MFXTableColumn<SupplierModel> emailColumn = new MFXTableColumn<>("Émail", true, Comparator.comparing(SupplierModel::getEmail));
-        MFXTableColumn<SupplierModel> workPhoneColumn = new MFXTableColumn<>("Téléphone travail", true, Comparator.comparing(SupplierModel::getWorkPhone));
+        MFXTableColumn<SupplierModel> emailColumn = new MFXTableColumn<>("Email", true, Comparator.comparing(SupplierModel::getEmail));
+        MFXTableColumn<SupplierModel> workPhoneColumn = new MFXTableColumn<>("Téléphone pro", true, Comparator.comparing(SupplierModel::getWorkPhone));
         MFXTableColumn<SupplierModel> websiteColumn = new MFXTableColumn<>("Site web", true, Comparator.comparing(SupplierModel::getWebsite));
 
         idColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getID));
