@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 @Slf4j
@@ -83,29 +82,66 @@ public class SupplierShowController extends DefaultShowController implements Ini
     @FXML
     public MFXTextField supplierNote;
 
+    private void disableTextFields() {
+        supplierId.setEditable(false);
+        supplierCompanyName.setEditable(false);
+        supplierFirstName.setEditable(false);
+        supplierLastName.setEditable(false);
+        supplierAddress.setEditable(false);
+        supplierStreetNumber.setEditable(false);
+        supplierZipCode.setEditable(false);
+        supplierCity.setEditable(false);
+        supplierMobilePhone.setEditable(false);
+        supplierHomePhone.setEditable(false);
+        supplierWorkPhone.setEditable(false);
+        supplierEmail.setEditable(false);
+        supplierSiren.setEditable(false);
+        supplierSiret.setEditable(false);
+        supplierRib.setEditable(false);
+        supplierRcs.setEditable(false);
+        supplierWebsite.setEditable(false);
+        supplierCountry.setEditable(false);
+        supplierFax.setEditable(false);
+        supplierNote.setEditable(false);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         supplierId.setText(String.valueOf(getId()));
         RequestAPI requestAPI = new RequestAPI();
 
-        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/supplier/"+String.valueOf(getId()), String.class, true);
+        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/supplier/" + getId(), String.class, true);
         ObjectMapper mapper = new ObjectMapper();
         GetSupplierDto supplier = null;
         try {
-            supplier = mapper.readValue(responseEntity.getBody(), new TypeReference<GetSupplierDto>() {});
+            supplier = mapper.readValue(responseEntity.getBody(), new TypeReference<GetSupplierDto>() {
+            });
         } catch (Exception e) {
             log.error("Error while parsing supplier list", e);
         }
 
+        assert supplier != null;
         supplierCompanyName.setText(supplier.getCompanyName());
+        supplierFirstName.setText(supplier.getFirstName());
+        supplierLastName.setText(supplier.getLastName());
         supplierAddress.setText(supplier.getAddress());
+        supplierStreetNumber.setText(supplier.getStreetNumber());
         supplierZipCode.setText(supplier.getZipCode());
         supplierCity.setText(supplier.getCity());
+        supplierSiren.setText(supplier.getSiren());
+        supplierSiret.setText(supplier.getSiret());
+        supplierRib.setText(supplier.getRib());
+        supplierRcs.setText(String.valueOf(supplier.getRcs()));
+        supplierMobilePhone.setText(supplier.getMobilePhone());
         supplierHomePhone.setText(supplier.getHomePhone());
+        supplierWorkPhone.setText(supplier.getWorkPhone());
         supplierEmail.setText(supplier.getEmail());
         supplierWebsite.setText(supplier.getWebsite());
         supplierCountry.setText(supplier.getCountry());
+        supplierFax.setText(supplier.getFax());
+        supplierNote.setText(supplier.getNote());
 
+        disableTextFields();
     }
 
     @FXML

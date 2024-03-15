@@ -4,7 +4,6 @@ package fr.codesbusters.solidstock.controller.selectors;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.listener.SupplierSelectorListener;
-import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
 import fr.codesbusters.solidstock.model.SupplierModel;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
@@ -46,20 +45,21 @@ public class SupplierSelectorController extends DefaultController implements Ini
 
     private void setupTable() {
         MFXTableColumn<SupplierModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(SupplierModel::getID));
-        MFXTableColumn<SupplierModel> nameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(SupplierModel::getCompanyName));
+        MFXTableColumn<SupplierModel> nameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(SupplierModel::getName));
         MFXTableColumn<SupplierModel> addressColumn = new MFXTableColumn<>("Adresse", true, Comparator.comparing(SupplierModel::getAddress));
 
         idColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getID));
-        nameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getCompanyName));
+        nameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getName));
         addressColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getAddress));
 
         table.getTableColumns().addAll(idColumn, nameColumn, addressColumn);
         table.getFilters().addAll(
-                new StringFilter<>("Réf.", SupplierModel::getCompanyName),
-                new StringFilter<>("Libelle", SupplierModel::getCompanyName),
+                new StringFilter<>("Réf.", SupplierModel::getName),
+                new StringFilter<>("Libelle", SupplierModel::getName),
                 new StringFilter<>("Adresse", SupplierModel::getAddress)
         );
-        table.setItems(SolidStockDataIntegration.suppliers);
+        // TODO : connecter à l'API
+//        table.setItems(SolidStockDataIntegration.suppliers);
 
 
     }
