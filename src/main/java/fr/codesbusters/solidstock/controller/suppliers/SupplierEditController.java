@@ -19,6 +19,8 @@ import org.springframework.stereotype.Controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static fr.codesbusters.solidstock.service.RIBChecker.isValidIBAN;
+
 @Slf4j
 @Controller
 public class SupplierEditController extends DefaultShowController implements Initializable {
@@ -154,6 +156,11 @@ public class SupplierEditController extends DefaultShowController implements Ini
         // Vérification du nom du fournisseur ou du prénom ou nom de société
         if (companyNameString.isEmpty() && firstNameString.isEmpty() && lastNameString.isEmpty()) {
             openDialog(stackPane.getScene(), "Veuillez renseigner un des champs suivants : (Nom / Prénom / Nom société)", DialogType.ERROR, 0);
+            return;
+        }
+        // Vérification du RIB du fournisseur
+        if (!ribString.isEmpty() && !isValidIBAN(ribString)) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner un RIB valide", DialogType.ERROR, 0);
             return;
         }
 

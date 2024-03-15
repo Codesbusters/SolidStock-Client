@@ -4,7 +4,6 @@ package fr.codesbusters.solidstock.controller.suppliers;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.dto.supplier.PostSupplierDto;
-import fr.codesbusters.solidstock.service.RIBChecker;
 import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
@@ -17,6 +16,8 @@ import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static fr.codesbusters.solidstock.service.RIBChecker.isValidIBAN;
 
 @Slf4j
 @Controller
@@ -127,7 +128,7 @@ public class SupplierAddController extends DefaultController implements Initiali
         }
 
         // Vérification du RIB du fournisseur
-        if (!ribString.isEmpty() && !RIBChecker.isValidIBAN(ribString)) {
+        if (!ribString.isEmpty() && !isValidIBAN(ribString)) {
             openDialog(stackPane.getScene(), "Veuillez renseigner un RIB valide", DialogType.ERROR, 0);
             return;
         }
