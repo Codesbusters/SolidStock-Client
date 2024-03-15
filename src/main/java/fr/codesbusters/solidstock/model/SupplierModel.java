@@ -10,10 +10,7 @@ import lombok.NoArgsConstructor;
 public class SupplierModel {
 
     private final IntegerProperty id = new SimpleIntegerProperty();
-    private final StringProperty nameCompany = new SimpleStringProperty("");
-    private final StringProperty firstName = new SimpleStringProperty("");
-    private final StringProperty lastName = new SimpleStringProperty("");
-
+    private final StringProperty name = new SimpleStringProperty("");
     private final StringProperty address = new SimpleStringProperty("");
     private final StringProperty streetNumber = new SimpleStringProperty("");
     private final StringProperty zipCode = new SimpleStringProperty("");
@@ -31,11 +28,9 @@ public class SupplierModel {
     private final StringProperty fax = new SimpleStringProperty("");
     private final StringProperty note = new SimpleStringProperty("");
 
-    public SupplierModel(int id, String nameCompany, String firstName, String lastName, String address, String streetNumber, String zipCode, String city, String mobilePhone, String homePhone, String workHome, String siret, String siren, String rib, int rcs, String email, String website, String country, String fax, String note) {
+    public SupplierModel(int id, String name, String address, String streetNumber, String zipCode, String city, String mobilePhone, String homePhone, String workHome, String siret, String siren, String rib, int rcs, String email, String website, String country, String fax, String note) {
         setID(id);
-        setCompanyName(nameCompany);
-        setFirstName(firstName);
-        setLastName(lastName);
+        setName(name);
         setAddress(address);
         setStreetNumber(streetNumber);
         setZipCode(zipCode);
@@ -54,8 +49,8 @@ public class SupplierModel {
         setNote(note);
     }
 
-    public static SupplierModel ofSplit(int id, String nameCompany, String firstName, String lastName, String address, String streetNumber, String zipCode, String city, String mobilePhone, String homePhone, String workPhone, String siret, String siren, String rib, Integer rcs, String email, String website, String country, String fax, String note) {
-        return new SupplierModel(id, nameCompany, firstName, lastName, address, streetNumber, zipCode, city, mobilePhone, homePhone, workPhone, siret, siren, rib, rcs, email, website, country, fax, note);
+    public static SupplierModel ofSplit(int id, String name, String address, String streetNumber, String zipCode, String city, String mobilePhone, String homePhone, String workPhone, String siret, String siren, String rib, Integer rcs, String email, String website, String country, String fax, String note) {
+        return new SupplierModel(id, name, address, streetNumber, zipCode, city, mobilePhone, homePhone, workPhone, siret, siren, rib, rcs, email, website, country, fax, note);
     }
 
     public int getID() {
@@ -70,40 +65,16 @@ public class SupplierModel {
         return id;
     }
 
-    public String getCompanyName() {
-        return nameCompany.get();
+    public String getName() {
+        return name.get();
     }
 
-    public void setCompanyName(String nameCompany) {
-        this.nameCompany.set(nameCompany);
+    public void setName(String name) {
+        this.name.set(name);
     }
 
-    public StringProperty nameCompanyProperty() {
-        return nameCompany;
-    }
-
-    public String getFirstName() {
-        return firstName.get();
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName.set(firstName);
-    }
-
-    public StringProperty firstNameProperty() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName.get();
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName.set(lastName);
-    }
-
-    public StringProperty lastNameProperty() {
-        return lastName;
+    public StringProperty nameProperty() {
+        return name;
     }
 
     public String getAddress() {

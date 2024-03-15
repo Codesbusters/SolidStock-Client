@@ -18,7 +18,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
@@ -72,7 +71,7 @@ public class LoginController extends DefaultController {
     private boolean isValidLogin() throws JsonProcessingException {
         LoginDto loginDto = new LoginDto(username.getText(), password.getText());
         try {
-            ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/auth/login", loginDto, String.class);
+            ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/auth/login", loginDto, String.class, false);
             if (responseEntity.getStatusCode().is2xxSuccessful()) {
                 ObjectMapper mapper = new ObjectMapper();
                 log.info(responseEntity.getBody());

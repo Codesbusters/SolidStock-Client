@@ -1,8 +1,14 @@
 package fr.codesbusters.solidstock.controller;
 
 
-import fr.codesbusters.solidstock.controller.selectors.*;
-import fr.codesbusters.solidstock.listener.*;
+import fr.codesbusters.solidstock.controller.selectors.CustomerSelectorController;
+import fr.codesbusters.solidstock.controller.selectors.EstimateSelectorController;
+import fr.codesbusters.solidstock.controller.selectors.ProductFamilySelectorController;
+import fr.codesbusters.solidstock.controller.selectors.SupplierSelectorController;
+import fr.codesbusters.solidstock.listener.CustomerSelectorListener;
+import fr.codesbusters.solidstock.listener.EstimateSelectorListener;
+import fr.codesbusters.solidstock.listener.ProductFamilySelectorListener;
+import fr.codesbusters.solidstock.listener.SupplierSelectorListener;
 import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
 import io.github.palexdev.materialfx.css.themes.Themes;
 import io.github.palexdev.materialfx.dialogs.MFXGenericDialog;
@@ -19,7 +25,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -81,7 +86,7 @@ public class DefaultController {
         if (dialogType == Alert.AlertType.CONFIRMATION) {
             okButton.setStyle(okButton.getStyle() + "-fx-background-color: #5dff5d; -fx-text-fill: #ffffff;");
         }
-        okButton.setStyle(okButton.getStyle() + "");
+        okButton.setStyle(okButton.getStyle());
         //if Confirmation display Cancel button and when clic stop code in the calling method
         if (dialogType == Alert.AlertType.CONFIRMATION) {
             Button cancelButton = new Button("Annuler");
@@ -118,10 +123,6 @@ public class DefaultController {
             dialog.show();
         }
     }
-
-
-
-
 
 
     public void openPopUp(String fxmlPath, Scene scene, String title) {

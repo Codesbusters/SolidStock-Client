@@ -13,6 +13,8 @@ import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -45,31 +47,25 @@ public class SupplierController extends DefaultShowController implements Initial
     @FXML
     public void addSupplier() {
         openPopUp("suppliers/addPopup.fxml", stackPane.getScene(), "Ajouter un fournisseur");
+        reloadSupplier();
     }
 
     private void setupTable() {
         MFXTableColumn<SupplierModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(SupplierModel::getID));
-        MFXTableColumn<SupplierModel> companyNameColumn = new MFXTableColumn<>("Entreprise", true, Comparator.comparing(SupplierModel::getCompanyName));
-        MFXTableColumn<SupplierModel> firstNameColumn = new MFXTableColumn<>("Prénom", true, Comparator.comparing(SupplierModel::getFirstName));
-        MFXTableColumn<SupplierModel> lastNameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(SupplierModel::getLastName));
+        MFXTableColumn<SupplierModel> NameColumn = new MFXTableColumn<>("Nom Société", true, Comparator.comparing(SupplierModel::getName));
         MFXTableColumn<SupplierModel> zipCodeColumn = new MFXTableColumn<>("Code postal", true, Comparator.comparing(SupplierModel::getZipCode));
         MFXTableColumn<SupplierModel> cityColumn = new MFXTableColumn<>("Ville", true, Comparator.comparing(SupplierModel::getCity));
         MFXTableColumn<SupplierModel> countryColumn = new MFXTableColumn<>("Pays", true, Comparator.comparing(SupplierModel::getCountry));
-        MFXTableColumn<SupplierModel> emailColumn = new MFXTableColumn<>("Email", true, Comparator.comparing(SupplierModel::getEmail));
-        MFXTableColumn<SupplierModel> workPhoneColumn = new MFXTableColumn<>("Téléphone pro", true, Comparator.comparing(SupplierModel::getWorkPhone));
-        MFXTableColumn<SupplierModel> websiteColumn = new MFXTableColumn<>("Site web", true, Comparator.comparing(SupplierModel::getWebsite));
+        MFXTableColumn<SupplierModel> emailColumn = new MFXTableColumn<>("Émail", true, Comparator.comparing(SupplierModel::getEmail));
+        MFXTableColumn<SupplierModel> workPhoneColumn = new MFXTableColumn<>("Téléphone travail", true, Comparator.comparing(SupplierModel::getWorkPhone));
+
 
         idColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getID));
 
-        companyNameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getCompanyName) {{
+        NameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getName) {{
             setAlignment(Pos.CENTER_RIGHT);
         }});
-        firstNameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getFirstName) {{
-            setAlignment(Pos.CENTER_RIGHT);
-        }});
-        lastNameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getLastName) {{
-            setAlignment(Pos.CENTER_RIGHT);
-        }});
+
         emailColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getEmail) {{
             setAlignment(Pos.CENTER_RIGHT);
         }});
@@ -82,24 +78,18 @@ public class SupplierController extends DefaultShowController implements Initial
         workPhoneColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getWorkPhone) {{
             setAlignment(Pos.CENTER_RIGHT);
         }});
-        websiteColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getWebsite) {{
-            setAlignment(Pos.CENTER_RIGHT);
-        }});
         countryColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getCountry) {{
             setAlignment(Pos.CENTER_RIGHT);
         }});
 
-        table.getTableColumns().addAll(idColumn, companyNameColumn, firstNameColumn, lastNameColumn, emailColumn, zipCodeColumn, cityColumn, countryColumn, workPhoneColumn, websiteColumn);
+        table.getTableColumns().addAll(idColumn, NameColumn, emailColumn, zipCodeColumn, cityColumn, countryColumn, workPhoneColumn);
         table.getFilters().addAll(
                 new IntegerFilter<>("Réf.", SupplierModel::getID),
-                new StringFilter<>("Nom entreprise", SupplierModel::getCompanyName),
-                new StringFilter<>("Nom", SupplierModel::getLastName),
-                new StringFilter<>("Prénom", SupplierModel::getFirstName),
+                new StringFilter<>("Nom entreprise", SupplierModel::getName),
                 new StringFilter<>("Code postal", SupplierModel::getZipCode),
                 new StringFilter<>("Ville", SupplierModel::getCity),
                 new StringFilter<>("Pays", SupplierModel::getCountry),
-                new StringFilter<>("Email", SupplierModel::getEmail),
-                new StringFilter<>("Site web", SupplierModel::getWebsite)
+                new StringFilter<>("Email", SupplierModel::getEmail)
         );
 
         reloadSupplier();
@@ -145,8 +135,16 @@ public class SupplierController extends DefaultShowController implements Initial
             openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR, 0);
             return;
         }
+        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le fournisseur " + supplier.getName() + " ?", DialogType.CONFIRMATION, 0);
 
-        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le fournisseur " + supplier.getCompanyName() + " ?", DialogType.CONFIRMATION, 0);
+        RequestAPI requestAPI = new RequestAPI();
+        ResponseEntity<String> responseEntity = requestAPI.sendDeleteRequest("/supplier/" + supplier.getID(), String.class, true);
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            log.info("Supplier remove successfully : {}", supplier);
+            openDialog(stackPane.getScene(), "Fournisseur " + supplier.getName() + " supprimé avec succès", DialogType.INFORMATION, 0);
+        } else {
+            openDialog(stackPane.getScene(), "Erreur lors de la suppression du fournisseur", DialogType.ERROR, 0);
+        }
         reloadSupplier();
     }
 
@@ -159,7 +157,7 @@ public class SupplierController extends DefaultShowController implements Initial
             openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR, 0);
             return;
         }
-        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getCompanyName(), DialogType.CONFIRMATION, 0);
+        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getName(), DialogType.CONFIRMATION, 0);
     }
 
     @FXML
@@ -178,35 +176,15 @@ public class SupplierController extends DefaultShowController implements Initial
             log.error("Error while parsing supplier list", e);
         }
 
-        /* private final IntegerProperty id = new SimpleIntegerProperty();
-    private final StringProperty nameCompany = new SimpleStringProperty("");
-    private final StringProperty firstName = new SimpleStringProperty("");
-    private final StringProperty lastName = new SimpleStringProperty("");
-
-    private final StringProperty address = new SimpleStringProperty("");
-    private final StringProperty streetNumber = new SimpleStringProperty("");
-    private final StringProperty zipCode = new SimpleStringProperty("");
-    private final StringProperty city = new SimpleStringProperty("");
-    private final StringProperty country = new SimpleStringProperty("");
-    private final StringProperty mobilePhone = new SimpleStringProperty("");
-    private final StringProperty homePhone = new SimpleStringProperty("");
-    private final StringProperty workPhone = new SimpleStringProperty("");
-    private final StringProperty siren = new SimpleStringProperty("");
-    private final StringProperty siret = new SimpleStringProperty("");
-    private final StringProperty rib = new SimpleStringProperty("");
-    private final IntegerProperty rcs = new SimpleIntegerProperty();
-    private final StringProperty email = new SimpleStringProperty("");
-    private final StringProperty website = new SimpleStringProperty("");
-    private final StringProperty fax = new SimpleStringProperty("");
-    private final StringProperty note = new SimpleStringProperty("");*/
-
-
+        ObservableList<SupplierModel> supplierModels = FXCollections.observableArrayList();
         for (GetSupplierDto supplier : supplierList) {
             SupplierModel supplierModel = new SupplierModel();
             supplierModel.setID(supplier.getId());
-            supplierModel.setCompanyName(supplier.getCompanyName());
-            supplierModel.setFirstName(supplier.getFirstName());
-            supplierModel.setLastName(supplier.getLastName());
+            if (supplier.getCompanyName() != null && !supplier.getCompanyName().isEmpty()) {
+                supplierModel.setName(supplier.getCompanyName());
+            } else {
+                supplierModel.setName(supplier.getFirstName() + " " + supplier.getLastName());
+            }
             supplierModel.setAddress(supplier.getAddress());
             supplierModel.setStreetNumber(supplier.getStreetNumber());
             supplierModel.setZipCode(supplier.getZipCode());
@@ -224,7 +202,9 @@ public class SupplierController extends DefaultShowController implements Initial
             supplierModel.setFax(supplier.getFax());
             supplierModel.setNote(supplier.getNote());
 
-            table.getItems().add(supplierModel);
+            supplierModels.add(supplierModel);
         }
+        supplierModels.sort(Comparator.comparingInt(SupplierModel::getID));
+        table.getItems().addAll(supplierModels);
     }
 }
