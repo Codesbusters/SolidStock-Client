@@ -1,6 +1,5 @@
 package fr.codesbusters.solidstock.dto.supplier;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,5 +33,8 @@ public class GetSupplierDto {
     private int rcs;
     private String note;
     private List<String> products;
+    private List<String> deliveries;
+    private String createdAt;
+    private String updatedAt;
 
 }

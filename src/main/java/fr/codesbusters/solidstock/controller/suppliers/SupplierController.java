@@ -59,6 +59,7 @@ public class SupplierController extends DefaultShowController implements Initial
         MFXTableColumn<SupplierModel> emailColumn = new MFXTableColumn<>("Émail", true, Comparator.comparing(SupplierModel::getEmail));
         MFXTableColumn<SupplierModel> workPhoneColumn = new MFXTableColumn<>("Téléphone travail", true, Comparator.comparing(SupplierModel::getWorkPhone));
 
+
         idColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getID));
 
         NameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getName) {{
