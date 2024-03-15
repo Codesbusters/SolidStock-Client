@@ -63,23 +63,23 @@ public class SupplierController extends DefaultShowController implements Initial
         idColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getID));
 
         NameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getName) {{
-            setAlignment(Pos.CENTER_RIGHT);
+            setAlignment(Pos.CENTER_LEFT);
         }});
 
         emailColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getEmail) {{
-            setAlignment(Pos.CENTER_RIGHT);
+            setAlignment(Pos.CENTER_LEFT);
         }});
         zipCodeColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getZipCode) {{
-            setAlignment(Pos.CENTER_RIGHT);
+            setAlignment(Pos.CENTER_LEFT);
         }});
         cityColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getCity) {{
-            setAlignment(Pos.CENTER_RIGHT);
+            setAlignment(Pos.CENTER_LEFT);
         }});
         workPhoneColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getWorkPhone) {{
-            setAlignment(Pos.CENTER_RIGHT);
+            setAlignment(Pos.CENTER_LEFT);
         }});
         countryColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getCountry) {{
-            setAlignment(Pos.CENTER_RIGHT);
+            setAlignment(Pos.CENTER_LEFT);
         }});
 
         table.getTableColumns().addAll(idColumn, NameColumn, emailColumn, zipCodeColumn, cityColumn, countryColumn, workPhoneColumn);
