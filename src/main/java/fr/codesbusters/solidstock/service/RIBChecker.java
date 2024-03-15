@@ -1,6 +1,8 @@
 package fr.codesbusters.solidstock.service;
 
 
+import java.math.BigInteger;
+
 public class RIBChecker {
       public static boolean isValidIBAN(String iban) {
         // Supprimer les espaces et convertir en majuscules

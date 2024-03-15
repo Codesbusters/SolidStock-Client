@@ -32,7 +32,7 @@ public class GetSupplierDto {
     private String rib;
     private int rcs;
     private String note;
-    private List<String> products;
+    private List<Integer> products;
     private List<String> deliveries;
     private String createdAt;
     private String updatedAt;

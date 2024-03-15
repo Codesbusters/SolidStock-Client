@@ -135,8 +135,10 @@ public class SupplierController extends DefaultShowController implements Initial
             openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR, 0);
             return;
         }
-        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le fournisseur " + supplier.getName() + " ?", DialogType.CONFIRMATION, 0);
-
+        boolean result = openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le fournisseur " + supplier.getName() + " ?", DialogType.CONFIRMATION, 0);
+        if (!result) {
+            return;
+        }
         RequestAPI requestAPI = new RequestAPI();
         ResponseEntity<String> responseEntity = requestAPI.sendDeleteRequest("/supplier/" + supplier.getID(), String.class, true);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {

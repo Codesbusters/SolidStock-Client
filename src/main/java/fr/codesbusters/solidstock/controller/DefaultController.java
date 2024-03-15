@@ -33,6 +33,7 @@ import org.scenicview.ScenicView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DefaultController {
 
@@ -40,7 +41,8 @@ public class DefaultController {
 
     private MFXStageDialog dialog;
 
-    public void openDialog(Scene scene, String message, Alert.AlertType dialogType, int width) {
+    public boolean openDialog(Scene scene, String message, Alert.AlertType dialogType, int width) {
+        AtomicBoolean finalIsCanceled = new AtomicBoolean(true);
         Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         if (dialogType == Alert.AlertType.ERROR) {
@@ -90,7 +92,11 @@ public class DefaultController {
         //if Confirmation display Cancel button and when clic stop code in the calling method
         if (dialogType == Alert.AlertType.CONFIRMATION) {
             Button cancelButton = new Button("Annuler");
-            cancelButton.setOnAction(e -> dialog.close());
+
+            cancelButton.setOnAction(e -> {
+                dialog.close();
+                finalIsCanceled.set(false);
+            });
             cancelButton.setStyle("-fx-background-color: #656565; -fx-text-fill: #ffffff; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 5px;");
 
             cancelButton.setTranslateX(10);
@@ -122,6 +128,7 @@ public class DefaultController {
             dialog.setScene(dialogScene);
             dialog.show();
         }
+        return finalIsCanceled.get();
     }
 
 
