@@ -4,6 +4,7 @@ package fr.codesbusters.solidstock.controller.suppliers;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.dto.supplier.PostSupplierDto;
+import fr.codesbusters.solidstock.service.RIBChecker;
 import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
@@ -125,6 +126,12 @@ public class SupplierAddController extends DefaultController implements Initiali
             return;
         }
 
+        // Vérification du RIB du fournisseur
+        if (!ribString.isEmpty() && !RIBChecker.isValidIBAN(ribString)) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner un RIB valide", DialogType.ERROR, 0);
+            return;
+        }
+
         // Création de l'objet Supplier
         PostSupplierDto supplier = new PostSupplierDto();
         supplier.setCompanyName(companyNameString);
@@ -153,9 +160,13 @@ public class SupplierAddController extends DefaultController implements Initiali
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             log.info("Supplier added successfully : {}", supplier);
             cancel();
-            openDialog(stackPane.getScene(), "Fournisseur " + supplier.getFirstName() + " " + supplier.getLastName() + " crée avec succès", DialogType.INFORMATION, 0);
+            if (supplier.getCompanyName().isEmpty()) {
+                openDialog(stackPane.getScene(), "Fournisseur " + supplier.getFirstName() + " " + supplier.getLastName() + " créé avec succès.", DialogType.INFORMATION, 0);
+            } else {
+                openDialog(stackPane.getScene(), "Fournisseur " + supplier.getCompanyName() + " créé avec succès.", DialogType.INFORMATION, 0);
+            }
         } else {
-            openDialog(stackPane.getScene(), "Erreur lors de l'ajout du fournisseur", DialogType.ERROR, 0);
+            openDialog(stackPane.getScene(), "Erreur lors de l'ajout du fournisseur.", DialogType.ERROR, 0);
         }
     }
 

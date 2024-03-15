@@ -194,6 +194,10 @@ public class SupplierEditController extends DefaultShowController implements Ini
         requestAPI.sendPutRequest("/supplier/" + idInteger, json, String.class, true);
 
         cancel();
-        openDialog(stackPane.getScene(), "Fournisseur " + supplier.getFirstName() + " " + supplier.getLastName() + " modifié avec succès", DialogType.INFORMATION, 0);
+        if (supplier.getCompanyName().isEmpty()) {
+            openDialog(stackPane.getScene(), "Fournisseur " + supplier.getFirstName() + " " + supplier.getLastName() + " créé avec succès.", DialogType.INFORMATION, 0);
+        } else {
+            openDialog(stackPane.getScene(), "Fournisseur " + supplier.getCompanyName() + " créé avec succès.", DialogType.INFORMATION, 0);
+        }
     }
 }
