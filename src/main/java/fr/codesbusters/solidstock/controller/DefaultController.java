@@ -89,6 +89,7 @@ public class DefaultController {
             okButton.setStyle(okButton.getStyle() + "-fx-background-color: #5dff5d; -fx-text-fill: #ffffff;");
         }
         okButton.setStyle(okButton.getStyle());
+
         //if Confirmation display Cancel button and when clic stop code in the calling method
         if (dialogType == Alert.AlertType.CONFIRMATION) {
             Button cancelButton = new Button("Annuler");
@@ -112,6 +113,7 @@ public class DefaultController {
             dialogVBox.getChildren().addAll(vBox, hBox);
             Scene dialogScene = new Scene(dialogVBox);
             dialog.setScene(dialogScene);
+            dialog.onCloseRequestProperty().set(e -> finalIsCanceled.set(false));
             dialog.showAndWait();
         } else {
             VBox vBox = new VBox(10);

@@ -24,4 +24,8 @@ public class SessionManager {
     public Object getAttribute(String key) {
         return sessionData.get(key);
     }
+
+    public void removeAttribute(String key) {
+        sessionData.remove(key);
+    }
 }

@@ -53,7 +53,5 @@ public class DashboardController implements Initializable {
         barXAxis.setLabel("Mois");
         barYAxis.setLabel("Quantitée Vendue");
         barChart.setTitle("Nombre de produits vendus par mois");
-
-        log.info(SessionManager.getInstance().getAttribute("token").toString());
     }
 }

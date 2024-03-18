@@ -21,7 +21,6 @@ public class RequestAPI {
         headers.setContentType(MediaType.APPLICATION_JSON);
         if (needLogin) {
             String token = SessionManager.getInstance().getAttribute("token").toString();
-            log.info("Token: " + token);
             headers.set("Authorization", token);
         }
         HttpEntity<Object> requestEntity = new HttpEntity<>(requestBody, headers);
@@ -34,7 +33,6 @@ public class RequestAPI {
         headers.setContentType(MediaType.APPLICATION_JSON);
         if (needLogin) {
             String token = SessionManager.getInstance().getAttribute("token").toString();
-            log.info("Token: " + token);
             headers.set("Authorization", token);
         }
         HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
@@ -49,7 +47,6 @@ public class RequestAPI {
         headers.setContentType(MediaType.APPLICATION_JSON);
         if (needLogin) {
             String token = SessionManager.getInstance().getAttribute("token").toString();
-            log.info("Token: " + token);
             headers.set("Authorization", token);
         }
         HttpEntity<Object> requestEntity = new HttpEntity<>(requestBody, headers);
@@ -63,7 +60,6 @@ public class RequestAPI {
         headers.setContentType(MediaType.APPLICATION_JSON);
         if (needLogin) {
             String token = SessionManager.getInstance().getAttribute("token").toString();
-            log.info("Token: " + token);
             headers.set("Authorization", token);
         }
         HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
