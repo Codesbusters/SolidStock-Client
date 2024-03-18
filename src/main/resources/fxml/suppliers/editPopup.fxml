@@ -22,7 +22,6 @@
                                 </font>
                             </Label>
                             <Label text="Voir un fournisseur"/>
-                            <MFXTextField fx:id="supplierId" visible="false"/>
                         </children>
                         <padding>
                             <Insets left="10.0"/>
@@ -42,6 +41,12 @@
                                 <children>
                                     <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
                                         <children>
+                                            <MFXTextField floatMode="BORDER" floatingText="Id" prefWidth="310"
+                                                          maxWidth="310" fx:id="supplierId" disable="true">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
                                             <MFXTextField floatMode="BORDER" floatingText="Nom de société"
                                                           prefWidth="310"
                                                           maxWidth="310" fx:id="supplierCompanyName">
@@ -105,13 +110,6 @@
                                                     <Insets left="10.0"/>
                                                 </VBox.margin>
                                             </MFXTextField>
-                                            <MFXTextField floatMode="BORDER" floatingText="Téléphone Fixe"
-                                                          prefWidth="310"
-                                                          maxWidth="310" fx:id="supplierHomePhone">
-                                                <VBox.margin>
-                                                    <Insets left="10.0"/>
-                                                </VBox.margin>
-                                            </MFXTextField>
                                         </children>
                                     </VBox>
                                 </children>
@@ -127,6 +125,13 @@
                                 <children>
                                     <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
                                         <children>
+                                            <MFXTextField floatMode="BORDER" floatingText="Téléphone Fixe"
+                                                          prefWidth="310"
+                                                          maxWidth="310" fx:id="supplierHomePhone">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
                                             <MFXTextField floatMode="BORDER" floatingText="Téléphone profressionnel"
                                                           prefWidth="310"
                                                           maxWidth="310" fx:id="supplierWorkPhone">

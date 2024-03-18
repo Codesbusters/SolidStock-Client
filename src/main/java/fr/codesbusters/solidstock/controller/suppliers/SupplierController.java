@@ -172,7 +172,7 @@ public class SupplierController extends DefaultShowController implements Initial
         ObjectMapper mapper = new ObjectMapper();
         List<GetSupplierDto> supplierList = null;
         try {
-            supplierList = mapper.readValue(responseEntity.getBody(), new TypeReference<List<GetSupplierDto>>() {
+            supplierList = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
             });
         } catch (Exception e) {
             log.error("Error while parsing supplier list", e);
@@ -182,28 +182,104 @@ public class SupplierController extends DefaultShowController implements Initial
         for (GetSupplierDto supplier : supplierList) {
             SupplierModel supplierModel = new SupplierModel();
             supplierModel.setID(supplier.getId());
+
             if (supplier.getCompanyName() != null && !supplier.getCompanyName().isEmpty()) {
                 supplierModel.setName(supplier.getCompanyName());
             } else {
                 supplierModel.setName(supplier.getFirstName() + " " + supplier.getLastName());
             }
-            supplierModel.setAddress(supplier.getAddress());
-            supplierModel.setStreetNumber(supplier.getStreetNumber());
-            supplierModel.setZipCode(supplier.getZipCode());
-            supplierModel.setCity(supplier.getCity());
-            supplierModel.setCountry(supplier.getCountry());
-            supplierModel.setMobilePhone(supplier.getMobilePhone());
-            supplierModel.setHomePhone(supplier.getHomePhone());
-            supplierModel.setWorkPhone(supplier.getWorkPhone());
-            supplierModel.setSiren(supplier.getSiren());
-            supplierModel.setSiret(supplier.getSiret());
-            supplierModel.setRib(supplier.getRib());
-            supplierModel.setRcs(supplier.getRcs());
-            supplierModel.setEmail(supplier.getEmail());
-            supplierModel.setWebsite(supplier.getWebsite());
-            supplierModel.setFax(supplier.getFax());
-            supplierModel.setNote(supplier.getNote());
 
+            if (supplier.getAddress() == null || supplier.getAddress().isEmpty()) {
+                supplierModel.setAddress("");
+            } else {
+                supplierModel.setAddress(supplier.getAddress());
+            }
+
+            if (supplier.getStreetNumber() == null || supplier.getStreetNumber().isEmpty()) {
+                supplierModel.setStreetNumber("");
+            } else {
+                supplierModel.setStreetNumber(supplier.getStreetNumber());
+            }
+
+            if (supplier.getZipCode() == null || supplier.getZipCode().isEmpty()) {
+                supplierModel.setZipCode("");
+            } else {
+                supplierModel.setZipCode(supplier.getZipCode());
+            }
+
+            if (supplier.getCity() == null || supplier.getCity().isEmpty()) {
+                supplierModel.setCity("");
+            } else {
+                supplierModel.setCity(supplier.getCity());
+            }
+
+            if (supplier.getCountry() == null || supplier.getCountry().isEmpty()) {
+                supplierModel.setCountry("");
+            } else {
+                supplierModel.setCountry(supplier.getCountry());
+            }
+
+            if (supplier.getMobilePhone() == null || supplier.getMobilePhone().isEmpty()) {
+                supplierModel.setMobilePhone("");
+            } else {
+                supplierModel.setMobilePhone(supplier.getMobilePhone());
+            }
+
+            if (supplier.getHomePhone() == null || supplier.getHomePhone().isEmpty()) {
+                supplierModel.setHomePhone("");
+            } else {
+                supplierModel.setHomePhone(supplier.getHomePhone());
+            }
+
+            if (supplier.getWorkPhone() == null || supplier.getWorkPhone().isEmpty()) {
+                supplierModel.setWorkPhone("");
+            } else {
+                supplierModel.setWorkPhone(supplier.getWorkPhone());
+            }
+
+            if (supplier.getSiren() == null || supplier.getSiren().isEmpty()) {
+                supplierModel.setSiren("");
+            } else {
+                supplierModel.setSiren(supplier.getSiren());
+            }
+
+            if (supplier.getSiret() == null || supplier.getSiret().isEmpty()) {
+                supplierModel.setSiret("");
+            } else {
+                supplierModel.setSiret(supplier.getSiret());
+            }
+
+            if (supplier.getRib() == null || supplier.getRib().isEmpty()) {
+                supplierModel.setRib("");
+            } else {
+                supplierModel.setRib(supplier.getRib());
+            }
+
+            if (supplier.getEmail() == null || supplier.getEmail().isEmpty()) {
+                supplierModel.setEmail("");
+            } else {
+                supplierModel.setEmail(supplier.getEmail());
+            }
+
+            if (supplier.getWebsite() == null || supplier.getWebsite().isEmpty()) {
+                supplierModel.setWebsite("");
+            } else {
+                supplierModel.setWebsite(supplier.getWebsite());
+            }
+
+            if (supplier.getFax() == null || supplier.getFax().isEmpty()) {
+                supplierModel.setFax("");
+            } else {
+                supplierModel.setFax(supplier.getFax());
+            }
+
+            if (supplier.getNote() == null || supplier.getNote().isEmpty()) {
+                supplierModel.setNote("");
+            } else {
+                supplierModel.setNote(supplier.getNote());
+            }
+
+            supplierModel.setRcs(supplier.getRcs());
             supplierModels.add(supplierModel);
         }
         supplierModels.sort(Comparator.comparingInt(SupplierModel::getID));

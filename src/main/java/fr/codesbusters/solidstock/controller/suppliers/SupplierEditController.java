@@ -88,6 +88,7 @@ public class SupplierEditController extends DefaultShowController implements Ini
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        supplierId.setEditable(false);
         supplierId.setText(String.valueOf(getId()));
 
         RequestAPI requestAPI = new RequestAPI();
@@ -160,8 +161,10 @@ public class SupplierEditController extends DefaultShowController implements Ini
         }
         // Vérification du RIB du fournisseur
         if (!ribString.isEmpty() && !isValidIBAN(ribString)) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner un RIB valide", DialogType.ERROR, 0);
-            return;
+            boolean result = openDialog(stackPane.getScene(), "Rib non valide, souhaitez vous continuer", DialogType.CONFIRMATION, 0);
+            if (!result) {
+                return;
+            }
         }
 
 
@@ -202,9 +205,9 @@ public class SupplierEditController extends DefaultShowController implements Ini
 
         cancel();
         if (supplier.getCompanyName().isEmpty()) {
-            openDialog(stackPane.getScene(), "Fournisseur " + supplier.getFirstName() + " " + supplier.getLastName() + " créé avec succès.", DialogType.INFORMATION, 0);
+            openDialog(stackPane.getScene(), "Fournisseur " + supplier.getFirstName() + " " + supplier.getLastName() + " modifié avec succès.", DialogType.INFORMATION, 0);
         } else {
-            openDialog(stackPane.getScene(), "Fournisseur " + supplier.getCompanyName() + " créé avec succès.", DialogType.INFORMATION, 0);
+            openDialog(stackPane.getScene(), "Fournisseur " + supplier.getCompanyName() + " modifié avec succès.", DialogType.INFORMATION, 0);
         }
     }
 }
