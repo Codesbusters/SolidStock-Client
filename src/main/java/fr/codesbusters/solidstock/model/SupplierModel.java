@@ -1,9 +1,6 @@
 package fr.codesbusters.solidstock.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -27,8 +24,9 @@ public class SupplierModel {
     private final StringProperty website = new SimpleStringProperty("");
     private final StringProperty fax = new SimpleStringProperty("");
     private final StringProperty note = new SimpleStringProperty("");
+    private final BooleanProperty isDisabled = new SimpleBooleanProperty(false);
 
-    public SupplierModel(int id, String name, String address, String streetNumber, String zipCode, String city, String mobilePhone, String homePhone, String workHome, String siret, String siren, String rib, int rcs, String email, String website, String country, String fax, String note) {
+    public SupplierModel(int id, String name, String address, String streetNumber, String zipCode, String city, String mobilePhone, String homePhone, String workHome, String siret, String siren, String rib, int rcs, String email, String website, String country, String fax, String note, boolean isDisabled) {
         setID(id);
         setName(name);
         setAddress(address);
@@ -47,10 +45,11 @@ public class SupplierModel {
         setWebsite(website);
         setFax(fax);
         setNote(note);
+        setIsDisabled(isDisabled);
     }
 
-    public static SupplierModel ofSplit(int id, String name, String address, String streetNumber, String zipCode, String city, String mobilePhone, String homePhone, String workPhone, String siret, String siren, String rib, Integer rcs, String email, String website, String country, String fax, String note) {
-        return new SupplierModel(id, name, address, streetNumber, zipCode, city, mobilePhone, homePhone, workPhone, siret, siren, rib, rcs, email, website, country, fax, note);
+    public static SupplierModel ofSplit(int id, String name, String address, String streetNumber, String zipCode, String city, String mobilePhone, String homePhone, String workPhone, String siret, String siren, String rib, Integer rcs, String email, String website, String country, String fax, String note, boolean isDisabled) {
+        return new SupplierModel(id, name, address, streetNumber, zipCode, city, mobilePhone, homePhone, workPhone, siret, siren, rib, rcs, email, website, country, fax, note, isDisabled);
     }
 
     public int getID() {
@@ -269,4 +268,18 @@ public class SupplierModel {
     public StringProperty noteProperty() {
         return note;
     }
+
+    public boolean getIsDisabled() {
+        return isDisabled.get();
+    }
+
+    public void setIsDisabled(boolean isDisabled) {
+        this.isDisabled.set(isDisabled);
+    }
+
+    public BooleanProperty isDisabledProperty() {
+        return isDisabled;
+    }
+
+
 }
