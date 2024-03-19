@@ -129,8 +129,10 @@ public class SupplierAddController extends DefaultController implements Initiali
 
         // Vérification du RIB du fournisseur
         if (!ribString.isEmpty() && !isValidIBAN(ribString)) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner un RIB valide", DialogType.ERROR, 0);
-            return;
+            boolean result = openDialog(stackPane.getScene(), "Rib non valide, souhaitez vous continuer", DialogType.CONFIRMATION, 0);
+            if (!result) {
+                return;
+            }
         }
 
         // Création de l'objet Supplier
