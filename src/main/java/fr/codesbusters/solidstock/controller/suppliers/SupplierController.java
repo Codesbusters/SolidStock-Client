@@ -135,7 +135,7 @@ public class SupplierController extends DefaultShowController implements Initial
             openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR, 0);
             return;
         }
-        boolean result = openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le fournisseur " + supplier.getName() + " ?", DialogType.CONFIRMATION, 0);
+        boolean result = openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le fournisseur " + supplier.getName() + " ? \nCela entraînera également la suppression de ces produits", DialogType.CONFIRMATION, 0);
         if (!result) {
             return;
         }
