@@ -1,9 +1,20 @@
 package fr.codesbusters.solidstock.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.codesbusters.solidstock.business.DialogType;
+import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.utils.ApplicationPropertiesReader;
+import fr.codesbusters.solidstock.utils.TokenManager;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -64,6 +75,34 @@ public class RequestAPI {
         }
         HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
         return restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, responseType);
+    }
+
+    public boolean checkLogin(Scene scene) {
+        DefaultController controller = new DefaultController();
+        if (TokenManager.tokenExists()) {
+            try {
+                SessionManager.getInstance().setAttribute("token", TokenManager.getToken());
+                ResponseEntity<String> responseEntity = sendGetRequest("/auth/me", String.class, true);
+                if (responseEntity.getStatusCode().is2xxSuccessful()) {
+                    ObjectMapper mapper = new ObjectMapper();
+                    JsonNode actualObj = mapper.readTree(responseEntity.getBody());
+                    SessionManager.getInstance().setAttribute("user", actualObj);
+
+                    return true;
+                } else {
+                    SessionManager.getInstance().removeAttribute("token");
+                    TokenManager.deleteToken();
+                    controller.openDialog(scene, "Impossible d'établire la connexion avec vos identifiants.", DialogType.ERROR, 0);
+                    return false;
+                }
+            } catch (HttpServerErrorException.InternalServerError | HttpClientErrorException.Unauthorized |
+                     JsonProcessingException e) {
+                controller.openDialog(scene, "Erreur de connexion aux serveurs", DialogType.ERROR, 0);
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
 
