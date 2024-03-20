@@ -42,6 +42,7 @@ public class StartJFX extends Application {
     }
 
 
+
     @Override
     public void stop() {
         applicationContext.close();

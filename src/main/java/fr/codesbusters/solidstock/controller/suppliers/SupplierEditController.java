@@ -93,7 +93,7 @@ public class SupplierEditController extends DefaultShowController implements Ini
 
         RequestAPI requestAPI = new RequestAPI();
 
-        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/supplier/" + getId(), String.class, true);
+        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/supplier/" + getId(), String.class, true, true);
         ObjectMapper mapper = new ObjectMapper();
         GetSupplierDto supplier = null;
         try {

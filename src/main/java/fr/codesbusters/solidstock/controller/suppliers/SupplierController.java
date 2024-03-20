@@ -72,7 +72,7 @@ public class SupplierController extends DefaultShowController implements Initial
 
     private void setupTable() {
         MFXTableColumn<SupplierModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(SupplierModel::getID));
-        MFXTableColumn<SupplierModel> NameColumn = new MFXTableColumn<>("Nom Société", true, Comparator.comparing(SupplierModel::getName));
+        MFXTableColumn<SupplierModel> NameColumn = new MFXTableColumn<>("Raison Sociale", true, Comparator.comparing(SupplierModel::getName));
         MFXTableColumn<SupplierModel> zipCodeColumn = new MFXTableColumn<>("Code postal", true, Comparator.comparing(SupplierModel::getZipCode));
         MFXTableColumn<SupplierModel> cityColumn = new MFXTableColumn<>("Ville", true, Comparator.comparing(SupplierModel::getCity));
         MFXTableColumn<SupplierModel> countryColumn = new MFXTableColumn<>("Pays", true, Comparator.comparing(SupplierModel::getCountry));
@@ -137,7 +137,7 @@ public class SupplierController extends DefaultShowController implements Initial
                 new StringFilter<>("Code postal", SupplierModel::getZipCode),
                 new StringFilter<>("Ville", SupplierModel::getCity),
                 new StringFilter<>("Pays", SupplierModel::getCountry),
-                new StringFilter<>("Email", SupplierModel::getEmail)
+                new StringFilter<>("E-mail", SupplierModel::getEmail)
         );
 
         reloadSupplier();
@@ -215,7 +215,7 @@ public class SupplierController extends DefaultShowController implements Initial
 
         RequestAPI requestAPI = new RequestAPI();
 
-        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/supplier/all", String.class, true);
+        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/supplier/all", String.class, true, true);
         ObjectMapper mapper = new ObjectMapper();
         List<GetSupplierDto> supplierList = null;
         try {

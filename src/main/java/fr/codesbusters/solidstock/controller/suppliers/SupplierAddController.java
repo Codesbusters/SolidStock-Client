@@ -160,15 +160,17 @@ public class SupplierAddController extends DefaultController implements Initiali
 
 
         RequestAPI requestAPI = new RequestAPI();
-        ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/supplier/add", supplier, String.class, true);
+        ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/supplier/add", supplier, String.class, true, true);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             log.info("Supplier added successfully : {}", supplier);
-            cancel();
+
             if (supplier.getCompanyName().isEmpty()) {
                 openDialog(stackPane.getScene(), "Fournisseur " + supplier.getFirstName() + " " + supplier.getLastName() + " créé avec succès.", DialogType.INFORMATION, 0);
             } else {
                 openDialog(stackPane.getScene(), "Fournisseur " + supplier.getCompanyName() + " créé avec succès.", DialogType.INFORMATION, 0);
             }
+
+            cancel();
         } else {
             openDialog(stackPane.getScene(), "Erreur lors de l'ajout du fournisseur.", DialogType.ERROR, 0);
         }
