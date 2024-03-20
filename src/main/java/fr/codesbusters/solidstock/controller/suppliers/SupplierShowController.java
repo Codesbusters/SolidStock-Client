@@ -110,7 +110,7 @@ public class SupplierShowController extends DefaultShowController implements Ini
         supplierId.setText(String.valueOf(getId()));
         RequestAPI requestAPI = new RequestAPI();
 
-        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/supplier/" + getId(), String.class, true);
+        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/supplier/" + getId(), String.class, true, true);
         ObjectMapper mapper = new ObjectMapper();
         GetSupplierDto supplier = null;
         try {

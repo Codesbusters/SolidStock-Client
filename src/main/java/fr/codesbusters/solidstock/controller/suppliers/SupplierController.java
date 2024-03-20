@@ -168,7 +168,7 @@ public class SupplierController extends DefaultShowController implements Initial
 
         RequestAPI requestAPI = new RequestAPI();
 
-        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/supplier/all", String.class, true);
+        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/supplier/all", String.class, true, true);
         ObjectMapper mapper = new ObjectMapper();
         List<GetSupplierDto> supplierList = null;
         try {

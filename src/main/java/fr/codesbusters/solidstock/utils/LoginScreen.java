@@ -24,6 +24,8 @@ public class LoginScreen extends Stage {
 
     private final String currentVersion = new ApplicationPropertiesReader().getProperty("build.version");
 
+    private static boolean mainAppAlreadyLaunched = false;
+
     private Scene scene;
 
     public LoginScreen() {
@@ -75,6 +77,9 @@ public class LoginScreen extends Stage {
     }
 
     public void launchNextScreen() throws IOException {
+        if (mainAppAlreadyLaunched) {
+            return;
+        }
         // Implémentez la logique pour lancer le prochain écran ici
         log.info("Lancement de l'écran pricipale...");
 
@@ -82,6 +87,7 @@ public class LoginScreen extends Stage {
         splashScreen.showSplash();
         Platform.runLater(() -> {
             try {
+                mainAppAlreadyLaunched = true;
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/main/MainLayout.fxml")));
                 Scene scene = new Scene(root);
                 MFXThemeManager.addOn(scene, Themes.DEFAULT, Themes.LEGACY);

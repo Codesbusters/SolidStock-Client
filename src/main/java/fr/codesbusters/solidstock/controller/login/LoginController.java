@@ -17,6 +17,7 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -76,7 +77,7 @@ public class LoginController extends DefaultController {
 
         Platform.runLater(() -> {
 
-            if (TokenManager.getRememberMe() && requestAPI.checkLogin(anchorPane.getScene())) {
+            if (TokenManager.getRememberMe() && checkLogin(anchorPane.getScene())) {
                 try {
                     loginScreen.launchNextScreen();
                     loginScreen.hideLogin();
@@ -91,14 +92,14 @@ public class LoginController extends DefaultController {
     @FXML
     private boolean isValidLogin() throws JsonProcessingException {
         loginToAPI();
-        return requestAPI.checkLogin(anchorPane.getScene());
+        return checkLogin(anchorPane.getScene());
     }
 
     @FXML
     public void loginToAPI() {
         LoginDto loginDto = new LoginDto(username.getText(), password.getText());
         try {
-            ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/auth/login", loginDto, String.class, false);
+            ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/auth/login", loginDto, String.class, false, false);
             if (responseEntity.getStatusCode().is2xxSuccessful()) {
                 ObjectMapper mapper = new ObjectMapper();
                 JsonNode actualObj = mapper.readTree(responseEntity.getBody());
@@ -122,7 +123,7 @@ public class LoginController extends DefaultController {
     @FXML
     private void handleLoginButtonClick() throws IOException {
         boolean isValidLogin = isValidLogin();
-        isValidLogin = requestAPI.checkLogin(anchorPane.getScene());
+        isValidLogin = checkLogin(anchorPane.getScene());
         if (isValidLogin) {
             loginScreen.launchNextScreen();
             loginScreen.hideLogin();
@@ -134,5 +135,32 @@ public class LoginController extends DefaultController {
     public void cancel(ActionEvent actionEvent) {
         loginScreen.hideLogin();
         Platform.exit();
+    }
+
+    private boolean checkLogin(Scene scene) {
+        DefaultController controller = new DefaultController();
+        if (TokenManager.tokenExists()) {
+            try {
+                SessionManager.getInstance().setAttribute("token", TokenManager.getToken());
+                ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/auth/me", String.class, true, false);
+                if (responseEntity.getStatusCode().is2xxSuccessful()) {
+                    ObjectMapper mapper = new ObjectMapper();
+                    JsonNode actualObj = mapper.readTree(responseEntity.getBody());
+                    SessionManager.getInstance().setAttribute("user", actualObj);
+                    return true;
+                } else {
+                    SessionManager.getInstance().removeAttribute("token");
+                    TokenManager.deleteToken();
+                    controller.openDialog(scene, "Impossible d'établire la connexion avec vos identifiants.", DialogType.ERROR, 0);
+                    return false;
+                }
+            } catch (HttpServerErrorException.InternalServerError | HttpClientErrorException.Unauthorized |
+                     JsonProcessingException e) {
+                controller.openDialog(scene, "Erreur de connexion aux serveurs", DialogType.ERROR, 0);
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 }

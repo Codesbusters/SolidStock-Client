@@ -4,18 +4,29 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.codesbusters.solidstock.SolidStockApplication;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultController;
+import fr.codesbusters.solidstock.controller.login.LoginController;
 import fr.codesbusters.solidstock.utils.ApplicationPropertiesReader;
+import fr.codesbusters.solidstock.utils.LoginScreen;
 import fr.codesbusters.solidstock.utils.TokenManager;
+import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
+import io.github.palexdev.materialfx.css.themes.Themes;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Objects;
 
 
 @Slf4j
@@ -25,7 +36,10 @@ public class RequestAPI {
     ApplicationPropertiesReader applicationPropertiesReader = new ApplicationPropertiesReader();
     String apiUrl = applicationPropertiesReader.getProperty("fr.codesbusters.solidstock.api.url");
 
-    public <T> ResponseEntity<T> sendPostRequest(String url, Object requestBody, Class<T> responseType, boolean needLogin) {
+    public <T> ResponseEntity<T> sendPostRequest(String url, Object requestBody, Class<T> responseType, boolean needLogin, boolean needCheckToken) {
+        if (needCheckToken) {
+            isTokenValid();
+        }
         url = apiUrl + url;
         log.info("Sending POST request to: " + url + " with body: " + requestBody);
         HttpHeaders headers = new HttpHeaders();
@@ -38,7 +52,10 @@ public class RequestAPI {
         return restTemplate.exchange(url, HttpMethod.POST, requestEntity, responseType);
     }
 
-    public <T> ResponseEntity<T> sendGetRequest(String url, Class<T> responseType, boolean needLogin) {
+    public <T> ResponseEntity<T> sendGetRequest(String url, Class<T> responseType, boolean needLogin, boolean needCheckToken) {
+        if (needCheckToken) {
+            isTokenValid();
+        }
         url = apiUrl + url;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -52,6 +69,7 @@ public class RequestAPI {
 
     //update
     public <T> ResponseEntity<T> sendPutRequest(String url, Object requestBody, Class<T> responseType, boolean needLogin) {
+        isTokenValid();
         url = apiUrl + url;
         log.info("Sending PUT request to: " + url + " with body: " + requestBody);
         HttpHeaders headers = new HttpHeaders();
@@ -66,6 +84,7 @@ public class RequestAPI {
 
     //delete
     public <T> ResponseEntity<T> sendDeleteRequest(String url, Class<T> responseType, boolean needLogin) {
+        isTokenValid();
         url = apiUrl + url;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -77,32 +96,32 @@ public class RequestAPI {
         return restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, responseType);
     }
 
-    public boolean checkLogin(Scene scene) {
-        DefaultController controller = new DefaultController();
-        if (TokenManager.tokenExists()) {
-            try {
-                SessionManager.getInstance().setAttribute("token", TokenManager.getToken());
-                ResponseEntity<String> responseEntity = sendGetRequest("/auth/me", String.class, true);
-                if (responseEntity.getStatusCode().is2xxSuccessful()) {
-                    ObjectMapper mapper = new ObjectMapper();
-                    JsonNode actualObj = mapper.readTree(responseEntity.getBody());
-                    SessionManager.getInstance().setAttribute("user", actualObj);
 
-                    return true;
-                } else {
-                    SessionManager.getInstance().removeAttribute("token");
-                    TokenManager.deleteToken();
-                    controller.openDialog(scene, "Impossible d'établire la connexion avec vos identifiants.", DialogType.ERROR, 0);
-                    return false;
-                }
-            } catch (HttpServerErrorException.InternalServerError | HttpClientErrorException.Unauthorized |
-                     JsonProcessingException e) {
-                controller.openDialog(scene, "Erreur de connexion aux serveurs", DialogType.ERROR, 0);
-                return false;
+    //check if token is valid
+    public void isTokenValid() {
+        DefaultController defaultController = new DefaultController();
+        String token = SessionManager.getInstance().getAttribute("token").toString();
+        String url = apiUrl + "/auth/me";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", token);
+        HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
+            if (response.getStatusCode() == HttpStatus.OK) {
             }
-        } else {
-            return false;
+        } catch (HttpClientErrorException e) {
+            if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+                log.error("Token is not valid");
+                    LoginScreen loginScreen = new LoginScreen();
+                    loginScreen.showLogin();
+                    defaultController.openDialog(loginScreen.getScene(), "Votre session a expiré, veuillez vous reconnecter", DialogType.ERROR, 0);
+
+            }
+        } catch (HttpServerErrorException e) {
+            log.error("Error while checking token", e);
         }
+
     }
 
 
