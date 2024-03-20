@@ -83,7 +83,7 @@ public class SupplierController extends DefaultShowController implements Initial
             {
                 setAlignment(Pos.CENTER_LEFT);
                 if (product != null && product.getIsDisabled()) {
-                    setStyle("-fx-background-color: lightgrey; -fx-text-fill: grey;");
+                    setStyle("-fx-text-fill: grey;");
                 }
             }
         });
@@ -92,7 +92,7 @@ public class SupplierController extends DefaultShowController implements Initial
             {
                 setAlignment(Pos.CENTER_LEFT);
                 if (product != null && product.getIsDisabled()) {
-                    setStyle("-fx-background-color: lightgrey; -fx-text-fill: grey;");
+                    setStyle("-fx-text-fill: grey;");
                 }
             }
         });
@@ -101,32 +101,32 @@ public class SupplierController extends DefaultShowController implements Initial
             {
                 setAlignment(Pos.CENTER_LEFT);
                 if (product != null && product.getIsDisabled()) {
-                    setStyle("-fx-background-color: lightgrey; -fx-text-fill: grey;");
+                    setStyle("-fx-text-fill: grey;");
                 }
             }
         });
         zipCodeColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getZipCode) {{
             setAlignment(Pos.CENTER_LEFT);
             if (product != null && product.getIsDisabled()) {
-                setStyle("-fx-background-color: lightgrey; -fx-text-fill: grey;");
+                setStyle("-fx-text-fill: grey;");
             }
         }});
         cityColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getCity) {{
             setAlignment(Pos.CENTER_LEFT);
             if (product != null && product.getIsDisabled()) {
-                setStyle("-fx-background-color: lightgrey; -fx-text-fill: grey;");
+                setStyle("-fx-text-fill: grey;");
             }
         }});
         workPhoneColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getWorkPhone) {{
             setAlignment(Pos.CENTER_LEFT);
             if (product != null && product.getIsDisabled()) {
-                setStyle("-fx-background-color: lightgrey; -fx-text-fill: grey;");
+                setStyle("-fx-text-fill: grey;");
             }
         }});
         countryColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getCountry) {{
             setAlignment(Pos.CENTER_LEFT);
             if (product != null && product.getIsDisabled()) {
-                setStyle("-fx-background-color: lightgrey; -fx-text-fill: grey;");
+                setStyle("-fx-text-fill: grey;");
             }
         }});
 
@@ -154,9 +154,6 @@ public class SupplierController extends DefaultShowController implements Initial
         }
 
         setId(supplier.getID());
-
-        log.info("La valeur de isDisabled est : {}", supplier.getIsDisabled());
-
         openPopUp("suppliers/showPopup.fxml", stackPane.getScene(), "Détails du fournisseur");
         reloadSupplier();
     }
@@ -229,6 +226,7 @@ public class SupplierController extends DefaultShowController implements Initial
         }
 
         ObservableList<SupplierModel> supplierModels = FXCollections.observableArrayList();
+        assert supplierList != null;
         for (GetSupplierDto supplier : supplierList) {
             SupplierModel supplierModel = new SupplierModel();
             supplierModel.setID(supplier.getId());
