@@ -8,6 +8,7 @@ import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.supplier.GetSupplierDto;
 import fr.codesbusters.solidstock.model.SupplierModel;
 import fr.codesbusters.solidstock.service.RequestAPI;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
@@ -27,7 +28,6 @@ import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
-
 @Slf4j
 @Controller
 public class SupplierController extends DefaultShowController implements Initializable {
@@ -38,10 +38,30 @@ public class SupplierController extends DefaultShowController implements Initial
     @FXML
     private MFXTableView<SupplierModel> table;
 
+    @FXML
+    private MFXButton modifyButton;
+
+    @FXML
+    private MFXButton deleteButton;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupTable();
         table.autosizeColumnsOnInitialization();
+
+        table.setOnMouseClicked(event -> {
+            SupplierModel supplier = table.getSelectionModel().getSelectedValue();
+
+            if (supplier != null) {
+                if (supplier.getIsDisabled()) {
+                    modifyButton.setDisable(true);
+                    deleteButton.setDisable(true);
+                } else {
+                    modifyButton.setDisable(false);
+                    deleteButton.setDisable(false);
+                }
+            }
+        });
     }
 
     @FXML
@@ -59,27 +79,55 @@ public class SupplierController extends DefaultShowController implements Initial
         MFXTableColumn<SupplierModel> emailColumn = new MFXTableColumn<>("Émail", true, Comparator.comparing(SupplierModel::getEmail));
         MFXTableColumn<SupplierModel> workPhoneColumn = new MFXTableColumn<>("Téléphone travail", true, Comparator.comparing(SupplierModel::getWorkPhone));
 
+        idColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getID) {
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (product != null && product.getIsDisabled()) {
+                    setStyle("-fx-text-fill: grey;");
+                }
+            }
+        });
 
-        idColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getID));
+        NameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getName) {
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (product != null && product.getIsDisabled()) {
+                    setStyle("-fx-text-fill: grey;");
+                }
+            }
+        });
 
-        NameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getName) {{
-            setAlignment(Pos.CENTER_LEFT);
-        }});
-
-        emailColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getEmail) {{
-            setAlignment(Pos.CENTER_LEFT);
-        }});
+        emailColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getEmail) {
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (product != null && product.getIsDisabled()) {
+                    setStyle("-fx-text-fill: grey;");
+                }
+            }
+        });
         zipCodeColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getZipCode) {{
             setAlignment(Pos.CENTER_LEFT);
+            if (product != null && product.getIsDisabled()) {
+                setStyle("-fx-text-fill: grey;");
+            }
         }});
         cityColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getCity) {{
             setAlignment(Pos.CENTER_LEFT);
+            if (product != null && product.getIsDisabled()) {
+                setStyle("-fx-text-fill: grey;");
+            }
         }});
         workPhoneColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getWorkPhone) {{
             setAlignment(Pos.CENTER_LEFT);
+            if (product != null && product.getIsDisabled()) {
+                setStyle("-fx-text-fill: grey;");
+            }
         }});
         countryColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getCountry) {{
             setAlignment(Pos.CENTER_LEFT);
+            if (product != null && product.getIsDisabled()) {
+                setStyle("-fx-text-fill: grey;");
+            }
         }});
 
         table.getTableColumns().addAll(idColumn, NameColumn, emailColumn, zipCodeColumn, cityColumn, countryColumn, workPhoneColumn);
@@ -106,7 +154,6 @@ public class SupplierController extends DefaultShowController implements Initial
         }
 
         setId(supplier.getID());
-
         openPopUp("suppliers/showPopup.fxml", stackPane.getScene(), "Détails du fournisseur");
         reloadSupplier();
     }
@@ -179,6 +226,7 @@ public class SupplierController extends DefaultShowController implements Initial
         }
 
         ObservableList<SupplierModel> supplierModels = FXCollections.observableArrayList();
+        assert supplierList != null;
         for (GetSupplierDto supplier : supplierList) {
             SupplierModel supplierModel = new SupplierModel();
             supplierModel.setID(supplier.getId());
@@ -280,6 +328,7 @@ public class SupplierController extends DefaultShowController implements Initial
             }
 
             supplierModel.setRcs(supplier.getRcs());
+            supplierModel.setIsDisabled(supplier.isDeleted());
             supplierModels.add(supplierModel);
         }
         supplierModels.sort(Comparator.comparingInt(SupplierModel::getID));

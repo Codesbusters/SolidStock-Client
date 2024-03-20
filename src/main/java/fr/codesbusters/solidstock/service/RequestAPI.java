@@ -82,6 +82,19 @@ public class RequestAPI {
         return restTemplate.exchange(url, HttpMethod.PUT, requestEntity, responseType);
     }
 
+    public <T> ResponseEntity<T> sendPatchRequest(String url, Class<T> responseType, boolean needLogin) {
+        url = apiUrl + url;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        if (needLogin) {
+            String token = SessionManager.getInstance().getAttribute("token").toString();
+            headers.set("Authorization", token);
+        }
+        HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
+        return restTemplate.exchange(url, HttpMethod.PATCH, requestEntity, responseType);
+    }
+
+
     //delete
     public <T> ResponseEntity<T> sendDeleteRequest(String url, Class<T> responseType, boolean needLogin) {
         isTokenValid();

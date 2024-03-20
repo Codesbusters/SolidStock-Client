@@ -2,9 +2,11 @@ package fr.codesbusters.solidstock.controller.suppliers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.supplier.GetSupplierDto;
 import fr.codesbusters.solidstock.service.RequestAPI;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -82,6 +84,9 @@ public class SupplierShowController extends DefaultShowController implements Ini
     @FXML
     public MFXTextField supplierNote;
 
+    @FXML
+    public MFXButton enable;
+
     private void disableTextFields() {
         supplierId.setEditable(false);
         supplierCompanyName.setEditable(false);
@@ -114,7 +119,7 @@ public class SupplierShowController extends DefaultShowController implements Ini
         ObjectMapper mapper = new ObjectMapper();
         GetSupplierDto supplier = null;
         try {
-            supplier = mapper.readValue(responseEntity.getBody(), new TypeReference<GetSupplierDto>() {
+            supplier = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
             });
         } catch (Exception e) {
             log.error("Error while parsing supplier list", e);
@@ -140,8 +145,35 @@ public class SupplierShowController extends DefaultShowController implements Ini
         supplierCountry.setText(supplier.getCountry());
         supplierFax.setText(supplier.getFax());
         supplierNote.setText(supplier.getNote());
-
         disableTextFields();
+        enable.setVisible(supplier.isDeleted());
+    }
+
+    @FXML
+    public void enable() {
+        int idInteger = Integer.parseInt(supplierId.getText());
+        String companyNameString = supplierCompanyName.getText();
+        String firstNameString = supplierFirstName.getText();
+        String lastNameString = supplierLastName.getText();
+
+        // Création de l'objet Supplier
+        GetSupplierDto supplier = new GetSupplierDto();
+        supplier.setId(idInteger);
+        supplier.setCompanyName(companyNameString);
+        supplier.setFirstName(firstNameString);
+        supplier.setLastName(lastNameString);
+        // Envoie de la requête
+        RequestAPI requestAPI = new RequestAPI();
+
+        requestAPI.sendPostRequest("/supplier/" + idInteger, null,  String.class, true);
+
+        cancel();
+        if (supplier.getCompanyName().isEmpty()) {
+            openDialog(stackPane.getScene(), "Fournisseur " + supplier.getFirstName() + " " + supplier.getLastName() + " réactivé avec succès.", DialogType.INFORMATION, 0);
+        } else {
+            openDialog(stackPane.getScene(), "Fournisseur " + supplier.getCompanyName() + " réactivé avec succès.", DialogType.INFORMATION, 0);
+        }
+
     }
 
     @FXML
