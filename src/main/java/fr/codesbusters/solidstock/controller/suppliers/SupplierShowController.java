@@ -205,7 +205,7 @@ public class SupplierShowController extends DefaultShowController implements Ini
         RequestAPI requestAPI = new RequestAPI();
 
         ObjectMapper mapper = new ObjectMapper();
-        requestAPI.sendPatchRequest("/supplier/" + idInteger,  String.class, true);
+        requestAPI.sendPostRequest("/supplier/" + idInteger, null,  String.class, true);
 
         cancel();
         if (supplier.getCompanyName().isEmpty()) {
