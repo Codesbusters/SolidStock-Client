@@ -2,9 +2,12 @@ package fr.codesbusters.solidstock.controller.suppliers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.supplier.GetSupplierDto;
+import fr.codesbusters.solidstock.model.SupplierModel;
 import fr.codesbusters.solidstock.service.RequestAPI;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -82,6 +85,9 @@ public class SupplierShowController extends DefaultShowController implements Ini
     @FXML
     public MFXTextField supplierNote;
 
+    @FXML
+    public MFXButton enable;
+
     private void disableTextFields() {
         supplierId.setEditable(false);
         supplierCompanyName.setEditable(false);
@@ -109,6 +115,7 @@ public class SupplierShowController extends DefaultShowController implements Ini
     public void initialize(URL location, ResourceBundle resources) {
         supplierId.setText(String.valueOf(getId()));
         RequestAPI requestAPI = new RequestAPI();
+
 
         ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/supplier/" + getId(), String.class, true);
         ObjectMapper mapper = new ObjectMapper();
@@ -140,8 +147,73 @@ public class SupplierShowController extends DefaultShowController implements Ini
         supplierCountry.setText(supplier.getCountry());
         supplierFax.setText(supplier.getFax());
         supplierNote.setText(supplier.getNote());
-
         disableTextFields();
+        if (!supplier.isDeleted()) {
+            enable.setVisible(false);
+        } else {
+            enable.setVisible(true);
+        }
+    }
+
+    @FXML
+    public void enable() {
+        int idInteger = Integer.parseInt(supplierId.getText());
+        String companyNameString = supplierCompanyName.getText();
+        String firstNameString = supplierFirstName.getText();
+        String lastNameString = supplierLastName.getText();
+        String sirenString = supplierSiren.getText();
+        String siretString = supplierSiret.getText();
+        String ribString = supplierRib.getText();
+        int rcsInt = Integer.parseInt(supplierRcs.getText());
+        String addressString = supplierAddress.getText();
+        String streetNumberString = supplierStreetNumber.getText();
+        String zipCodeString = supplierZipCode.getText();
+        String cityString = supplierCity.getText();
+        String countryString = supplierCountry.getText();
+        String mobilePhoneString = supplierMobilePhone.getText();
+        String homePhoneString = supplierHomePhone.getText();
+        String workPhoneString = supplierWorkPhone.getText();
+        String emailString = supplierEmail.getText();
+        String webSiteString = supplierWebsite.getText();
+        String faxString = supplierFax.getText();
+        String noteString = supplierNote.getText();
+
+        // Création de l'objet Supplier
+        GetSupplierDto supplier = new GetSupplierDto();
+        supplier.setId(idInteger);
+        supplier.setCompanyName(companyNameString);
+        supplier.setFirstName(firstNameString);
+        supplier.setLastName(lastNameString);
+        supplier.setAddress(addressString);
+        supplier.setSiren(sirenString);
+        supplier.setSiret(siretString);
+        supplier.setRib(ribString);
+        supplier.setRcs(rcsInt);
+        supplier.setStreetNumber(streetNumberString);
+        supplier.setZipCode(zipCodeString);
+        supplier.setCity(cityString);
+        supplier.setCountry(countryString);
+        supplier.setMobilePhone(mobilePhoneString);
+        supplier.setHomePhone(homePhoneString);
+        supplier.setWorkPhone(workPhoneString);
+        supplier.setEmail(emailString);
+        supplier.setWebsite(webSiteString);
+        supplier.setFax(faxString);
+        supplier.setNote(noteString);
+
+        // Envoie de la requête
+        RequestAPI requestAPI = new RequestAPI();
+
+        ObjectMapper mapper = new ObjectMapper();
+        requestAPI.sendPatchRequest("/supplier/" + idInteger,  String.class, true);
+
+        cancel();
+        if (supplier.getCompanyName().isEmpty()) {
+            openDialog(stackPane.getScene(), "Fournisseur " + supplier.getFirstName() + " " + supplier.getLastName() + " réactivé avec succès.", DialogType.INFORMATION, 0);
+        } else {
+            openDialog(stackPane.getScene(), "Fournisseur " + supplier.getCompanyName() + " réactivé avec succès.", DialogType.INFORMATION, 0);
+        }
+
     }
 
     @FXML
