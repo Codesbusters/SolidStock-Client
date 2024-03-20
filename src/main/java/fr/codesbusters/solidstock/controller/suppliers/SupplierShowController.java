@@ -165,7 +165,7 @@ public class SupplierShowController extends DefaultShowController implements Ini
         // Envoie de la requête
         RequestAPI requestAPI = new RequestAPI();
 
-        requestAPI.sendPostRequest("/supplier/" + idInteger, null,  String.class, true);
+        requestAPI.sendPostRequest("/supplier/" + idInteger, null,  String.class, true, true);
 
         cancel();
         if (supplier.getCompanyName().isEmpty()) {
