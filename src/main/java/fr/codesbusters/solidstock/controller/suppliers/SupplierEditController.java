@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
+import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -84,7 +85,7 @@ public class SupplierEditController extends DefaultShowController implements Ini
     public MFXTextField supplierFax;
 
     @FXML
-    public MFXTextField supplierNote;
+    public TextArea supplierNote;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -72,65 +72,65 @@ public class SupplierController extends DefaultShowController implements Initial
 
     private void setupTable() {
         MFXTableColumn<SupplierModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(SupplierModel::getID));
-        MFXTableColumn<SupplierModel> NameColumn = new MFXTableColumn<>("Raison Sociale", true, Comparator.comparing(SupplierModel::getName));
+        MFXTableColumn<SupplierModel> nameColumn = new MFXTableColumn<>("Raison Sociale", true, Comparator.comparing(SupplierModel::getName));
         MFXTableColumn<SupplierModel> zipCodeColumn = new MFXTableColumn<>("Code postal", true, Comparator.comparing(SupplierModel::getZipCode));
         MFXTableColumn<SupplierModel> cityColumn = new MFXTableColumn<>("Ville", true, Comparator.comparing(SupplierModel::getCity));
         MFXTableColumn<SupplierModel> countryColumn = new MFXTableColumn<>("Pays", true, Comparator.comparing(SupplierModel::getCountry));
         MFXTableColumn<SupplierModel> emailColumn = new MFXTableColumn<>("Émail", true, Comparator.comparing(SupplierModel::getEmail));
         MFXTableColumn<SupplierModel> workPhoneColumn = new MFXTableColumn<>("Téléphone travail", true, Comparator.comparing(SupplierModel::getWorkPhone));
 
-        idColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getID) {
+        idColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(SupplierModel::getID) {
             {
                 setAlignment(Pos.CENTER_LEFT);
-                if (product != null && product.getIsDisabled()) {
+                if (rowCell != null && rowCell.getIsDisabled()) {
                     setStyle("-fx-text-fill: grey;");
                 }
             }
         });
 
-        NameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getName) {
+        nameColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(SupplierModel::getName) {
             {
                 setAlignment(Pos.CENTER_LEFT);
-                if (product != null && product.getIsDisabled()) {
+                if (rowCell != null && rowCell.getIsDisabled()) {
                     setStyle("-fx-text-fill: grey;");
                 }
             }
         });
 
-        emailColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getEmail) {
+        emailColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(SupplierModel::getEmail) {
             {
                 setAlignment(Pos.CENTER_LEFT);
-                if (product != null && product.getIsDisabled()) {
+                if (rowCell != null && rowCell.getIsDisabled()) {
                     setStyle("-fx-text-fill: grey;");
                 }
             }
         });
-        zipCodeColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getZipCode) {{
+        zipCodeColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(SupplierModel::getZipCode) {{
             setAlignment(Pos.CENTER_LEFT);
-            if (product != null && product.getIsDisabled()) {
+            if (rowCell != null && rowCell.getIsDisabled()) {
                 setStyle("-fx-text-fill: grey;");
             }
         }});
-        cityColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getCity) {{
+        cityColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(SupplierModel::getCity) {{
             setAlignment(Pos.CENTER_LEFT);
-            if (product != null && product.getIsDisabled()) {
+            if (rowCell != null && rowCell.getIsDisabled()) {
                 setStyle("-fx-text-fill: grey;");
             }
         }});
-        workPhoneColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getWorkPhone) {{
+        workPhoneColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(SupplierModel::getWorkPhone) {{
             setAlignment(Pos.CENTER_LEFT);
-            if (product != null && product.getIsDisabled()) {
+            if (rowCell != null && rowCell.getIsDisabled()) {
                 setStyle("-fx-text-fill: grey;");
             }
         }});
-        countryColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getCountry) {{
+        countryColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(SupplierModel::getCountry) {{
             setAlignment(Pos.CENTER_LEFT);
-            if (product != null && product.getIsDisabled()) {
+            if (rowCell != null && rowCell.getIsDisabled()) {
                 setStyle("-fx-text-fill: grey;");
             }
         }});
 
-        table.getTableColumns().addAll(idColumn, NameColumn, emailColumn, zipCodeColumn, cityColumn, countryColumn, workPhoneColumn);
+        table.getTableColumns().addAll(idColumn, nameColumn, emailColumn, zipCodeColumn, cityColumn, countryColumn, workPhoneColumn);
         table.getFilters().addAll(
                 new IntegerFilter<>("Réf.", SupplierModel::getID),
                 new StringFilter<>("Nom entreprise", SupplierModel::getName),
@@ -189,7 +189,7 @@ public class SupplierController extends DefaultShowController implements Initial
         RequestAPI requestAPI = new RequestAPI();
         ResponseEntity<String> responseEntity = requestAPI.sendDeleteRequest("/supplier/" + supplier.getID(), String.class, true);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            log.info("Supplier remove successfully : {}", supplier);
+            log.info("Supplier removed successfully : {}", supplier);
             openDialog(stackPane.getScene(), "Fournisseur " + supplier.getName() + " supprimé avec succès", DialogType.INFORMATION, 0);
         } else {
             openDialog(stackPane.getScene(), "Erreur lors de la suppression du fournisseur", DialogType.ERROR, 0);
@@ -237,18 +237,6 @@ public class SupplierController extends DefaultShowController implements Initial
                 supplierModel.setName(supplier.getFirstName() + " " + supplier.getLastName());
             }
 
-            if (supplier.getAddress() == null || supplier.getAddress().isEmpty()) {
-                supplierModel.setAddress("");
-            } else {
-                supplierModel.setAddress(supplier.getAddress());
-            }
-
-            if (supplier.getStreetNumber() == null || supplier.getStreetNumber().isEmpty()) {
-                supplierModel.setStreetNumber("");
-            } else {
-                supplierModel.setStreetNumber(supplier.getStreetNumber());
-            }
-
             if (supplier.getZipCode() == null || supplier.getZipCode().isEmpty()) {
                 supplierModel.setZipCode("");
             } else {
@@ -267,40 +255,10 @@ public class SupplierController extends DefaultShowController implements Initial
                 supplierModel.setCountry(supplier.getCountry());
             }
 
-            if (supplier.getMobilePhone() == null || supplier.getMobilePhone().isEmpty()) {
-                supplierModel.setMobilePhone("");
-            } else {
-                supplierModel.setMobilePhone(supplier.getMobilePhone());
-            }
-
-            if (supplier.getHomePhone() == null || supplier.getHomePhone().isEmpty()) {
-                supplierModel.setHomePhone("");
-            } else {
-                supplierModel.setHomePhone(supplier.getHomePhone());
-            }
-
             if (supplier.getWorkPhone() == null || supplier.getWorkPhone().isEmpty()) {
                 supplierModel.setWorkPhone("");
             } else {
                 supplierModel.setWorkPhone(supplier.getWorkPhone());
-            }
-
-            if (supplier.getSiren() == null || supplier.getSiren().isEmpty()) {
-                supplierModel.setSiren("");
-            } else {
-                supplierModel.setSiren(supplier.getSiren());
-            }
-
-            if (supplier.getSiret() == null || supplier.getSiret().isEmpty()) {
-                supplierModel.setSiret("");
-            } else {
-                supplierModel.setSiret(supplier.getSiret());
-            }
-
-            if (supplier.getRib() == null || supplier.getRib().isEmpty()) {
-                supplierModel.setRib("");
-            } else {
-                supplierModel.setRib(supplier.getRib());
             }
 
             if (supplier.getEmail() == null || supplier.getEmail().isEmpty()) {
@@ -308,26 +266,6 @@ public class SupplierController extends DefaultShowController implements Initial
             } else {
                 supplierModel.setEmail(supplier.getEmail());
             }
-
-            if (supplier.getWebsite() == null || supplier.getWebsite().isEmpty()) {
-                supplierModel.setWebsite("");
-            } else {
-                supplierModel.setWebsite(supplier.getWebsite());
-            }
-
-            if (supplier.getFax() == null || supplier.getFax().isEmpty()) {
-                supplierModel.setFax("");
-            } else {
-                supplierModel.setFax(supplier.getFax());
-            }
-
-            if (supplier.getNote() == null || supplier.getNote().isEmpty()) {
-                supplierModel.setNote("");
-            } else {
-                supplierModel.setNote(supplier.getNote());
-            }
-
-            supplierModel.setRcs(supplier.getRcs());
             supplierModel.setIsDisabled(supplier.isDeleted());
             supplierModels.add(supplierModel);
         }

@@ -46,17 +46,14 @@ public class SupplierSelectorController extends DefaultController implements Ini
     private void setupTable() {
         MFXTableColumn<SupplierModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(SupplierModel::getID));
         MFXTableColumn<SupplierModel> nameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(SupplierModel::getName));
-        MFXTableColumn<SupplierModel> addressColumn = new MFXTableColumn<>("Adresse", true, Comparator.comparing(SupplierModel::getAddress));
 
         idColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getID));
         nameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getName));
-        addressColumn.setRowCellFactory(product -> new MFXTableRowCell<>(SupplierModel::getAddress));
 
-        table.getTableColumns().addAll(idColumn, nameColumn, addressColumn);
+        table.getTableColumns().addAll(idColumn, nameColumn);
         table.getFilters().addAll(
                 new StringFilter<>("Réf.", SupplierModel::getName),
-                new StringFilter<>("Libelle", SupplierModel::getName),
-                new StringFilter<>("Adresse", SupplierModel::getAddress)
+                new StringFilter<>("Libelle", SupplierModel::getName)
         );
         // TODO : connecter à l'API
 //        table.setItems(SolidStockDataIntegration.suppliers);

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.TextArea?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="fr.codesbusters.solidstock.controller.suppliers.SupplierEditController" fx:id="stackPane"
            stylesheets="@../../css/MFXColors.css">
@@ -188,13 +189,11 @@
                                                     <Insets left="10.0"/>
                                                 </VBox.margin>
                                             </MFXTextField>
-                                            <MFXTextField floatMode="BORDER" floatingText="Note"
-                                                          prefWidth="310"
-                                                          maxWidth="310" fx:id="supplierNote">
-                                                <VBox.margin>
-                                                    <Insets left="10.0"/>
-                                                </VBox.margin>
-                                            </MFXTextField>
+                                            <VBox spacing="5" VBox.vgrow="ALWAYS">
+                                                <Label text="Note :"></Label>
+                                                <TextArea minHeight="140" maxWidth="585" fx:id="supplierNote"
+                                                          VBox.vgrow="ALWAYS"/>
+                                            </VBox>
                                         </children>
                                     </VBox>
                                 </children>
