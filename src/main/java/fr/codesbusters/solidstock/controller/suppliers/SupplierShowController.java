@@ -11,6 +11,7 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.StackPane;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -82,7 +83,7 @@ public class SupplierShowController extends DefaultShowController implements Ini
     public MFXTextField supplierFax;
 
     @FXML
-    public MFXTextField supplierNote;
+    public TextArea supplierNote;
 
     @FXML
     public MFXButton enable;
