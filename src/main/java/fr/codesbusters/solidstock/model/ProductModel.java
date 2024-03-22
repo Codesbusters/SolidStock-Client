@@ -1,38 +1,40 @@
 package fr.codesbusters.solidstock.model;
 
 import javafx.beans.property.*;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class ProductModel {
 
     private final IntegerProperty id = new SimpleIntegerProperty();
     private final StringProperty name = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
-
-    private final StringProperty productFamily = new SimpleStringProperty("");
-
-    private final StringProperty barCode = new SimpleStringProperty("");
     private final DoubleProperty sellPrice = new SimpleDoubleProperty();
 
     private final DoubleProperty buyPrice = new SimpleDoubleProperty();
 
     private final IntegerProperty inStock = new SimpleIntegerProperty();
+    private final StringProperty productFamily = new SimpleStringProperty("");
+
+    private final DoubleProperty minimumStockQuantity = new SimpleDoubleProperty();
 
     private final IntegerProperty selled = new SimpleIntegerProperty();
+    private final BooleanProperty isDisabled = new SimpleBooleanProperty(false);
 
-    public ProductModel(int id, String name, String description, String productFamily, String barCode, double sellPrice, double buyPrice, int inStock, int selled) {
+    public ProductModel(int id, String name, String description, String productFamily, double sellPrice, double buyPrice, int inStock, int selled, boolean isDisabled) {
         setID(id);
         setName(name);
         setDescription(description);
-        setBarCode(barCode);
         setSellPrice(sellPrice);
         setBuyPrice(buyPrice);
         setProductFamily(productFamily);
         setInStock(inStock);
         setSelled(selled);
+        setIsDisabled(isDisabled);
     }
 
-    public static ProductModel ofSplit(int id, String name, String description, String productFamily, String barCode, double sellPrice, double buyPrice, int inStock, int selled) {
-        return new ProductModel(id, name, description, productFamily, barCode, sellPrice, buyPrice, inStock, selled);
+    public static ProductModel ofSplit(int id, String name, String description, String productFamily, double sellPrice, double buyPrice, int inStock, int selled, boolean isDisabled) {
+        return new ProductModel(id, name, description, productFamily, sellPrice, buyPrice, inStock, selled, isDisabled);
     }
 
     public int getID() {
@@ -71,16 +73,16 @@ public class ProductModel {
         return description;
     }
 
-    public String getBarCode() {
-        return barCode.get();
+    public String getProductFamily() {
+        return productFamily.get();
     }
 
-    public void setBarCode(String barCode) {
-        this.barCode.set(barCode);
+    public void setProductFamily(String productFamily) {
+        this.productFamily.set(productFamily);
     }
 
-    public StringProperty barCodeProperty() {
-        return barCode;
+    public StringProperty productFamilyProperty() {
+        return productFamily;
     }
 
     public double getSellPrice() {
@@ -107,18 +109,6 @@ public class ProductModel {
         return buyPrice;
     }
 
-    public String getProductFamily() {
-        return productFamily.get();
-    }
-
-    public void setProductFamily(String productFamily) {
-        this.productFamily.set(productFamily);
-    }
-
-    public StringProperty productFamilyProperty() {
-        return productFamily;
-    }
-
     public int getInStock() {
         return inStock.get();
     }
@@ -141,6 +131,30 @@ public class ProductModel {
 
     public IntegerProperty selledProperty() {
         return selled;
+    }
+
+    public boolean getIsDisabled() {
+        return isDisabled.get();
+    }
+
+    public void setIsDisabled(boolean isDisabled) {
+        this.isDisabled.set(isDisabled);
+    }
+
+    public BooleanProperty isDisabledProperty() {
+        return isDisabled;
+    }
+
+    public double getMinimumStockQuantity() {
+        return minimumStockQuantity.get();
+    }
+
+    public void setMinimumStockQuantity(double minimumStockQuantity) {
+        this.minimumStockQuantity.set(minimumStockQuantity);
+    }
+
+    public DoubleProperty minimumStockQuantityProperty() {
+        return minimumStockQuantity;
     }
 
 }

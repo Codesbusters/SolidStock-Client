@@ -89,7 +89,7 @@ public class ProductEditController extends DefaultShowController implements Init
 
 
     @FXML
-    public void editProduct() throws NumberFormatException, UnsupportedEncodingException {
+    public void editProduct() throws NumberFormatException {
         String nameString = productName.getText();
         String descriptionString = description.getText();
         String supplierIdString = supplierID.getText();
