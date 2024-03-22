@@ -5,11 +5,7 @@ import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.listener.CustomerSelectorListener;
 import fr.codesbusters.solidstock.model.CustomerModel;
-import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
-import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
-import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
-import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,8 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-
-import java.util.Comparator;
 
 @Slf4j
 @Controller
@@ -36,7 +30,7 @@ public class CustomerSelectorController extends DefaultShowController implements
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        setupTable();
+//        setupTable();
         table.autosizeColumnsOnInitialization();
     }
 
@@ -48,26 +42,26 @@ public class CustomerSelectorController extends DefaultShowController implements
         this.listener = listener;
     }
 
-    public void setupTable() {
-        MFXTableColumn<CustomerModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(CustomerModel::getID));
-        MFXTableColumn<CustomerModel> nameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(CustomerModel::getName));
-        MFXTableColumn<CustomerModel> addressColumn = new MFXTableColumn<>("Adresse", true, Comparator.comparing(CustomerModel::getAddress));
-        MFXTableColumn<CustomerModel> corporationNameColumn = new MFXTableColumn<>("Entreprise", true, Comparator.comparing(CustomerModel::getCorporateName));
-
-        idColumn.setRowCellFactory(customer -> new MFXTableRowCell<>(CustomerModel::getID));
-        nameColumn.setRowCellFactory(customer -> new MFXTableRowCell<>(CustomerModel::getName));
-        addressColumn.setRowCellFactory(customer -> new MFXTableRowCell<>(CustomerModel::getAddress));
-        corporationNameColumn.setRowCellFactory(customer -> new MFXTableRowCell<>(CustomerModel::getCorporateName));
-
-        table.getTableColumns().addAll(idColumn, nameColumn, addressColumn, corporationNameColumn);
-        table.getFilters().addAll(
-                new StringFilter<>("Réf.", CustomerModel::getName),
-                new StringFilter<>("Libelle", CustomerModel::getName),
-                new StringFilter<>("Adresse", CustomerModel::getAddress),
-                new StringFilter<>("Entreprise", CustomerModel::getCorporateName)
-        );
-        table.setItems(SolidStockDataIntegration.customers);
-    }
+//    public void setupTable() {
+//        MFXTableColumn<CustomerModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(CustomerModel::getID));
+//        MFXTableColumn<CustomerModel> nameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(CustomerModel::getName));
+//        MFXTableColumn<CustomerModel> addressColumn = new MFXTableColumn<>("Adresse", true, Comparator.comparing(CustomerModel::getAddress));
+//        MFXTableColumn<CustomerModel> corporationNameColumn = new MFXTableColumn<>("Entreprise", true, Comparator.comparing(CustomerModel::getCorporateName));
+//
+//        idColumn.setRowCellFactory(customer -> new MFXTableRowCell<>(CustomerModel::getID));
+//        nameColumn.setRowCellFactory(customer -> new MFXTableRowCell<>(CustomerModel::getName));
+//        addressColumn.setRowCellFactory(customer -> new MFXTableRowCell<>(CustomerModel::getAddress));
+//        corporationNameColumn.setRowCellFactory(customer -> new MFXTableRowCell<>(CustomerModel::getCorporateName));
+//
+//        table.getTableColumns().addAll(idColumn, nameColumn, addressColumn, corporationNameColumn);
+//        table.getFilters().addAll(
+//                new StringFilter<>("Réf.", CustomerModel::getName),
+//                new StringFilter<>("Libelle", CustomerModel::getName),
+//                new StringFilter<>("Adresse", CustomerModel::getAddress),
+//                new StringFilter<>("Entreprise", CustomerModel::getCorporateName)
+//        );
+//        table.setItems(SolidStockDataIntegration.customers);
+//    }
 
     @FXML
     private void submitAction(ActionEvent event) {

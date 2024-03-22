@@ -5,13 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetCustomerDto {
+public class PostCustomerDto {
     private int id;
     private String companyName;
     private String firstName;
@@ -32,10 +30,4 @@ public class GetCustomerDto {
     private int rcs;
     private String fax;
     private boolean deleted;
-    private List<String> estimates;
-    private List<String> invoices;
-    private List<String> orderForms;
-    private String user;
-    private String createdAt;
-    private String updatedAt;
 }

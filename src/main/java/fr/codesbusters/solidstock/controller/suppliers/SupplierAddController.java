@@ -156,7 +156,6 @@ public class SupplierAddController extends DefaultController implements Initiali
         supplier.setWebsite(webSiteString);
         supplier.setFax(faxString);
         supplier.setNote(noteString);
-        
 
 
         RequestAPI requestAPI = new RequestAPI();

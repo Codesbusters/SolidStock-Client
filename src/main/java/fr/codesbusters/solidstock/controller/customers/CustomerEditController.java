@@ -1,18 +1,25 @@
 package fr.codesbusters.solidstock.controller.customers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
+import fr.codesbusters.solidstock.dto.customer.GetCustomerDto;
+import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static fr.codesbusters.solidstock.service.RIBChecker.isValidIBAN;
 
 @Slf4j
 @Controller
@@ -21,29 +28,92 @@ public class CustomerEditController extends DefaultShowController implements Ini
 
     @FXML
     public StackPane stackPane;
+
     @FXML
     public MFXTextField customerId;
     @FXML
-    public MFXTextField customerName;
+    public MFXTextField customerCompanyName;
     @FXML
-    public MFXTextField customerThirdParty;
+    public MFXTextField customerFirstName;
+    @FXML
+    public MFXTextField customerLastName;
+    @FXML
+    public MFXTextField customerCountry;
+    @FXML
+    public MFXTextField customerCity;
+    @FXML
+    public MFXTextField customerZipCode;
+    @FXML
+    public MFXTextField customerStreetNumber;
     @FXML
     public MFXTextField customerAddress;
     @FXML
-    public MFXTextField customerCorporateName;
+    public MFXTextField customerEmail;
+
+    @FXML
+    public MFXTextField customerMobilePhone;
+
+    @FXML
+    public MFXTextField customerHomePhone;
+
+    @FXML
+    public MFXTextField customerWorkPhone;
+
+    @FXML
+    public MFXTextField customerWebsite;
+
     @FXML
     public MFXTextField customerSiren;
+
     @FXML
     public MFXTextField customerSiret;
+
     @FXML
     public MFXTextField customerRib;
 
     @FXML
     public MFXTextField customerRcs;
 
+    @FXML
+    public MFXTextField customerFax;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        customerId.setEditable(false);
         customerId.setText(String.valueOf(getId()));
+
+        RequestAPI requestAPI = new RequestAPI();
+
+        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/customer/" + getId(), String.class, true, true);
+        ObjectMapper mapper = new ObjectMapper();
+        GetCustomerDto customer = null;
+
+        try {
+            customer = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
+            });
+        } catch (Exception e) {
+            log.error("Error while parsing customers list", e);
+        }
+
+        assert customer != null;
+        customerCompanyName.setText(customer.getCompanyName());
+        customerFirstName.setText(customer.getFirstName());
+        customerLastName.setText(customer.getLastName());
+        customerCountry.setText(customer.getCountry());
+        customerCity.setText(customer.getCity());
+        customerZipCode.setText(customer.getZipCode());
+        customerStreetNumber.setText(customer.getStreetNumber());
+        customerAddress.setText(customer.getAddress());
+        customerMobilePhone.setText(customer.getMobilePhone());
+        customerHomePhone.setText(customer.getHomePhone());
+        customerWorkPhone.setText(customer.getWorkPhone());
+        customerEmail.setText(customer.getEmail());
+        customerWebsite.setText(customer.getWebsite());
+        customerSiren.setText(customer.getSiren());
+        customerSiret.setText(customer.getSiret());
+        customerRib.setText(customer.getRib());
+        customerRcs.setText(String.valueOf(customer.getRcs()));
+        customerRib.setText(customer.getFax());
     }
 
     @FXML
@@ -56,80 +126,84 @@ public class CustomerEditController extends DefaultShowController implements Ini
     @FXML
     public void editCustomer() throws NumberFormatException, UnsupportedEncodingException {
         int idInteger = Integer.parseInt(customerId.getText());
-        String nameString = customerName.getText();
-        String thirdPartyString = customerThirdParty.getText();
+        String companyNameString = customerCompanyName.getText();
+        String firstNameString = customerFirstName.getText();
+        String lastNameString = customerLastName.getText();
+        String countryString = customerCountry.getText();
+        String cityString = customerCity.getText();
+        String zipCodeString = customerZipCode.getText();
+        String streetNumberString = customerStreetNumber.getText();
         String addressString = customerAddress.getText();
-        String corporateNameString = customerCorporateName.getText();
+        String mobilePhoneString = customerMobilePhone.getText();
+        String homePhoneString = customerHomePhone.getText();
+        String workPhoneString = customerWorkPhone.getText();
+        String emailString = customerEmail.getText();
+        String webSiteString = customerWebsite.getText();
         String sirenString = customerSiren.getText();
         String siretString = customerSiret.getText();
         String ribString = customerRib.getText();
-        String rcsString = customerRcs.getText();
+        int rcsInt = Integer.parseInt(customerRcs.getText());
+        String faxString = customerFax.getText();
 
-        // Vérification du nom du produit
-        if (nameString.isBlank()) {
+        // Vérification du nom du client
+        if (firstNameString.isBlank()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner le prénom du client", DialogType.ERROR, 0);
+            return;
+        }
+
+        // Vérification du nom
+        if (lastNameString.isBlank()) {
             openDialog(stackPane.getScene(), "Veuillez renseigner le nom du client", DialogType.ERROR, 0);
             return;
         }
 
-        // Vérification du tier
-        if (thirdPartyString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le tier", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification de l'adresse
-        if (addressString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner l'adresse du client'", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du nom de l'entreprise
-        if (corporateNameString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le nom de l'entreprise", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du numéro de siren
-        if (sirenString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de siren", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du numéro de siret
-        if (siretString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le numéro de siret", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du RIB
-        if (ribString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le RIB du client", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du RCS
-        if (rcsString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le RCS du client", DialogType.ERROR, 0);
-            return;
+        // Vérification du RIB du client
+        if (!ribString.isEmpty() && !isValidIBAN(ribString)) {
+            boolean result = openDialog(stackPane.getScene(), "Rib non valide, souhaitez vous continuer", DialogType.CONFIRMATION, 0);
+            if (!result) {
+                return;
+            }
         }
 
         // Création de l'objet Customer
-        Customer customer = new Customer();
+        GetCustomerDto customer = new GetCustomerDto();
         customer.setId(idInteger);
-        customer.setName(nameString);
-        customer.setThirdPartyId(Integer.parseInt(thirdPartyString));
+        customer.setCompanyName(companyNameString);
+        customer.setFirstName(firstNameString);
+        customer.setLastName(lastNameString);
+        customer.setCountry(countryString);
+        customer.setCity(cityString);
+        customer.setZipCode(zipCodeString);
+        customer.setStreetNumber(streetNumberString);
         customer.setAddress(addressString);
-        customer.setCorporateName(corporateNameString);
-        customer.setSiren(Integer.parseInt(sirenString));
-        customer.setSiret(Integer.parseInt(siretString));
+        customer.setMobilePhone(mobilePhoneString);
+        customer.setHomePhone(homePhoneString);
+        customer.setWorkPhone(workPhoneString);
+        customer.setEmail(emailString);
+        customer.setWebsite(webSiteString);
+        customer.setSiren(sirenString);
+        customer.setSiret(siretString);
         customer.setRib(ribString);
-        customer.setRcs(Integer.parseInt(rcsString));
+        customer.setRcs(rcsInt);
+        customer.setFax(faxString);
 
-        log.info("Customer to add : {}", customer);
+        // Envoi de la requête
+        RequestAPI requestAPI = new RequestAPI();
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(customer);
+        } catch (Exception e) {
+            log.error("Error while parsing customers list", e);
+        }
+        requestAPI.sendPutRequest("/customer/" + idInteger, json, String.class, true);
 
         cancel();
-
-        openDialog(stackPane.getScene(), "Client " + customer.getName() + " modifié avec succès", DialogType.INFORMATION, 0);
+        if (customer.getCompanyName().isEmpty()) {
+            openDialog(stackPane.getScene(), "Client " + customer.getFirstName() + " " + customer.getLastName() + " modifié avec succès.", DialogType.INFORMATION, 0);
+        } else {
+            openDialog(stackPane.getScene(), "Client " + customer.getCompanyName() + " modifié avec succès.", DialogType.INFORMATION, 0);
+        }
     }
-
 }
