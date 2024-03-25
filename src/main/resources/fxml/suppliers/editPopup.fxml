@@ -31,7 +31,7 @@
                 </children>
             </AnchorPane>
 
-            <AnchorPane id="pane2" minHeight="500.0" minWidth="800.0" prefHeight="130.0" prefWidth="600.0"
+            <AnchorPane id="pane2" minHeight="700.0" minWidth="800.0" prefHeight="130.0" prefWidth="600.0"
                         style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                         VBox.vgrow="ALWAYS">
                 <HBox alignment="CENTER" spacing="20.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
@@ -111,6 +111,20 @@
                                                     <Insets left="10.0"/>
                                                 </VBox.margin>
                                             </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="Téléphone Fixe"
+                                                          prefWidth="310"
+                                                          maxWidth="310" fx:id="supplierHomePhone">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="Téléphone profressionnel"
+                                                          prefWidth="310"
+                                                          maxWidth="310" fx:id="supplierWorkPhone">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
                                         </children>
                                     </VBox>
                                 </children>
@@ -126,21 +140,7 @@
                                 <children>
                                     <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
                                         <children>
-                                            <MFXTextField floatMode="BORDER" floatingText="Téléphone Fixe"
-                                                          prefWidth="310"
-                                                          maxWidth="310" fx:id="supplierHomePhone">
-                                                <VBox.margin>
-                                                    <Insets left="10.0"/>
-                                                </VBox.margin>
-                                            </MFXTextField>
-                                            <MFXTextField floatMode="BORDER" floatingText="Téléphone profressionnel"
-                                                          prefWidth="310"
-                                                          maxWidth="310" fx:id="supplierWorkPhone">
-                                                <VBox.margin>
-                                                    <Insets left="10.0"/>
-                                                </VBox.margin>
-                                            </MFXTextField>
-                                            <MFXTextField floatMode="BORDER" floatingText="Émail"
+                                            <MFXTextField floatMode="BORDER" floatingText="Email"
                                                           prefWidth="310"
                                                           maxWidth="310" fx:id="supplierEmail">
                                                 <VBox.margin>
@@ -189,10 +189,11 @@
                                                     <Insets left="10.0"/>
                                                 </VBox.margin>
                                             </MFXTextField>
-                                            <VBox spacing="5" VBox.vgrow="ALWAYS">
+                                            <VBox spacing="5" VBox.vgrow="ALWAYS" style="-fx-padding: 10.0;">
                                                 <Label text="Note :"></Label>
-                                                <TextArea minHeight="140" maxWidth="585" fx:id="supplierNote"
-                                                          VBox.vgrow="ALWAYS"/>
+                                                <TextArea maxWidth="290" minWidth="290" minHeight="200" maxHeight="200"
+                                                          VBox.vgrow="ALWAYS" fx:id="supplierNote">
+                                                </TextArea>
                                             </VBox>
                                         </children>
                                     </VBox>
