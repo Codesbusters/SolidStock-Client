@@ -3,7 +3,7 @@ package fr.codesbusters.solidstock.controller;
 
 import fr.codesbusters.solidstock.controller.selectors.CustomerSelectorController;
 import fr.codesbusters.solidstock.controller.selectors.EstimateSelectorController;
-import fr.codesbusters.solidstock.controller.selectors.ProductFamilySelectorController;
+import fr.codesbusters.solidstock.controller.selectors.productFamily.ProductFamilySelectorController;
 import fr.codesbusters.solidstock.controller.selectors.SupplierSelectorController;
 import fr.codesbusters.solidstock.listener.CustomerSelectorListener;
 import fr.codesbusters.solidstock.listener.EstimateSelectorListener;
@@ -296,7 +296,7 @@ public class DefaultController {
         try {
             Stage primaryStage = (Stage) scene.getWindow();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/selector/productFamillySelector.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/selector/productFamilySelector/productFamillySelector.fxml"));
             Parent root = loader.load();
             Scene newScene = new Scene(root);
             MFXThemeManager.addOn(newScene, Themes.DEFAULT, Themes.LEGACY);
