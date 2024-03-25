@@ -103,7 +103,7 @@ public class LoginScreen extends Stage {
                     }
                 });
                 setScene(scene);
-                setMinWidth(1266.0);
+                setMinWidth(1400);
                 setMinHeight(770.0);
                 setMaximized(true);
                 setResizable(true);
