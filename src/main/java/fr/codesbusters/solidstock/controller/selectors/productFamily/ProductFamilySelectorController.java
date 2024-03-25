@@ -118,7 +118,7 @@ public class ProductFamilySelectorController extends DefaultShowController imple
 
     @FXML
     public void addProductFamily() {
-        openPopUp("addPopup.fxml", stackPane.getScene(), "Ajouter une famille de produit");
+        openPopUp("selector/productFamilySelector/addPopup.fxml", stackPane.getScene(), "Ajouter une famille de produit");
         reloadProductFamily();
     }
 
@@ -132,7 +132,7 @@ public class ProductFamilySelectorController extends DefaultShowController imple
         }
 
         setId(productFamily.getID());
-        openPopUp("/showPopup.fxml", stackPane.getScene(), "Détails de la famille du produit");
+        openPopUp("selector/productFamilySelector/showPopup.fxml", stackPane.getScene(), "Détails de la famille du produit");
         reloadProductFamily();
     }
 
@@ -147,7 +147,7 @@ public class ProductFamilySelectorController extends DefaultShowController imple
 
         setId(productFamily.getID());
 
-        openPopUp("editPopup.fxml", stackPane.getScene(),"Modification de la famille de produit");
+        openPopUp("selector/productFamilySelector/editPopup.fxml", stackPane.getScene(),"Modification de la famille de produit");
         reloadProductFamily();
     }
 
@@ -224,13 +224,7 @@ public class ProductFamilySelectorController extends DefaultShowController imple
         for (GetProductFamilyDto productFamily : productFamilyList) {
             ProductFamilyModel productFamilyModel = new ProductFamilyModel();
             productFamilyModel.setID(productFamily.getId());
-
-            if (productFamily.getDescription() == null || productFamily.getDescription().isEmpty()) {
-                productFamilyModel.setDescription("");
-            } else {
-                productFamilyModel.setDescription(productFamilyModel.getDescription());
-            }
-
+            productFamilyModel.setDescription(productFamily.getDescription());
             if (productFamily.getName() == null || productFamily.getName().isEmpty()) {
                 productFamilyModel.setName("");
             } else {

@@ -2,6 +2,9 @@ package fr.codesbusters.solidstock.model;
 
 import javafx.beans.property.*;
 import lombok.NoArgsConstructor;
+import org.w3c.dom.Text;
+
+import java.awt.*;
 
 @NoArgsConstructor
 public class ProductFamilyModel {
