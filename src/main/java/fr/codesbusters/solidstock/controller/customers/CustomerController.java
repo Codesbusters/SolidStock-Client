@@ -173,7 +173,7 @@ public class CustomerController extends DefaultShowController implements Initial
         ObjectMapper mapper = new ObjectMapper();
         List<GetCustomerDto> customerList = null;
         try {
-            customerList = mapper.readValue(responseEntity.getBody(), new TypeReference<List<GetCustomerDto>>() {
+            customerList = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
             });
         } catch (Exception e) {
             log.error("Error while parsing customers list", e);
