@@ -7,7 +7,6 @@ public class SolidStockDataIntegration {
 
     public static final ObservableList<String> languages;
     public static final ObservableList<UsersModel> users;
-    public static final ObservableList<ProductFamilyModel> productFamily;
     public static final ObservableList<QuantityTypeModel> quantityType;
     public static final ObservableList<RoleModel> roles;
 
@@ -29,12 +28,6 @@ public class SolidStockDataIntegration {
                 UsersModel.ofSplit(4, "Jean", "Marie", 2, "buenos dias", 9, "patron", "Je fais ce que je veux", "marie.jean@solidstock.fr", "01 02 03 04 05", "MarreJO"),
                 UsersModel.ofSplit(5, "Jean", "Pierre", 5, "hey", 2, "actionnaire", "J'aime l'argent", "pierre.jean@solidstock.fr", "01 02 03 04 05", "CaillouxJO"),
                 UsersModel.ofSplit(6, "Jean", "François", 6, "yo", 5, "Livreur", "Je vais vite", "françois.jean@solidstock.fr", "01 02 03 04 05", "FRJO")
-        );
-
-        productFamily = FXCollections.observableArrayList(
-                ProductFamilyModel.ofSplit(1, "Charcuterie", "Charcuterie fraiche"),
-                ProductFamilyModel.ofSplit(2, "Boulangerie", "Pain francais"),
-                ProductFamilyModel.ofSplit(3, "Fromage", "Fromage francais")
         );
 
         quantityType = FXCollections.observableArrayList(
