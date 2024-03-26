@@ -8,6 +8,7 @@ import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.customer.GetCustomerDto;
 import fr.codesbusters.solidstock.model.CustomerModel;
 import fr.codesbusters.solidstock.service.RequestAPI;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
@@ -38,10 +39,30 @@ public class CustomerController extends DefaultShowController implements Initial
     @FXML
     private MFXTableView<CustomerModel> table;
 
+    @FXML
+    private MFXButton modifyButton;
+
+    @FXML
+    private MFXButton deleteButton;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupTable();
         table.autosizeColumnsOnInitialization();
+
+        table.setOnMouseClicked(event -> {
+            CustomerModel customer = table.getSelectionModel().getSelectedValue();
+
+            if (customer != null) {
+                if (customer.getIsDisabled()) {
+                    modifyButton.setDisable(true);
+                    deleteButton.setDisable(true);
+                } else {
+                    modifyButton.setDisable(false);
+                    deleteButton.setDisable(false);
+                }
+            }
+        });
     }
 
 
@@ -222,7 +243,7 @@ public class CustomerController extends DefaultShowController implements Initial
             } else {
                 customerModel.setEmail(customer.getEmail());
             }
-
+            customerModel.setIsDisabled(customer.isDeleted());
             customerModels.add(customerModel);
         }
         customerModels.sort(Comparator.comparingInt(CustomerModel::getID));

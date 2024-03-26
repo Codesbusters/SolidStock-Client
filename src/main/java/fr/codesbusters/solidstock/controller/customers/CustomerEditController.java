@@ -77,6 +77,9 @@ public class CustomerEditController extends DefaultShowController implements Ini
     @FXML
     public MFXTextField customerFax;
 
+    @FXML
+    public MFXTextField customerNote;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         customerId.setEditable(false);
@@ -114,6 +117,7 @@ public class CustomerEditController extends DefaultShowController implements Ini
         customerRib.setText(customer.getRib());
         customerRcs.setText(String.valueOf(customer.getRcs()));
         customerRib.setText(customer.getFax());
+        customerNote.setText(customer.getNote());
     }
 
     @FXML
@@ -144,6 +148,7 @@ public class CustomerEditController extends DefaultShowController implements Ini
         String ribString = customerRib.getText();
         int rcsInt = Integer.parseInt(customerRcs.getText());
         String faxString = customerFax.getText();
+        String noteString = customerNote.getText();
 
         // Vérification du nom du client
         if (firstNameString.isBlank()) {
@@ -186,6 +191,7 @@ public class CustomerEditController extends DefaultShowController implements Ini
         customer.setRib(ribString);
         customer.setRcs(rcsInt);
         customer.setFax(faxString);
+        customer.setNote(noteString);
 
         // Envoi de la requête
         RequestAPI requestAPI = new RequestAPI();

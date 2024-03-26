@@ -29,5 +29,5 @@ public class PostCustomerDto {
     private String rib;
     private int rcs;
     private String fax;
-    private boolean deleted;
+    private String note;
 }

@@ -3,6 +3,7 @@
 <?import io.github.palexdev.materialfx.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
@@ -177,6 +178,13 @@
                                                     <Insets left="10.0"/>
                                                 </VBox.margin>
                                             </MFXTextField>
+                                            <VBox spacing="3" VBox.vgrow="ALWAYS" style="-fx-padding: 10.0;">
+                                                <Label text="Note :"></Label>
+                                                <TextArea maxWidth="290" minWidth="290" minHeight="200" maxHeight="200"
+                                                          VBox.vgrow="ALWAYS" fx:id="customerNote">
+
+                                                </TextArea>
+                                            </VBox>
                                         </children>
                                     </VBox>
                                 </children>
@@ -198,6 +206,11 @@
                         VBox.vgrow="ALWAYS">
                 <HBox AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" spacing="10.0" alignment="CENTER_RIGHT">
                     <children>
+                        <MFXButton fx:id="enable" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                                   text="ACTIVER" prefHeight="38"
+                                   buttonType="RAISED" styleClass="outline-button"
+                                   style="-fx-border-color: black; -fx-background-radius: 8; -fx-border-radius: 8; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-color: green; -fx-text-fill: white;"
+                                   HBox.hgrow="ALWAYS" onAction="#enable"/>
                         <MFXButton id="cancel" minHeight="27.0" minWidth="70.0" prefWidth="100"
                                    text="FERMER" prefHeight="38"
                                    buttonType="RAISED" styleClass="outline-button"

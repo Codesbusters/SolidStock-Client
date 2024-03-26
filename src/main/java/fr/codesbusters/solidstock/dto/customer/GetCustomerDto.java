@@ -31,7 +31,8 @@ public class GetCustomerDto {
     private String rib;
     private int rcs;
     private String fax;
-    private boolean deleted;
+    private String note;
+    private boolean isDeleted;
     private List<String> estimates;
     private List<String> invoices;
     private List<String> orderForms;

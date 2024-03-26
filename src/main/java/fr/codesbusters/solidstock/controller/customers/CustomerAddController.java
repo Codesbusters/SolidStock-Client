@@ -72,6 +72,9 @@ public class CustomerAddController extends DefaultController implements Initiali
     @FXML
     public MFXTextField customerFax;
 
+    @FXML
+    public MFXTextField customerNote;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -107,6 +110,7 @@ public class CustomerAddController extends DefaultController implements Initiali
             }
         }
         String faxString = customerFax.getText();
+        String noteString = customerNote.getText();
 
         // Vérification du nom du client
         if (firstNameString.isBlank()) {
@@ -148,6 +152,7 @@ public class CustomerAddController extends DefaultController implements Initiali
         customer.setRib(ribString);
         customer.setRcs(rcsInt);
         customer.setFax(faxString);
+        customer.setNote(noteString);
 
         RequestAPI requestAPI = new RequestAPI();
         ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/customer/add", customer, String.class, true, true);

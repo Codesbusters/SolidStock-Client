@@ -2,9 +2,11 @@ package fr.codesbusters.solidstock.controller.customers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.customer.GetCustomerDto;
 import fr.codesbusters.solidstock.service.RequestAPI;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
+import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -73,6 +76,12 @@ public class CustomerShowController extends DefaultShowController implements Ini
     @FXML
     public MFXTextField customerFax;
 
+    @FXML
+    public TextArea customerNote;
+
+    @FXML
+    public MFXButton enable;
+
     private void disableTextFields() {
         customerId.setEditable(false);
         customerCompanyName.setEditable(false);
@@ -93,13 +102,12 @@ public class CustomerShowController extends DefaultShowController implements Ini
         customerWebsite.setEditable(false);
         customerCountry.setEditable(false);
         customerFax.setEditable(false);
+        customerNote.setEditable(false);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         customerId.setText(String.valueOf(getId()));
-        customerId.setText(String.valueOf(getId()));
-
         RequestAPI requestAPI = new RequestAPI();
 
         ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/customer/" + getId(), String.class, true, true);
@@ -131,8 +139,34 @@ public class CustomerShowController extends DefaultShowController implements Ini
         customerSiret.setText(customer.getSiret());
         customerRib.setText(customer.getRib());
         customerRcs.setText(String.valueOf(customer.getRcs()));
-        customerRib.setText(customer.getFax());
+        customerFax.setText(customer.getFax());
+        customerNote.setText(customer.getNote());
         disableTextFields();
+        enable.setVisible(customer.isDeleted());
+    }
+
+    @FXML
+    public void enable() {
+        int idInteger = Integer.parseInt(customerId.getText());
+        String companyNameString = customerCompanyName.getText();
+        String firstNameString = customerFirstName.getText();
+        String lastNameString = customerLastName.getText();
+
+        GetCustomerDto customer = new GetCustomerDto();
+        customer.setId(idInteger);
+        customer.setCompanyName(companyNameString);
+        customer.setFirstName(firstNameString);
+        customer.setLastName(lastNameString);
+        RequestAPI requestAPI = new RequestAPI();
+
+        requestAPI.sendPostRequest("/customer/" + idInteger, null, String.class, true, true);
+
+        cancel();
+        if (customer.getCompanyName().isEmpty()) {
+            openDialog(stackPane.getScene(), "Client " + customer.getFirstName() + " " + customer.getLastName() + " réactivé avec succès.", DialogType.INFORMATION, 0);
+        } else {
+            openDialog(stackPane.getScene(), "Client " + customer.getCompanyName() + " réactivé avec succès.", DialogType.INFORMATION, 0);
+        }
     }
 
     @FXML

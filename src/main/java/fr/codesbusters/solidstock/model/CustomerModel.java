@@ -1,9 +1,6 @@
 package fr.codesbusters.solidstock.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -15,6 +12,8 @@ public class CustomerModel {
     private final StringProperty cityCode = new SimpleStringProperty("");
     private final StringProperty phone = new SimpleStringProperty("");
     private final StringProperty email = new SimpleStringProperty("");
+
+    private final BooleanProperty isDisabled = new SimpleBooleanProperty(false);
 
     public CustomerModel(int id, String name, String country, String cityCode, String phone, String email) {
         setID(id);
@@ -75,6 +74,14 @@ public class CustomerModel {
 
     public void setEmail(String email) {
         this.email.set(email);
+    }
+
+    public boolean getIsDisabled() {
+        return isDisabled.get();
+    }
+
+    public void setIsDisabled(boolean isDisabled) {
+        this.isDisabled.set(isDisabled);
     }
 
 }
