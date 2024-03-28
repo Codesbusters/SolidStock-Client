@@ -7,7 +7,18 @@ import java.io.IOException;
 
 public class TokenManager {
     static ApplicationPropertiesReader applicationPropertiesReader = new ApplicationPropertiesReader();
-    private static final String TOKEN_FILE = System.getenv("APPDATA") + "\\ " + applicationPropertiesReader.getProperty("spring.application.name") + "\\settings.ini";
+    private static final String TOKEN_FILE;
+
+    static {
+        String appDataPath = System.getenv("APPDATA");
+        if (appDataPath != null) {
+            // Système Windows
+            TOKEN_FILE = appDataPath + File.separator + applicationPropertiesReader.getProperty("spring.application.name") + File.separator + "settings.ini";
+        } else {
+            // Système Unix/Linux
+            TOKEN_FILE = System.getProperty("user.home") + File.separator + "." + applicationPropertiesReader.getProperty("spring.application.name") + File.separator + "settings.ini";
+        }
+    }
 
     public static String getToken() {
         try {
@@ -65,6 +76,10 @@ public class TokenManager {
     public static boolean tokenExists() {
         File file = new File(TOKEN_FILE);
         return file.exists();
+    }
+
+    private String getTempDirectory() {
+        return System.getProperty("java.io.tmpdir");
     }
 
 }
