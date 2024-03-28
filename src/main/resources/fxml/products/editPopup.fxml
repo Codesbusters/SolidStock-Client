@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import fr.codesbusters.solidstock.component.SSDoubleField?>
 <?import io.github.palexdev.materialfx.controls.*?>
 <?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <?import javafx.geometry.*?>
