@@ -2,10 +2,7 @@ package fr.codesbusters.solidstock.dto.productFamily;
 
 
 import fr.codesbusters.solidstock.dto.product.GetProductDto;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -20,5 +17,14 @@ public class GetProductFamilyDto {
     private String createdAt;
     private String updatedAt;
     private boolean isDeleted;
+    private GetProductDto productDto;
     private List<Integer> products;
+
+    public GetProductFamilyDto(int id) {
+        this.id = id;
+    }
+
+    public static GetProductFamilyDto fromId(int id) {
+        return new GetProductFamilyDto();
+    }
 }

@@ -3,7 +3,6 @@ package fr.codesbusters.solidstock.controller.products;
 
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.business.Product;
-import fr.codesbusters.solidstock.component.SSDoubleField;
 import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.listener.ProductFamilySelectorListener;
 import fr.codesbusters.solidstock.listener.SupplierSelectorListener;
@@ -15,6 +14,7 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,11 +45,11 @@ public class ProductAddController extends DefaultController implements Initializ
     @FXML
     public TextArea description;
     @FXML
-    public SSDoubleField buyPrice;
+    public MFXTextField buyPrice;
     @FXML
-    public SSDoubleField sellPrice;
+    public MFXTextField sellPrice;
     @FXML
-    public SSDoubleField vat;
+    public MFXTextField vat;
     @FXML
     public MFXTextField supplierID;
     @FXML
@@ -89,9 +89,9 @@ public class ProductAddController extends DefaultController implements Initializ
             quantityTypeString = String.valueOf(selectedItem.getID());
         }
 
-        double buyPriceDouble = buyPrice.getValue();
-        double sellPriceDouble = sellPrice.getValue();
-        double vatDouble = vat.getValue();
+        String buyPriceDouble = buyPrice.getText();
+        String sellPriceDouble = sellPrice.getText();
+        String vatDouble = vat.getText();
 
         // Vérification du nom du produit
         if (nameString.isBlank()) {
@@ -130,9 +130,9 @@ public class ProductAddController extends DefaultController implements Initializ
         product.setSupplierId(Integer.parseInt(supplierIdString));
         product.setProductFamilyId(Integer.parseInt(productFamily));
         product.setQuantityTypeId(Integer.parseInt(quantityTypeString));
-        product.setBuyPrice(buyPriceDouble);
-        product.setSellPrice(sellPriceDouble);
-        product.setVat(vatDouble);
+        product.setBuyPrice(Double.parseDouble(buyPriceDouble));
+        product.setSellPrice(Double.parseDouble(sellPriceDouble));
+        product.setVat(Double.parseDouble(vatDouble));
         product.setImage(imageBase64);
 
         log.info("Product to add : {}", product);

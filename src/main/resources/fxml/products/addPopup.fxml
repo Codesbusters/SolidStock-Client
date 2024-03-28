@@ -119,28 +119,28 @@
 
                         <HBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
                             <children>
-                                <SSDoubleField floatMode="BORDER" floatingText="Prix d'achat" HBox.hgrow="ALWAYS"
+                                <MFXTextField floatMode="BORDER" floatingText="Prix d'achat" HBox.hgrow="ALWAYS"
                                                fx:id="buyPrice"
                                                minWidth="187" maxWidth="187">
                                     <VBox.margin>
                                         <Insets left="10.0"/>
                                     </VBox.margin>
-                                </SSDoubleField>
-                                <SSDoubleField floatMode="BORDER" floatingText="Prix de vente" fx:id="sellPrice"
+                                </MFXTextField>
+                                <MFXTextField floatMode="BORDER" floatingText="Prix de vente" fx:id="sellPrice"
                                                HBox.hgrow="ALWAYS"
                                                minWidth="187" maxWidth="187">
 
                                     <VBox.margin>
                                         <Insets left="10.0"/>
                                     </VBox.margin>
-                                </SSDoubleField>
-                                <SSDoubleField floatMode="BORDER" floatingText="Taux de TVA" HBox.hgrow="ALWAYS"
+                                </MFXTextField>
+                                <MFXTextField floatMode="BORDER" floatingText="Taux de TVA" HBox.hgrow="ALWAYS"
                                                fx:id="vat"
                                                minWidth="187" maxWidth="187">
                                     <VBox.margin>
                                         <Insets left="10.0"/>
                                     </VBox.margin>
-                                </SSDoubleField>
+                                </MFXTextField>
                             </children>
                         </HBox>
 

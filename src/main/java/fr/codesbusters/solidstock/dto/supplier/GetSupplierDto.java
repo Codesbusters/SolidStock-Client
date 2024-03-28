@@ -38,4 +38,12 @@ public class GetSupplierDto {
     private String createdAt;
     private String updatedAt;
 
+    public GetSupplierDto(int id) {
+        this.id = id;
+    }
+
+    public static GetSupplierDto fromId(int id) {
+        return new GetSupplierDto();
+    }
+
 }

@@ -2,7 +2,6 @@ package fr.codesbusters.solidstock.controller.products;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.codesbusters.solidstock.component.SSDoubleField;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.product.GetProductDto;
 import fr.codesbusters.solidstock.model.QuantityTypeModel;
@@ -11,6 +10,7 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -45,8 +45,14 @@ public class ProductShowController extends DefaultShowController implements Init
     public MFXTextField productVat;
     @FXML
     public MFXTextField productSupplierID;
+
+    @FXML
+    public Label supplierName;
     @FXML
     public MFXTextField productFamilyID;
+
+    @FXML
+    public Label productFamilyName;
     @FXML
     public MFXComboBox<QuantityTypeModel> productQuantityType;
 
@@ -79,12 +85,14 @@ public class ProductShowController extends DefaultShowController implements Init
 
         assert  product != null;
         productName.setText(product.getName());
-        productQuantityType.setText(String.valueOf(product.getQuantityType()));
-        productFamilyID.setText(String.valueOf(product.getProductFamily()));
-        productSupplierID.setText(String.valueOf(product.getSupplier()));
+        productQuantityType.setText(String.valueOf(product.getQuantityType().getId()));
+        productFamilyID.setText(String.valueOf(product.getProductFamily().getId()));
+        productFamilyName.setText(product.getProductFamily().getName());
+        productSupplierID.setText(String.valueOf(product.getSupplier().getId()));
+        supplierName.setText(product.getSupplier().getCompanyName());
         productBuyPrice.setPromptText(String.valueOf(product.getBuyPrice()));
         productSellPrice.setPromptText(String.valueOf(product.getSellPrice()));
-        productVat.setPromptText(String.valueOf(product.getVat()));
+        productVat.setPromptText(String.valueOf(product.getVat().getRate()));
         productDescription.setText(product.getDescription());
         disableTextFields();
     }

@@ -1,7 +1,7 @@
 package fr.codesbusters.solidstock.dto.product;
 
 import fr.codesbusters.solidstock.dto.productFamily.GetProductFamilyDto;
-import fr.codesbusters.solidstock.dto.quantityFamily.GetQuantityFamilyDto;
+import fr.codesbusters.solidstock.dto.quantityType.GetQuantityTypeDto;
 import fr.codesbusters.solidstock.dto.supplier.GetSupplierDto;
 import fr.codesbusters.solidstock.dto.vat.GetVatDto;
 import lombok.AllArgsConstructor;
@@ -19,13 +19,13 @@ public class GetProductDto {
     private int id;
     private String name;
     private String description;
-    private int productFamily;
-    private int supplier;
-    private int vat;
-    private int quantityType;
+    private GetSupplierDto supplier;
+    private GetProductFamilyDto productFamily;
+    private GetVatDto vat;
+    private GetQuantityTypeDto quantityType;
     private String barCode;
-    private double sellPrice;
-    private double buyPrice;
+    private String sellPrice;
+    private String buyPrice;
     private boolean isDeleted;
     private double minimumStockQuantity;
     private List<String> stockMovements;
