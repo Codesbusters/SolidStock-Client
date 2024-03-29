@@ -185,8 +185,9 @@ public class ProductFamilySelectorController extends DefaultShowController imple
         // Vérifiez si l'ID est null
         if (selectedValue != null) {
             String productFamilyId = String.valueOf(selectedValue.getID());
+            String productFamilyName = selectedValue.getName();
             if (listener != null) {
-                listener.processProductFamilyContent(productFamilyId);
+                listener.processProductFamilyContent(productFamilyId, productFamilyName);
             } else {
                 openDialog(table.getScene(), "Une erreur est survenue, veuillez réessayer.", DialogType.ERROR, 0);
             }

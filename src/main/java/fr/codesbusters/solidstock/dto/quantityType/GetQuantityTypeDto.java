@@ -22,6 +22,10 @@ public class GetQuantityTypeDto {
         this.id = id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public static  GetQuantityTypeDto fromId(int id) {
         return new GetQuantityTypeDto(id);
     }

@@ -52,6 +52,9 @@ public class ProductShowController extends DefaultShowController implements Init
     public MFXTextField productFamilyID;
 
     @FXML
+    public MFXTextField productMinimumStock;
+
+    @FXML
     public Label productFamilyName;
     @FXML
     public MFXComboBox<QuantityTypeModel> productQuantityType;
@@ -66,6 +69,7 @@ public class ProductShowController extends DefaultShowController implements Init
         productSupplierID.setEditable(false);
         productFamilyID.setEditable(false);
         productQuantityType.setEditable(false);
+        productMinimumStock.setEditable(false);
     }
 
     @Override
@@ -90,9 +94,10 @@ public class ProductShowController extends DefaultShowController implements Init
         productFamilyName.setText(product.getProductFamily().getName());
         productSupplierID.setText(String.valueOf(product.getSupplier().getId()));
         supplierName.setText(product.getSupplier().getCompanyName());
-        productBuyPrice.setPromptText(String.valueOf(product.getBuyPrice()));
-        productSellPrice.setPromptText(String.valueOf(product.getSellPrice()));
-        productVat.setPromptText(String.valueOf(product.getVat().getRate()));
+        productBuyPrice.setText(String.valueOf(product.getBuyPrice()));
+        productSellPrice.setText(String.valueOf(product.getSellPrice()));
+        productVat.setText(String.valueOf(product.getVat().getRate()));
+        productMinimumStock.setText(String.valueOf(product.getMinimumStockQuantity()));
         productDescription.setText(product.getDescription());
         disableTextFields();
     }

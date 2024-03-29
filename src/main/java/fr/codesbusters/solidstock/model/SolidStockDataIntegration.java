@@ -7,7 +7,6 @@ public class SolidStockDataIntegration {
 
     public static final ObservableList<String> languages;
     public static final ObservableList<UsersModel> users;
-    public static final ObservableList<QuantityTypeModel> quantityType;
     public static final ObservableList<RoleModel> roles;
 
     public static final ObservableList<CustomerModel> customers;
@@ -28,18 +27,6 @@ public class SolidStockDataIntegration {
                 UsersModel.ofSplit(4, "Jean", "Marie", 2, "buenos dias", 9, "patron", "Je fais ce que je veux", "marie.jean@solidstock.fr", "01 02 03 04 05", "MarreJO"),
                 UsersModel.ofSplit(5, "Jean", "Pierre", 5, "hey", 2, "actionnaire", "J'aime l'argent", "pierre.jean@solidstock.fr", "01 02 03 04 05", "CaillouxJO"),
                 UsersModel.ofSplit(6, "Jean", "François", 6, "yo", 5, "Livreur", "Je vais vite", "françois.jean@solidstock.fr", "01 02 03 04 05", "FRJO")
-        );
-
-        quantityType = FXCollections.observableArrayList(
-                QuantityTypeModel.ofSplit(1, "Gramme", "g", "Unitée de mesure de masse"),
-                QuantityTypeModel.ofSplit(2, "Kilogramme", "kg", "Unitée de mesure de masse"),
-                QuantityTypeModel.ofSplit(3, "Litre", "L", "Unitée de mesure de volume"),
-                QuantityTypeModel.ofSplit(4, "Millilitre", "mL", "Unitée de mesure de volume"),
-                QuantityTypeModel.ofSplit(5, "Piece", "pc", "Unitée de mesure de quantité"),
-                QuantityTypeModel.ofSplit(6, "Mètre", "m", "Unitée de mesure de longueur"),
-                QuantityTypeModel.ofSplit(7, "Centimètre", "cm", "Unitée de mesure de longueur"),
-                QuantityTypeModel.ofSplit(8, "Millimètre", "mm", "Unitée de mesure de longueur"),
-                QuantityTypeModel.ofSplit(9, "Kilomètre", "km", "Unitée de mesure de longueur")
         );
 
         roles = FXCollections.observableArrayList(

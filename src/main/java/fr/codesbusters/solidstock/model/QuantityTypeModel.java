@@ -71,8 +71,7 @@ public class QuantityTypeModel {
         return description;
     }
 
-    @Override
-    public String toString() {
+    public String getDisplay() {
         return getID() + " - " + getName() + " - " + getUnit();
     }
 }

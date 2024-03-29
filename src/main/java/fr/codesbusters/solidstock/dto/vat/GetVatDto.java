@@ -30,4 +30,5 @@ public class GetVatDto {
     public static GetVatDto fromId(int id) {
         return new GetVatDto(id);
     }
+
 }

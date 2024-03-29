@@ -1,16 +1,21 @@
 package fr.codesbusters.solidstock.controller.products;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
-import fr.codesbusters.solidstock.business.Product;
 import fr.codesbusters.solidstock.controller.DefaultController;
+import fr.codesbusters.solidstock.dto.product.GetProductDto;
+import fr.codesbusters.solidstock.dto.product.PostProductDto;
+import fr.codesbusters.solidstock.dto.quantityType.GetQuantityTypeDto;
+import fr.codesbusters.solidstock.dto.vat.GetVatDto;
 import fr.codesbusters.solidstock.listener.ProductFamilySelectorListener;
 import fr.codesbusters.solidstock.listener.SupplierSelectorListener;
-import fr.codesbusters.solidstock.model.QuantityTypeModel;
-import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
+import fr.codesbusters.solidstock.service.RequestAPI;
 import fr.codesbusters.solidstock.utils.Base64Converter;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +27,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import java.io.File;
@@ -29,6 +35,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Slf4j
@@ -43,27 +50,72 @@ public class ProductAddController extends DefaultController implements Initializ
     @FXML
     public MFXTextField productName;
     @FXML
-    public TextArea description;
+    public TextArea productDescription;
     @FXML
-    public MFXTextField buyPrice;
+    public MFXTextField productBuyPrice;
     @FXML
-    public MFXTextField sellPrice;
+    public MFXTextField productSellPrice;
     @FXML
-    public MFXTextField vat;
+    public MFXComboBox<String> productVat;
     @FXML
-    public MFXTextField supplierID;
+    public MFXTextField productSupplierId;
+    @FXML
+    public Label supplierName;
+    @FXML
+    public MFXTextField productMinimumStock;
     @FXML
     public MFXTextField productFamilyID;
     @FXML
-    public MFXComboBox<QuantityTypeModel> quantityType;
+    public Label productFamilyName;
+    @FXML
+    public MFXComboBox<String> productQuantityType;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        sellPrice.setTextLimit(8);
+        productSellPrice.setTextLimit(8);
 
-        ObservableList<QuantityTypeModel> quantityTypes = SolidStockDataIntegration.quantityType;
+        RequestAPI requestAPIVat = new RequestAPI();
 
-        quantityType.setItems(quantityTypes);
+        ResponseEntity<String> responseVatList = requestAPIVat.sendGetRequest("/vat/all", String.class, true, true);
+        ObjectMapper mapper = new ObjectMapper();
+        GetProductDto product = new GetProductDto();
+
+        List<GetVatDto> allVats = null;
+        try {
+            allVats = mapper.readValue(responseVatList.getBody(), new TypeReference<>() {});
+        } catch (Exception e) {
+            log.error("Error while parsing VAT list", e);
+        }
+
+        RequestAPI requestAPIQuantityType = new RequestAPI();
+
+        ResponseEntity<String> responseQuantityTypeList = requestAPIQuantityType.sendGetRequest("/quantity-type/all", String.class, true, true);
+        List<GetQuantityTypeDto> allQuantityTypes = null;
+        try {
+            allQuantityTypes = mapper.readValue(responseQuantityTypeList.getBody(), new TypeReference<>() {});
+        } catch (Exception e) {
+            log.error("Error while parsing VAT list", e);
+        }
+
+        ObservableList<String> vatDisplays = FXCollections.observableArrayList();
+        if (allVats != null) {
+            for (GetVatDto vatDto : allVats) {
+                String vatDisplay = vatDto.getId() + " - " + vatDto.getPercentage();
+                vatDisplays.add(vatDisplay);
+            }
+        }
+        productVat.setItems(vatDisplays);
+//        productVat.setText(product.getVat().getDescription());
+
+        ObservableList<String> quantityTypesDisplays = FXCollections.observableArrayList();
+        if (allQuantityTypes != null) {
+            for (GetQuantityTypeDto quantityTypeDto : allQuantityTypes) {
+                String quantityTypeDisplay = quantityTypeDto.getId() + " - " + quantityTypeDto.getUnit();
+                quantityTypesDisplays.add(quantityTypeDisplay);
+            }
+        }
+        productQuantityType.setItems(quantityTypesDisplays);
+//        productQuantityType.setText(product.getQuantityType().getName());
     }
 
     @FXML
@@ -80,29 +132,24 @@ public class ProductAddController extends DefaultController implements Initializ
     @FXML
     public void addProduct() throws NumberFormatException, UnsupportedEncodingException {
         String nameString = productName.getText();
-        String descriptionString = description.getText();
-        String supplierIdString = supplierID.getText();
-        String productFamily = productFamilyID.getText();
-        String quantityTypeString = null;
-        QuantityTypeModel selectedItem = quantityType.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            quantityTypeString = String.valueOf(selectedItem.getID());
-        }
+        String descriptionString = productDescription.getText();
+        String supplierIdString = productSupplierId.getText();
+        String productIdFamily = productFamilyID.getText();
 
-        String buyPriceDouble = buyPrice.getText();
-        String sellPriceDouble = sellPrice.getText();
-        String vatDouble = vat.getText();
+        String buyPriceString = productBuyPrice.getText();
+        String sellPriceString = productSellPrice.getText();
+        String minimumStockString = productMinimumStock.getText();
+        String vat = productVat.getText();
+        String quantityType = productQuantityType.getText();
 
         // Vérification du nom du produit
         if (nameString.isBlank()) {
-            System.out.println(com.sun.javafx.runtime.VersionInfo.getRuntimeVersion());
-
             openDialog(stackPane.getScene(), "Veuillez renseigner le nom du produit", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification de la famille de produit
-        if (productFamily.isBlank() || !productFamily.matches("\\d+")) {
+        if (productIdFamily.isBlank() || !productIdFamily.matches("\\d+")) {
             openDialog(stackPane.getScene(), "Veuillez renseigner une famille de produit", DialogType.ERROR, 0);
             return;
         }
@@ -114,32 +161,48 @@ public class ProductAddController extends DefaultController implements Initializ
         }
 
 
-        // Vérification du type de quantité
-        if (quantityTypeString == null || quantityTypeString.trim().isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner un type de quantité", DialogType.ERROR, 0);
-            return;
-        }
-
         // Validation de l'image
         String imageBase64 = validateImage();
 
+        int supplierId = Integer.parseInt(supplierIdString);
+        int productFamilyId = Integer.parseInt(productIdFamily);
+        int quantityTypeId = Integer.parseInt(quantityType.split(" - ")[0]);
+        int vatId = Integer.parseInt(vat.split(" - ")[0]);
+
         // Création de l'objet Product
-        Product product = new Product();
+        PostProductDto product = new PostProductDto();
+
         product.setName(nameString);
         product.setDescription(descriptionString);
-        product.setSupplierId(Integer.parseInt(supplierIdString));
-        product.setProductFamilyId(Integer.parseInt(productFamily));
-        product.setQuantityTypeId(Integer.parseInt(quantityTypeString));
-        product.setBuyPrice(Double.parseDouble(buyPriceDouble));
-        product.setSellPrice(Double.parseDouble(sellPriceDouble));
-        product.setVat(Double.parseDouble(vatDouble));
-        product.setImage(imageBase64);
+        product.setSupplierId(supplierId);
+        product.setProductFamilyId(productFamilyId);
+        product.setQuantityTypeId(quantityTypeId);
+        product.setMinimumStockQuantity(Double.parseDouble(minimumStockString));
+        product.setBuyPrice(buyPriceString);
+        product.setSellPrice(sellPriceString);
+        product.setVatId(vatId);
+//        product.setImage(imageBase64);
 
         log.info("Product to add : {}", product);
+        // Envoie de la requête
+        RequestAPI requestAPI = new RequestAPI();
 
-        cancel();
+        ObjectMapper mapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(product);
+        } catch (Exception e) {
+            log.error("Error while parsing product list", e);
+        }
+        ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/product/add", product, String.class, true, true);
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            log.info("Product added successfully : {}", product);
+            cancel();
+            openDialog(stackPane.getScene(), "Produit " + product.getName() + " ajouté avec succès", DialogType.INFORMATION, 0);
+        } else {
+            openDialog(stackPane.getScene(), "Erreur lors de l'ajout du produit", DialogType.ERROR, 0);
+        }
 
-        openDialog(stackPane.getScene(), "Produit " + product.getName() + " créer avec succès", DialogType.INFORMATION, 0);
     }
 
     private String validateImage() {
@@ -190,15 +253,16 @@ public class ProductAddController extends DefaultController implements Initializ
     }
 
     @Override
-    public void processSupplierContent(String supplierContent) {
-        supplierID.setText(supplierContent);
+    public void processSupplierContent(String supplierContent, String supplierName) {
+        productSupplierId.setText(supplierContent);
+        this.supplierName.setText(supplierName);
     }
 
 
     @Override
-    public void processProductFamilyContent(String productFamilyContent) {
+    public void processProductFamilyContent(String productFamilyContent, String productFamilyName) {
         productFamilyID.setText(productFamilyContent);
+        this.productFamilyName.setText(productFamilyName);
     }
-
 
 }

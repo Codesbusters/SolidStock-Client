@@ -1,29 +1,24 @@
 package fr.codesbusters.solidstock.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 public class VatModel {
 
     private final IntegerProperty id = new SimpleIntegerProperty();
 
-    private final StringProperty rate = new SimpleStringProperty("");
+    private final DoubleProperty rate = new SimpleDoubleProperty();
 
     private final StringProperty description = new SimpleStringProperty("");
     private final StringProperty percentage = new SimpleStringProperty("");
 
-    public VatModel(int id, String rate, String description, String percentage) {
+    public VatModel(int id, double rate, String description, String percentage) {
         setId(id);
         setRate(rate);
         setDescription(description);
         setPercentage(percentage);
     }
 
-
-
-    public static VatModel ofSplit(int id, String rate, String description, String percentage) {
+    public static VatModel ofSplit(int id, double rate, String description, String percentage) {
         return new VatModel(id, rate, description, percentage);
     }
 
@@ -60,15 +55,19 @@ public class VatModel {
         return description;
     }
 
-    public String getRate() {
+    public double getRate() {
         return rate.get();
     }
 
-    public void setRate(String rate) {
+    public void setRate(double rate) {
         this.rate.set(rate);
     }
 
-    public StringProperty rateProperty() {
+    public DoubleProperty rateProperty() {
         return rate;
+    }
+
+    public String getDisplay() {
+        return getId() + " - " + getPercentage();
     }
 }
