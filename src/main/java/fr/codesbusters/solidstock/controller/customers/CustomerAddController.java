@@ -144,15 +144,28 @@ public class CustomerAddController extends DefaultController implements Initiali
         customer.setStreetNumber(streetNumberString);
         customer.setAddress(addressString);
         customer.setEmail(emailString);
-        customer.setMobilePhone(mobilePhoneString);
-        customer.setHomePhone(homePhoneString);
-        customer.setWorkPhone(workPhoneString);
+        if (mobilePhoneString != null) {
+            customer.setMobilePhone(mobilePhoneString.replace(" ", ""));
+        }
+        if (homePhoneString != null) {
+            customer.setHomePhone(homePhoneString.replace(" ", ""));
+        }
+        if (workPhoneString != null) {
+            customer.setWorkPhone(workPhoneString.replace(" ", ""));
+        }
+        customer.setEmail(emailString);
         customer.setWebsite(webSiteString);
-        customer.setSiren(sirenString);
-        customer.setSiret(siretString);
-        customer.setRib(ribString);
+        if (sirenString != null) {
+            customer.setSiren(sirenString.replace(" ", ""));
+        }
+        if (siretString != null) {
+            customer.setSiret(siretString.replace(" ", ""));
+        }
+        customer.setRib(ribString.replace(" ", ""));
         customer.setRcs(rcsInt);
-        customer.setFax(faxString);
+        if (faxString != null) {
+            customer.setFax(faxString.replace(" ", ""));
+        }
         customer.setNote(noteString);
 
         RequestAPI requestAPI = new RequestAPI();

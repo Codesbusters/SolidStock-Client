@@ -142,7 +142,7 @@ public class CustomerShowController extends DefaultShowController implements Ini
         customerFax.setText(customer.getFax());
         customerNote.setText(customer.getNote());
         disableTextFields();
-        enable.setVisible(customer.isDeleted());
+        enable.setVisible(customer.isDisabled());
     }
 
     @FXML

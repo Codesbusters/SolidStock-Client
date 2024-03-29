@@ -83,23 +83,42 @@ public class CustomerController extends DefaultShowController implements Initial
 
         idColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(CustomerModel::getID));
 
-        nameColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(CustomerModel::getName));
+        nameColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(CustomerModel::getName) {
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (rowCell != null && rowCell.getIsDisabled()) {
+                    setStyle("-fx-text-fill: grey;");
+                }
+            }
+        });
 
         countryColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(CustomerModel::getCountry) {{
             setAlignment(Pos.CENTER_LEFT);
+            if (rowCell != null && rowCell.getIsDisabled()) {
+                setStyle("-fx-text-fill: grey;");
+            }
         }});
 
         cityCodeColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(CustomerModel::getCityCode) {{
             setAlignment(Pos.CENTER_LEFT);
+            if (rowCell != null && rowCell.getIsDisabled()) {
+                setStyle("-fx-text-fill: grey;");
+            }
         }});
 
         phoneColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(CustomerModel::getPhone) {{
             setAlignment(Pos.CENTER_LEFT);
+            if (rowCell != null && rowCell.getIsDisabled()) {
+                setStyle("-fx-text-fill: grey;");
+            }
             setGraphicTextGap(5);
         }});
 
         emailColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(CustomerModel::getEmail) {{
             setAlignment(Pos.CENTER_LEFT);
+            if (rowCell != null && rowCell.getIsDisabled()) {
+                setStyle("-fx-text-fill: grey;");
+            }
             setGraphicTextGap(5);
         }});
 
@@ -221,7 +240,7 @@ public class CustomerController extends DefaultShowController implements Initial
             if ((customer.getCity() == null || customer.getCity().isEmpty()) && (customer.getZipCode() == null || customer.getZipCode().isEmpty())) {
                 customerModel.setCityCode("");
             } else {
-                customerModel.setCityCode(customer.getCity() + ", " + customer.getZipCode());
+                customerModel.setCityCode(customer.getCity() + " " + customer.getZipCode());
             }
 
             if (customer.getMobilePhone() != null && !customer.getMobilePhone().isEmpty()) {

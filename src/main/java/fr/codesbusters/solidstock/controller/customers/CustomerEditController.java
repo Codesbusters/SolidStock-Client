@@ -152,14 +152,8 @@ public class CustomerEditController extends DefaultShowController implements Ini
         String noteString = customerNote.getText();
 
         // Vérification du nom du client
-        if (firstNameString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le prénom du client", DialogType.ERROR, 0);
-            return;
-        }
-
-        // Vérification du nom
-        if (lastNameString.isBlank()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner le nom du client", DialogType.ERROR, 0);
+        if (companyNameString.isEmpty() && firstNameString.isEmpty() && lastNameString.isEmpty()) {
+            openDialog(stackPane.getScene(), "Veuillez renseigner un des champs suivants : (Nom / Prénom / Raison sociale)", DialogType.ERROR, 0);
             return;
         }
 
@@ -182,16 +176,28 @@ public class CustomerEditController extends DefaultShowController implements Ini
         customer.setZipCode(zipCodeString);
         customer.setStreetNumber(streetNumberString);
         customer.setAddress(addressString);
-        customer.setMobilePhone(mobilePhoneString);
-        customer.setHomePhone(homePhoneString);
-        customer.setWorkPhone(workPhoneString);
+        if (mobilePhoneString != null) {
+            customer.setMobilePhone(mobilePhoneString.replace(" ", ""));
+        }
+        if (homePhoneString != null) {
+            customer.setHomePhone(homePhoneString.replace(" ", ""));
+        }
+        if (workPhoneString != null) {
+            customer.setWorkPhone(workPhoneString.replace(" ", ""));
+        }
         customer.setEmail(emailString);
         customer.setWebsite(webSiteString);
-        customer.setSiren(sirenString);
-        customer.setSiret(siretString);
-        customer.setRib(ribString);
+        if (sirenString != null) {
+            customer.setSiren(sirenString.replace(" ", ""));
+        }
+        if (siretString != null) {
+            customer.setSiret(siretString.replace(" ", ""));
+        }
+        customer.setRib(ribString.replace(" ", ""));
         customer.setRcs(rcsInt);
-        customer.setFax(faxString);
+        if (faxString != null) {
+            customer.setFax(faxString.replace(" ", ""));
+        }
         customer.setNote(noteString);
 
         // Envoi de la requête
