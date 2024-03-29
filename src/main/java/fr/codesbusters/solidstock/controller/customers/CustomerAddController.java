@@ -7,6 +7,7 @@ import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
@@ -73,7 +74,7 @@ public class CustomerAddController extends DefaultController implements Initiali
     public MFXTextField customerFax;
 
     @FXML
-    public MFXTextField customerNote;
+    public TextArea customerNote;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
