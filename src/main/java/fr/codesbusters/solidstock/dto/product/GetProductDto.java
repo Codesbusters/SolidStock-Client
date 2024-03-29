@@ -1,5 +1,6 @@
 package fr.codesbusters.solidstock.dto.product;
 
+import fr.codesbusters.solidstock.dto.invoice.GetInvoiceRowDto;
 import fr.codesbusters.solidstock.dto.productFamily.GetProductFamilyDto;
 import fr.codesbusters.solidstock.dto.quantityType.GetQuantityTypeDto;
 import fr.codesbusters.solidstock.dto.supplier.GetSupplierDto;
@@ -30,9 +31,6 @@ public class GetProductDto {
     private double minimumStockQuantity;
     private List<String> stockMovements;
     private List<Integer> stocks;
-    private List<Integer> estimateRows;
-    private List<Integer> invoiceRows;
-    private List<Integer> orderFormRows;
     private List<Integer> deliveryRows;
     private String createdAt;
     private String updatedAt;
