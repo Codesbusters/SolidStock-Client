@@ -32,7 +32,7 @@ public class GetCustomerDto {
     private int rcs;
     private String fax;
     private String note;
-    private boolean isDeleted;
+    private boolean isDisabled;
     private List<String> estimates;
     private List<String> invoices;
     private List<String> orderForms;

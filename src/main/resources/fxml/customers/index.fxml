@@ -22,7 +22,7 @@
                                     <Font name="System Bold" size="22.0"/>
                                 </font>
                             </Label>
-                            <Label text="Liste des Clients avec actions"/>
+                            <Label text="Liste des clients avec actions"/>
                         </children>
                         <padding>
                             <Insets left="10.0"/>
@@ -43,9 +43,18 @@
                         <children>
                             <HBox spacing="20.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                 <children>
-                                    <MFXButton id="custom" minHeight="27.0" minWidth="90.0" prefWidth="120.0"
+                                    <MFXButton id="custom" minHeight="27.0" minWidth="120.0" prefWidth="150.0"
                                                prefHeight="38" text="  VISUALISER" onAction="#showCustomer"
                                                style="-fx-background-color: #9b9b9b; -fx-background-radius: 4; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
+                                               buttonType="RAISED"
+                                               HBox.hgrow="ALWAYS">
+                                        <graphic>
+                                            <MFXFontIcon description="fas-eye" color="white"/>
+                                        </graphic>
+                                    </MFXButton>
+                                    <MFXButton id="custom" minHeight="27.0" minWidth="120.0" prefWidth="150.0"
+                                               prefHeight="38" text="  ACTUALISER" onAction="#reloadCustomer"
+                                               style="-fx-background-color: #ffc300; -fx-background-radius: 4; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
                                                buttonType="RAISED"
                                                HBox.hgrow="ALWAYS">
                                         <graphic>

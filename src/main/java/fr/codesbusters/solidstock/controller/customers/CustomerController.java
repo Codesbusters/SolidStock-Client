@@ -243,7 +243,7 @@ public class CustomerController extends DefaultShowController implements Initial
             } else {
                 customerModel.setEmail(customer.getEmail());
             }
-            customerModel.setIsDisabled(customer.isDeleted());
+            customerModel.setIsDisabled(customer.isDisabled());
             customerModels.add(customerModel);
         }
         customerModels.sort(Comparator.comparingInt(CustomerModel::getID));
