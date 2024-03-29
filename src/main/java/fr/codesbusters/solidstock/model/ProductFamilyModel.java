@@ -1,24 +1,30 @@
 package fr.codesbusters.solidstock.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
+import lombok.NoArgsConstructor;
+import org.w3c.dom.Text;
 
+import java.awt.*;
+
+@NoArgsConstructor
 public class ProductFamilyModel {
 
     private final IntegerProperty id = new SimpleIntegerProperty();
     private final StringProperty name = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
 
-    public ProductFamilyModel(int id, String name, String description) {
+    private final BooleanProperty isDisabled = new SimpleBooleanProperty(false);
+
+
+    public ProductFamilyModel(int id, String name, String description, boolean isDisabled) {
         setID(id);
         setName(name);
         setDescription(description);
+        setIsDisabled(isDisabled);
     }
 
-    public static ProductFamilyModel ofSplit(int id, String name, String description) {
-        return new ProductFamilyModel(id, name, description);
+    public static ProductFamilyModel ofSplit(int id, String name, String description, boolean isDisabled) {
+        return new ProductFamilyModel(id, name, description, isDisabled);
     }
 
     public int getID() {
@@ -57,5 +63,16 @@ public class ProductFamilyModel {
         return description;
     }
 
+    public boolean getIsDisabled() {
+        return isDisabled.get();
+    }
+
+    public void setIsDisabled(boolean isDisabled) {
+        this.isDisabled.set(isDisabled);
+    }
+
+    public BooleanProperty isDisabledProperty() {
+        return  isDisabled;
+    }
 
 }

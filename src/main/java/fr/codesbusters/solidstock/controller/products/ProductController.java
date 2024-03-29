@@ -1,24 +1,34 @@
 package fr.codesbusters.solidstock.controller.products;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
+import fr.codesbusters.solidstock.dto.product.GetProductDto;
+import fr.codesbusters.solidstock.dto.supplier.GetSupplierDto;
 import fr.codesbusters.solidstock.model.ProductModel;
 import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
+import fr.codesbusters.solidstock.service.RequestAPI;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Slf4j
@@ -30,60 +40,116 @@ public class ProductController extends DefaultShowController implements Initiali
     @FXML
     private MFXTableView<ProductModel> table;
 
+    @FXML
+    private MFXButton modifyButton;
+
+    @FXML
+    private MFXButton deleteButton;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupTable();
         table.autosizeColumnsOnInitialization();
+
+        table.setOnMouseClicked(event -> {
+            ProductModel product = table.getSelectionModel().getSelectedValue();
+
+            if (product != null) {
+                if (product.getIsDisabled()) {
+                    modifyButton.setDisable(true);
+                    deleteButton.setDisable(true);
+                } else {
+                    modifyButton.setDisable(false);
+                    deleteButton.setDisable(false);
+                }
+            }
+        });
     }
 
 
     @FXML
     public void addProduct() {
         openPopUp("products/addPopup.fxml", stackPane.getScene(), "Ajouter un produit");
+        reloadProduct();
     }
 
 
     private void setupTable() {
         MFXTableColumn<ProductModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(ProductModel::getID));
         MFXTableColumn<ProductModel> nameColumn = new MFXTableColumn<>("Libelle", true, Comparator.comparing(ProductModel::getName));
-        MFXTableColumn<ProductModel> productFamilyColumn = new MFXTableColumn<>("Famille", true, Comparator.comparing(ProductModel::getProductFamily));
+        MFXTableColumn<ProductModel> descriptionColumn = new MFXTableColumn<>("Description", true, Comparator.comparing(ProductModel::getDescription));
         MFXTableColumn<ProductModel> inStockColumn = new MFXTableColumn<>("En Stock", true, Comparator.comparing(ProductModel::getInStock));
         MFXTableColumn<ProductModel> selledColumn = new MFXTableColumn<>("Vendus", true, Comparator.comparing(ProductModel::getSelled));
         MFXTableColumn<ProductModel> sellPrice = new MFXTableColumn<>("Prix de Vente", true, Comparator.comparing(ProductModel::getSellPrice));
         MFXTableColumn<ProductModel> buyPrice = new MFXTableColumn<>("Prix d'achat", true, Comparator.comparing(ProductModel::getBuyPrice));
 
-        idColumn.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getID));
-        nameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getName));
-        productFamilyColumn.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getProductFamily));
-        inStockColumn.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getInStock) {{
-            setAlignment(Pos.CENTER_RIGHT);
-        }});
+        idColumn.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getID) {
+            {
+                setAlignment(Pos.CENTER_RIGHT);
+                if (product != null && product.getIsDisabled()) {
+                    setStyle("-fx-text-fill: grey;");
+                }
+            }
+        });
+        nameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getName) {
+            {
+                setAlignment(Pos.CENTER_RIGHT);
+                if (product != null && product.getIsDisabled()) {
+                    setStyle("-fx-text-fill: grey;");
+                }
+            }
+        });
+        descriptionColumn.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getDescription) {
+            {
+                setAlignment(Pos.CENTER_RIGHT);
+                if (product != null && product.getIsDisabled()) {
+                    setStyle("-fx-text-fill: grey;");
+                }
+            }
+        });
+        inStockColumn.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getInStock) {
+            {
+                setAlignment(Pos.CENTER_RIGHT);
+                if (product != null && product.getIsDisabled()) {
+                    setStyle("-fx-text-fill: grey;");
+                }
+            }
+        });
 
-        selledColumn.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getSelled) {{
-            setAlignment(Pos.CENTER_RIGHT);
-        }});
+        selledColumn.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getSelled) {
+            {
+                setAlignment(Pos.CENTER_RIGHT);
+                if (product != null && product.getIsDisabled()) {
+                    setStyle("-fx-text-fill: grey;");
+                }
+            }
+        });
 
-        sellPrice.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getSellPrice) {{
-            setAlignment(Pos.CENTER_RIGHT);
-            setGraphicTextGap(5);
-        }});
+        sellPrice.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getSellPrice) {
+            {
+                setAlignment(Pos.CENTER_RIGHT);
+                if (product != null && product.getIsDisabled()) {
+                    setStyle("-fx-text-fill: grey;");
+                }
+            }
+        });
 
-        buyPrice.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getBuyPrice) {{
-            setAlignment(Pos.CENTER_RIGHT);
-            setGraphicTextGap(5);
-        }});
+        buyPrice.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getBuyPrice) {
+            {
+                setAlignment(Pos.CENTER_RIGHT);
+                if (product != null && product.getIsDisabled()) {
+                    setStyle("-fx-text-fill: grey;");
+                }
+            }
+        });
 
-        table.getTableColumns().addAll(idColumn, nameColumn, productFamilyColumn, inStockColumn, selledColumn, sellPrice, buyPrice);
+        table.getTableColumns().addAll(idColumn, nameColumn, descriptionColumn, inStockColumn, selledColumn, sellPrice, buyPrice);
         table.getFilters().addAll(
                 new IntegerFilter<>("Réf.", ProductModel::getID),
                 new StringFilter<>("Libelle", ProductModel::getName),
-                new StringFilter<>("Famille", ProductModel::getProductFamily),
-                new IntegerFilter<>("Nombre en stock", ProductModel::getInStock),
-                new IntegerFilter<>("Nombre vendu", ProductModel::getSelled)
+                new StringFilter<>("Famille", ProductModel::getProductFamily)
         );
-        table.setItems(SolidStockDataIntegration.products);
-
-
+        reloadProduct();
     }
 
     @FXML
@@ -96,9 +162,8 @@ public class ProductController extends DefaultShowController implements Initiali
         }
 
         setId(product.getID());
-
         openPopUp("products/showPopup.fxml", stackPane.getScene(), "Détails du produit");
-
+        reloadProduct();
     }
 
     @FXML
@@ -111,8 +176,8 @@ public class ProductController extends DefaultShowController implements Initiali
         }
 
         setId(product.getID());
-
         openPopUp("products/editPopup.fxml", stackPane.getScene(), "Modification du produit");
+        reloadProduct();
 
     }
 
@@ -126,7 +191,7 @@ public class ProductController extends DefaultShowController implements Initiali
         }
 
         openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le produit " + product.getName() + " ?", DialogType.CONFIRMATION, 0);
-
+        reloadProduct();
     }
 
 
@@ -140,6 +205,50 @@ public class ProductController extends DefaultShowController implements Initiali
             return;
         }
         openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getName(), DialogType.CONFIRMATION, 0);
+    }
+
+    @FXML
+    public void reloadProduct() {
+        table.getItems().clear();
+
+        RequestAPI requestAPI = new RequestAPI();
+
+        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/product/all", String.class, true, true);
+        ObjectMapper mapper = new ObjectMapper();
+        List<GetProductDto> productList = null;
+        try {
+          productList = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
+          });
+        } catch (Exception e) {
+            log.error("Error while parsing product list", e);
+        }
+
+        ObservableList<ProductModel> productModels = FXCollections.observableArrayList();
+        assert productList != null;
+        for (GetProductDto product : productList) {
+            ProductModel productModel = new ProductModel();
+            productModel.setID((int) product.getId());
+
+            if (product.getName() == null || product.getName().isEmpty()) {
+                productModel.setName("");
+            } else {
+                productModel.setName(product.getName());
+            }
+
+            if (product.getDescription() == null || product.getDescription().isEmpty()) {
+                productModel.setDescription("");
+            } else {
+                productModel.setDescription(product.getDescription());
+            }
+
+            productModel.setSellPrice(Double.parseDouble(product.getSellPrice()));
+            productModel.setBuyPrice(Double.parseDouble(product.getBuyPrice()));
+            productModel.setMinimumStockQuantity(product.getMinimumStockQuantity());
+            productModel.setIsDisabled(product.isDeleted());
+            productModels.add(productModel);
+        }
+        productModels.sort(Comparator.comparingInt(ProductModel::getID));
+        table.getItems().addAll(productModels);
     }
 
 

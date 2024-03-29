@@ -7,10 +7,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
-           fx:id="stackPane"
             xmlns="http://javafx.com/javafx"
             prefHeight="400.0" prefWidth="1000.0"
-            fx:controller="fr.codesbusters.solidstock.controller.selectors.SupplierSelectorController">
+            fx:id="stackPane"
+            fx:controller="fr.codesbusters.solidstock.controller.selectors.productFamily.ProductFamilySelectorController">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
@@ -22,12 +22,12 @@
                 <padding>
                     <Insets left="10.0"/>
                 </padding>
-                <Label text="Sélectionner un fournisseur">
+                <Label text="Sélectionner une famille de produit">
                     <font>
                         <Font name="System Bold" size="22.0"/>
                     </font>
                 </Label>
-                <Label text="Veuillez choisir un fournisseur"/>
+                <Label text="Veuillez choisir une famille de produit"/>
             </VBox>
         </AnchorPane>
 
@@ -38,17 +38,18 @@
 
             <HBox spacing="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                 <padding>
-                    <Insets top="10.0" bottom="10.0"/>
+                    <Insets top="10.0"/>
                 </padding>
                 <HBox spacing="20.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                     <padding>
                         <Insets left="10.0"/>
                     </padding>
-                    <MFXButton id="custom" minHeight="27.0" minWidth="120.0" prefWidth="150.0"
-                               prefHeight="38" text="  VISUALISER" onAction="#showSupplier"
+                    <MFXButton id="custom" minHeight="27.0" minWidth="90.0" prefWidth="120.0"
+                               prefHeight="38" text="  VISUALISER"
                                style="-fx-background-color: #9b9b9b; -fx-background-radius: 4; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
                                buttonType="RAISED"
-                               HBox.hgrow="ALWAYS">
+                               HBox.hgrow="ALWAYS"
+                               onAction="#showProductFamily">
                         <graphic>
                             <MFXFontIcon description="fas-eye" color="white"/>
                         </graphic>
@@ -62,17 +63,20 @@
                                prefHeight="38" text="AJOUTER"
                                style="-fx-border-color: black; -fx-font-weight: bold;  -fx-border-radius: 4; -fx-cursor: hand;"
                                buttonType="RAISED"
-                               styleClass="outline-button" HBox.hgrow="ALWAYS" onAction="#addSupplier"/>
-                    <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                               styleClass="outline-button" HBox.hgrow="ALWAYS"
+                               onAction="#addProductFamily"/>
+                    <MFXButton fx:id="modifyButton" minHeight="27.0" minWidth="70.0" prefWidth="100"
                                text="MODIFIER" prefHeight="38"
                                buttonType="RAISED"
                                style="-fx-background-color: #2196F3; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
-                               HBox.hgrow="ALWAYS" onAction="#editSupplier"/>
-                    <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                               HBox.hgrow="ALWAYS"
+                               onAction="#editProductFamily"/>
+                    <MFXButton fx:id="deleteButton" minHeight="27.0" minWidth="70.0" prefWidth="100"
                                text="SUPPRIMER" prefHeight="38"
                                buttonType="RAISED"
                                style="-fx-background-color: #FF6262; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
-                               HBox.hgrow="ALWAYS" onAction="#removeSupplier"/>
+                               HBox.hgrow="ALWAYS"
+                               onAction="#removeProductFamily"/>
                 </HBox>
             </HBox>
         </AnchorPane>
@@ -110,6 +114,8 @@
                            buttonType="RAISED" styleClass="mfx-button"
                            HBox.hgrow="ALWAYS" onAction="#submitAction"/>
             </HBox>
+
+
         </AnchorPane>
     </VBox>
 </AnchorPane>
