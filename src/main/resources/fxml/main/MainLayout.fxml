@@ -66,6 +66,7 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
+                            <Separator style="-fx-padding: 10 0;"/>
                             <AnchorPane>
                                 <children>
                                     <GridPane styleClass="hoverItemMenu" id="products" fx:id="products"
@@ -83,6 +84,105 @@
                                             <MFXFontIcon description="fas-cube" size="30" color="white"/>
 
                                             <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Produits"
+                                                   textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
+                                                <font>
+                                                    <Font name="System Bold" size="16.0"/>
+                                                </font>
+                                                <padding>
+                                                    <Insets left="18.0"/>
+                                                </padding>
+                                            </Label>
+                                        </children>
+                                    </GridPane>
+                                </children>
+                                <cursor>
+                                    <Cursor fx:constant="HAND"/>
+                                </cursor>
+                            </AnchorPane>
+                            <AnchorPane>
+                                <children>
+                                    <GridPane styleClass="hoverItemMenu" id="customers" fx:id="customers"
+                                              onMouseClicked="#loadCustomers">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
+                                                               prefWidth="40.0"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
+                                                               prefWidth="40.0"/>
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                        </rowConstraints>
+                                        <children>
+                                            <MFXFontIcon description="fas-user-group" size="30" color="white"/>
+
+                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Clients"
+                                                   textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
+                                                <font>
+                                                    <Font name="System Bold" size="16.0"/>
+                                                </font>
+                                                <padding>
+                                                    <Insets left="18.0"/>
+                                                </padding>
+                                            </Label>
+                                        </children>
+                                    </GridPane>
+                                </children>
+                                <cursor>
+                                    <Cursor fx:constant="HAND"/>
+                                </cursor>
+                            </AnchorPane>
+
+<!--                            <AnchorPane>
+                                <children>
+                                    <GridPane styleClass="hoverItemMenu" id="direct_sales" fx:id="direct_sales"
+                                              onMouseClicked="#loadDirectSales">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
+                                                               prefWidth="40.0"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
+                                                               prefWidth="40.0"/>
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                        </rowConstraints>
+                                        <children>
+                                            <MFXFontIcon description="fas-basket-shopping" size="30" color="white"/>
+
+                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0"
+                                                   text="Ventes Directes"
+                                                   textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
+                                                <font>
+                                                    <Font name="System Bold" size="16.0"/>
+                                                </font>
+                                                <padding>
+                                                    <Insets left="18.0"/>
+                                                </padding>
+                                            </Label>
+                                        </children>
+                                    </GridPane>
+                                </children>
+                                <cursor>
+                                    <Cursor fx:constant="HAND"/>
+                                </cursor>
+                            </AnchorPane>-->
+                            <AnchorPane>
+                                <children>
+                                    <GridPane styleClass="hoverItemMenu" id="suppliers" fx:id="suppliers"
+                                              onMouseClicked="#loadSuppliers">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
+                                                               prefWidth="40.0"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
+                                                               prefWidth="40.0"/>
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                        </rowConstraints>
+                                        <children>
+                                            <MFXFontIcon description="fas-truck-arrow-right" size="30" color="white"/>
+
+                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0"
+                                                   text="Fournisseurs"
                                                    textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
                                                 <font>
                                                     <Font name="System Bold" size="16.0"/>
@@ -131,10 +231,11 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
+                            <Separator style="-fx-padding: 10 0;"/>
                             <AnchorPane>
                                 <children>
-                                    <GridPane styleClass="hoverItemMenu" id="orders" fx:id="orders"
-                                              onMouseClicked="#loadOrders">
+                                    <GridPane styleClass="hoverItemMenu" id="estimates" fx:id="estimates"
+                                              onMouseClicked="#loadEstimates">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                                prefWidth="40.0"/>
@@ -145,9 +246,9 @@
                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                                         </rowConstraints>
                                         <children>
-                                            <MFXFontIcon description="fas-file-pen" size="30" color="white"/>
+                                            <MFXFontIcon description="fas-calculator" size="30" color="white"/>
 
-                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Commandes"
+                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Devis"
                                                    textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
                                                 <font>
                                                     <Font name="System Bold" size="16.0"/>
@@ -197,8 +298,8 @@
                             </AnchorPane>
                             <AnchorPane>
                                 <children>
-                                    <GridPane styleClass="hoverItemMenu" id="estimates" fx:id="estimates"
-                                              onMouseClicked="#loadEstimates">
+                                    <GridPane styleClass="hoverItemMenu" id="orders" fx:id="orders"
+                                              onMouseClicked="#loadOrders">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
                                                                prefWidth="40.0"/>
@@ -209,9 +310,9 @@
                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                                         </rowConstraints>
                                         <children>
-                                            <MFXFontIcon description="fas-calculator" size="30" color="white"/>
+                                            <MFXFontIcon description="fas-file-pen" size="30" color="white"/>
 
-                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Devis"
+                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Commandes"
                                                    textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
                                                 <font>
                                                     <Font name="System Bold" size="16.0"/>
@@ -227,104 +328,8 @@
                                     <Cursor fx:constant="HAND"/>
                                 </cursor>
                             </AnchorPane>
-                            <AnchorPane>
-                                <children>
-                                    <GridPane styleClass="hoverItemMenu" id="customers" fx:id="customers"
-                                              onMouseClicked="#loadCustomers">
-                                        <columnConstraints>
-                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
-                                                               prefWidth="40.0"/>
-                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
-                                                               prefWidth="40.0"/>
-                                        </columnConstraints>
-                                        <rowConstraints>
-                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        </rowConstraints>
-                                        <children>
-                                            <MFXFontIcon description="fas-user-group" size="30" color="white"/>
+                            <Separator style="-fx-padding: 10 0;"/>
 
-                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Clients"
-                                                   textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
-                                                <font>
-                                                    <Font name="System Bold" size="16.0"/>
-                                                </font>
-                                                <padding>
-                                                    <Insets left="18.0"/>
-                                                </padding>
-                                            </Label>
-                                        </children>
-                                    </GridPane>
-                                </children>
-                                <cursor>
-                                    <Cursor fx:constant="HAND"/>
-                                </cursor>
-                            </AnchorPane>
-                            <AnchorPane>
-                                <children>
-                                    <GridPane styleClass="hoverItemMenu" id="suppliers" fx:id="suppliers"
-                                              onMouseClicked="#loadSuppliers">
-                                        <columnConstraints>
-                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
-                                                               prefWidth="40.0"/>
-                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
-                                                               prefWidth="40.0"/>
-                                        </columnConstraints>
-                                        <rowConstraints>
-                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        </rowConstraints>
-                                        <children>
-                                            <MFXFontIcon description="fas-truck-arrow-right" size="30" color="white"/>
-
-                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0"
-                                                   text="Fournisseurs"
-                                                   textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
-                                                <font>
-                                                    <Font name="System Bold" size="16.0"/>
-                                                </font>
-                                                <padding>
-                                                    <Insets left="18.0"/>
-                                                </padding>
-                                            </Label>
-                                        </children>
-                                    </GridPane>
-                                </children>
-                                <cursor>
-                                    <Cursor fx:constant="HAND"/>
-                                </cursor>
-                            </AnchorPane>
-                            <AnchorPane>
-                                <children>
-                                    <GridPane styleClass="hoverItemMenu" id="direct_sales" fx:id="direct_sales"
-                                              onMouseClicked="#loadDirectSales">
-                                        <columnConstraints>
-                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
-                                                               prefWidth="40.0"/>
-                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
-                                                               prefWidth="40.0"/>
-                                        </columnConstraints>
-                                        <rowConstraints>
-                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        </rowConstraints>
-                                        <children>
-                                            <MFXFontIcon description="fas-basket-shopping" size="30" color="white"/>
-
-                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0"
-                                                   text="Ventes Directes"
-                                                   textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
-                                                <font>
-                                                    <Font name="System Bold" size="16.0"/>
-                                                </font>
-                                                <padding>
-                                                    <Insets left="18.0"/>
-                                                </padding>
-                                            </Label>
-                                        </children>
-                                    </GridPane>
-                                </children>
-                                <cursor>
-                                    <Cursor fx:constant="HAND"/>
-                                </cursor>
-                            </AnchorPane>
                             <AnchorPane>
                                 <children>
                                     <GridPane styleClass="hoverItemMenu" id="settings" fx:id="userSettings"
@@ -407,6 +412,40 @@
                                             <MFXFontIcon description="fas-gear" size="30" color="white"/>
 
                                             <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0" text="Paramètres"
+                                                   textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
+                                                <font>
+                                                    <Font name="System Bold" size="16.0"/>
+                                                </font>
+                                                <padding>
+                                                    <Insets left="18.0"/>
+                                                </padding>
+                                            </Label>
+                                        </children>
+                                    </GridPane>
+                                </children>
+                                <cursor>
+                                    <Cursor fx:constant="HAND"/>
+                                </cursor>
+                            </AnchorPane>
+                            <Separator style="-fx-padding: 10 0;"/>
+                            <AnchorPane>
+                                <children>
+                                    <GridPane styleClass="hoverItemMenu" id="disconnect" fx:id="disconnect"
+                                              onMouseClicked="#disconnect">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0"
+                                                               prefWidth="40.0"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0"
+                                                               prefWidth="40.0"/>
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                        </rowConstraints>
+                                        <children>
+                                            <MFXFontIcon description="fas-door-open" size="30" color="white"/>
+
+                                            <Label layoutX="32.0" prefHeight="25.0" prefWidth="169.0"
+                                                   text="Déconnexion"
                                                    textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
                                                 <font>
                                                     <Font name="System Bold" size="16.0"/>

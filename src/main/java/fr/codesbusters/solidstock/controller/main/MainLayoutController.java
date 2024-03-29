@@ -1,14 +1,23 @@
 package fr.codesbusters.solidstock.controller.main;
 
 
+import fr.codesbusters.solidstock.SolidStockApplication;
+import fr.codesbusters.solidstock.utils.TokenManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
@@ -17,6 +26,7 @@ import java.util.ResourceBundle;
 
 @Controller
 public class MainLayoutController implements Initializable {
+
     @FXML
     public AnchorPane leftPane;
 
@@ -51,7 +61,7 @@ public class MainLayoutController implements Initializable {
     private GridPane third_party;
 
     @FXML
-    private GridPane direct_sales;
+    private GridPane disconnect;
 
     @FXML
     private GridPane userSettings;
@@ -186,11 +196,11 @@ public class MainLayoutController implements Initializable {
 
     @FXML
     private void loadDirectSales() {
-        if (!direct_sales.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
+        if (!disconnect.getStyle().contains("-fx-background-color: #000; -fx-background-radius: 20")) {
             try {
                 loadPage("directsSales/index.fxml");
                 resetMenuStyles();
-                direct_sales.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
+                disconnect.setStyle("-fx-background-color: #000; -fx-background-radius: 20");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -257,11 +267,22 @@ public class MainLayoutController implements Initializable {
         adminSettings.setStyle("");
         inventory.setStyle("");
         invoices.setStyle("");
-        direct_sales.setStyle("");
+        disconnect.setStyle("");
         suppliers.setStyle("");
         orders.setStyle("");
         estimates.setStyle("");
         products.setStyle("");
         users.setStyle("");
     }
+
+    @FXML
+    public void disconnect(MouseEvent mouseEvent) {
+        TokenManager.deleteToken();
+
+
+        System.exit(0);
+
+    }
+
+
 }
