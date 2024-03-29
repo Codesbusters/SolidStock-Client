@@ -19,6 +19,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.StackPane;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -50,9 +51,9 @@ public class SupplierController extends DefaultShowController implements Initial
         table.autosizeColumnsOnInitialization();
 
         table.setOnMouseClicked(event -> {
-            SupplierModel supplier = table.getSelectionModel().getSelectedValue();
+           SupplierModel supplier = table.getSelectionModel().getSelectedValue();
 
-            if (supplier != null) {
+            if (supplier != null ) {
                 if (supplier.getIsDisabled()) {
                     modifyButton.setDisable(true);
                     deleteButton.setDisable(true);
@@ -76,8 +77,8 @@ public class SupplierController extends DefaultShowController implements Initial
         MFXTableColumn<SupplierModel> zipCodeColumn = new MFXTableColumn<>("Code postal", true, Comparator.comparing(SupplierModel::getZipCode));
         MFXTableColumn<SupplierModel> cityColumn = new MFXTableColumn<>("Ville", true, Comparator.comparing(SupplierModel::getCity));
         MFXTableColumn<SupplierModel> countryColumn = new MFXTableColumn<>("Pays", true, Comparator.comparing(SupplierModel::getCountry));
-        MFXTableColumn<SupplierModel> emailColumn = new MFXTableColumn<>("Émail", true, Comparator.comparing(SupplierModel::getEmail));
-        MFXTableColumn<SupplierModel> workPhoneColumn = new MFXTableColumn<>("Téléphone travail", true, Comparator.comparing(SupplierModel::getWorkPhone));
+        MFXTableColumn<SupplierModel> emailColumn = new MFXTableColumn<>("Email", true, Comparator.comparing(SupplierModel::getEmail));
+        MFXTableColumn<SupplierModel> workPhoneColumn = new MFXTableColumn<>("Téléphone Travail", true, Comparator.comparing(SupplierModel::getWorkPhone));
 
         idColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(SupplierModel::getID) {
             {
