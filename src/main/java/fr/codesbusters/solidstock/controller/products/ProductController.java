@@ -190,7 +190,21 @@ public class ProductController extends DefaultShowController implements Initiali
             return;
         }
 
-        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le produit " + product.getName() + " ?", DialogType.CONFIRMATION, 0);
+        boolean isCanceled = openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le produit " + product.getName() + " ?", DialogType.CONFIRMATION, 0);
+        if (!isCanceled) {
+            return;
+        }
+
+        RequestAPI requestAPI = new RequestAPI();
+        ResponseEntity<String> responseEntity = requestAPI.sendDeleteRequest("/product/" + product.getID(), String.class, true);
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            openDialog(stackPane.getScene(), "Le produit a été supprimé avec succès", DialogType.INFORMATION, 0);
+
+        } else {
+            openDialog(stackPane.getScene(), "Erreur lors de la suppression du produit", DialogType.ERROR, 0);
+        }
+
         reloadProduct();
     }
 
