@@ -3,6 +3,7 @@
 <?import io.github.palexdev.materialfx.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
@@ -30,90 +31,172 @@
                 </children>
             </AnchorPane>
 
-            <AnchorPane id="pane2" minHeight="440.0" minWidth="440.0" prefHeight="130.0" prefWidth="600.0"
+            <AnchorPane id="pane2" minHeight="580.0" minWidth="800.0" prefHeight="130.0" prefWidth="600.0"
                         style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                         VBox.vgrow="ALWAYS">
-                <VBox alignment="CENTER" VBox.vgrow="ALWAYS" spacing="20.0" minWidth="600" maxWidth="600">
-                    <children>
-                        <HBox alignment="CENTER" spacing="10.0">
-                            <children>
-                                <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
-                                    <children>
-                                        <MFXTextField floatMode="BORDER" floatingText="Référence"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="customerId" disable="true">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Nom du client"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="customerName">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Tier"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="customerThirdParty">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Adresse"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="customerAddress">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Nom de l'entreprise"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="customerCorporateName">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER"
-                                                      floatingText="N° de Siren"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="customerSiren">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="N° de Siret"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="customerSiret">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="RIB"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="customerRib">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="RCS"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="customerRcs">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                    </children>
-                                </VBox>
-                            </children>
-                        </HBox>
-                    </children>
-                    <padding>
-                        <Insets left="10.0" right="10.0" top="10.0" bottom="10.0"/>
-                    </padding>
-                </VBox>
-
-
+                <HBox alignment="CENTER" spacing="20.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+                      AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
+                    <VBox alignment="TOP_CENTER" spacing="20.0" minWidth="300" maxWidth="300">
+                        <children>
+                            <HBox alignment="CENTER" spacing="10.0">
+                                <children>
+                                    <VBox alignment="TOP_CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
+                                        <children>
+                                            <MFXTextField floatMode="BORDER" floatingText="Id"
+                                                          prefWidth="310"
+                                                          maxWidth="310" fx:id="customerId" disable="true">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="Nom de l'entreprise"
+                                                          prefWidth="310"
+                                                          maxWidth="310" fx:id="customerCompanyName">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="Prénom" prefWidth="310"
+                                                          maxWidth="310" fx:id="customerFirstName">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="Nom" prefWidth="310"
+                                                          maxWidth="310" fx:id="customerLastName">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="Pays" prefWidth="310"
+                                                          maxWidth="310" fx:id="customerCountry">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="Ville" prefWidth="310"
+                                                          maxWidth="310" fx:id="customerCity">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="Code postal" prefWidth="310"
+                                                          maxWidth="310" fx:id="customerZipCode">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="Numéro de rue"
+                                                          prefWidth="310"
+                                                          maxWidth="310" fx:id="customerStreetNumber">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="Adresse" prefWidth="310"
+                                                          maxWidth="310" fx:id="customerAddress">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="Email" prefWidth="310"
+                                                          maxWidth="310" fx:id="customerEmail">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="Numéro de fax"
+                                                          prefWidth="310"
+                                                          maxWidth="310" fx:id="customerFax">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="Site web" prefWidth="310"
+                                                          maxWidth="310" fx:id="customerWebsite">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                        </children>
+                                    </VBox>
+                                </children>
+                            </HBox>
+                        </children>
+                        <padding>
+                            <Insets left="10.0" right="10.0" top="10.0" bottom="10.0"/>
+                        </padding>
+                    </VBox>
+                    <VBox alignment="TOP_CENTER" spacing="20.0" minWidth="300" maxWidth="300">
+                        <children>
+                            <HBox alignment="CENTER" spacing="10.0">
+                                <children>
+                                    <VBox alignment="TOP_CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
+                                        <children>
+                                            <MFXTextField floatMode="BORDER" floatingText="Numéro de mobile"
+                                                          prefWidth="310"
+                                                          maxWidth="310" fx:id="customerMobilePhone">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="Numéro de domicile"
+                                                          prefWidth="310"
+                                                          maxWidth="310" fx:id="customerHomePhone">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="Numéro professionnel"
+                                                          prefWidth="310"
+                                                          maxWidth="310" fx:id="customerWorkPhone">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="Siren" prefWidth="310"
+                                                          maxWidth="310" fx:id="customerSiren">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="Siret" prefWidth="310"
+                                                          maxWidth="310" fx:id="customerSiret">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="RIB" prefWidth="310"
+                                                          maxWidth="310" fx:id="customerRib">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <MFXTextField floatMode="BORDER" floatingText="RCS" prefWidth="310"
+                                                          maxWidth="310" fx:id="customerRcs">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXTextField>
+                                            <VBox spacing="3" VBox.vgrow="ALWAYS" style="-fx-padding: 10.0;">
+                                                <Label text="Note :">Note :</Label>
+                                                <TextArea maxWidth="290" minWidth="290" minHeight="170" maxHeight="170"
+                                                          VBox.vgrow="ALWAYS" fx:id="customerNote">
+                                                </TextArea>
+                                            </VBox>
+                                        </children>
+                                    </VBox>
+                                </children>
+                            </HBox>
+                        </children>
+                        <padding>
+                            <Insets left="10.0" right="10.0" top="10.0" bottom="10.0"/>
+                        </padding>
+                    </VBox>
+                </HBox>
+                <padding>
+                    <Insets left="10" right="10"/>
+                </padding>
             </AnchorPane>
 
             <AnchorPane id="pane3" maxHeight="70.0" minHeight="70.0" minWidth="400.0" prefHeight="70.0"

@@ -1,24 +1,32 @@
 package fr.codesbusters.solidstock.controller.customers;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
+import fr.codesbusters.solidstock.dto.customer.GetCustomerDto;
 import fr.codesbusters.solidstock.model.CustomerModel;
-import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
+import fr.codesbusters.solidstock.service.RequestAPI;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Slf4j
@@ -31,76 +39,101 @@ public class CustomerController extends DefaultShowController implements Initial
     @FXML
     private MFXTableView<CustomerModel> table;
 
+    @FXML
+    private MFXButton modifyButton;
+
+    @FXML
+    private MFXButton deleteButton;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupTable();
         table.autosizeColumnsOnInitialization();
+
+        table.setOnMouseClicked(event -> {
+            CustomerModel customer = table.getSelectionModel().getSelectedValue();
+
+            if (customer != null) {
+                if (customer.getIsDisabled()) {
+                    modifyButton.setDisable(true);
+                    deleteButton.setDisable(true);
+                } else {
+                    modifyButton.setDisable(false);
+                    deleteButton.setDisable(false);
+                }
+            }
+        });
     }
 
 
     @FXML
     public void addCustomer() {
         openPopUp("customers/addPopup.fxml", stackPane.getScene(), "Ajouter un client");
+        reloadCustomer();
     }
 
 
     private void setupTable() {
         MFXTableColumn<CustomerModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(CustomerModel::getID));
-        MFXTableColumn<CustomerModel> nameColumn = new MFXTableColumn<>("Libelle", true, Comparator.comparing(CustomerModel::getName));
-        MFXTableColumn<CustomerModel> thirdPartyColumn = new MFXTableColumn<>("Tier", true, Comparator.comparing(CustomerModel::getThirdPartyId));
-        MFXTableColumn<CustomerModel> addressColumn = new MFXTableColumn<>("Adresse", true, Comparator.comparing(CustomerModel::getAddress));
-        MFXTableColumn<CustomerModel> corporationColumn = new MFXTableColumn<>("Professionnel", true, Comparator.comparing(CustomerModel::getCorporation));
-        MFXTableColumn<CustomerModel> corporationNameColumn = new MFXTableColumn<>("Nom de l'entreprise", true, Comparator.comparing(CustomerModel::getCorporateName));
-        MFXTableColumn<CustomerModel> sirenColumn = new MFXTableColumn<>("Siren", true, Comparator.comparing(CustomerModel::getSiren));
-        MFXTableColumn<CustomerModel> siretColumn = new MFXTableColumn<>("Siret", true, Comparator.comparing(CustomerModel::getSiret));
-        MFXTableColumn<CustomerModel> ribColumn = new MFXTableColumn<>("RIB", true, Comparator.comparing(CustomerModel::getRib));
-        MFXTableColumn<CustomerModel> rcsColumn = new MFXTableColumn<>("RCS", true, Comparator.comparing(CustomerModel::getRcs));
+        MFXTableColumn<CustomerModel> nameColumn = new MFXTableColumn<>("Raison sociale", true, Comparator.comparing(CustomerModel::getName));
+        MFXTableColumn<CustomerModel> countryColumn = new MFXTableColumn<>("Pays", true, Comparator.comparing(CustomerModel::getCountry));
+        MFXTableColumn<CustomerModel> cityCodeColumn = new MFXTableColumn<>("Ville/CP", true, Comparator.comparing(CustomerModel::getCityCode));
+        MFXTableColumn<CustomerModel> phoneColumn = new MFXTableColumn<>("Téléphone", true, Comparator.comparing(CustomerModel::getPhone));
+        MFXTableColumn<CustomerModel> emailColumn = new MFXTableColumn<>("Email", true, Comparator.comparing(CustomerModel::getEmail));
 
-        idColumn.setRowCellFactory(product -> new MFXTableRowCell<>(CustomerModel::getID));
-        nameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(CustomerModel::getName));
-        thirdPartyColumn.setRowCellFactory(product -> new MFXTableRowCell<>(CustomerModel::getThirdPartyId));
-        addressColumn.setRowCellFactory(product -> new MFXTableRowCell<>(CustomerModel::getAddress) {{
-            setAlignment(Pos.CENTER_RIGHT);
+        idColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(CustomerModel::getID));
+
+        nameColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(CustomerModel::getName) {
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (rowCell != null && rowCell.getIsDisabled()) {
+                    setStyle("-fx-text-fill: grey;");
+                }
+            }
+        });
+
+        countryColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(CustomerModel::getCountry) {{
+            setAlignment(Pos.CENTER_LEFT);
+            if (rowCell != null && rowCell.getIsDisabled()) {
+                setStyle("-fx-text-fill: grey;");
+            }
         }});
 
-        corporationColumn.setRowCellFactory(product -> new MFXTableRowCell<>(CustomerModel::getCorporation) {{
-            setAlignment(Pos.CENTER_RIGHT);
+        cityCodeColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(CustomerModel::getCityCode) {{
+            setAlignment(Pos.CENTER_LEFT);
+            if (rowCell != null && rowCell.getIsDisabled()) {
+                setStyle("-fx-text-fill: grey;");
+            }
         }});
 
-        corporationNameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(CustomerModel::getCorporateName) {{
-            setAlignment(Pos.CENTER_RIGHT);
+        phoneColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(CustomerModel::getPhone) {{
+            setAlignment(Pos.CENTER_LEFT);
+            if (rowCell != null && rowCell.getIsDisabled()) {
+                setStyle("-fx-text-fill: grey;");
+            }
             setGraphicTextGap(5);
         }});
 
-        sirenColumn.setRowCellFactory(product -> new MFXTableRowCell<>(CustomerModel::getSiren) {{
-            setAlignment(Pos.CENTER_RIGHT);
+        emailColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(CustomerModel::getEmail) {{
+            setAlignment(Pos.CENTER_LEFT);
+            if (rowCell != null && rowCell.getIsDisabled()) {
+                setStyle("-fx-text-fill: grey;");
+            }
             setGraphicTextGap(5);
         }});
 
-        siretColumn.setRowCellFactory(product -> new MFXTableRowCell<>(CustomerModel::getSiret) {{
-            setAlignment(Pos.CENTER_RIGHT);
-            setGraphicTextGap(5);
-        }});
+        table.getTableColumns().addAll(idColumn, nameColumn, countryColumn, cityCodeColumn, phoneColumn, emailColumn);
 
-        ribColumn.setRowCellFactory(product -> new MFXTableRowCell<>(CustomerModel::getRib) {{
-            setAlignment(Pos.CENTER_RIGHT);
-            setGraphicTextGap(5);
-        }});
-
-        rcsColumn.setRowCellFactory(product -> new MFXTableRowCell<>(CustomerModel::getRcs) {{
-            setAlignment(Pos.CENTER_RIGHT);
-            setGraphicTextGap(5);
-        }});
-
-        table.getTableColumns().addAll(idColumn, nameColumn, thirdPartyColumn, addressColumn, corporationColumn, corporationNameColumn, sirenColumn, siretColumn, ribColumn, rcsColumn);
         table.getFilters().addAll(
                 new IntegerFilter<>("Réf.", CustomerModel::getID),
-                new StringFilter<>("Libelle", CustomerModel::getName),
-                new IntegerFilter<>("Tier", CustomerModel::getThirdPartyId)
+                new StringFilter<>("Raison sociale", CustomerModel::getName),
+                new StringFilter<>("Pays", CustomerModel::getCountry),
+                new StringFilter<>("Ville/CP", CustomerModel::getCityCode),
+                new StringFilter<>("Téléphone", CustomerModel::getPhone),
+                new StringFilter<>("Email", CustomerModel::getEmail)
         );
-        table.setItems(SolidStockDataIntegration.customers);
 
-
+        reloadCustomer();
     }
 
     @FXML
@@ -115,7 +148,7 @@ public class CustomerController extends DefaultShowController implements Initial
         setId(customer.getID());
 
         openPopUp("customers/showPopup.fxml", stackPane.getScene(), "Détails du client");
-
+        reloadCustomer();
     }
 
     @FXML
@@ -130,6 +163,7 @@ public class CustomerController extends DefaultShowController implements Initial
         setId(customer.getID());
 
         openPopUp("customers/editPopup.fxml", stackPane.getScene(), "Modification du client");
+        reloadCustomer();
 
     }
 
@@ -141,9 +175,19 @@ public class CustomerController extends DefaultShowController implements Initial
             openDialog(stackPane.getScene(), "Veuillez sélectionner un client", DialogType.ERROR, 0);
             return;
         }
-
-        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le client " + customer.getName() + " ?", DialogType.CONFIRMATION, 0);
-
+        boolean result = openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le client " + customer.getName(), DialogType.CONFIRMATION, 0);
+        if (!result) {
+            return;
+        }
+        RequestAPI requestAPI = new RequestAPI();
+        ResponseEntity<String> responseEntity = requestAPI.sendDeleteRequest("/customer/" + customer.getID(), String.class, true);
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            log.info("Customer removed successfully : {}", customer);
+            openDialog(stackPane.getScene(), "Client " + customer.getName() + " supprimé avec succès", DialogType.INFORMATION, 0);
+        } else {
+            openDialog(stackPane.getScene(), "Erreur lors de la suppression du client", DialogType.ERROR, 0);
+        }
+        reloadCustomer();
     }
 
 
@@ -157,5 +201,71 @@ public class CustomerController extends DefaultShowController implements Initial
             return;
         }
         openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getName(), DialogType.CONFIRMATION, 0);
+    }
+
+    @FXML
+    public void reloadCustomer() {
+        table.getItems().clear();
+
+        RequestAPI requestAPI = new RequestAPI();
+
+        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/customer/all", String.class, true, true);
+        ObjectMapper mapper = new ObjectMapper();
+        List<GetCustomerDto> customerList = null;
+        try {
+            customerList = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
+            });
+        } catch (Exception e) {
+            log.error("Error while parsing customers list", e);
+        }
+
+        ObservableList<CustomerModel> customerModels = FXCollections.observableArrayList();
+        assert customerList != null;
+        for (GetCustomerDto customer : customerList) {
+            CustomerModel customerModel = new CustomerModel();
+            customerModel.setID(customer.getId());
+
+            if (customer.getCompanyName() != null && !customer.getCompanyName().isEmpty()) {
+                customerModel.setName(customer.getCompanyName());
+            } else {
+                customerModel.setName(customer.getFirstName() + " " + customer.getLastName());
+            }
+
+            if (customer.getCountry() == null || customer.getCountry().isEmpty()) {
+                customerModel.setCountry("");
+            } else {
+                customerModel.setCountry(customer.getCountry());
+            }
+
+            if ((customer.getCity() == null || customer.getCity().isEmpty()) && (customer.getZipCode() == null || customer.getZipCode().isEmpty())) {
+                customerModel.setCityCode("");
+            } else {
+                customerModel.setCityCode(customer.getCity() + " " + customer.getZipCode());
+            }
+
+            if (customer.getMobilePhone() != null && !customer.getMobilePhone().isEmpty()) {
+                customerModel.setPhone(customer.getMobilePhone());
+            } else {
+                if (customer.getWorkPhone() != null && !customer.getWorkPhone().isEmpty()) {
+                    customerModel.setPhone(customer.getWorkPhone());
+                } else {
+                    if (customer.getHomePhone() != null && !customer.getHomePhone().isEmpty()) {
+                        customerModel.setPhone(customer.getHomePhone());
+                    } else {
+                        customerModel.setPhone("");
+                    }
+                }
+            }
+
+            if (customer.getEmail() == null || customer.getEmail().isEmpty()) {
+                customerModel.setEmail("");
+            } else {
+                customerModel.setEmail(customer.getEmail());
+            }
+            customerModel.setIsDisabled(customer.isDisabled());
+            customerModels.add(customerModel);
+        }
+        customerModels.sort(Comparator.comparingInt(CustomerModel::getID));
+        table.getItems().addAll(customerModels);
     }
 }
