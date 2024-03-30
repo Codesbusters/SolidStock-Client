@@ -236,11 +236,24 @@ public class InvoiceController extends DefaultShowController implements Initiali
     }
 
     private void openFile(File file) {
-        if (Desktop.isDesktopSupported()) {
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("linux")) {
+            // Code pour Linux
+            ProcessBuilder pb = new ProcessBuilder("xdg-open", file.getAbsolutePath());
             try {
-                Desktop.getDesktop().open(file);
+                pb.start();
             } catch (IOException e) {
                 log.error("Error while opening file", e);
+            }
+        } else {
+            if (Desktop.isDesktopSupported()) {
+                try {
+                    Desktop.getDesktop().open(file);
+                } catch (IOException e) {
+                    log.error("Error while opening file", e);
+                }
+            } else {
+                openDialog(stackPane.getScene(), "Impossible d'ouvrir le fichier", DialogType.ERROR, 0);
             }
         }
     }

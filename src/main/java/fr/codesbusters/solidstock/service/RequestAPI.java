@@ -60,6 +60,7 @@ public class RequestAPI {
             isTokenValid();
         }
         url = apiUrl + url;
+        log.info("Sending GET request to: " + url);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         if (needLogin) {
@@ -87,6 +88,7 @@ public class RequestAPI {
 
     public <T> ResponseEntity<T> sendPatchRequest(String url, Class<T> responseType, boolean needLogin) {
         url = apiUrl + url;
+        log.info("Sending PATCH request to: " + url);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         if (needLogin) {
@@ -102,6 +104,7 @@ public class RequestAPI {
     public <T> ResponseEntity<T> sendDeleteRequest(String url, Class<T> responseType, boolean needLogin) {
         isTokenValid();
         url = apiUrl + url;
+        log.info("Sending DELETE request to: " + url);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         if (needLogin) {
@@ -159,6 +162,7 @@ public class RequestAPI {
 
         // Construire l'URL
         String fullUrl = apiUrl + url;
+        log.info("Downloading file from: " + fullUrl);
 
         // Effectuer la requête GET
         ResponseEntity<byte[]> response = restTemplate.exchange(fullUrl, HttpMethod.GET, requestEntity, byte[].class);
