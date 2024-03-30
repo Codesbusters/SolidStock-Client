@@ -55,16 +55,19 @@ public class InvoiceAddController extends DefaultController implements Initializ
 
         if (invoice.getName().isEmpty() || invoice.getDescription().isEmpty() || invoice.getCustomerId() == 0) {
             openDialog(stackPane.getScene(), "Veuillez remplir tous les champs.", DialogType.ERROR, 0);
-return;
+            return;
         }
 
         RequestAPI requestAPI = new RequestAPI();
         ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/invoice/add", invoice, String.class, true, true);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            cancel();
+            openDialog(stackPane.getScene(), "Facture créée avec succès.", DialogType.INFORMATION, 0);
 
-            openDialog(stackPane.getScene(), "Erreur lors de l'ajout du fournisseur.", DialogType.ERROR, 0);
-
+        } else {
+            openDialog(stackPane.getScene(), "Erreur lors de la création de la facture.", DialogType.ERROR, 0);
         }
+
     }
 
     @FXML
