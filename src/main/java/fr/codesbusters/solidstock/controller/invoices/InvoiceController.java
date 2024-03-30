@@ -20,11 +20,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import javafx.embed.swing.SwingNode;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -104,8 +108,6 @@ public class InvoiceController extends DefaultShowController implements Initiali
                 setAlignment(Pos.CENTER_LEFT);
             }
         });
-
-
 
 
         table.getTableColumns().addAll(idColumn, NameColumn, descriptionColumn, customerNameColumn, dateColumn);
@@ -234,16 +236,12 @@ public class InvoiceController extends DefaultShowController implements Initiali
     }
 
     private void openFile(File file) {
-        try {
-
-            if (Desktop.isDesktopSupported()) {
+        if (Desktop.isDesktopSupported()) {
+            try {
                 Desktop.getDesktop().open(file);
-            } else {
-                Runtime rt = Runtime.getRuntime();
-                rt.exec("rundll32 url.dll,FileProtocolHandler " + file);
+            } catch (IOException e) {
+                log.error("Error while opening file", e);
             }
-        } catch (IOException e) {
-            System.err.println("Erreur lors de l'ouverture du fichier: " + e.getMessage());
         }
     }
 }

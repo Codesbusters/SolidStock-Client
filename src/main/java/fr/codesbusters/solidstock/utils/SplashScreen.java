@@ -32,7 +32,7 @@ public class SplashScreen extends Stage {
         // Revenir au curseur par défaut lorsque la souris quitte la zone du splash screen
         scene.setOnMouseExited(event -> scene.setCursor(Cursor.DEFAULT));
 
-        Image icon = new Image("img/icon.png");
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/splash.png")));
         getIcons().add(icon);
 
         // Appliquer la scène à la fenêtre
