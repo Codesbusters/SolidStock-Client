@@ -1,9 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
-            xmlns="http://javafx.com/javafx"
-            prefHeight="400.0" prefWidth="600.0">
-    <Label text="Factures"></Label>
-</AnchorPane>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="fr.codesbusters.solidstock.controller.invoices.InvoiceController"
+           fx:id="stackPane"
+           stylesheets="@../../css/MFXColors.css">
+    <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
+        <children>
+            <AnchorPane id="pane1" maxHeight="100.0" minHeight="100.0" minWidth="400.0" prefHeight="100.0"
+                        style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                        VBox.vgrow="ALWAYS">
+                <children>
+                    <VBox spacing="10.0" style="-fx-padding: 20px">
+                        <children>
+                            <Label text="Factures">
+                                <font>
+                                    <Font name="System Bold" size="22.0"/>
+                                </font>
+                            </Label>
+                            <Label text="Liste des Factures"/>
+                        </children>
+                        <padding>
+                            <Insets left="10.0"/>
+                        </padding>
+                    </VBox>
+                </children>
+            </AnchorPane>
+
+            <AnchorPane id="pane2" maxHeight="60.0" minHeight="30.0" minWidth="400.0" prefHeight="100.0"
+                        prefWidth="600.0"
+                        style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                        VBox.vgrow="ALWAYS">
+                <children>
+                    <HBox spacing="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <padding>
+                            <Insets top="10.0"/>
+                        </padding>
+                        <children>
+                            <HBox spacing="20.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                <children>
+                                    <MFXButton id="custom" minHeight="27.0" minWidth="120.0" prefWidth="150.0"
+                                               prefHeight="38" text="  TÉLÉCHARGER" onAction="#downloadInvoice"
+                                               style="-fx-background-color: #9b9b9b; -fx-background-radius: 4; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
+                                               buttonType="RAISED"
+                                               HBox.hgrow="ALWAYS">
+                                        <graphic>
+                                            <MFXFontIcon description="fas-eye" color="white"/>
+                                        </graphic>
+                                    </MFXButton>
+                                    <MFXButton id="custom" minHeight="27.0" minWidth="120.0" prefWidth="150.0"
+                                               prefHeight="38" text="  ACTUALISER" onAction="#reloadInvoice"
+                                               style="-fx-background-color: #ffc300; -fx-background-radius: 4; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
+                                               buttonType="RAISED"
+                                               HBox.hgrow="ALWAYS">
+                                        <graphic>
+                                            <MFXFontIcon description="fas-arrows-rotate" color="white"/>
+                                        </graphic>
+                                    </MFXButton>
+
+                                </children>
+                                <padding>
+                                    <Insets left="10.0"/>
+                                </padding>
+                            </HBox>
+                            <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                                <children>
+                                    <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                                               prefHeight="38" text="CRÉER" onAction="#addInvoice"
+                                               style="-fx-border-color: black; -fx-font-weight: bold;  -fx-border-radius: 4; -fx-cursor: hand;"
+                                               buttonType="RAISED"
+                                               styleClass="outline-button" HBox.hgrow="ALWAYS"/>
+                                    <MFXButton fx:id="modifyButton" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                                               text="MODIFIER" prefHeight="38"
+                                               buttonType="RAISED"
+                                               style="-fx-background-color: #2196F3; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
+                                               HBox.hgrow="ALWAYS" onAction="#editInvoice"/>
+                                    <MFXButton fx:id="deleteButton" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                                               text="SUPPRIMER" prefHeight="38"
+                                               buttonType="RAISED"
+                                               style="-fx-background-color: #FF6262; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
+                                               HBox.hgrow="ALWAYS" onAction="#removeInvoice"/>
+                                </children>
+                                <HBox.margin>
+                                    <Insets right="10.0"/>
+                                </HBox.margin>
+                            </HBox>
+                        </children>
+                    </HBox>
+                </children>
+
+            </AnchorPane>
+
+            <AnchorPane id="pane3" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="600.0"
+                        style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                        VBox.vgrow="ALWAYS">
+                <MFXTableView fx:id="table" maxWidth="-Infinity" prefWidth="800.0"
+                              GridPane.columnSpan="2147483647" GridPane.rowIndex="2"
+                              AnchorPane.leftAnchor="0.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                              AnchorPane.bottomAnchor="0.0"/>
+            </AnchorPane>
+        </children>
+        <padding>
+            <Insets bottom="60.0" left="20.0" right="30.0" top="20.0"/>
+        </padding>
+    </VBox>
+</StackPane>
