@@ -8,7 +8,6 @@ import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.product.GetProductDto;
 import fr.codesbusters.solidstock.dto.supplier.GetSupplierDto;
 import fr.codesbusters.solidstock.model.ProductModel;
-import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
 import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
@@ -87,7 +86,7 @@ public class ProductController extends DefaultShowController implements Initiali
             {
                 setAlignment(Pos.CENTER_RIGHT);
                 if (product != null && product.getIsDisabled()) {
-                    setStyle("-fx-text-fill: grey;");
+                    setStyle("-fx-opacity: 0.5;");
                 }
             }
         });
@@ -95,7 +94,7 @@ public class ProductController extends DefaultShowController implements Initiali
             {
                 setAlignment(Pos.CENTER_RIGHT);
                 if (product != null && product.getIsDisabled()) {
-                    setStyle("-fx-text-fill: grey;");
+                    setStyle("-fx-opacity: 0.5;");
                 }
             }
         });
@@ -103,7 +102,7 @@ public class ProductController extends DefaultShowController implements Initiali
             {
                 setAlignment(Pos.CENTER_RIGHT);
                 if (product != null && product.getIsDisabled()) {
-                    setStyle("-fx-text-fill: grey;");
+                    setStyle("-fx-opacity: 0.5;");
                 }
             }
         });
@@ -111,7 +110,7 @@ public class ProductController extends DefaultShowController implements Initiali
             {
                 setAlignment(Pos.CENTER_RIGHT);
                 if (product != null && product.getIsDisabled()) {
-                    setStyle("-fx-text-fill: grey;");
+                    setStyle("-fx-opacity: 0.5;");
                 }
             }
         });
@@ -120,7 +119,7 @@ public class ProductController extends DefaultShowController implements Initiali
             {
                 setAlignment(Pos.CENTER_RIGHT);
                 if (product != null && product.getIsDisabled()) {
-                    setStyle("-fx-text-fill: grey;");
+                    setStyle("-fx-opacity: 0.5;");
                 }
             }
         });
@@ -129,7 +128,7 @@ public class ProductController extends DefaultShowController implements Initiali
             {
                 setAlignment(Pos.CENTER_RIGHT);
                 if (product != null && product.getIsDisabled()) {
-                    setStyle("-fx-text-fill: grey;");
+                    setStyle("-fx-opacity: 0.5;");
                 }
             }
         });
@@ -138,7 +137,7 @@ public class ProductController extends DefaultShowController implements Initiali
             {
                 setAlignment(Pos.CENTER_RIGHT);
                 if (product != null && product.getIsDisabled()) {
-                    setStyle("-fx-text-fill: grey;");
+                    setStyle("-fx-opacity: 0.5;");
                 }
             }
         });
