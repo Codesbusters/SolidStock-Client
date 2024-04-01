@@ -19,12 +19,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.StackPane;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-
 import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
@@ -49,7 +47,6 @@ public class SupplierController extends DefaultShowController implements Initial
     public void initialize(URL location, ResourceBundle resources) {
         setupTable();
         table.autosizeColumnsOnInitialization();
-
         table.setOnMouseClicked(event -> {
            SupplierModel supplier = table.getSelectionModel().getSelectedValue();
 
@@ -84,7 +81,7 @@ public class SupplierController extends DefaultShowController implements Initial
             {
                 setAlignment(Pos.CENTER_LEFT);
                 if (rowCell != null && rowCell.getIsDisabled()) {
-                    setStyle("-fx-text-fill: grey;");
+                    setStyle("-fx-opacity: 0.5;");
                 }
             }
         });
@@ -93,7 +90,7 @@ public class SupplierController extends DefaultShowController implements Initial
             {
                 setAlignment(Pos.CENTER_LEFT);
                 if (rowCell != null && rowCell.getIsDisabled()) {
-                    setStyle("-fx-text-fill: grey;");
+                    setStyle("-fx-opacity: 0.5;");
                 }
             }
         });
@@ -102,32 +99,32 @@ public class SupplierController extends DefaultShowController implements Initial
             {
                 setAlignment(Pos.CENTER_LEFT);
                 if (rowCell != null && rowCell.getIsDisabled()) {
-                    setStyle("-fx-text-fill: grey;");
+                    setStyle("-fx-opacity: 0.5;");
                 }
             }
         });
         zipCodeColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(SupplierModel::getZipCode) {{
             setAlignment(Pos.CENTER_LEFT);
             if (rowCell != null && rowCell.getIsDisabled()) {
-                setStyle("-fx-text-fill: grey;");
+                setStyle("-fx-opacity: 0.5;");
             }
         }});
         cityColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(SupplierModel::getCity) {{
             setAlignment(Pos.CENTER_LEFT);
             if (rowCell != null && rowCell.getIsDisabled()) {
-                setStyle("-fx-text-fill: grey;");
+                setStyle("-fx-opacity: 0.5;");
             }
         }});
         workPhoneColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(SupplierModel::getWorkPhone) {{
             setAlignment(Pos.CENTER_LEFT);
             if (rowCell != null && rowCell.getIsDisabled()) {
-                setStyle("-fx-text-fill: grey;");
+                setStyle("-fx-opacity: 0.5;");
             }
         }});
         countryColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(SupplierModel::getCountry) {{
             setAlignment(Pos.CENTER_LEFT);
             if (rowCell != null && rowCell.getIsDisabled()) {
-                setStyle("-fx-text-fill: grey;");
+                setStyle("-fx-opacity: 0.5;");
             }
         }});
 
@@ -141,7 +138,7 @@ public class SupplierController extends DefaultShowController implements Initial
                 new StringFilter<>("E-mail", SupplierModel::getEmail)
         );
 
-        reloadSupplier();
+       reloadSupplier();
     }
 
 
