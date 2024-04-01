@@ -5,9 +5,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.TextArea?>
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
-           fx:controller="fr.codesbusters.solidstock.controller.invoices.invoiceRow.InvoiceRowAddController" fx:id="stackPane"
-           stylesheets="@../../css/MFXColors.css">
+           fx:controller="fr.codesbusters.solidstock.controller.invoices.InvoiceAddController" fx:id="stackPane"
+           stylesheets="@../../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
@@ -19,12 +21,12 @@
                 <padding>
                     <Insets left="10.0"/>
                 </padding>
-                <Label text="Ajouter une ligne de facture">
+                <Label text="Ajouter une facture">
                     <font>
                         <Font name="System Bold" size="22.0"/>
                     </font>
                 </Label>
-                <Label text="Enregistrer une nouvelle ligne de facture"/>
+                <Label text="Enregistrer une nouvelle facture"/>
             </VBox>
         </AnchorPane>
 
@@ -52,6 +54,15 @@
                                 <MFXTextField floatMode="BORDER" floatingText="Référence Client"
                                               prefWidth="114" maxWidth="114" minWidth="114" fx:id="customerId" disable="true">
                                 </MFXTextField>
+                                <MFXButton id="accept" minHeight="27.0" minWidth="34.0" prefWidth="34.0"
+                                           prefHeight="38"
+                                           style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;"
+                                           buttonType="RAISED" styleClass="mfx-button"
+                                           HBox.hgrow="ALWAYS" onAction="#selectCustomer">
+                                    <graphic>
+                                        <MFXFontIcon description="fas-ellipsis" size="20" color="WHITE"/>
+                                    </graphic>
+                                </MFXButton>
                                 <padding>
                                     <Insets left="10.0"/>
                                 </padding>
@@ -77,13 +88,13 @@
                            text="ANNULER" prefHeight="38"
                            buttonType="RAISED" styleClass="outline-button"
                            style="-fx-border-color: black; -fx-background-radius: 8; -fx-border-radius: 8;  -fx-font-weight: bold; -fx-cursor: hand;"
-                           HBox.hgrow="ALWAYS" />
+                           HBox.hgrow="ALWAYS" onAction="#cancel"/>
 
                 <MFXButton id="accept" minHeight="27.0" minWidth="70.0" prefWidth="100"
                            prefHeight="38" text="AJOUTER"
                            style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
                            buttonType="RAISED" styleClass="mfx-button"
-                           HBox.hgrow="ALWAYS" />
+                           HBox.hgrow="ALWAYS" onAction="#addInvoice"/>
             </HBox>
 
 
