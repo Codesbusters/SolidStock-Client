@@ -67,7 +67,7 @@ public class ProductController extends DefaultShowController implements Initiali
 
     @FXML
     public void addProduct() {
-        openPopUp("products/addRowPopup.fxml", stackPane.getScene(), "Ajouter un produit");
+        openPopUp("products/addPopup.fxml", stackPane.getScene(), "Ajouter un produit");
         reloadProduct();
     }
 
@@ -174,7 +174,7 @@ public class ProductController extends DefaultShowController implements Initiali
         }
 
         setId(product.getID());
-        openPopUp("products/editRowPopup.fxml", stackPane.getScene(), "Modification du produit");
+        openPopUp("products/editPopup.fxml", stackPane.getScene(), "Modification du produit");
         reloadProduct();
 
     }

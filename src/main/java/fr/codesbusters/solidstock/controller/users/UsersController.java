@@ -38,7 +38,7 @@ public class UsersController extends DefaultShowController implements Initializa
 
     @FXML
     public void addUser() {
-        openPopUp("users/addRowPopup.fxml", stackPane.getScene(), "Ajouter un utilisateur");
+        openPopUp("users/addPopup.fxml", stackPane.getScene(), "Ajouter un utilisateur");
     }
 
     @FXML
@@ -52,7 +52,7 @@ public class UsersController extends DefaultShowController implements Initializa
 
         setId(user.getID());
 
-        openPopUp("users/editRowPopup.fxml", stackPane.getScene(), "Modification de l'utilisateur");
+        openPopUp("users/editPopup.fxml", stackPane.getScene(), "Modification de l'utilisateur");
 
     }
 
