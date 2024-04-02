@@ -123,19 +123,6 @@ public class InvoiceController extends DefaultShowController implements Initiali
     }
 
 
-    @FXML
-    public void showInvoice() {
-        InvoiceModel invoiceModel = table.getSelectionModel().getSelectedValue();
-
-        if (invoiceModel == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner une facture", DialogType.ERROR, 0);
-            return;
-        }
-
-        setId(invoiceModel.getID());
-        openPopUp("invoices/showPopup.fxml", stackPane.getScene(), "Détails de la facture");
-        reloadInvoice();
-    }
 
     @FXML
     public void editInvoice() {
