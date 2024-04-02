@@ -2,6 +2,7 @@ package fr.codesbusters.solidstock.controller.invoices.invoiceRow;
 
 import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.StackPane;
@@ -24,5 +25,6 @@ public class InvoiceRowAddController extends DefaultShowController implements In
     }
 
 
-
+    public void selectProduct(ActionEvent actionEvent) {
+    }
 }

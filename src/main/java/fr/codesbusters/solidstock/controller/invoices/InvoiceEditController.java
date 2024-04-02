@@ -85,6 +85,7 @@ public class InvoiceEditController extends DefaultShowController implements Init
         }
 
         setupTable();
+        table.autosizeColumnsOnInitialization();
     }
 
     private void setupTable() {
@@ -197,13 +198,13 @@ public class InvoiceEditController extends DefaultShowController implements Init
 
     @FXML
     public void addInvoiceRow(ActionEvent actionEvent) {
-        openPopUp("/invoices/invoiceRow/addPopup.fxml", stackPane.getScene(),"Ajouter une ligne de facture");
+        openPopUp("/invoices/addRowPopup.fxml", stackPane.getScene(),"Ajouter une ligne de facture");
 
     }
 
     @FXML
     public void editInvoiceRow(ActionEvent actionEvent) {
-        openPopUp("/invoices/invoiceRow/editPopup.fxml", stackPane.getScene(),"Modifier une ligne de facture");
+        openPopUp("/invoices/editRowPopup.fxml", stackPane.getScene(),"Modifier une ligne de facture");
     }
 
     @FXML
@@ -218,5 +219,6 @@ public class InvoiceEditController extends DefaultShowController implements Init
         } else {
             openDialog(stackPane.getScene(), "Erreur lors de la suppression de la ligne de facture.", DialogType.ERROR, 0);
         }
+
     }
 }

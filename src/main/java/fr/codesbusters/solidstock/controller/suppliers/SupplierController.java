@@ -67,7 +67,7 @@ public class SupplierController extends DefaultShowController implements Initial
 
     @FXML
     public void addSupplier() {
-        openPopUp("suppliers/addPopup.fxml", stackPane.getScene(), "Ajouter un fournisseur");
+        openPopUp("suppliers/addRowPopup.fxml", stackPane.getScene(), "Ajouter un fournisseur");
         reloadSupplier();
     }
 
@@ -170,7 +170,7 @@ public class SupplierController extends DefaultShowController implements Initial
 
         setId(supplier.getID());
 
-        openPopUp("suppliers/editPopup.fxml", stackPane.getScene(), "Modification du fournisseur");
+        openPopUp("suppliers/editRowPopup.fxml", stackPane.getScene(), "Modification du fournisseur");
         reloadSupplier();
 
     }
