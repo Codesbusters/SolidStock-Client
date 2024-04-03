@@ -108,7 +108,13 @@ public class RequestAPI {
         log.info("Sending GET request to: " + url);
 
         File image = null;
-        ResponseEntity<byte[]> response = restTemplate.getForEntity(url, byte[].class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        if (needLogin) {
+            String token = SessionManager.getInstance().getAttribute("token").toString();
+            headers.set("Authorization", token);
+        }
+        ResponseEntity<byte[]> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), byte[].class);
         if (response.getStatusCode().is2xxSuccessful()) {
             String tempPath = getTempDirectory() + File.separator + "SolidStock" + File.separator + "Images";
             byte[] imageBytes = response.getBody();

@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.image.Image?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="fr.codesbusters.solidstock.controller.products.ProductShowController" fx:id="stackPane"
            stylesheets="@../../css/MFXColors.css">
@@ -43,14 +44,10 @@
                           minWidth="250"
                           maxWidth="250"
                           HBox.hgrow="ALWAYS">
-                        <MFXButton
-                                style="-fx-padding: 5; -fx-border-style: none; -fx-border-width: 0; -fx-border-insets: 0;" text=" ">
-                            <graphic>
-                                <ImageView fx:id="imageView" fitWidth="145.0" fitHeight="145.0"
-                                           style="-fx-background-radius: 8;" preserveRatio="true">
-                                </ImageView>
-                            </graphic>
-                        </MFXButton>
+                        <ImageView fx:id="imageView" fitWidth="145.0" fitHeight="145.0"
+                                   style="-fx-background-radius: 8;" preserveRatio="true">
+                            <Image url="@../../img/noImage.png"/>
+                        </ImageView>
                     </HBox>
                     <VBox alignment="CENTER_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
                         <MFXTextField floatMode="BORDER" floatingText="Référence" prefWidth="310"

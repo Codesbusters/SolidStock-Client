@@ -104,13 +104,19 @@ public class ProductShowController extends DefaultShowController implements Init
         productDescription.setText(product.getDescription());
         disableTextFields();
 
+
+        File productImage = null;
         try {
-            File productImage = requestAPI.getImage("/product/" + getId() + "/image", true);
-            Image image = new Image(productImage.toURI().toString());
-            imageView.setImage(image);
+            productImage = requestAPI.getImage("/product/" + getId() + "/image", true);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        if (productImage != null) {
+                log.info("Image found");
+                Image image = new Image(productImage.toURI().toString());
+                imageView.setImage(image);
+            }
+
     }
 
     @FXML
