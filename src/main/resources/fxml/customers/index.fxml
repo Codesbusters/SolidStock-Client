@@ -58,7 +58,7 @@
                                                buttonType="RAISED"
                                                HBox.hgrow="ALWAYS">
                                         <graphic>
-                                            <MFXFontIcon description="fas-eye" color="white"/>
+                                            <MFXFontIcon description="fas-arrows-rotate" color="white"/>
                                         </graphic>
                                     </MFXButton>
                                 </children>
