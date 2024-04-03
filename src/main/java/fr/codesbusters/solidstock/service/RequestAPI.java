@@ -116,9 +116,13 @@ public class RequestAPI {
         }
         ResponseEntity<byte[]> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), byte[].class);
         if (response.getStatusCode().is2xxSuccessful()) {
-            String tempPath = getTempDirectory() + File.separator + "SolidStock" + File.separator + "Images";
+            String tempPath = getTempDirectory() + File.separator + "SolidStock" + File.separator + "Images" + File.separator;
             byte[] imageBytes = response.getBody();
             if (imageBytes != null) {
+                File imageDir = new File(tempPath);
+                if (!imageDir.exists()) {
+                    imageDir.mkdirs();
+                }
                 Path imagePath = Paths.get(tempPath + "productImage.png");
                 Files.write(imagePath, imageBytes);
                 log.info("Image récupérée avec succès et enregistrée à : " + imagePath);

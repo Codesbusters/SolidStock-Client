@@ -166,9 +166,6 @@ public class ProductAddController extends DefaultController implements Initializ
         }
 
 
-        // Validation de l'image
-        String imageBase64 = validateImage();
-
         int supplierId = Integer.parseInt(supplierIdString);
         int productFamilyId = Integer.parseInt(productIdFamily);
         int quantityTypeId = Integer.parseInt(quantityType.split(" - ")[0]);
@@ -186,7 +183,6 @@ public class ProductAddController extends DefaultController implements Initializ
         product.setBuyPrice(buyPriceString);
         product.setSellPrice(sellPriceString);
         product.setVatId(vatId);
-//        product.setImage(imageBase64);
 
         log.info("Product to add : {}", product);
         // Envoie de la requête
