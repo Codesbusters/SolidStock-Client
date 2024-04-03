@@ -22,10 +22,16 @@ import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 
@@ -82,19 +88,47 @@ public class RequestAPI {
         return restTemplate.exchange(url, HttpMethod.PUT, requestEntity, responseType);
     }
 
-    public <T> ResponseEntity<T> sendPatchRequest(String url, Class<T> responseType, boolean needLogin) {
+    public <T> ResponseEntity<T> sendPutRequestWithFile(String url, MultiValueMap<String, Object> requestBody, Class<T> responseType, boolean needLogin) {
+        isTokenValid();
         url = apiUrl + url;
+        log.info("Sending PUT request to: " + url + " with body: " + requestBody);
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         if (needLogin) {
             String token = SessionManager.getInstance().getAttribute("token").toString();
             headers.set("Authorization", token);
         }
-        HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
-        return restTemplate.exchange(url, HttpMethod.PATCH, requestEntity, responseType);
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(requestBody, headers);
+        return restTemplate.exchange(url, HttpMethod.PUT, requestEntity, responseType);
     }
 
+    public File getImage(String url, boolean needLogin) throws IOException {
+        isTokenValid();
+        url = apiUrl + url;
+        log.info("Sending GET request to: " + url);
 
+        File image = null;
+        ResponseEntity<byte[]> response = restTemplate.getForEntity(url, byte[].class);
+        if (response.getStatusCode().is2xxSuccessful()) {
+            String tempPath = getTempDirectory() + File.separator + "SolidStock" + File.separator + "Images";
+            byte[] imageBytes = response.getBody();
+            if (imageBytes != null) {
+                Path imagePath = Paths.get(tempPath + "productImage.png");
+                Files.write(imagePath, imageBytes);
+                log.info("Image récupérée avec succès et enregistrée à : " + imagePath);
+                image = new File(imagePath.toString());
+            } else {
+                log.error("Impossible de récupérer l'image.");
+            }
+        } else {
+            log.error("Erreur lors de la récupération de l'image : " + response.getStatusCode());
+        }
+        return image;
+    }
+
+    private String getTempDirectory() {
+        return System.getProperty("java.io.tmpdir");
+    }
     //delete
     public <T> ResponseEntity<T> sendDeleteRequest(String url, Class<T> responseType, boolean needLogin) {
         isTokenValid();

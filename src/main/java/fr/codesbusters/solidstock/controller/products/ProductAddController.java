@@ -27,8 +27,11 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -69,6 +72,8 @@ public class ProductAddController extends DefaultController implements Initializ
     public Label productFamilyName;
     @FXML
     public MFXComboBox<String> productQuantityType;
+
+    private File imageSelected;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -197,8 +202,24 @@ public class ProductAddController extends DefaultController implements Initializ
         ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/product/add", product, String.class, true, true);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             log.info("Product added successfully : {}", product);
-            cancel();
-            openDialog(stackPane.getScene(), "Produit " + product.getName() + " ajouté avec succès", DialogType.INFORMATION, 0);
+            ObjectMapper mapperResponse = new ObjectMapper();
+            GetProductDto productResponse = null;
+            try {
+                productResponse = mapperResponse.readValue(responseEntity.getBody(), new TypeReference<>() {
+                });
+            } catch (Exception e) {
+                log.error("Error while parsing supplier list", e);
+            }
+            MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<>();
+            requestBody.add("file", new FileSystemResource(imageSelected));
+            ResponseEntity<String> responseEntity2 = requestAPI.sendPutRequestWithFile("/product/" + productResponse.getId() + "/image", requestBody, String.class, true);
+            if (responseEntity2.getStatusCode().is2xxSuccessful()) {
+                cancel();
+                openDialog(stackPane.getScene(), "Produit " + product.getName() + " ajouté avec succès", DialogType.INFORMATION, 0);
+            } else {
+                openDialog(stackPane.getScene(), "Erreur lors de l'ajout de l'image",DialogType.ERROR,0);
+            }
+
         } else {
             openDialog(stackPane.getScene(), "Erreur lors de l'ajout du produit", DialogType.ERROR, 0);
         }
@@ -243,6 +264,7 @@ public class ProductAddController extends DefaultController implements Initializ
         if (selectedFile != null) {
             Image image = new Image(selectedFile.toURI().toString());
             imageView.setImage(image);
+            imageSelected = selectedFile;
         }
     }
 
