@@ -12,7 +12,6 @@ import fr.codesbusters.solidstock.dto.vat.GetVatDto;
 import fr.codesbusters.solidstock.listener.ProductFamilySelectorListener;
 import fr.codesbusters.solidstock.listener.SupplierSelectorListener;
 import fr.codesbusters.solidstock.service.RequestAPI;
-import fr.codesbusters.solidstock.utils.Base64Converter;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
@@ -27,14 +26,15 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -70,6 +70,8 @@ public class ProductAddController extends DefaultController implements Initializ
     @FXML
     public MFXComboBox<String> productQuantityType;
 
+    private File imageSelected;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         productSellPrice.setTextLimit(8);
@@ -78,7 +80,6 @@ public class ProductAddController extends DefaultController implements Initializ
 
         ResponseEntity<String> responseVatList = requestAPIVat.sendGetRequest("/vat/all", String.class, true, true);
         ObjectMapper mapper = new ObjectMapper();
-        GetProductDto product = new GetProductDto();
 
         List<GetVatDto> allVats = null;
         try {
@@ -105,7 +106,6 @@ public class ProductAddController extends DefaultController implements Initializ
             }
         }
         productVat.setItems(vatDisplays);
-//        productVat.setText(product.getVat().getDescription());
 
         ObservableList<String> quantityTypesDisplays = FXCollections.observableArrayList();
         if (allQuantityTypes != null) {
@@ -115,7 +115,6 @@ public class ProductAddController extends DefaultController implements Initializ
             }
         }
         productQuantityType.setItems(quantityTypesDisplays);
-//        productQuantityType.setText(product.getQuantityType().getName());
     }
 
     @FXML
@@ -161,9 +160,6 @@ public class ProductAddController extends DefaultController implements Initializ
         }
 
 
-        // Validation de l'image
-        String imageBase64 = validateImage();
-
         int supplierId = Integer.parseInt(supplierIdString);
         int productFamilyId = Integer.parseInt(productIdFamily);
         int quantityTypeId = Integer.parseInt(quantityType.split(" - ")[0]);
@@ -181,7 +177,6 @@ public class ProductAddController extends DefaultController implements Initializ
         product.setBuyPrice(buyPriceString);
         product.setSellPrice(sellPriceString);
         product.setVatId(vatId);
-//        product.setImage(imageBase64);
 
         log.info("Product to add : {}", product);
         // Envoie de la requête
@@ -197,37 +192,29 @@ public class ProductAddController extends DefaultController implements Initializ
         ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/product/add", product, String.class, true, true);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             log.info("Product added successfully : {}", product);
-            cancel();
-            openDialog(stackPane.getScene(), "Produit " + product.getName() + " ajouté avec succès", DialogType.INFORMATION, 0);
+            ObjectMapper mapperResponse = new ObjectMapper();
+            GetProductDto productResponse = null;
+            try {
+                productResponse = mapperResponse.readValue(responseEntity.getBody(), new TypeReference<>() {
+                });
+            } catch (Exception e) {
+                log.error("Error while parsing supplier list", e);
+            }
+            MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<>();
+            requestBody.add("file", new FileSystemResource(imageSelected));
+            ResponseEntity<String> responseEntity2 = requestAPI.sendPutRequestWithFile("/product/" + productResponse.getId() + "/image", requestBody, String.class, true);
+            if (responseEntity2.getStatusCode().is2xxSuccessful()) {
+                cancel();
+                openDialog(stackPane.getScene(), "Produit " + product.getName() + " ajouté avec succès", DialogType.INFORMATION, 0);
+            } else {
+                openDialog(stackPane.getScene(), "Erreur lors de l'ajout de l'image",DialogType.ERROR,0);
+            }
+
         } else {
             openDialog(stackPane.getScene(), "Erreur lors de l'ajout du produit", DialogType.ERROR, 0);
         }
 
     }
-
-    private String validateImage() {
-        String imageBase64 = null;
-
-        try {
-            String imageUrl = URLDecoder.decode(imageView.getImage().getUrl().substring(6), StandardCharsets.UTF_8);
-            File imageFile = new File(imageUrl);
-            if (!imageFile.getPath().endsWith("\\img\\addImage.png")) {
-                if (!imageFile.exists()) {
-                    openDialog(stackPane.getScene(), "Veuillez renseigner une image valide", DialogType.ERROR, 0);
-                } else {
-                    imageBase64 = Base64Converter.convertImageToBase64(imageFile);
-                }
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            log.error("Error decoding image URL", e);
-            openDialog(stackPane.getScene(), "Erreur lors de la récupération de l'image", DialogType.ERROR, 0);
-        }
-
-        return imageBase64;
-    }
-
 
     @FXML
     public void imageSelect() {
@@ -243,6 +230,7 @@ public class ProductAddController extends DefaultController implements Initializ
         if (selectedFile != null) {
             Image image = new Image(selectedFile.toURI().toString());
             imageView.setImage(image);
+            imageSelected = selectedFile;
         }
     }
 

@@ -26,10 +26,14 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -69,6 +73,9 @@ public class ProductEditController extends DefaultShowController implements Init
     public MFXTextField productFamilyID;
     @FXML
     public MFXComboBox<String> productQuantityType;
+
+    private File imageSelected;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -138,6 +145,18 @@ public class ProductEditController extends DefaultShowController implements Init
         }
         productQuantityType.setItems(quantityTypesDisplays);
         productQuantityType.setText(product.getQuantityType().getName());
+
+        File productImage = null;
+        try {
+            productImage = requestAPI.getImage("/product/" + getId() + "/image", true);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (productImage != null) {
+            log.info("Image found");
+            Image image = new Image(productImage.toURI().toString());
+            imageView.setImage(image);
+        }
     }
 
     @FXML
@@ -190,10 +209,6 @@ public class ProductEditController extends DefaultShowController implements Init
             return;
         }
 
-
-        // Validation de l'image
-        String imageBase64 = validateImage();
-
         int supplierId = Integer.parseInt(supplierIdString);
         int productFamilyId = Integer.parseInt(productIdFamily);
         int quantityTypeId = Integer.parseInt(quantityType.split(" - ")[0]);
@@ -211,7 +226,6 @@ public class ProductEditController extends DefaultShowController implements Init
         product.setBuyPrice(buyPriceString);
         product.setSellPrice(sellPriceString);
         product.setVatId(vatId);
-//        product.setImage(imageBase64);
 
         log.info("Product to modify : {}", product);
         // Envoie de la requête
@@ -224,11 +238,31 @@ public class ProductEditController extends DefaultShowController implements Init
         } catch (Exception e) {
             log.error("Error while parsing product list", e);
         }
-        requestAPI.sendPutRequest("/product/" + idInteger, json, String.class, true);
+        ResponseEntity<String> responseEntity = requestAPI.sendPutRequest("/product/" + idInteger, json, String.class, true);
 
-        cancel();
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            log.info("Product added successfully : {}", product);
+            ObjectMapper mapperResponse = new ObjectMapper();
+            GetProductDto productResponse = null;
+            try {
+                productResponse = mapperResponse.readValue(responseEntity.getBody(), new TypeReference<>() {
+                });
+            } catch (Exception e) {
+                log.error("Error while parsing supplier list", e);
+            }
+            MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<>();
+            requestBody.add("file", new FileSystemResource(imageSelected));
+            ResponseEntity<String> responseEntity2 = requestAPI.sendPutRequestWithFile("/product/" + productResponse.getId() + "/image", requestBody, String.class, true);
+            if (responseEntity2.getStatusCode().is2xxSuccessful()) {
+                cancel();
+                openDialog(stackPane.getScene(), "Produit " + product.getName() + " modifié avec succès", DialogType.INFORMATION, 0);
+            } else {
+                openDialog(stackPane.getScene(), "Erreur lors de la modification de l'image",DialogType.ERROR,0);
+            }
 
-        openDialog(stackPane.getScene(), "Produit " + product.getName() + " modifié avec succès", DialogType.INFORMATION, 0);
+        } else {
+            openDialog(stackPane.getScene(), "Erreur lors de la modification du produit " + product.getName(), DialogType.ERROR, 0);
+        }
     }
 
     private String validateImage() {
@@ -268,6 +302,7 @@ public class ProductEditController extends DefaultShowController implements Init
         if (selectedFile != null) {
             Image image = new Image(selectedFile.toURI().toString());
             imageView.setImage(image);
+            imageSelected = selectedFile;
         }
     }
 
