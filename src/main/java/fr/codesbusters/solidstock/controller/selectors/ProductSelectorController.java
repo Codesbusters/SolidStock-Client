@@ -7,6 +7,7 @@ import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.product.GetProductDto;
 import fr.codesbusters.solidstock.dto.supplier.GetSupplierDto;
+import fr.codesbusters.solidstock.listener.ProductSelectorListener;
 import fr.codesbusters.solidstock.listener.SupplierSelectorListener;
 import fr.codesbusters.solidstock.model.ProductModel;
 import fr.codesbusters.solidstock.model.SupplierModel;
@@ -43,7 +44,7 @@ public class ProductSelectorController extends DefaultShowController implements 
 
     private Stage parentStage;
 
-    private SupplierSelectorListener listener;
+    private ProductSelectorListener listener;
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
@@ -55,7 +56,7 @@ public class ProductSelectorController extends DefaultShowController implements 
         this.parentStage = parentStage;
     }
 
-    public void setListener(SupplierSelectorListener listener) {
+    public void setListener(ProductSelectorListener listener) {
         this.listener = listener;
     }
 
@@ -248,10 +249,11 @@ public class ProductSelectorController extends DefaultShowController implements 
 
         // Vérifiez si l'ID est null
         if (selectedValue != null) {
-            String supplierId = String.valueOf(selectedValue.getID());
-            String supplierName = selectedValue.getName();
+            String productId = String.valueOf(selectedValue.getID());
+            String productName = selectedValue.getName();
+            String productPrice = String.valueOf(selectedValue.getSellPrice());
             if (listener != null) {
-                listener.processSupplierContent(supplierId, supplierName);
+                listener.processProductContent(productId, productName, productPrice);
             } else {
                 openDialog(table.getScene(), "Une erreur est survenue, veuillez réessayer.", DialogType.ERROR, 0);
             }
