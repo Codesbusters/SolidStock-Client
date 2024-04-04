@@ -12,7 +12,6 @@ import fr.codesbusters.solidstock.dto.vat.GetVatDto;
 import fr.codesbusters.solidstock.listener.ProductFamilySelectorListener;
 import fr.codesbusters.solidstock.listener.SupplierSelectorListener;
 import fr.codesbusters.solidstock.service.RequestAPI;
-import fr.codesbusters.solidstock.utils.Base64Converter;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
@@ -36,8 +35,6 @@ import org.springframework.util.MultiValueMap;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -83,7 +80,6 @@ public class ProductAddController extends DefaultController implements Initializ
 
         ResponseEntity<String> responseVatList = requestAPIVat.sendGetRequest("/vat/all", String.class, true, true);
         ObjectMapper mapper = new ObjectMapper();
-        GetProductDto product = new GetProductDto();
 
         List<GetVatDto> allVats = null;
         try {
@@ -110,7 +106,6 @@ public class ProductAddController extends DefaultController implements Initializ
             }
         }
         productVat.setItems(vatDisplays);
-//        productVat.setText(product.getVat().getDescription());
 
         ObservableList<String> quantityTypesDisplays = FXCollections.observableArrayList();
         if (allQuantityTypes != null) {
@@ -120,7 +115,6 @@ public class ProductAddController extends DefaultController implements Initializ
             }
         }
         productQuantityType.setItems(quantityTypesDisplays);
-//        productQuantityType.setText(product.getQuantityType().getName());
     }
 
     @FXML
@@ -221,30 +215,6 @@ public class ProductAddController extends DefaultController implements Initializ
         }
 
     }
-
-    private String validateImage() {
-        String imageBase64 = null;
-
-        try {
-            String imageUrl = URLDecoder.decode(imageView.getImage().getUrl().substring(6), StandardCharsets.UTF_8);
-            File imageFile = new File(imageUrl);
-            if (!imageFile.getPath().endsWith("\\img\\addImage.png")) {
-                if (!imageFile.exists()) {
-                    openDialog(stackPane.getScene(), "Veuillez renseigner une image valide", DialogType.ERROR, 0);
-                } else {
-                    imageBase64 = Base64Converter.convertImageToBase64(imageFile);
-                }
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            log.error("Error decoding image URL", e);
-            openDialog(stackPane.getScene(), "Erreur lors de la récupération de l'image", DialogType.ERROR, 0);
-        }
-
-        return imageBase64;
-    }
-
 
     @FXML
     public void imageSelect() {
