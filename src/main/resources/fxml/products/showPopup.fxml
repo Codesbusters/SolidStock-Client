@@ -153,6 +153,11 @@
                 <padding>
                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
                 </padding>
+                <MFXButton fx:id="enable" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                           text="ACTIVER" prefHeight="38"
+                           buttonType="RAISED" styleClass="outline-button"
+                           style="-fx-border-color: black; -fx-background-radius: 8; -fx-border-radius: 8; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-color: green; -fx-text-fill: white;"
+                           HBox.hgrow="ALWAYS" onAction="#enable"/>
                 <MFXButton id="cancel" minHeight="27.0" minWidth="70.0" prefWidth="100"
                            text="FERMER" prefHeight="38"
                            buttonType="RAISED" styleClass="outline-button"

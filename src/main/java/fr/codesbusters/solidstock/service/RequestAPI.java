@@ -32,6 +32,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Objects;
 
 
@@ -63,6 +65,7 @@ public class RequestAPI {
             isTokenValid();
         }
         url = apiUrl + url;
+        log.info("Sending GET request to: " + url);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         if (needLogin) {
@@ -143,6 +146,7 @@ public class RequestAPI {
     public <T> ResponseEntity<T> sendDeleteRequest(String url, Class<T> responseType, boolean needLogin) {
         isTokenValid();
         url = apiUrl + url;
+        log.info("Sending DELETE request to: " + url);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         if (needLogin) {
@@ -179,6 +183,44 @@ public class RequestAPI {
             log.error("Error while checking token", e);
         }
 
+    }
+
+    public File downloadFile(String url, boolean needLogin, boolean needCheckToken) throws IOException {
+        RestTemplate restTemplate = new RestTemplate();
+
+        // Vérifier si le token est valide si nécessaire
+        if (needCheckToken) {
+            isTokenValid();
+        }
+
+        // Ajouter le token aux en-têtes si besoin de connexion
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        if (needLogin) {
+            String token = SessionManager.getInstance().getAttribute("token").toString();
+            headers.set("Authorization", token);
+        }
+        HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
+
+        // Construire l'URL
+        String fullUrl = apiUrl + url;
+        log.info("Downloading file from: " + fullUrl);
+
+        // Effectuer la requête GET
+        ResponseEntity<byte[]> response = restTemplate.exchange(fullUrl, HttpMethod.GET, requestEntity, byte[].class);
+        byte[] fileBytes = response.getBody();
+
+        // Récupérer le nom du fichier
+        String fileName = Objects.requireNonNull(response.getHeaders().getContentDisposition()).getFilename();
+        File tempFile = File.createTempFile("temp_", fileName);
+
+        // Écrire les données du fichier dans le fichier temporaire
+        try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+            fos.write(fileBytes);
+        }
+
+        // Retourner le fichier temporaire
+        return tempFile;
     }
 
 

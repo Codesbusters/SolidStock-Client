@@ -1,4 +1,4 @@
-package fr.codesbusters.solidstock.controller.products;
+package fr.codesbusters.solidstock.controller.selectors;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -6,9 +6,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.product.GetProductDto;
+import fr.codesbusters.solidstock.dto.supplier.GetSupplierDto;
+import fr.codesbusters.solidstock.listener.SupplierSelectorListener;
 import fr.codesbusters.solidstock.model.ProductModel;
+import fr.codesbusters.solidstock.model.SupplierModel;
 import fr.codesbusters.solidstock.service.RequestAPI;
-import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
@@ -16,61 +18,52 @@ import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
-import java.util.ResourceBundle;
 
 @Slf4j
 @Controller
-public class ProductController extends DefaultShowController implements Initializable {
-    @FXML
-    private StackPane stackPane;
+public class ProductSelectorController extends DefaultShowController implements Initializable {
 
     @FXML
-    private MFXTableView<ProductModel> table;
+    private AnchorPane stackPane;
 
     @FXML
-    private MFXButton modifyButton;
+    MFXTableView<ProductModel> table;
 
-    @FXML
-    private MFXButton deleteButton;
+    private Stage parentStage;
+
+    private SupplierSelectorListener listener;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         setupTable();
         table.autosizeColumnsOnInitialization();
-
-        table.setOnMouseClicked(event -> {
-            ProductModel product = table.getSelectionModel().getSelectedValue();
-
-            if (product != null) {
-                if (product.getIsDisabled()) {
-                    modifyButton.setDisable(true);
-                    deleteButton.setDisable(true);
-                } else {
-                    modifyButton.setDisable(false);
-                    deleteButton.setDisable(false);
-                }
-            }
-        });
     }
 
+    public void setStage(Stage parentStage) {
+        this.parentStage = parentStage;
+    }
+
+    public void setListener(SupplierSelectorListener listener) {
+        this.listener = listener;
+    }
 
     @FXML
     public void addProduct() {
         openPopUp("products/addPopup.fxml", stackPane.getScene(), "Ajouter un produit");
         reloadProduct();
     }
-
 
     private void setupTable() {
         MFXTableColumn<ProductModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(ProductModel::getID));
@@ -151,72 +144,56 @@ public class ProductController extends DefaultShowController implements Initiali
     }
 
     @FXML
-    public void showProduct() {
-        ProductModel product = table.getSelectionModel().getSelectedValue();
+    public void showSupplier() {
+        ProductModel supplier = table.getSelectionModel().getSelectedValue();
 
-        if (product == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR, 0);
+        if (supplier == null) {
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR, 0);
             return;
         }
 
-        setId(product.getID());
-        openPopUp("products/showPopup.fxml", stackPane.getScene(), "Détails du produit");
+        setId(supplier.getID());
+        openPopUp("suppliers/showPopup.fxml", stackPane.getScene(), "Détails du fournisseur");
         reloadProduct();
     }
 
     @FXML
     public void editProduct() {
-        ProductModel product = table.getSelectionModel().getSelectedValue();
+        ProductModel supplier = table.getSelectionModel().getSelectedValue();
 
-        if (product == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR, 0);
+        if (supplier == null) {
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR, 0);
             return;
         }
 
-        setId(product.getID());
-        openPopUp("products/editPopup.fxml", stackPane.getScene(), "Modification du produit");
+        setId(supplier.getID());
+
+        openPopUp("suppliers/editPopup.fxml", stackPane.getScene(), "Modification du fournisseur");
         reloadProduct();
 
     }
 
     @FXML
     public void removeProduct() {
-        ProductModel product = table.getSelectionModel().getSelectedValue();
+        ProductModel supplier = table.getSelectionModel().getSelectedValue();
 
-        if (product == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR, 0);
+        if (supplier == null) {
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR, 0);
             return;
         }
-
-        boolean isCanceled = openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le produit " + product.getName() + " ?", DialogType.CONFIRMATION, 0);
-        if (!isCanceled) {
+        boolean result = openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le fournisseur " + supplier.getName() + " ? \nCela entraînera également la suppression de ces produits", DialogType.CONFIRMATION, 0);
+        if (!result) {
             return;
         }
-
         RequestAPI requestAPI = new RequestAPI();
-        ResponseEntity<String> responseEntity = requestAPI.sendDeleteRequest("/product/" + product.getID(), String.class, true);
-
+        ResponseEntity<String> responseEntity = requestAPI.sendDeleteRequest("/supplier/" + supplier.getID(), String.class, true);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            openDialog(stackPane.getScene(), "Le produit a été supprimé avec succès", DialogType.INFORMATION, 0);
-
+            log.info("Supplier removed successfully : {}", supplier);
+            openDialog(stackPane.getScene(), "Fournisseur " + supplier.getName() + " supprimé avec succès", DialogType.INFORMATION, 0);
         } else {
-            openDialog(stackPane.getScene(), "Erreur lors de la suppression du produit", DialogType.ERROR, 0);
+            openDialog(stackPane.getScene(), "Erreur lors de la suppression du fournisseur", DialogType.ERROR, 0);
         }
-
         reloadProduct();
-    }
-
-
-    //on double click on a row
-    @FXML
-    public void showProductDetails() {
-        ProductModel product = table.getSelectionModel().getSelectedValue();
-
-        if (product == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR, 0);
-            return;
-        }
-        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getName(), DialogType.CONFIRMATION, 0);
     }
 
     @FXML
@@ -229,8 +206,8 @@ public class ProductController extends DefaultShowController implements Initiali
         ObjectMapper mapper = new ObjectMapper();
         List<GetProductDto> productList = null;
         try {
-          productList = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
-          });
+            productList = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
+            });
         } catch (Exception e) {
             log.error("Error while parsing product list", e);
         }
@@ -263,5 +240,31 @@ public class ProductController extends DefaultShowController implements Initiali
         table.getItems().addAll(productModels);
     }
 
+    @FXML
+    private void submitAction(ActionEvent event) {
 
+        // Obtenez l'ID sélectionné de la table
+        ProductModel selectedValue = table.getSelectionModel().getSelectedValue();
+
+        // Vérifiez si l'ID est null
+        if (selectedValue != null) {
+            String supplierId = String.valueOf(selectedValue.getID());
+            String supplierName = selectedValue.getName();
+            if (listener != null) {
+                listener.processSupplierContent(supplierId, supplierName);
+            } else {
+                openDialog(table.getScene(), "Une erreur est survenue, veuillez réessayer.", DialogType.ERROR, 0);
+            }
+
+            // Fermez la fenêtre pop-up
+            parentStage.close();
+        } else {
+            openDialog(table.getScene(), "Veuillez séléctionner un fournisseur", DialogType.ERROR, 0);
+        }
+    }
+
+    @FXML
+    private void cancel() {
+        parentStage.close();
+    }
 }

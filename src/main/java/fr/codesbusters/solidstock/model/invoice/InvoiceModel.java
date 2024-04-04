@@ -1,13 +1,15 @@
 package fr.codesbusters.solidstock.model.invoice;
 
 import javafx.beans.property.*;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class InvoiceModel {
 
     private final IntegerProperty id = new SimpleIntegerProperty();
     private final StringProperty name = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
-    private final StringProperty customerName = new SimpleStringProperty();
+    private final StringProperty customerName = new SimpleStringProperty("");
     private final StringProperty date = new SimpleStringProperty("");
 
 public InvoiceModel(int id, String name, String description, String customerName, String date) {

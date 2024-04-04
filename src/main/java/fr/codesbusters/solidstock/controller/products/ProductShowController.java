@@ -2,10 +2,13 @@ package fr.codesbusters.solidstock.controller.products;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
+import fr.codesbusters.solidstock.dto.product.GetProductDto;
 import fr.codesbusters.solidstock.dto.product.GetProductDto;
 import fr.codesbusters.solidstock.model.QuantityTypeModel;
 import fr.codesbusters.solidstock.service.RequestAPI;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
@@ -61,7 +64,8 @@ public class ProductShowController extends DefaultShowController implements Init
     public Label productFamilyName;
     @FXML
     public MFXComboBox<QuantityTypeModel> productQuantityType;
-
+    @FXML
+    public MFXButton enable;
     private void disableTextFields() {
         productId.setEditable(false);
         productName.setEditable(false);
@@ -87,7 +91,7 @@ public class ProductShowController extends DefaultShowController implements Init
             product = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
             });
         } catch (Exception e) {
-            log.error("Error while parsing supplier list", e);
+            log.error("Error while parsing product list", e);
         }
 
         assert  product != null;
@@ -104,7 +108,6 @@ public class ProductShowController extends DefaultShowController implements Init
         productDescription.setText(product.getDescription());
         disableTextFields();
 
-
         File productImage = null;
         try {
             productImage = requestAPI.getImage("/product/" + getId() + "/image", true);
@@ -116,6 +119,31 @@ public class ProductShowController extends DefaultShowController implements Init
                 Image image = new Image(productImage.toURI().toString());
                 imageView.setImage(image);
             }
+
+
+        enable.setVisible(product.isDeleted());
+    }
+
+    @FXML
+    public void enable() {
+        int idInteger = Integer.parseInt(productId.getText());
+        String productNameString = productName.getText();
+        String productSupplierString = supplierName.getText();
+
+        // Création de l'objet Supplier
+        GetProductDto product = new GetProductDto();
+        product.setId(idInteger);
+        product.setName(productNameString);
+        product.setSupplierName(productSupplierString);
+        
+        
+        // Envoie de la requête
+        RequestAPI requestAPI = new RequestAPI();
+
+        requestAPI.sendPostRequest("/product/" + idInteger, null,  String.class, true, true);
+
+        cancel();
+        openDialog(stackPane.getScene(), "Produit " + product.getName() + " réactivé avec succès.", DialogType.INFORMATION, 0);
 
     }
 

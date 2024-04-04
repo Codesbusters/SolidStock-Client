@@ -12,7 +12,6 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -21,7 +20,6 @@ import java.util.ResourceBundle;
 import static fr.codesbusters.solidstock.service.RIBChecker.isValidIBAN;
 
 @Slf4j
-@Controller
 public class CustomerAddController extends DefaultController implements Initializable {
 
 

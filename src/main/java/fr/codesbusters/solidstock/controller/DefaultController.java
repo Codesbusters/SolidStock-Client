@@ -71,7 +71,12 @@ public class DefaultController {
 
         label.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
 
-        Button okButton = new Button("Ok");
+        Button okButton = null;
+        if (dialogType == Alert.AlertType.CONFIRMATION) {
+            okButton = new Button("Confirmer");
+        } else {
+            okButton = new Button("OK");
+        }
         okButton.setOnAction(e -> dialog.close());
 
         okButton.setStyle(" -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 5px;");

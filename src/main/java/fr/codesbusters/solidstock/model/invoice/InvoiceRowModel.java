@@ -1,7 +1,9 @@
 package fr.codesbusters.solidstock.model.invoice;
 
 import javafx.beans.property.*;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class InvoiceRowModel {
 
     private final IntegerProperty id = new SimpleIntegerProperty();
@@ -10,10 +12,10 @@ public class InvoiceRowModel {
     private final StringProperty unitType = new SimpleStringProperty();
     private final DoubleProperty unitPrice = new SimpleDoubleProperty();
     private final DoubleProperty totalHT = new SimpleDoubleProperty();
-    private final StringProperty vat = new SimpleStringProperty();
+    private final DoubleProperty vat = new SimpleDoubleProperty();
     private final DoubleProperty totalTTC = new SimpleDoubleProperty();
 
-    public InvoiceRowModel(int id, String productName, double quantity, String unitType, double unitPrice, double totalHT, String vat, double totalTTC) {
+    public InvoiceRowModel(int id, String productName, double quantity, String unitType, double unitPrice, double totalHT, Double vat, double totalTTC) {
         setID(id);
         setProductName(productName);
         setQuantity(quantity);
@@ -24,7 +26,7 @@ public class InvoiceRowModel {
         setTotalTTC(totalTTC);
     }
 
-    public static InvoiceRowModel ofSplit(int id, String productName, double quantity, String unitType, double unitPrice, double totalHT, String vat, double totalTTC) {
+    public static InvoiceRowModel ofSplit(int id, String productName, double quantity, String unitType, double unitPrice, double totalHT, Double vat, double totalTTC) {
         return new InvoiceRowModel(id, productName, quantity, unitType, unitPrice, totalHT, vat, totalTTC);
     }
 
@@ -76,11 +78,11 @@ public class InvoiceRowModel {
         this.totalHT.set(totalHT);
     }
 
-    public String getVat() {
+    public Double getVat() {
         return vat.get();
     }
 
-    public void setVat(String vat) {
+    public void setVat(Double vat) {
         this.vat.set(vat);
     }
 
@@ -116,7 +118,7 @@ public class InvoiceRowModel {
         return totalHT;
     }
 
-    public StringProperty vatProperty() {
+    public DoubleProperty vatProperty() {
         return vat;
     }
 
