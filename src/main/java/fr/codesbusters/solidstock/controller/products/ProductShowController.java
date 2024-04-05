@@ -84,7 +84,7 @@ public class ProductShowController extends DefaultShowController implements Init
             product = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
             });
         } catch (Exception e) {
-            log.error("Error while parsing supplier list", e);
+            log.error("Error while parsing product list", e);
         }
 
         assert  product != null;

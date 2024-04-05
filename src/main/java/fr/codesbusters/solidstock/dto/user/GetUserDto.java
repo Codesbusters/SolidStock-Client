@@ -19,6 +19,7 @@ public class GetUserDto {
     private String userName;
     private String email;
     private String password;
+    private String confirmPassword;
     private GetCustomerDto customer;
     private GetRoleDto role;
     private List<Integer> customers;

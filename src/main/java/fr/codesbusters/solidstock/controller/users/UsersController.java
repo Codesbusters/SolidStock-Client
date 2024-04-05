@@ -183,7 +183,7 @@ public class UsersController extends DefaultShowController implements Initializa
         table.getFilters().addAll(
                 new StringFilter<>("Nom", UsersModel::getName),
                 new StringFilter<>("Email", UsersModel::getEmail),
-                new IntegerFilter<>("Id Tiers", UsersModel::getCustomerId),
+                new IntegerFilter<>("Id Client", UsersModel::getCustomerId),
                 new StringFilter<>("Rôle", UsersModel::getRoleName)
         );
         reloadUser();
