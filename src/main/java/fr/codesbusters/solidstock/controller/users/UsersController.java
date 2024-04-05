@@ -1,23 +1,33 @@
 package fr.codesbusters.solidstock.controller.users;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
-import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
+import fr.codesbusters.solidstock.dto.role.GetRoleDto;
+import fr.codesbusters.solidstock.dto.user.GetUserDto;
 import fr.codesbusters.solidstock.model.UsersModel;
+import fr.codesbusters.solidstock.service.RequestAPI;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Slf4j
@@ -30,10 +40,29 @@ public class UsersController extends DefaultShowController implements Initializa
     @FXML
     private MFXTableView<UsersModel> table;
 
+    @FXML
+    private MFXButton modifyButton;
+
+    @FXML
+    private MFXButton deleteButton;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupTable();
         table.autosizeColumnsOnInitialization();
+        table.setOnMouseClicked(event -> {
+            UsersModel user = table.getSelectionModel().getSelectedValue();
+
+            if (user != null ) {
+                if (user.getIsDisabled()) {
+                    modifyButton.setDisable(true);
+                    deleteButton.setDisable(true);
+                } else {
+                    modifyButton.setDisable(false);
+                    deleteButton.setDisable(false);
+                }
+            }
+        });
     }
 
     @FXML
@@ -86,37 +115,128 @@ public class UsersController extends DefaultShowController implements Initializa
 
     private void setupTable() {
         MFXTableColumn<UsersModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(UsersModel::getID));
-        MFXTableColumn<UsersModel> surNameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(UsersModel::getSurName));
-        MFXTableColumn<UsersModel> firstNameColumn = new MFXTableColumn<>("Prénom", true, Comparator.comparing(UsersModel::getFirstName));
-        MFXTableColumn<UsersModel> thirdPartyIdColumn = new MFXTableColumn<>("Id tiers", true, Comparator.comparing(UsersModel::getThirdPartyId));
-        MFXTableColumn<UsersModel> passwordColumn = new MFXTableColumn<>("Mot de passe", true, Comparator.comparing(UsersModel::getPassword));
+        MFXTableColumn<UsersModel> nameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(UsersModel::getName));
+        MFXTableColumn<UsersModel> customerIdColumn = new MFXTableColumn<>("Id client", true, Comparator.comparing(UsersModel::getCustomerId));
         MFXTableColumn<UsersModel> roleIdColumn = new MFXTableColumn<>("Id Rôle", true, Comparator.comparing(UsersModel::getRoleId));
         MFXTableColumn<UsersModel> roleNameColumn = new MFXTableColumn<>("Rôle", true, Comparator.comparing(UsersModel::getRoleName));
-        MFXTableColumn<UsersModel> roleDescriptionColumn = new MFXTableColumn<>("Description", true, Comparator.comparing(UsersModel::getRoleDescription));
         MFXTableColumn<UsersModel> emailColumn = new MFXTableColumn<>("Email", true, Comparator.comparing(UsersModel::getEmail));
-        MFXTableColumn<UsersModel> phoneNumberColumn = new MFXTableColumn<>("Numéro téléphone", true, Comparator.comparing(UsersModel::getPhoneNumber));
         MFXTableColumn<UsersModel> userLoginNameColumn = new MFXTableColumn<>("Identifiant", true, Comparator.comparing(UsersModel::getUserLoginName));
 
-        idColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getID));
-        surNameColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getSurName));
-        firstNameColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getFirstName));
-        thirdPartyIdColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getThirdPartyId));
-        passwordColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getPassword));
-        roleIdColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getRoleId));
-        roleNameColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getRoleName));
-        roleDescriptionColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getRoleDescription));
-        emailColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getEmail));
-        phoneNumberColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getPhoneNumber));
-        userLoginNameColumn.setRowCellFactory(usersModel -> new MFXTableRowCell<>(UsersModel::getUserLoginName));
+        idColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getID){
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (rowCell != null && rowCell.getIsDisabled()) {
+                    setStyle("-fx-opacity: 0.5;");
+                }
+            }
+        });
+        nameColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getName){
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (rowCell != null && rowCell.getIsDisabled()) {
+                    setStyle("-fx-opacity: 0.5;");
+                }
+            }
+        });
+        customerIdColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getCustomerId){
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (rowCell != null && rowCell.getIsDisabled()) {
+                    setStyle("-fx-opacity: 0.5;");
+                }
+            }
+        });
+        roleIdColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getRoleId){
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (rowCell != null && rowCell.getIsDisabled()) {
+                    setStyle("-fx-opacity: 0.5;");
+                }
+            }
+        });
+        roleNameColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getRoleName){
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (rowCell != null && rowCell.getIsDisabled()) {
+                    setStyle("-fx-opacity: 0.5;");
+                }
+            }
+        });
+        emailColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getEmail){
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (rowCell != null && rowCell.getIsDisabled()) {
+                    setStyle("-fx-opacity: 0.5;");
+                }
+            }
+        });
+        userLoginNameColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getUserLoginName){
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (rowCell != null && rowCell.getIsDisabled()) {
+                    setStyle("-fx-opacity: 0.5;");
+                }
+            }
+        });
 
-        table.getTableColumns().addAll(idColumn, surNameColumn, firstNameColumn, userLoginNameColumn, emailColumn, phoneNumberColumn, roleNameColumn);
+        table.getTableColumns().addAll(idColumn, nameColumn, customerIdColumn, userLoginNameColumn, emailColumn, roleIdColumn, roleNameColumn);
         table.getFilters().addAll(
-                new StringFilter<>("Nom", UsersModel::getSurName),
-                new StringFilter<>("Prénom", UsersModel::getFirstName),
+                new StringFilter<>("Nom", UsersModel::getName),
                 new StringFilter<>("Email", UsersModel::getEmail),
-                new IntegerFilter<>("Id Tiers", UsersModel::getThirdPartyId),
+                new IntegerFilter<>("Id Tiers", UsersModel::getCustomerId),
                 new StringFilter<>("Rôle", UsersModel::getRoleName)
         );
-        table.setItems(SolidStockDataIntegration.users);
+        reloadUser();
+    }
+
+    @FXML
+    public void reloadUser() {
+        table.getItems().clear();
+
+        RequestAPI requestAPI = new RequestAPI();
+
+        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/user/all", String.class, true, true);
+        ObjectMapper mapper = new ObjectMapper();
+        List<GetUserDto> userList = null;
+        try {
+            userList = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
+            });
+        } catch (Exception e) {
+            log.error("Error while parsing user list", e);
+        }
+
+        ObservableList<UsersModel> usersModels = FXCollections.observableArrayList();
+        assert userList != null;
+        for (GetUserDto user: userList) {
+            UsersModel usersModel = new UsersModel();
+            usersModel.setID(user.getId());
+            usersModel.setRoleId(user.getRole() != null ? user.getRole().getId() : 0);
+            usersModel.setRoleName(user.getRole() != null ? user.getRole().getName() : "");
+            usersModel.setEmail(user.getEmail() != null && !user.getEmail().isEmpty() ? user.getEmail() : "");
+            usersModel.setCustomerId(user.getCustomer() != null ? user.getCustomer().getId() : 0);
+
+            if (user.getName() == null || user.getName().isEmpty()) {
+                if (user.getUserName() != null && !user.getUserName().isEmpty()) {
+                    usersModel.setName(user.getUserName());
+                } else {
+                    usersModel.setName("");
+                }
+            } else {
+                usersModel.setName(user.getName());
+            }
+
+            if (user.getUserName() == null || user.getUserName().isEmpty()) {
+                if (user.getName() != null && !user.getName().isEmpty()) {
+                    usersModel.setUserLoginName(user.getName());
+                }
+            } else {
+                usersModel.setUserLoginName(user.getUserName());
+            }
+            
+            usersModel.setIsDisabled(user.isDeleted());
+            usersModels.add(usersModel);
+        }
+        usersModels.sort(Comparator.comparingInt(UsersModel::getID));
+        table.getItems().addAll(usersModels);
     }
 }
