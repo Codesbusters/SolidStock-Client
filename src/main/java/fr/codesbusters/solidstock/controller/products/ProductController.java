@@ -49,19 +49,19 @@ public class ProductController extends DefaultShowController implements Initiali
         setupTable();
         table.autosizeColumnsOnInitialization();
 
-        table.setOnMouseClicked(event -> {
-            ProductModel product = table.getSelectionModel().getSelectedValue();
-
-            if (product != null) {
-                if (product.getIsDisabled()) {
-                    modifyButton.setDisable(true);
-                    deleteButton.setDisable(true);
-                } else {
-                    modifyButton.setDisable(false);
-                    deleteButton.setDisable(false);
-                }
+        new Thread(() -> {
+            while (true) {
+                    if (table.getSelectionModel().getLastSelectedValue().getIsDisabled()) {
+                        modifyButton.setDisable(true);
+                        deleteButton.setDisable(true);
+                    } else {
+                        modifyButton.setDisable(false);
+                        deleteButton.setDisable(false);
+                    }
             }
-        });
+        }).start();
+
+
     }
 
 
@@ -207,17 +207,6 @@ public class ProductController extends DefaultShowController implements Initiali
     }
 
 
-    //on double click on a row
-    @FXML
-    public void showProductDetails() {
-        ProductModel product = table.getSelectionModel().getSelectedValue();
-
-        if (product == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR, 0);
-            return;
-        }
-        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getName(), DialogType.CONFIRMATION, 0);
-    }
 
     @FXML
     public void reloadProduct() {
@@ -257,6 +246,7 @@ public class ProductController extends DefaultShowController implements Initiali
             productModel.setBuyPrice(Double.parseDouble(product.getBuyPrice()));
             productModel.setMinimumStockQuantity(product.getMinimumStockQuantity());
             productModel.setIsDisabled(product.isDeleted());
+
             productModels.add(productModel);
         }
         productModels.sort(Comparator.comparingInt(ProductModel::getID));

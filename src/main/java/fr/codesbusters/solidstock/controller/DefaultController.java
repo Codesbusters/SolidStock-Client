@@ -31,6 +31,7 @@ import org.scenicview.ScenicView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DefaultController {
@@ -151,6 +152,7 @@ public class DefaultController {
             Scene newScene = new Scene(root);
 
             MFXThemeManager.addOn(newScene, Themes.DEFAULT, Themes.LEGACY);
+            newScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
 
             // Créez une nouvelle fenêtre modale pour la pop-up
             Stage popupStage = new Stage();

@@ -12,6 +12,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
+import io.github.palexdev.materialfx.filter.DoubleFilter;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.collections.FXCollections;
@@ -61,7 +62,7 @@ public class InvoiceController extends DefaultShowController implements Initiali
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupTable();
-        table.autosizeColumnsOnInitialization();
+
     }
 
     @FXML
@@ -73,10 +74,12 @@ public class InvoiceController extends DefaultShowController implements Initiali
 
     private void setupTable() {
         MFXTableColumn<InvoiceModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(InvoiceModel::getID));
+        MFXTableColumn<InvoiceModel> dateColumn = new MFXTableColumn<>("Date", true, Comparator.comparing(InvoiceModel::getDate));
         MFXTableColumn<InvoiceModel> NameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(InvoiceModel::getName));
         MFXTableColumn<InvoiceModel> descriptionColumn = new MFXTableColumn<>("Description", true, Comparator.comparing(InvoiceModel::getDescription));
         MFXTableColumn<InvoiceModel> customerNameColumn = new MFXTableColumn<>("Client", true, Comparator.comparing(InvoiceModel::getCustomerName));
-        MFXTableColumn<InvoiceModel> dateColumn = new MFXTableColumn<>("Date", true, Comparator.comparing(InvoiceModel::getDate));
+        MFXTableColumn<InvoiceModel> totalHtColumn = new MFXTableColumn<>("Total HT", true, Comparator.comparing(InvoiceModel::getTotalHt));
+        MFXTableColumn<InvoiceModel> totalTtcColumn = new MFXTableColumn<>("Total TTC", true, Comparator.comparing(InvoiceModel::getTotalTtc));
 
 
         idColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(InvoiceModel::getID) {
@@ -109,14 +112,28 @@ public class InvoiceController extends DefaultShowController implements Initiali
             }
         });
 
+        totalHtColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(InvoiceModel::getTotalHt) {
+            {
+                setAlignment(Pos.CENTER_LEFT);
+            }
+        });
 
-        table.getTableColumns().addAll(idColumn, NameColumn, descriptionColumn, customerNameColumn, dateColumn);
+        totalTtcColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(InvoiceModel::getTotalTtc) {
+            {
+                setAlignment(Pos.CENTER_LEFT);
+            }
+        });
+
+
+        table.getTableColumns().addAll(idColumn, NameColumn, descriptionColumn, customerNameColumn, dateColumn, totalHtColumn, totalTtcColumn);
         table.getFilters().addAll(
                 new IntegerFilter<>("Réf.", InvoiceModel::getID),
                 new StringFilter<>("Nom", InvoiceModel::getName),
                 new StringFilter<>("Description", InvoiceModel::getDescription),
                 new StringFilter<>("Client", InvoiceModel::getCustomerName),
-                new StringFilter<>("Date", InvoiceModel::getDate)
+                new StringFilter<>("Date", InvoiceModel::getDate),
+                new DoubleFilter<>("Total HT", InvoiceModel::getTotalHt),
+                new DoubleFilter<>("Total TTC", InvoiceModel::getTotalTtc)
         );
 
         reloadInvoice();
@@ -196,11 +213,14 @@ public class InvoiceController extends DefaultShowController implements Initiali
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDateTime date = LocalDateTime.parse(invoiceDto.getCreatedAt(), DateTimeFormatter.ISO_DATE_TIME);
             invoiceModel.setDate(date.format(formatter));
+            invoiceModel.setTotalHt(invoiceDto.getTotalHt());
+            invoiceModel.setTotalTtc(invoiceDto.getTotalTtc());
 
             invoicesModels.add(invoiceModel);
         }
 
         table.getItems().addAll(invoicesModels);
+        table.autosizeColumnsOnInitialization();
     }
 
     @FXML

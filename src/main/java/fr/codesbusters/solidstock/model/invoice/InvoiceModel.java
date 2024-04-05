@@ -7,21 +7,27 @@ import lombok.NoArgsConstructor;
 public class InvoiceModel {
 
     private final IntegerProperty id = new SimpleIntegerProperty();
+    private final StringProperty date = new SimpleStringProperty("");
     private final StringProperty name = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
     private final StringProperty customerName = new SimpleStringProperty("");
-    private final StringProperty date = new SimpleStringProperty("");
+    private final DoubleProperty totalHt = new SimpleDoubleProperty();
+    private final DoubleProperty totalTtc = new SimpleDoubleProperty();
 
-public InvoiceModel(int id, String name, String description, String customerName, String date) {
-        setID(id);
-        setName(name);
-        setDescription(description);
-        setCustomerName(customerName);
-        setDate(date);
+
+
+    public InvoiceModel(int id, String name, String description, String customerName, String date, double totalHt, double totalTtc) {
+        this.id.set(id);
+        this.name.set(name);
+        this.description.set(description);
+        this.customerName.set(customerName);
+        this.date.set(date);
+        this.totalHt.set(totalHt);
+        this.totalTtc.set(totalTtc);
     }
 
-    public static InvoiceModel ofSplit(int id, String name, String description, String customerName, String date) {
-        return new InvoiceModel(id, name, description, customerName, date);
+    public static InvoiceModel ofSplit(int id, String name, String description, String customerName, String date, double totalHt, double totalTtc) {
+        return new InvoiceModel(id, name, description, customerName, date, totalHt, totalTtc);
     }
 
 
@@ -85,6 +91,31 @@ public InvoiceModel(int id, String name, String description, String customerName
     public StringProperty dateProperty() {
         return date;
     }
+
+    public double getTotalHt() {
+        return totalHt.get();
+    }
+
+    public void setTotalHt(double totalHt) {
+        this.totalHt.set(totalHt);
+    }
+
+    public double getTotalTtc() {
+        return totalTtc.get();
+    }
+
+    public void setTotalTtc(double totalTtc) {
+        this.totalTtc.set(totalTtc);
+    }
+
+    public DoubleProperty totalHtProperty() {
+        return totalHt;
+    }
+
+    public DoubleProperty totalTtcProperty() {
+        return totalTtc;
+    }
+
 
 
 

@@ -19,6 +19,8 @@ public class GetInvoiceDto {
         private String description;
         private GetCustomerDto customer;
         private List<GetInvoiceRowDto> invoiceRows;
+        private double totalHt;
+        private double totalTtc;
         private String createdAt;
         private String updatedAt;
 }
