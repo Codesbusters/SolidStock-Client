@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.*?>
 <?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
            xmlns="http://javafx.com/javafx"
            fx:controller="fr.codesbusters.solidstock.controller.adminSettings.AdminSettingsController"
@@ -33,34 +34,126 @@
                     </VBox>
                 </children>
             </AnchorPane>
-            <AnchorPane id="pane2" maxHeight="400.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0"
-                        prefWidth="600.0"
+            <AnchorPane id="pane2"
                         style="-fx-background-color: #ffffff; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
-                        HBox.hgrow="ALWAYS">
-                <children>
-                    <VBox AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" spacing="20">
-                        <HBox HBox.hgrow="ALWAYS">
-                            <Label text="Compte Utilisateur">
+                        HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                <VBox AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0"
+                      AnchorPane.bottomAnchor="0" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" spacing="15">
+                    <Label text="Informations générales">
+                        <font>
+                            <Font name="System Bold" size="18.0"/>
+                        </font>
+                    </Label>
+                    <HBox VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" alignment="CENTER_LEFT" spacing="30">
+                        <MFXButton
+                                style="-fx-cursor: hand; -fx-padding: 5; -fx-border-style: none; -fx-border-width: 0; -fx-border-insets: 0;"
+                                text=" " onAction="#selectOwnerCompanyImage">
+                            <graphic>
+                                <ImageView fx:id="ownerCompanyImage" fitWidth="200.0" fitHeight="200.0"
+                                           style="-fx-background-radius: 8;" preserveRatio="true">
+                                    <Image url="@../../img/addImage.png"/>
+                                </ImageView>
+                            </graphic>
+                            <HBox.margin>
+                                <Insets left="30.0"/>
+                            </HBox.margin>
+                        </MFXButton>
+                        <VBox VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" alignment="TOP_CENTER" spacing="13">
+                            <MFXTextField floatMode="BORDER" floatingText="Raison sociale" fx:id="ownerCompanyName"
+                                          prefWidth="450">
+                            </MFXTextField>
+                            <MFXTextField floatMode="BORDER" floatingText="SIRET" fx:id="ownerCompanySiret"
+                                          prefWidth="450">
+                            </MFXTextField>
+                            <MFXTextField floatMode="BORDER" floatingText="RCS" fx:id="ownerCompanyRcs"
+                                          prefWidth="450">
+                            </MFXTextField>
+                            <padding>
+                                <Insets top="30"/>
+                            </padding>
+                        </VBox>
+                        <VBox VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" alignment="TOP_CENTER" spacing="13">
+                            <MFXTextField floatMode="BORDER" floatingText="Responsable" fx:id="ownerCompanyOwnerName"
+                                          prefWidth="450">
+                            </MFXTextField>
+                            <MFXTextField floatMode="BORDER" floatingText="SIREN" fx:id="ownerCompanySiren"
+                                          prefWidth="450">
+                            </MFXTextField>
+                            <padding>
+                                <Insets top="30"/>
+                            </padding>
+                        </VBox>
+                    </HBox>
+                    <padding>
+                        <Insets right="20" top="20" bottom="20" left="20"/>
+                    </padding>
+                </VBox>
+            </AnchorPane>
+            <AnchorPane id="pane3"
+                        style="-fx-background-color: #ffffff; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                        HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                <HBox AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0"
+                      AnchorPane.bottomAnchor="0" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" spacing="30"
+                      alignment="TOP_CENTER">
+                    <VBox HBox.hgrow="ALWAYS" spacing="15">
+                        <Label text="Coordonnées">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        <VBox spacing="13">
+                            <HBox spacing="10">
+                                <MFXTextField fx:id="ownerCompanyStreetNumber" HBox.hgrow="ALWAYS"
+                                              floatingText="N° de rue" floatMode="BORDER" prefWidth="100"/>
+                                <MFXTextField fx:id="ownerCompanyStreetName" HBox.hgrow="ALWAYS"
+                                              floatingText="Nom de la rue ou voie" floatMode="BORDER" prefWidth="500"/>
+                            </HBox>
+                            <HBox spacing="10">
+                                <MFXTextField fx:id="ownerCompanyZipCode" HBox.hgrow="ALWAYS"
+                                              floatingText="Code postal" floatMode="BORDER" prefWidth="100"/>
+                                <MFXTextField fx:id="ownerCompanyCity" HBox.hgrow="ALWAYS"
+                                              floatingText="Ville" floatMode="BORDER" prefWidth="245"/>
+                                <MFXTextField fx:id="ownerCompanyCountry" HBox.hgrow="ALWAYS"
+                                              floatingText="Pays" floatMode="BORDER" prefWidth="245"/>
+                            </HBox>
+                            <HBox spacing="10">
+                                <MFXTextField fx:id="ownerCompanyEmail" HBox.hgrow="ALWAYS"
+                                              floatingText="Email" floatMode="BORDER" prefWidth="400"/>
+                                <MFXTextField fx:id="ownerCompanyPhone" HBox.hgrow="ALWAYS"
+                                              floatingText="Téléphone" floatMode="BORDER" prefWidth="200"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS" spacing="15">
+                        <VBox spacing="15">
+                            <Label text="Identité banquaire">
                                 <font>
                                     <Font name="System Bold" size="18.0"/>
                                 </font>
                             </Label>
-                        </HBox>
-                        <VBox spacing="15" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" alignment="CENTER">
-                            <children>
-                                <MFXTextField fx:id="urlApi" HBox.hgrow="ALWAYS"
-                                              floatingText="Url API" floatMode="BORDER" prefWidth="400"/>
-                                <MFXTextField fx:id="urlWeb" HBox.hgrow="ALWAYS"
-                                              floatingText="Url web" floatMode="BORDER" prefWidth="400"/>
-                            </children>
+                            <MFXTextField fx:id="ownerCompanyIban" HBox.hgrow="ALWAYS"
+                                          floatingText="IBAN" floatMode="BORDER" prefWidth="450"/>
                         </VBox>
-                        <padding>
-                            <Insets right="15" top="15" bottom="15" left="15"/>
-                        </padding>
+                        <VBox spacing="15">
+                            <Label text="Ressources logiciel">
+                                <font>
+                                    <Font name="System Bold" size="18.0"/>
+                                </font>
+                            </Label>
+                            <VBox spacing="13">
+                                <MFXTextField fx:id="urlApi" HBox.hgrow="ALWAYS"
+                                              floatingText="Url API" floatMode="BORDER" prefWidth="450"/>
+                                <MFXTextField fx:id="urlWeb" HBox.hgrow="ALWAYS"
+                                              floatingText="Url web" floatMode="BORDER" prefWidth="450"/>
+                            </VBox>
+                        </VBox>
                     </VBox>
-                </children>
+                    <padding>
+                        <Insets right="20" top="20" bottom="20" left="20"/>
+                    </padding>
+                </HBox>
             </AnchorPane>
-            <AnchorPane id="pane2" maxHeight="60.0" minHeight="30.0" minWidth="400.0" prefHeight="100.0"
+            <AnchorPane id="pane4" maxHeight="60.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0"
                         prefWidth="600.0"
                         style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                         VBox.vgrow="ALWAYS">
@@ -77,12 +170,13 @@
                                                prefHeight="38" text="ANNULER"
                                                style="-fx-border-color: black; -fx-font-weight: bold;  -fx-border-radius: 4; -fx-cursor: hand;"
                                                buttonType="RAISED"
-                                               styleClass="outline-button" HBox.hgrow="ALWAYS"/>
+                                               styleClass="outline-button" HBox.hgrow="ALWAYS"
+                                               onAction="#reloadAdminSettings"/>
                                     <MFXButton id="custom" minHeight="27.0" minWidth="130.0" prefWidth="130.0"
                                                text="SAUVEGARDER" prefHeight="38"
                                                buttonType="RAISED"
                                                style="-fx-background-color: #2196F3; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
-                                               HBox.hgrow="ALWAYS" onAction="#saveSettings">
+                                               HBox.hgrow="ALWAYS" onAction="#saveAdminSettings">
                                         <graphic>
                                             <MFXFontIcon description="fas-floppy-disk" color="white"/>
                                         </graphic>
@@ -98,7 +192,7 @@
             </AnchorPane>
         </children>
         <padding>
-            <Insets bottom="60.0" left="20.0" right="30.0" top="20.0"/>
+            <Insets bottom="60.0" left="60.0" right="60.0" top="60"/>
         </padding>
     </VBox>
 </StackPane>

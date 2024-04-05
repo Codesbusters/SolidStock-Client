@@ -85,6 +85,7 @@ public class InvoiceEditController extends DefaultShowController implements Init
         }
 
         setupTable();
+        table.autosizeColumnsOnInitialization();
     }
 
     private void setupTable() {
@@ -193,40 +194,33 @@ public class InvoiceEditController extends DefaultShowController implements Init
         }
 
         table.getItems().addAll(invoiceRowsModels);
-        table.autosizeColumnsOnInitialization();
     }
 
     @FXML
     public void addInvoiceRow(ActionEvent actionEvent) {
-        openPopUp("/invoices/invoicesRows/addRowPopup.fxml", stackPane.getScene(),"Ajouter une ligne de facture");
+        openPopUp("/invoices/addRowPopup.fxml", stackPane.getScene(),"Ajouter une ligne de facture");
         reloadInvoiceRow();
 
     }
 
     @FXML
     public void editInvoiceRow(ActionEvent actionEvent) {
-
-
-        if (table.getSelectionModel().getSelectedValues().isEmpty()) {
+        InvoiceRowModel invoiceRowModel =  table.getSelectionModel().getSelectedValues().getFirst();
+        if (invoiceRowModel == null) {
             openDialog(stackPane.getScene(), "Veuillez sélectionner une facture.", DialogType.ERROR, 0);
             return;
         }
 
-        InvoiceRowModel invoiceRowModel =  table.getSelectionModel().getSelectedValues().getFirst();
+
         setIntermediaryId(invoiceRowModel.getID());
-        openPopUp("/invoices/invoicesRows/editRowPopup.fxml", stackPane.getScene(),"Modifier une ligne de facture");
+        openPopUp("/invoices/editRowPopup.fxml", stackPane.getScene(),"Modifier une ligne de facture");
         reloadInvoiceRow();
     }
 
     @FXML
     public void removeInvoiceRow(ActionEvent actionEvent) {
+       InvoiceRowModel invoiceRowModel =  table.getSelectionModel().getSelectedValues().getFirst();
 
-
-        if (table.getSelectionModel().getSelectedValues().isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner une ligne de facture.", DialogType.ERROR, 0);
-            return;
-        }
-        InvoiceRowModel invoiceRowModel =  table.getSelectionModel().getSelectedValues().getFirst();
          RequestAPI requestAPI = new RequestAPI();
         ResponseEntity<String> responseEntity = requestAPI.sendDeleteRequest("/invoice/" + getId() + "/row/" + invoiceRowModel.getID(), String.class, true);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {

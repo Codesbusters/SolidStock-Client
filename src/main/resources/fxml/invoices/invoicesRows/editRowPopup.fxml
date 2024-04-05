@@ -9,7 +9,7 @@
 <?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="fr.codesbusters.solidstock.controller.invoices.invoiceRow.InvoiceRowEditController" fx:id="stackPane"
-           stylesheets="@../../../../css/MFXColors.css">
+           stylesheets="@../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>

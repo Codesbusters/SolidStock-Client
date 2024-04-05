@@ -77,7 +77,7 @@ public class InvoiceRowEditController extends DefaultShowController implements I
         }
 
         try {
-            Double.parseDouble(productQuantity);
+            Integer.parseInt(productQuantity);
         } catch (NumberFormatException e) {
             openDialog(stackPane.getScene(), "La quantité doit être un nombre.", DialogType.ERROR, 0);
             return;
