@@ -71,6 +71,9 @@ public class ProductAddController extends DefaultController implements Initializ
     @FXML
     public MFXTextField productFamilyID;
     @FXML
+    public MFXTextField productBarCode;
+
+    @FXML
     public Label productFamilyName;
     @FXML
     public MFXComboBox<String> productQuantityType;
@@ -139,6 +142,7 @@ public class ProductAddController extends DefaultController implements Initializ
         String descriptionString = productDescription.getText();
         String supplierIdString = productSupplierId.getText();
         String productIdFamily = productFamilyID.getText();
+        String productBarCodeString = productBarCode.getText();
 
         String buyPriceString = productBuyPrice.getText();
         if (!isValidPrice(buyPriceString)) {
@@ -187,10 +191,11 @@ public class ProductAddController extends DefaultController implements Initializ
 
         product.setName(nameString);
         product.setDescription(descriptionString);
+        product.setBarCode(productBarCodeString);
         product.setSupplierId(supplierId);
         product.setProductFamilyId(productFamilyId);
         product.setQuantityTypeId(quantityTypeId);
-        product.setMinimumStockQuantity(Double.parseDouble(minimumStockString));
+        product.setMinimumStockQuantity(Integer.parseInt(minimumStockString));
         product.setBuyPrice(buyPriceString);
         product.setSellPrice(sellPriceString);
         product.setVatId(vatId);

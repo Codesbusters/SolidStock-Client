@@ -77,7 +77,11 @@ public class ProductEditController extends DefaultShowController implements Init
     @FXML
     public MFXTextField productFamilyID;
     @FXML
+    public MFXTextField productBarCode;
+    @FXML
     public MFXComboBox<String> productQuantityType;
+    @FXML
+    public Label quantityTypeDescription;
 
     private File imageSelected;
 
@@ -137,8 +141,9 @@ public class ProductEditController extends DefaultShowController implements Init
             }
         }
         productVat.setItems(vatDisplays);
-        productVat.setText(product.getVat().getDescription());
+        productVat.setText(String.valueOf(product.getVat().getId()));
         productMinimumStock.setText(String.valueOf(product.getMinimumStockQuantity()));
+        productBarCode.setText(product.getBarCode());
         productDescription.setText(product.getDescription());
 
         ObservableList<String> quantityTypesDisplays = FXCollections.observableArrayList();
@@ -149,7 +154,20 @@ public class ProductEditController extends DefaultShowController implements Init
             }
         }
         productQuantityType.setItems(quantityTypesDisplays);
-        productQuantityType.setText(product.getQuantityType().getName());
+        productQuantityType.setText(String.valueOf(product.getQuantityType().getId()));
+        quantityTypeDescription.setText(product.getQuantityType().getUnit());
+
+        List<GetQuantityTypeDto> finalAllQuantityTypes = allQuantityTypes;
+        productQuantityType.setOnAction(event -> {
+            String selectedQuantityTypeId = productQuantityType.getSelectionModel().getSelectedItem();
+            for (GetQuantityTypeDto quantityTypeDto : finalAllQuantityTypes) {
+                String quantityTypeDisplay = quantityTypeDto.getId() + " - " + quantityTypeDto.getUnit();
+                if (quantityTypeDisplay.equals(selectedQuantityTypeId)) {
+                    quantityTypeDescription.setText(quantityTypeDto.getUnit());
+                    break;
+                }
+            }
+        });
 
         File productImage = null;
         try {
@@ -189,6 +207,7 @@ public class ProductEditController extends DefaultShowController implements Init
         String descriptionString = productDescription.getText();
         String supplierIdString = productSupplierId.getText();
         String productIdFamily = productFamilyID.getText();
+        String productBarCodeString = productBarCode.getText();
 
         String buyPriceString = productBuyPrice.getText();
         if (!isValidPrice(buyPriceString)) {
@@ -236,10 +255,11 @@ public class ProductEditController extends DefaultShowController implements Init
 
         product.setName(nameString);
         product.setDescription(descriptionString);
+        product.setBarCode(productBarCodeString);
         product.setSupplierId(supplierId);
         product.setProductFamilyId(productFamilyId);
         product.setQuantityTypeId(quantityTypeId);
-        product.setMinimumStockQuantity(Double.parseDouble(minimumStockString));
+        product.setMinimumStockQuantity(Integer.parseInt(minimumStockString));
         product.setBuyPrice(buyPriceString);
         product.setSellPrice(sellPriceString);
         product.setVatId(vatId);
@@ -258,25 +278,30 @@ public class ProductEditController extends DefaultShowController implements Init
         ResponseEntity<String> responseEntity = requestAPI.sendPutRequest("/product/" + idInteger, json, String.class, true);
 
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            log.info("Product added successfully : {}", product);
-            ObjectMapper mapperResponse = new ObjectMapper();
-            GetProductDto productResponse = null;
-            try {
-                productResponse = mapperResponse.readValue(responseEntity.getBody(), new TypeReference<>() {
-                });
-            } catch (Exception e) {
-                log.error("Error while parsing supplier list", e);
-            }
-            MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<>();
-            requestBody.add("file", new FileSystemResource(imageSelected));
-            ResponseEntity<String> responseEntity2 = requestAPI.sendPutRequestWithFile("/product/" + productResponse.getId() + "/image", requestBody, String.class, true);
-            if (responseEntity2.getStatusCode().is2xxSuccessful()) {
+            if (imageSelected != null) {
+                ObjectMapper mapperResponse = new ObjectMapper();
+                GetProductDto productResponse = null;
+                try {
+                    productResponse = mapperResponse.readValue(responseEntity.getBody(), new TypeReference<>() {});
+                } catch (Exception e) {
+                    log.error("Error while parsing supplier list", e);
+                }
+                // Envoi de la requête pour mettre à jour l'image
+                MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<>();
+                requestBody.add("file", new FileSystemResource(imageSelected));
+                ResponseEntity<String> responseEntity2 = requestAPI.sendPutRequestWithFile("/product/" + productResponse.getId() + "/image", requestBody, String.class, true);
+                if (responseEntity2.getStatusCode().is2xxSuccessful()) {
+                    log.info("Product updated successfully : {}", product);
+                    cancel();
+                    openDialog(stackPane.getScene(), "Produit " + product.getName() + " modifié avec succès", DialogType.INFORMATION, 0);
+                } else {
+                    openDialog(stackPane.getScene(), "Erreur lors de la modification de l'image", DialogType.ERROR, 0);
+                }
+            } else {
+                log.info("Product updated successfully : {}", product);
                 cancel();
                 openDialog(stackPane.getScene(), "Produit " + product.getName() + " modifié avec succès", DialogType.INFORMATION, 0);
-            } else {
-                openDialog(stackPane.getScene(), "Erreur lors de la modification de l'image",DialogType.ERROR,0);
             }
-
         } else {
             openDialog(stackPane.getScene(), "Erreur lors de la modification du produit " + product.getName(), DialogType.ERROR, 0);
         }
@@ -305,7 +330,6 @@ public class ProductEditController extends DefaultShowController implements Init
         productSupplierId.setText(supplierContent);
         this.supplierName.setText(supplierName);
     }
-
 
     @Override
     public void processProductFamilyContent(String productFamilyContent, String productFamilyName) {

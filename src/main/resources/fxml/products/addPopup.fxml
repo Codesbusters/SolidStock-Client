@@ -142,9 +142,14 @@
                         </VBox.margin>
                     </MFXTextField>
                 </HBox>
+                <VBox>
+                    <MFXTextField floatMode="BORDER" floatingText="Code bar" HBox.hgrow="ALWAYS"
+                                  fx:id="productBarCode" minWidth="575" maxWidth="575">
+                    </MFXTextField>
+                </VBox>
                 <VBox spacing="3" VBox.vgrow="ALWAYS">
                     <Label text="Description :"/>
-                    <TextArea maxWidth="575" minWidth="575" minHeight="140" maxHeight="140"
+                    <TextArea maxWidth="575" minWidth="575" minHeight="85" maxHeight="85"
                               VBox.vgrow="ALWAYS" fx:id="productDescription"/>
                 </VBox>
             </VBox>
