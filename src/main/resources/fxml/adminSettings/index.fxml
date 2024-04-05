@@ -47,7 +47,7 @@
                     <HBox VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" alignment="CENTER_LEFT" spacing="30">
                         <MFXButton
                                 style="-fx-cursor: hand; -fx-padding: 5; -fx-border-style: none; -fx-border-width: 0; -fx-border-insets: 0;"
-                                text=" ">
+                                text=" " onAction="#selectOwnerCompanyImage">
                             <graphic>
                                 <ImageView fx:id="ownerCompanyImage" fitWidth="200.0" fitHeight="200.0"
                                            style="-fx-background-radius: 8;" preserveRatio="true">
