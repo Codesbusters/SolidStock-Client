@@ -50,7 +50,7 @@ public class LoginScreen extends Stage {
             });
             setTitle("SolidStock - Connexion");
 
-            Image icon = new Image("/img/icon.png");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/icon.png")));
             getIcons().add(icon);
 
             setScene(scene);
@@ -108,7 +108,7 @@ public class LoginScreen extends Stage {
                 setMaximized(true);
                 setResizable(true);
                 setTitle("SolidStock - " + currentVersion);
-                Image icon = new Image("/img/icon.png");
+                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/icon.png")));
                 getIcons().add(icon);
 
 

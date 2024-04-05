@@ -1,24 +1,38 @@
 package fr.codesbusters.solidstock;
 
-import fr.codesbusters.solidstock.service.StartJFX;
+import fr.codesbusters.solidstock.utils.LoginScreen;
+import fr.codesbusters.solidstock.utils.SplashScreen;
 import javafx.application.Application;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 
-@SpringBootApplication(exclude = {
-        DataSourceAutoConfiguration.class,
-        DataSourceTransactionManagerAutoConfiguration.class,
-        HibernateJpaAutoConfiguration.class
-})
-@ComponentScan(basePackages = "fr.codesbusters")
-
-public class SolidStockApplication {
+public class SolidStockApplication extends Application {
 
     public static void main(String[] args) {
-        Application.launch(StartJFX.class, args);
+        launch(args);
     }
 
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        SplashScreen splashScreen = new SplashScreen();
+        splashScreen.showSplash();
+        Platform.runLater(() -> {
+            try {
+                LoginScreen loginScreen = new LoginScreen();
+                loginScreen.showLogin();
+
+
+            } finally {
+                // Fermer l'écran de chargement une fois que le reste de l'interface utilisateur est chargé
+                splashScreen.hideSplash();
+            }
+        });
+    }
+
+
+
+    @Override
+    public void stop() {
+        Platform.exit();
+    }
 }

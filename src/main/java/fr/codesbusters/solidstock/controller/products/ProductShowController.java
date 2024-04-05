@@ -2,16 +2,20 @@ package fr.codesbusters.solidstock.controller.products;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
+import fr.codesbusters.solidstock.dto.product.GetProductDto;
 import fr.codesbusters.solidstock.dto.product.GetProductDto;
 import fr.codesbusters.solidstock.model.QuantityTypeModel;
 import fr.codesbusters.solidstock.service.RequestAPI;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -19,6 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -56,12 +62,20 @@ public class ProductShowController extends DefaultShowController implements Init
 
     @FXML
     public Label productFamilyName;
+
+    @FXML
+    public MFXTextField productBarCode;
     @FXML
     public MFXComboBox<QuantityTypeModel> productQuantityType;
 
+    @FXML
+    public Label quantityTypeDescription;
+    @FXML
+    public MFXButton enable;
     private void disableTextFields() {
         productId.setEditable(false);
         productName.setEditable(false);
+        productBarCode.setEditable(false);
         productDescription.setEditable(false);
         productBuyPrice.setEditable(false);
         productSellPrice.setEditable(false);
@@ -90,6 +104,7 @@ public class ProductShowController extends DefaultShowController implements Init
         assert  product != null;
         productName.setText(product.getName());
         productQuantityType.setText(String.valueOf(product.getQuantityType().getId()));
+        quantityTypeDescription.setText(product.getQuantityType().getUnit());
         productFamilyID.setText(String.valueOf(product.getProductFamily().getId()));
         productFamilyName.setText(product.getProductFamily().getName());
         productSupplierID.setText(String.valueOf(product.getSupplier().getId()));
@@ -98,8 +113,47 @@ public class ProductShowController extends DefaultShowController implements Init
         productSellPrice.setText(String.valueOf(product.getSellPrice()));
         productVat.setText(String.valueOf(product.getVat().getRate()));
         productMinimumStock.setText(String.valueOf(product.getMinimumStockQuantity()));
+        productBarCode.setText(product.getBarCode());
         productDescription.setText(product.getDescription());
         disableTextFields();
+
+        File productImage = null;
+        try {
+            productImage = requestAPI.getImage("/product/" + getId() + "/image", true);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (productImage != null) {
+                log.info("Image found");
+                Image image = new Image(productImage.toURI().toString());
+                imageView.setImage(image);
+            }
+
+
+        enable.setVisible(product.isDeleted());
+    }
+
+    @FXML
+    public void enable() {
+        int idInteger = Integer.parseInt(productId.getText());
+        String productNameString = productName.getText();
+        String productSupplierString = supplierName.getText();
+
+        // Création de l'objet Supplier
+        GetProductDto product = new GetProductDto();
+        product.setId(idInteger);
+        product.setName(productNameString);
+        product.setSupplierName(productSupplierString);
+        
+        
+        // Envoie de la requête
+        RequestAPI requestAPI = new RequestAPI();
+
+        requestAPI.sendPostRequest("/product/" + idInteger, null,  String.class, true, true);
+
+        cancel();
+        openDialog(stackPane.getScene(), "Produit " + product.getName() + " réactivé avec succès.", DialogType.INFORMATION, 0);
+
     }
 
     @FXML

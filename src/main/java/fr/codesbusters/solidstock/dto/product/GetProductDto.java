@@ -26,14 +26,15 @@ public class GetProductDto {
     private String barCode;
     private String sellPrice;
     private String buyPrice;
+    private String supplierName;
     private boolean isDeleted;
-    private double minimumStockQuantity;
+    private int minimumStockQuantity;
     private List<String> stockMovements;
     private List<Integer> stocks;
+    private List<Integer> deliveryRows;
     private List<Integer> estimateRows;
     private List<Integer> invoiceRows;
     private List<Integer> orderFormRows;
-    private List<Integer> deliveryRows;
     private String createdAt;
     private String updatedAt;
     private boolean deleted;

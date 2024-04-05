@@ -68,17 +68,20 @@
                                 <Insets left="10.0"/>
                             </VBox.margin>
                         </MFXTextField>
-                        <MFXComboBox floatMode="BORDER" floatingText="Type de quantitée"
-                                     prefWidth="310"
-                                     maxWidth="310" fx:id="productQuantityType">
-                            <VBox.margin>
-                                <Insets left="10.0"/>
-                            </VBox.margin>
-                        </MFXComboBox>
+                        <HBox VBox.vgrow="ALWAYS" spacing="9" prefWidth="350.0" maxWidth="350.0" minWidth="300.0">
+                            <Label fx:id="quantityTypeDescription" prefWidth="142" style="font-weight-absolute: 20;" alignment="CENTER_RIGHT" maxWidth="142" minWidth="142" minHeight="38"/>
+                            <MFXComboBox floatMode="BORDER" floatingText="Type de quantitée"
+                                         prefWidth="178"
+                                         maxWidth="178" fx:id="productQuantityType">
+                            </MFXComboBox>
+                            <padding>
+                                <Insets left="15.0"/>
+                            </padding>
+                        </HBox>
                         <HBox VBox.vgrow="ALWAYS" spacing="6" prefWidth="300.0" maxWidth="300.0" minWidth="300.0">
                             <Label fx:id="productFamilyName" prefWidth="150" style="font-weight-absolute: 20;" alignment="CENTER_RIGHT" maxWidth="150" minWidth="150" minHeight="38"/>
                             <MFXTextField floatMode="BORDER" floatingText="Famille de Produit"
-                                          prefWidth="114" maxWidth="114" minWidth="114" fx:id="productFamilyID" disable="true">
+                                          prefWidth="114" maxWidth="114" minWidth="114" fx:id="productFamilyID" onKeyReleased="#onIdProductFamilyChanged">
 
                             </MFXTextField>
                             <MFXButton id="accept" minHeight="27.0" minWidth="34.0" prefWidth="34.0"
@@ -97,7 +100,7 @@
                         <HBox VBox.vgrow="ALWAYS" spacing="6" prefWidth="300.0" maxWidth="300.0" minWidth="300.0">
                             <Label fx:id="supplierName" style="font-weight-absolute: 20;" alignment="CENTER_RIGHT" prefWidth="150" maxWidth="150" minWidth="150" minHeight="38"/>
                             <MFXTextField floatMode="BORDER" floatingText="Fournisseur"
-                                          prefWidth="114" maxWidth="114" minWidth="114" fx:id="productSupplierId" disable="true">
+                                          prefWidth="114" maxWidth="114" minWidth="114" fx:id="productSupplierId" onKeyReleased="#onIdSupplierChanged">
                             </MFXTextField>
                             <MFXButton id="accept" minHeight="27.0" minWidth="34.0" prefWidth="34.0"
                                        prefHeight="38"
@@ -118,14 +121,16 @@
                 <HBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
                     <MFXTextField floatMode="BORDER" floatingText="Prix d'achat" HBox.hgrow="ALWAYS"
                                   fx:id="productBuyPrice"
-                                  minWidth="136" maxWidth="136">
+                                  minWidth="136" maxWidth="136"
+                                  onKeyReleased="#onTextChangedDouble">
                         <VBox.margin>
                             <Insets left="10.0"/>
                         </VBox.margin>
                     </MFXTextField>
                     <MFXTextField floatMode="BORDER" floatingText="Prix de vente" fx:id="productSellPrice"
                                   HBox.hgrow="ALWAYS"
-                                  minWidth="136" maxWidth="136">
+                                  minWidth="136" maxWidth="136"
+                                  onKeyReleased="#onTextChangedDouble">
                         <VBox.margin>
                             <Insets left="10.0"/>
                         </VBox.margin>
@@ -139,15 +144,21 @@
                     </MFXComboBox>
                     <MFXTextField floatMode="BORDER" floatingText="Stock Minimum" HBox.hgrow="ALWAYS"
                                   fx:id="productMinimumStock"
-                                  minWidth="136" maxWidth="136">
+                                  minWidth="136" maxWidth="136"
+                                  onKeyReleased="#onTextChangedInteger">
                         <VBox.margin>
                             <Insets left="10.0"/>
                         </VBox.margin>
                     </MFXTextField>
                 </HBox>
+                <VBox>
+                    <MFXTextField floatMode="BORDER" floatingText="Code bar" HBox.hgrow="ALWAYS"
+                                  fx:id="productBarCode" minWidth="575" maxWidth="575">
+                    </MFXTextField>
+                </VBox>
                 <VBox spacing="3" VBox.vgrow="ALWAYS">
                     <Label text="Description :"/>
-                    <TextArea maxWidth="575" minWidth="575" minHeight="140" maxHeight="140"
+                    <TextArea maxWidth="575" minWidth="575" minHeight="85" maxHeight="85"
                               VBox.vgrow="ALWAYS" fx:id="productDescription"/>
                 </VBox>
             </VBox>

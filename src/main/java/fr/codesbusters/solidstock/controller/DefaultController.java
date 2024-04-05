@@ -3,12 +3,10 @@ package fr.codesbusters.solidstock.controller;
 
 import fr.codesbusters.solidstock.controller.selectors.CustomerSelectorController;
 import fr.codesbusters.solidstock.controller.selectors.EstimateSelectorController;
+import fr.codesbusters.solidstock.controller.selectors.ProductSelectorController;
 import fr.codesbusters.solidstock.controller.selectors.productFamily.ProductFamilySelectorController;
 import fr.codesbusters.solidstock.controller.selectors.SupplierSelectorController;
-import fr.codesbusters.solidstock.listener.CustomerSelectorListener;
-import fr.codesbusters.solidstock.listener.EstimateSelectorListener;
-import fr.codesbusters.solidstock.listener.ProductFamilySelectorListener;
-import fr.codesbusters.solidstock.listener.SupplierSelectorListener;
+import fr.codesbusters.solidstock.listener.*;
 import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
 import io.github.palexdev.materialfx.css.themes.Themes;
 import io.github.palexdev.materialfx.dialogs.MFXGenericDialog;
@@ -71,7 +69,12 @@ public class DefaultController {
 
         label.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
 
-        Button okButton = new Button("Ok");
+        Button okButton = null;
+        if (dialogType == Alert.AlertType.CONFIRMATION) {
+            okButton = new Button("Confirmer");
+        } else {
+            okButton = new Button("OK");
+        }
         okButton.setOnAction(e -> dialog.close());
 
         okButton.setStyle(" -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 5px;");
@@ -206,6 +209,42 @@ public class DefaultController {
             });
 
             SupplierSelectorController controller = loader.getController();
+            controller.setStage(popupStage);
+            controller.setListener(listener);
+
+            popupStage.initModality(Modality.WINDOW_MODAL);
+            popupStage.initOwner(primaryStage);
+            popupStage.setScene(newScene);
+            popupStage.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openProductSelector(Scene scene, ProductSelectorListener listener) {
+        try {
+            Stage primaryStage = (Stage) scene.getWindow();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/selector/productSelector.fxml"));
+            Parent root = loader.load();
+            Scene newScene = new Scene(root);
+            MFXThemeManager.addOn(newScene, Themes.DEFAULT, Themes.LEGACY);
+
+            Stage popupStage = new Stage();
+            popupStage.setResizable(false);
+            popupStage.setTitle("Sélectionner un produit");
+            Image icon = new Image("/img/icon.png");
+            popupStage.getIcons().add(icon);
+
+            KeyCombination keyCombination = new KeyCodeCombination(KeyCode.LESS, KeyCombination.CONTROL_DOWN);
+            newScene.setOnKeyPressed(event -> {
+                if (keyCombination.match(event)) {
+                    ScenicView.show(newScene);
+                }
+            });
+
+            ProductSelectorController controller = loader.getController();
             controller.setStage(popupStage);
             controller.setListener(listener);
 

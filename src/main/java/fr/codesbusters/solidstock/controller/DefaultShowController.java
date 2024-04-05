@@ -9,4 +9,8 @@ public class DefaultShowController extends DefaultController {
     @Setter
     private static int id;
 
+    @Getter
+    @Setter
+    private static int intermediaryId;
+
 }
