@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
-           fx:controller="fr.codesbusters.solidstock.controller.invoices.invoiceRow.InvoiceRowAddController" fx:id="stackPane"
+           fx:controller="fr.codesbusters.solidstock.controller.invoices.invoiceRow.InvoiceRowEditController" fx:id="stackPane"
            stylesheets="@../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <padding>
@@ -65,11 +65,11 @@
                             </HBox>
                             <MFXTextField floatMode="BORDER" floatingText="Prix unitaire"
                                           prefWidth="310"
-                                          maxWidth="310" fx:id="invoiceDescription">
+                                          maxWidth="310" fx:id="productPrice">
                             </MFXTextField>
                             <MFXTextField floatMode="BORDER" floatingText="Quantité"
                                           prefWidth="310"
-                                          maxWidth="310" fx:id="invoiceQuantity">
+                                          maxWidth="310" fx:id="productQuantity">
                             </MFXTextField>
 
                         </VBox>
@@ -94,13 +94,13 @@
                            text="ANNULER" prefHeight="38"
                            buttonType="RAISED" styleClass="outline-button"
                            style="-fx-border-color: black; -fx-background-radius: 8; -fx-border-radius: 8;  -fx-font-weight: bold; -fx-cursor: hand;"
-                           HBox.hgrow="ALWAYS" />
+                           HBox.hgrow="ALWAYS" onAction="#cancel" />
 
                 <MFXButton id="accept" minHeight="27.0" minWidth="70.0" prefWidth="100"
                            prefHeight="38" text="AJOUTER"
                            style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
                            buttonType="RAISED" styleClass="mfx-button"
-                           HBox.hgrow="ALWAYS" />
+                           HBox.hgrow="ALWAYS" onAction="#editInvoiceRow" />
             </HBox>
 
 

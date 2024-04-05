@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -22,6 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -59,13 +62,20 @@ public class ProductShowController extends DefaultShowController implements Init
 
     @FXML
     public Label productFamilyName;
+
+    @FXML
+    public MFXTextField productBarCode;
     @FXML
     public MFXComboBox<QuantityTypeModel> productQuantityType;
+
+    @FXML
+    public Label quantityTypeDescription;
     @FXML
     public MFXButton enable;
     private void disableTextFields() {
         productId.setEditable(false);
         productName.setEditable(false);
+        productBarCode.setEditable(false);
         productDescription.setEditable(false);
         productBuyPrice.setEditable(false);
         productSellPrice.setEditable(false);
@@ -94,6 +104,7 @@ public class ProductShowController extends DefaultShowController implements Init
         assert  product != null;
         productName.setText(product.getName());
         productQuantityType.setText(String.valueOf(product.getQuantityType().getId()));
+        quantityTypeDescription.setText(product.getQuantityType().getUnit());
         productFamilyID.setText(String.valueOf(product.getProductFamily().getId()));
         productFamilyName.setText(product.getProductFamily().getName());
         productSupplierID.setText(String.valueOf(product.getSupplier().getId()));
@@ -102,8 +113,23 @@ public class ProductShowController extends DefaultShowController implements Init
         productSellPrice.setText(String.valueOf(product.getSellPrice()));
         productVat.setText(String.valueOf(product.getVat().getRate()));
         productMinimumStock.setText(String.valueOf(product.getMinimumStockQuantity()));
+        productBarCode.setText(product.getBarCode());
         productDescription.setText(product.getDescription());
         disableTextFields();
+
+        File productImage = null;
+        try {
+            productImage = requestAPI.getImage("/product/" + getId() + "/image", true);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (productImage != null) {
+                log.info("Image found");
+                Image image = new Image(productImage.toURI().toString());
+                imageView.setImage(image);
+            }
+
+
         enable.setVisible(product.isDeleted());
     }
 
@@ -127,6 +153,7 @@ public class ProductShowController extends DefaultShowController implements Init
 
         cancel();
         openDialog(stackPane.getScene(), "Produit " + product.getName() + " réactivé avec succès.", DialogType.INFORMATION, 0);
+
     }
 
     @FXML

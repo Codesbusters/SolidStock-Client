@@ -40,7 +40,7 @@ public class OrdersFormController extends DefaultShowController implements Initi
 
     @FXML
     public void addOrder() {
-        openPopUp("orders/addRowPopup.fxml", stackPane.getScene(), "Ajouter une commande");
+        openPopUp("orders/addPopup.fxml", stackPane.getScene(), "Ajouter une commande");
     }
 
 
@@ -107,7 +107,7 @@ public class OrdersFormController extends DefaultShowController implements Initi
 
         setId(product.getID());
 
-        openPopUp("orders/editRowPopup.fxml", stackPane.getScene(), "Modification de la commande");
+        openPopUp("orders/editPopup.fxml", stackPane.getScene(), "Modification de la commande");
     }
 
     @FXML

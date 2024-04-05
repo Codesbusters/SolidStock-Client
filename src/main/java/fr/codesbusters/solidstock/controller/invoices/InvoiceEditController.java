@@ -199,12 +199,22 @@ public class InvoiceEditController extends DefaultShowController implements Init
     @FXML
     public void addInvoiceRow(ActionEvent actionEvent) {
         openPopUp("/invoices/addRowPopup.fxml", stackPane.getScene(),"Ajouter une ligne de facture");
+        reloadInvoiceRow();
 
     }
 
     @FXML
     public void editInvoiceRow(ActionEvent actionEvent) {
+        InvoiceRowModel invoiceRowModel =  table.getSelectionModel().getSelectedValues().getFirst();
+        if (invoiceRowModel == null) {
+            openDialog(stackPane.getScene(), "Veuillez sélectionner une facture.", DialogType.ERROR, 0);
+            return;
+        }
+
+
+        setIntermediaryId(invoiceRowModel.getID());
         openPopUp("/invoices/editRowPopup.fxml", stackPane.getScene(),"Modifier une ligne de facture");
+        reloadInvoiceRow();
     }
 
     @FXML

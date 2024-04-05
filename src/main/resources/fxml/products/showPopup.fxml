@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.image.Image?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="fr.codesbusters.solidstock.controller.products.ProductShowController" fx:id="stackPane"
            stylesheets="@../../css/MFXColors.css">
@@ -43,14 +44,10 @@
                           minWidth="250"
                           maxWidth="250"
                           HBox.hgrow="ALWAYS">
-                        <MFXButton
-                                style="-fx-padding: 5; -fx-border-style: none; -fx-border-width: 0; -fx-border-insets: 0;" text=" ">
-                            <graphic>
-                                <ImageView fx:id="imageView" fitWidth="145.0" fitHeight="145.0"
-                                           style="-fx-background-radius: 8;" preserveRatio="true">
-                                </ImageView>
-                            </graphic>
-                        </MFXButton>
+                        <ImageView fx:id="imageView" fitWidth="145.0" fitHeight="145.0"
+                                   style="-fx-background-radius: 8;" preserveRatio="true">
+                            <Image url="@../../img/noImage.png"/>
+                        </ImageView>
                     </HBox>
                     <VBox alignment="CENTER_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
                         <MFXTextField floatMode="BORDER" floatingText="Référence" prefWidth="310"
@@ -65,13 +62,16 @@
                                 <Insets left="10.0"/>
                             </VBox.margin>
                         </MFXTextField>
-                        <MFXComboBox floatMode="BORDER" floatingText="Type de quantitée"
-                                     prefWidth="310"
-                                     maxWidth="310" fx:id="productQuantityType">
-                            <VBox.margin>
-                                <Insets left="10.0"/>
-                            </VBox.margin>
-                        </MFXComboBox>
+                        <HBox VBox.vgrow="ALWAYS" spacing="9" prefWidth="350.0" maxWidth="350.0" minWidth="300.0">
+                            <Label fx:id="quantityTypeDescription" prefWidth="142" style="font-weight-absolute: 20;" alignment="CENTER_RIGHT" maxWidth="142" minWidth="142" minHeight="38"/>
+                            <MFXComboBox floatMode="BORDER" floatingText="Type de quantitée"
+                                         prefWidth="178"
+                                         maxWidth="178" fx:id="productQuantityType">
+                            </MFXComboBox>
+                            <padding>
+                                <Insets left="15.0"/>
+                            </padding>
+                        </HBox>
                         <HBox VBox.vgrow="ALWAYS" spacing="6" prefWidth="300.0" maxWidth="300.0" minWidth="300.0">
                             <Label fx:id="productFamilyName" prefWidth="150" style="font-weight-absolute: 20;" alignment="CENTER_RIGHT" maxWidth="150" minWidth="150" minHeight="38"/>
                             <MFXTextField floatMode="BORDER" floatingText="Famille de Produit"
@@ -141,9 +141,14 @@
                         </VBox.margin>
                     </MFXTextField>
                 </HBox>
+                <VBox>
+                    <MFXTextField floatMode="BORDER" floatingText="Code bar" HBox.hgrow="ALWAYS"
+                                  fx:id="productBarCode" minWidth="575" maxWidth="575">
+                    </MFXTextField>
+                </VBox>
                 <VBox spacing="3" VBox.vgrow="ALWAYS">
                     <Label text="Description :"/>
-                    <TextArea maxWidth="575" minWidth="575" minHeight="140" maxHeight="140"
+                    <TextArea maxWidth="575" minWidth="575" minHeight="85" maxHeight="85"
                               VBox.vgrow="ALWAYS" fx:id="productDescription"/>
                 </VBox>
             </VBox>

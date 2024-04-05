@@ -145,7 +145,7 @@ public class CustomerSelectorController extends DefaultShowController implements
 
     @FXML
     public void addCustomer() {
-        openPopUp("customers/addRowPopup.fxml", anchorPane.getScene(), "Ajouter un client");
+        openPopUp("customers/addPopup.fxml", anchorPane.getScene(), "Ajouter un client");
         reloadCustomer();
     }
 
@@ -175,7 +175,7 @@ public class CustomerSelectorController extends DefaultShowController implements
 
         setId(customer.getID());
 
-        openPopUp("customers/editRowPopup.fxml", anchorPane.getScene(), "Modification du client");
+        openPopUp("customers/editPopup.fxml", anchorPane.getScene(), "Modification du client");
         reloadCustomer();
 
     }

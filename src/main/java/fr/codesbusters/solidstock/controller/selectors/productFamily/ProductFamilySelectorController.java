@@ -118,7 +118,7 @@ public class ProductFamilySelectorController extends DefaultShowController imple
 
     @FXML
     public void addProductFamily() {
-        openPopUp("selector/productFamilySelector/addRowPopup.fxml", stackPane.getScene(), "Ajouter une famille de produit");
+        openPopUp("selector/productFamilySelector/addPopup.fxml", stackPane.getScene(), "Ajouter une famille de produit");
         reloadProductFamily();
     }
 
@@ -147,7 +147,7 @@ public class ProductFamilySelectorController extends DefaultShowController imple
 
         setId(productFamily.getID());
 
-        openPopUp("selector/productFamilySelector/editRowPopup.fxml", stackPane.getScene(),"Modification de la famille de produit");
+        openPopUp("selector/productFamilySelector/editPopup.fxml", stackPane.getScene(),"Modification de la famille de produit");
         reloadProductFamily();
     }
 
