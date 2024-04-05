@@ -62,13 +62,20 @@ public class ProductShowController extends DefaultShowController implements Init
 
     @FXML
     public Label productFamilyName;
+
+    @FXML
+    public MFXTextField productBarCode;
     @FXML
     public MFXComboBox<QuantityTypeModel> productQuantityType;
+
+    @FXML
+    public Label quantityTypeDescription;
     @FXML
     public MFXButton enable;
     private void disableTextFields() {
         productId.setEditable(false);
         productName.setEditable(false);
+        productBarCode.setEditable(false);
         productDescription.setEditable(false);
         productBuyPrice.setEditable(false);
         productSellPrice.setEditable(false);
@@ -97,6 +104,7 @@ public class ProductShowController extends DefaultShowController implements Init
         assert  product != null;
         productName.setText(product.getName());
         productQuantityType.setText(String.valueOf(product.getQuantityType().getId()));
+        quantityTypeDescription.setText(product.getQuantityType().getUnit());
         productFamilyID.setText(String.valueOf(product.getProductFamily().getId()));
         productFamilyName.setText(product.getProductFamily().getName());
         productSupplierID.setText(String.valueOf(product.getSupplier().getId()));
@@ -105,6 +113,7 @@ public class ProductShowController extends DefaultShowController implements Init
         productSellPrice.setText(String.valueOf(product.getSellPrice()));
         productVat.setText(String.valueOf(product.getVat().getRate()));
         productMinimumStock.setText(String.valueOf(product.getMinimumStockQuantity()));
+        productBarCode.setText(product.getBarCode());
         productDescription.setText(product.getDescription());
         disableTextFields();
 

@@ -28,7 +28,7 @@ public class GetProductDto {
     private String buyPrice;
     private String supplierName;
     private boolean isDeleted;
-    private double minimumStockQuantity;
+    private int minimumStockQuantity;
     private List<String> stockMovements;
     private List<Integer> stocks;
     private List<Integer> deliveryRows;
