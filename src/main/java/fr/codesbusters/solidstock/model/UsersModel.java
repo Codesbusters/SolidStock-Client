@@ -12,6 +12,7 @@ public class UsersModel {
 
     public final IntegerProperty id = new SimpleIntegerProperty();
     public final StringProperty name = new SimpleStringProperty("");
+    public final StringProperty firstName = new SimpleStringProperty("");
     public final StringProperty password = new SimpleStringProperty("");
     public final IntegerProperty customerId = new SimpleIntegerProperty();
     public final IntegerProperty roleId = new SimpleIntegerProperty();
@@ -21,9 +22,10 @@ public class UsersModel {
     public final BooleanProperty isDisabled = new SimpleBooleanProperty(false);
 
 
-    public UsersModel(int id, String name, int customerId, String password, int roleId, String roleName, String email, String userLoginName, boolean isDisabled){
+    public UsersModel(int id, String name, String firstName, int customerId, String password, int roleId, String roleName, String email, String userLoginName, boolean isDisabled){
         setID(id);
         setName(name);
+        setFirstName(firstName);
         setCustomerId(customerId);
         setPassword(password);
         setRoleId(roleId);
@@ -33,8 +35,8 @@ public class UsersModel {
         setIsDisabled(isDisabled);
     }
 
-    public static UsersModel ofSplit(int id, String name, int customerId, String password, int roleId, String roleName, String email, String userLoginName, boolean isDisabled){
-        return new UsersModel(id, name, customerId, password, roleId, roleName, email, userLoginName, isDisabled);
+    public static UsersModel ofSplit(int id, String name, String firstName, int customerId, String password, int roleId, String roleName, String email, String userLoginName, boolean isDisabled){
+        return new UsersModel(id, name, firstName, customerId, password, roleId, roleName, email, userLoginName, isDisabled);
     }
 
     // Section Setter
@@ -52,6 +54,9 @@ public class UsersModel {
 
     public void setName(String name) {
         this.name.set(name);
+    }
+    public void setFirstName(String firstName) {
+        this.firstName.set(firstName);
     }
     public void setID(int id) {
         this.id.set(id);
@@ -81,6 +86,9 @@ public class UsersModel {
     }
     public String getName(){
         return name.get();
+    }
+    public String getFirstName(){
+        return firstName.get();
     }
     public int getRoleId(){
         return roleId.get();
@@ -113,6 +121,9 @@ public class UsersModel {
     }
     public StringProperty nameProperty(){
         return name;
+    }
+    public StringProperty firstNameProperty(){
+        return firstName;
     }
     public IntegerProperty roleIdProperty(){
         return roleId;

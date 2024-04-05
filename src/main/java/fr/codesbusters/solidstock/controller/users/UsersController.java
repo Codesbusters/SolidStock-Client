@@ -117,12 +117,11 @@ public class UsersController extends DefaultShowController implements Initializa
 
     private void setupTable() {
         MFXTableColumn<UsersModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(UsersModel::getID));
-        MFXTableColumn<UsersModel> nameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(UsersModel::getName));
-        MFXTableColumn<UsersModel> customerIdColumn = new MFXTableColumn<>("Id client", true, Comparator.comparing(UsersModel::getCustomerId));
-        MFXTableColumn<UsersModel> roleIdColumn = new MFXTableColumn<>("Id Rôle", true, Comparator.comparing(UsersModel::getRoleId));
-        MFXTableColumn<UsersModel> roleNameColumn = new MFXTableColumn<>("Rôle", true, Comparator.comparing(UsersModel::getRoleName));
-        MFXTableColumn<UsersModel> emailColumn = new MFXTableColumn<>("Email", true, Comparator.comparing(UsersModel::getEmail));
         MFXTableColumn<UsersModel> userLoginNameColumn = new MFXTableColumn<>("Identifiant", true, Comparator.comparing(UsersModel::getUserLoginName));
+        MFXTableColumn<UsersModel> nameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(UsersModel::getName));
+        MFXTableColumn<UsersModel> firstNameColumn = new MFXTableColumn<>("Prénom", true, Comparator.comparing(UsersModel::getFirstName));
+        MFXTableColumn<UsersModel> customerIdColumn = new MFXTableColumn<>("Id client", true, Comparator.comparing(UsersModel::getCustomerId));
+        MFXTableColumn<UsersModel> emailColumn = new MFXTableColumn<>("Email", true, Comparator.comparing(UsersModel::getEmail));
 
         idColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getID){
             {
@@ -140,23 +139,15 @@ public class UsersController extends DefaultShowController implements Initializa
                 }
             }
         });
+        firstNameColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getFirstName){
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (rowCell != null && rowCell.getIsDisabled()) {
+                    setStyle("-fx-opacity: 0.5;");
+                }
+            }
+        });
         customerIdColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getCustomerId){
-            {
-                setAlignment(Pos.CENTER_LEFT);
-                if (rowCell != null && rowCell.getIsDisabled()) {
-                    setStyle("-fx-opacity: 0.5;");
-                }
-            }
-        });
-        roleIdColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getRoleId){
-            {
-                setAlignment(Pos.CENTER_LEFT);
-                if (rowCell != null && rowCell.getIsDisabled()) {
-                    setStyle("-fx-opacity: 0.5;");
-                }
-            }
-        });
-        roleNameColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getRoleName){
             {
                 setAlignment(Pos.CENTER_LEFT);
                 if (rowCell != null && rowCell.getIsDisabled()) {
@@ -181,14 +172,15 @@ public class UsersController extends DefaultShowController implements Initializa
             }
         });
 
-        table.getTableColumns().addAll(idColumn, nameColumn, customerIdColumn, userLoginNameColumn, emailColumn, roleIdColumn, roleNameColumn);
+        table.getTableColumns().addAll(idColumn, nameColumn, firstNameColumn, customerIdColumn, userLoginNameColumn, emailColumn);
         table.getFilters().addAll(
                 new StringFilter<>("Nom", UsersModel::getName),
+                new StringFilter<>("Prénom", UsersModel::getFirstName),
                 new StringFilter<>("Email", UsersModel::getEmail),
-                new IntegerFilter<>("Id Client", UsersModel::getCustomerId),
-                new StringFilter<>("Rôle", UsersModel::getRoleName)
+                new IntegerFilter<>("Id Client", UsersModel::getCustomerId)
         );
         reloadUser();
+        table.autosizeColumnsOnInitialization();
     }
 
     @FXML
