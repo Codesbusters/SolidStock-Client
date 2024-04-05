@@ -68,6 +68,7 @@ public class UsersController extends DefaultShowController implements Initializa
     @FXML
     public void addUser() {
         openPopUp("users/addPopup.fxml", stackPane.getScene(), "Ajouter un utilisateur");
+        reloadUser();
     }
 
     @FXML
@@ -82,6 +83,7 @@ public class UsersController extends DefaultShowController implements Initializa
         setId(user.getID());
 
         openPopUp("users/editPopup.fxml", stackPane.getScene(), "Modification de l'utilisateur");
+        reloadUser();
 
     }
 
@@ -110,7 +112,7 @@ public class UsersController extends DefaultShowController implements Initializa
         }
 
         openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer l'utilisateur " + user.getUserLoginName() + " ?", DialogType.CONFIRMATION, 0);
-
+        reloadUser();
     }
 
     private void setupTable() {
