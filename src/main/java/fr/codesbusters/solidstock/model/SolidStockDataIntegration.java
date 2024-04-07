@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 public class SolidStockDataIntegration {
 
     public static final ObservableList<String> languages;
-        public static final ObservableList<RoleModel> roles;
 
     public static final ObservableList<OrdersModel> orders;
 
@@ -16,14 +15,6 @@ public class SolidStockDataIntegration {
         languages = FXCollections.observableArrayList(
                 "Français",
                 "English"
-        );
-
-        roles = FXCollections.observableArrayList(
-                RoleModel.ofSplit(1, "Administrateur", "Contrôle tout"),
-                RoleModel.ofSplit(2, "Superviseur", "Peut réaliser toute actions non critiques"),
-                RoleModel.ofSplit(3, "Gestionnaire", "Peut gérer le stock"),
-                RoleModel.ofSplit(4, "Vendeur", "Peut voir le stock et vendre"),
-                RoleModel.ofSplit(5, "Visiteur", "Peut accéder uniquement au site web")
         );
 
 

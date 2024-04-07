@@ -207,18 +207,6 @@ public class ProductController extends DefaultShowController implements Initiali
     }
 
 
-    //on double click on a row
-    @FXML
-    public void showProductDetails() {
-        ProductModel product = table.getSelectionModel().getSelectedValue();
-
-        if (product == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un produit", DialogType.ERROR, 0);
-            return;
-        }
-        openDialog(stackPane.getScene(), table.getSelectionModel().getSelectedValue().getName(), DialogType.CONFIRMATION, 0);
-    }
-
     @FXML
     public void reloadProduct() {
         table.getItems().clear();

@@ -103,7 +103,7 @@ public class ProductAddController extends DefaultController implements Initializ
         try {
             allQuantityTypes = mapper.readValue(responseQuantityTypeList.getBody(), new TypeReference<>() {});
         } catch (Exception e) {
-            log.error("Error while parsing VAT list", e);
+            log.error("Error while parsing quantityType list", e);
         }
 
         ObservableList<String> vatDisplays = FXCollections.observableArrayList();
