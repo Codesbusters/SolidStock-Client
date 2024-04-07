@@ -16,6 +16,7 @@ public class GetRoleDto {
     private int id;
     private String name;
     private List<Integer> users;
+    private boolean isDisabled;
     private String createdAt;
     private String updatedAt;
 }
