@@ -180,7 +180,6 @@ public class UsersController extends DefaultShowController implements Initializa
                 new IntegerFilter<>("Id Client", UsersModel::getCustomerId)
         );
         reloadUser();
-        table.autosizeColumnsOnInitialization();
     }
 
     @FXML

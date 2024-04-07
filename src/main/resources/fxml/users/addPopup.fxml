@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="fr.codesbusters.solidstock.controller.users.UsersAddController" fx:id="stackPane"
            stylesheets="@../../css/MFXColors.css">
@@ -44,6 +45,13 @@
                                 <Insets left="10.0"/>
                             </VBox.margin>
                         </MFXTextField>
+                        <MFXTextField floatMode="BORDER" floatingText="Prénom"
+                                      prefWidth="310"
+                                      maxWidth="310" fx:id="userFirstName">
+                            <VBox.margin>
+                                <Insets left="10.0"/>
+                            </VBox.margin>
+                        </MFXTextField>
                         <MFXTextField floatMode="BORDER" floatingText="Email"
                                       prefWidth="310"
                                       maxWidth="310" fx:id="userMail">
@@ -58,14 +66,14 @@
                                 <Insets left="10.0"/>
                             </VBox.margin>
                         </MFXTextField>
-                        <MFXPasswordField floatMode="BORDER" floatingText="Mot de passe" prefWidth="150"
-                                          maxWidth="150" fx:id="userPassword">
+                        <MFXPasswordField floatMode="BORDER" floatingText="Mot de passe" prefWidth="310"
+                                          maxWidth="310" fx:id="userPassword">
                             <VBox.margin>
                                 <Insets left="10.0"/>
                             </VBox.margin>
                         </MFXPasswordField>
-                        <MFXPasswordField  floatMode="BORDER" floatingText="Confirmation mot de passe" prefWidth="150"
-                                           maxWidth="150" fx:id="userConfirmPassword">
+                        <MFXPasswordField  floatMode="BORDER" floatingText="Confirmation mot de passe" prefWidth="310"
+                                           maxWidth="310" fx:id="userConfirmPassword">
                             <VBox.margin>
                                 <Insets left="10.0"/>
                             </VBox.margin>
@@ -74,18 +82,17 @@
                             <Label fx:id="customerName" alignment="CENTER_RIGHT" style="font-weight-absolute: 20;" prefWidth="160"  minHeight="38"/>
                             <MFXTextField floatMode="BORDER" floatingText="Id du client"
                                           prefWidth="150"
-                                          maxWidth="150" fx:id="userCustomerId" onKeyReleased="#onUserCustomerIdChanged">
+                                          maxWidth="150" fx:id="userCustomerId" onKeyReleased="#onIdCustomerChanged">
                             </MFXTextField>
-                            <VBox.margin>
-                                <Insets left="10.0"/>
-                            </VBox.margin>
-                        </HBox>
-                        <HBox prefWidth="310" maxWidth="310" spacing="10">
-                            <Label fx:id="roleName"  alignment="CENTER_RIGHT" style="font-weight-absolute: 20;" prefWidth="160" minHeight="38"/>
-                            <MFXComboBox floatMode="BORDER" floatingText="Rôle"
-                                         prefWidth="150"
-                                         maxWidth="150" fx:id="role">
-                            </MFXComboBox>
+                            <MFXButton id="accept" minHeight="27.0" minWidth="34.0" prefWidth="34.0"
+                                       prefHeight="38"
+                                       style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;"
+                                       buttonType="RAISED" styleClass="mfx-button"
+                                       HBox.hgrow="ALWAYS" onAction="#selectCustomer">
+                                <graphic>
+                                    <MFXFontIcon description="fas-ellipsis" size="20" color="WHITE"/>
+                                </graphic>
+                            </MFXButton>
                             <VBox.margin>
                                 <Insets left="10.0"/>
                             </VBox.margin>
