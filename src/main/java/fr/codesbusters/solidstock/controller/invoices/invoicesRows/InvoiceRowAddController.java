@@ -1,10 +1,8 @@
-package fr.codesbusters.solidstock.controller.invoices.invoiceRow;
+package fr.codesbusters.solidstock.controller.invoices.invoicesRows;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
-import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
-import fr.codesbusters.solidstock.dto.invoice.PostInvoiceDto;
 import fr.codesbusters.solidstock.dto.invoice.PostInvoiceRowDto;
 import fr.codesbusters.solidstock.listener.ProductSelectorListener;
 import fr.codesbusters.solidstock.service.RequestAPI;
