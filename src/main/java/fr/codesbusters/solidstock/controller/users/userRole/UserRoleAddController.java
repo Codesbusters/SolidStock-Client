@@ -10,6 +10,9 @@ import javafx.scene.layout.StackPane;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 @Slf4j
 @Controller
 public class UserRoleAddController extends DefaultShowController implements Initializable, RoleSelectorListener {
@@ -19,11 +22,22 @@ public class UserRoleAddController extends DefaultShowController implements Init
 
     @FXML
     public MFXTextField newRoleName;
+
     @FXML
     public void cancel(ActionEvent actionEvent) {
     }
 
     @FXML
     public void addNewRole(ActionEvent actionEvent) {
+    }
+
+    @Override
+    public void processRoleContent(String roleContent, String roleName) {
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }

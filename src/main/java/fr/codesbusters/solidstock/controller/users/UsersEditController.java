@@ -7,22 +7,25 @@ import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.business.User;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.customer.GetCustomerDto;
-import fr.codesbusters.solidstock.dto.invoice.GetRoleDto;
 import fr.codesbusters.solidstock.dto.role.GetRoleDto;
 import fr.codesbusters.solidstock.dto.user.GetUserDto;
 import fr.codesbusters.solidstock.listener.CustomerSelectorListener;
 import fr.codesbusters.solidstock.model.RoleModel;
-import fr.codesbusters.solidstock.model.invoice.RoleModel;
 import fr.codesbusters.solidstock.service.IntChecker;
 import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
+import io.github.palexdev.materialfx.filter.IntegerFilter;
+import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -33,6 +36,7 @@ import org.springframework.stereotype.Controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -76,24 +80,68 @@ public class UsersEditController extends DefaultShowController implements Initia
 
         RequestAPI requestAPIRole = new RequestAPI();
 
-        ResponseEntity<String> responseRoleList = requestAPIRole.sendGetRequest("/role/all", String.class, true, true);
-        List<GetRoleDto> allRoles = null;
-        GetUserDto user = null;
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            allRoles = mapper.readValue(responseRoleList.getBody(), new TypeReference<>() {});
-        } catch (Exception e) {
-            log.error("Error while parsing role list", e);
-        }
-        ObservableList<String> roleDisplays = FXCollections.observableArrayList();
-        if (allRoles != null) {
-            for (GetRoleDto roleDto : allRoles) {
-                String roleDisplay = roleDto.getName();
-                roleDisplays.add(roleDisplay);
+        ResponseEntity<String> responseRoleList = requestAPIRole.sendGetRequest("/user/" + getId(), String.class, true, true);
+        if (responseRoleList.getStatusCode().is2xxSuccessful()) {
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+
+                GetUserDto user = mapper.readValue(responseRoleList.getBody(), new TypeReference<GetUserDto>() {
+                });
+                userFirstName.setText(user.getFirstName());
+                userLastName.setText(user.getLastName());
+                if (user.getUserName() != null && !user.getUserName().isEmpty()) {
+                    userLogin.setText(user.getUserName());
+                } else {
+                    userLogin.setText(user.getFirstName().toLowerCase() + "." + user.getLastName().toLowerCase());
+                }
+                userMail.setText(user.getEmail());
+                userPassword.setText(user.getPassword());
+                userConfirmPassword.setText(user.getConfirmPassword());
+                userMobilePhone.setText(user.getPhone());
+                if (user.getCustomer() != null) {
+                    userCustomerId.setText(String.valueOf(user.getCustomer().getId()));
+                    if (user.getCustomer().getCompanyName() != null) {
+                        customerName.setText(user.getCustomer().getCompanyName());
+                    } else {
+                        customerName.setText("");
+                    }
+                } else {
+                    userCustomerId.setText("0");
+                    customerName.setText("");
+                }
+            } catch (Exception e) {
+                log.error("Error while parsing user", e);
             }
         }
-        role.setItems(roleDisplays);
-        role.setText(String.valueOf(user.getRole().getName()));
+
+        setupTable();
+        table.autosizeColumnsOnInitialization();
+    }
+
+    private void setupTable() {
+        MFXTableColumn<RoleModel> idColumn = new MFXTableColumn<>("ID", true, Comparator.comparing(RoleModel::getID));
+        MFXTableColumn<RoleModel> nameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(RoleModel::getRoleName));
+
+        idColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(RoleModel::getID) {{
+            setAlignment(Pos.CENTER_LEFT);
+            if (rowCell != null && rowCell.getIsDisabled()) {
+                setStyle("-fx-opacity: 0.5;");
+            }
+        }});
+        nameColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(RoleModel::getRoleName) {{
+            setAlignment(Pos.CENTER_LEFT);
+            if (rowCell != null && rowCell.getIsDisabled()) {
+                setStyle("-fx-opacity: 0.5;");
+            }
+        }});
+
+        table.getTableColumns().addAll(idColumn, nameColumn);
+        table.getFilters().addAll(
+                new IntegerFilter<>("ID", RoleModel::getID),
+                new StringFilter<>("Nom", RoleModel::getRoleName)
+        );
+
+        reloadRole();
     }
 
     @FXML
@@ -223,7 +271,7 @@ public class UsersEditController extends DefaultShowController implements Initia
                 int customerId = Integer.parseInt(text);
                 String customerName = getCustomerNameById(customerId);
                 this.customerName.setText(customerName);
-            } else if (!IntChecker.isValidIntegerInput(text)){
+            } else if (!IntChecker.isValidIntegerInput(text)) {
                 textField.setText(text.substring(0, text.length() - 1));
             } else {
                 this.customerName.setText("");
@@ -304,12 +352,12 @@ public class UsersEditController extends DefaultShowController implements Initia
     public void editRole(ActionEvent actionEvent) {
         RoleModel roleModel = table.getSelectionModel().getSelectedValues().getFirst();
         if (roleModel == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un utilisateur.", DialogType.ERROR,0);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un utilisateur.", DialogType.ERROR, 0);
             return;
         }
 
         setIntermediaryId(roleModel.getID());
-        openPopUp("users/editRolePopup.fxml", stackPane.getScene(), "Modifier un utilisateur.");*
+        openPopUp("users/editRolePopup.fxml", stackPane.getScene(), "Modifier un utilisateur.");
         reloadRole();
     }
 
