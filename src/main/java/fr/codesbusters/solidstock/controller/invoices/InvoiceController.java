@@ -125,13 +125,13 @@ public class InvoiceController extends DefaultShowController implements Initiali
         });
 
 
-        table.getTableColumns().addAll(idColumn, NameColumn, descriptionColumn, customerNameColumn, dateColumn, totalHtColumn, totalTtcColumn);
+        table.getTableColumns().addAll(idColumn, dateColumn, NameColumn, descriptionColumn, customerNameColumn,  totalHtColumn, totalTtcColumn);
         table.getFilters().addAll(
                 new IntegerFilter<>("Réf.", InvoiceModel::getID),
+                new StringFilter<>("Date", InvoiceModel::getDate),
                 new StringFilter<>("Nom", InvoiceModel::getName),
                 new StringFilter<>("Description", InvoiceModel::getDescription),
                 new StringFilter<>("Client", InvoiceModel::getCustomerName),
-                new StringFilter<>("Date", InvoiceModel::getDate),
                 new DoubleFilter<>("Total HT", InvoiceModel::getTotalHt),
                 new DoubleFilter<>("Total TTC", InvoiceModel::getTotalTtc)
         );
