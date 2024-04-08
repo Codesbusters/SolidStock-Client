@@ -49,19 +49,19 @@ public class ProductController extends DefaultShowController implements Initiali
         setupTable();
         table.autosizeColumnsOnInitialization();
 
-        new Thread(() -> {
-            while (true) {
-                    if (table.getSelectionModel().getLastSelectedValue().getIsDisabled()) {
-                        modifyButton.setDisable(true);
-                        deleteButton.setDisable(true);
-                    } else {
-                        modifyButton.setDisable(false);
-                        deleteButton.setDisable(false);
-                    }
+        table.setOnMouseClicked(event -> {
+            ProductModel product = table.getSelectionModel().getSelectedValue();
+
+            if (product != null) {
+                if (product.getIsDisabled()) {
+                    modifyButton.setDisable(true);
+                    deleteButton.setDisable(true);
+                } else {
+                    modifyButton.setDisable(false);
+                    deleteButton.setDisable(false);
+                }
             }
-        }).start();
-
-
+        });
     }
 
 
