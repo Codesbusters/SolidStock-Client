@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
-           fx:controller="fr.codesbusters.solidstock.controller.invoices.invoiceRow.InvoiceRowAddController" fx:id="stackPane"
+           fx:controller="fr.codesbusters.solidstock.controller.invoices.invoicesRows.InvoiceRowAddController" fx:id="stackPane"
            stylesheets="@../../../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <padding>

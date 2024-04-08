@@ -1,4 +1,4 @@
-package fr.codesbusters.solidstock.controller.invoices.invoiceRow;
+package fr.codesbusters.solidstock.controller.invoices.invoicesRows;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
