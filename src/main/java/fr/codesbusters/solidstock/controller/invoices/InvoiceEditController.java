@@ -199,9 +199,9 @@ public class InvoiceEditController extends DefaultShowController implements Init
 
     @FXML
     public void editInvoiceRow(ActionEvent actionEvent) {
-        InvoiceRowModel invoiceRowModel = table.getSelectionModel().getSelectedValues().getFirst();
+        InvoiceRowModel invoiceRowModel = table.getSelectionModel().getSelectedValue();
         if (invoiceRowModel == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner une facture.", DialogType.ERROR, 0);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner une ligne de la facture.", DialogType.ERROR, 0);
             return;
         }
 
@@ -216,7 +216,7 @@ public class InvoiceEditController extends DefaultShowController implements Init
         InvoiceRowModel invoiceRowModel = table.getSelectionModel().getSelectedValue();
 
         if (invoiceRowModel == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner une facture.", DialogType.ERROR, 0);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner une ligne de la facture.", DialogType.ERROR, 0);
             return;
         }
 
