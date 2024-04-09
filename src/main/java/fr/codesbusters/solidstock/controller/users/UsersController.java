@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
-import fr.codesbusters.solidstock.dto.role.GetRoleDto;
 import fr.codesbusters.solidstock.dto.user.GetUserDto;
 import fr.codesbusters.solidstock.model.UsersModel;
 import fr.codesbusters.solidstock.service.RequestAPI;
@@ -53,7 +52,7 @@ public class UsersController extends DefaultShowController implements Initializa
         table.setOnMouseClicked(event -> {
             UsersModel user = table.getSelectionModel().getSelectedValue();
 
-            if (user != null ) {
+            if (user != null) {
                 if (user.getIsDisabled()) {
                     modifyButton.setDisable(true);
                     deleteButton.setDisable(true);
@@ -111,19 +110,18 @@ public class UsersController extends DefaultShowController implements Initializa
             return;
         }
 
-        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer l'utilisateur " + user.getUserLoginName() + " ?", DialogType.CONFIRMATION, 0);
+        openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer l'utilisateur " + user.getFirstName() + " " + user.getLastName() + " ?", DialogType.CONFIRMATION, 0);
         reloadUser();
     }
 
     private void setupTable() {
         MFXTableColumn<UsersModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(UsersModel::getID));
-        MFXTableColumn<UsersModel> userLoginNameColumn = new MFXTableColumn<>("Identifiant", true, Comparator.comparing(UsersModel::getUserLoginName));
-        MFXTableColumn<UsersModel> nameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(UsersModel::getName));
+        MFXTableColumn<UsersModel> nameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(UsersModel::getLastName));
         MFXTableColumn<UsersModel> firstNameColumn = new MFXTableColumn<>("Prénom", true, Comparator.comparing(UsersModel::getFirstName));
-        MFXTableColumn<UsersModel> customerIdColumn = new MFXTableColumn<>("Id client", true, Comparator.comparing(UsersModel::getCustomerId));
         MFXTableColumn<UsersModel> emailColumn = new MFXTableColumn<>("Email", true, Comparator.comparing(UsersModel::getEmail));
+        MFXTableColumn<UsersModel> customerIdColumn = new MFXTableColumn<>("Id client", true, Comparator.comparing(UsersModel::getCustomerId));
 
-        idColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getID){
+        idColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getID) {
             {
                 setAlignment(Pos.CENTER_LEFT);
                 if (rowCell != null && rowCell.getIsDisabled()) {
@@ -131,7 +129,7 @@ public class UsersController extends DefaultShowController implements Initializa
                 }
             }
         });
-        nameColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getName){
+        nameColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getLastName) {
             {
                 setAlignment(Pos.CENTER_LEFT);
                 if (rowCell != null && rowCell.getIsDisabled()) {
@@ -139,7 +137,7 @@ public class UsersController extends DefaultShowController implements Initializa
                 }
             }
         });
-        firstNameColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getFirstName){
+        firstNameColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getFirstName) {
             {
                 setAlignment(Pos.CENTER_LEFT);
                 if (rowCell != null && rowCell.getIsDisabled()) {
@@ -147,7 +145,7 @@ public class UsersController extends DefaultShowController implements Initializa
                 }
             }
         });
-        customerIdColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getCustomerId){
+        emailColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getEmail) {
             {
                 setAlignment(Pos.CENTER_LEFT);
                 if (rowCell != null && rowCell.getIsDisabled()) {
@@ -155,15 +153,7 @@ public class UsersController extends DefaultShowController implements Initializa
                 }
             }
         });
-        emailColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getEmail){
-            {
-                setAlignment(Pos.CENTER_LEFT);
-                if (rowCell != null && rowCell.getIsDisabled()) {
-                    setStyle("-fx-opacity: 0.5;");
-                }
-            }
-        });
-        userLoginNameColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getUserLoginName){
+        customerIdColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(UsersModel::getCustomerId) {
             {
                 setAlignment(Pos.CENTER_LEFT);
                 if (rowCell != null && rowCell.getIsDisabled()) {
@@ -172,9 +162,9 @@ public class UsersController extends DefaultShowController implements Initializa
             }
         });
 
-        table.getTableColumns().addAll(idColumn, nameColumn, firstNameColumn, customerIdColumn, userLoginNameColumn, emailColumn);
+        table.getTableColumns().addAll(idColumn, nameColumn, firstNameColumn, emailColumn, customerIdColumn);
         table.getFilters().addAll(
-                new StringFilter<>("Nom", UsersModel::getName),
+                new StringFilter<>("Nom", UsersModel::getLastName),
                 new StringFilter<>("Prénom", UsersModel::getFirstName),
                 new StringFilter<>("Email", UsersModel::getEmail),
                 new IntegerFilter<>("Id Client", UsersModel::getCustomerId)
@@ -200,32 +190,13 @@ public class UsersController extends DefaultShowController implements Initializa
 
         ObservableList<UsersModel> usersModels = FXCollections.observableArrayList();
         assert userList != null;
-        for (GetUserDto user: userList) {
+        for (GetUserDto user : userList) {
             UsersModel usersModel = new UsersModel();
             usersModel.setID(user.getId());
-            usersModel.setRoleId(user.getRole() != null ? user.getRole().getId() : 0);
-            usersModel.setRoleName(user.getRole() != null ? user.getRole().getName() : "");
             usersModel.setEmail(user.getEmail() != null && !user.getEmail().isEmpty() ? user.getEmail() : "");
             usersModel.setCustomerId(user.getCustomer() != null ? user.getCustomer().getId() : 0);
-
-            if (user.getName() == null || user.getName().isEmpty()) {
-                if (user.getUserName() != null && !user.getUserName().isEmpty()) {
-                    usersModel.setName(user.getUserName());
-                } else {
-                    usersModel.setName("");
-                }
-            } else {
-                usersModel.setName(user.getName());
-            }
-
-            if (user.getUserName() == null || user.getUserName().isEmpty()) {
-                if (user.getName() != null && !user.getName().isEmpty()) {
-                    usersModel.setUserLoginName(user.getName());
-                }
-            } else {
-                usersModel.setUserLoginName(user.getUserName());
-            }
-            
+            usersModel.setLastName(user.getLastName() != null ? user.getLastName() : "");
+            usersModel.setFirstName(user.getFirstName() != null ? user.getFirstName() : "");
             usersModel.setIsDisabled(user.isDeleted());
             usersModels.add(usersModel);
         }

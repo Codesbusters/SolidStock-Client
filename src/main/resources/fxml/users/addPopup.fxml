@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.*?>
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="fr.codesbusters.solidstock.controller.users.UsersAddController" fx:id="stackPane"
            stylesheets="@../../css/MFXColors.css">
@@ -32,7 +32,8 @@
         <AnchorPane id="pane2" minHeight="490.0" minWidth="440.0" prefHeight="130.0" prefWidth="600.0"
                     style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                     VBox.vgrow="ALWAYS">
-            <VBox alignment="CENTER" VBox.vgrow="ALWAYS" spacing="20.0" minWidth="600" maxWidth="600" AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0">
+            <VBox alignment="CENTER" VBox.vgrow="ALWAYS" spacing="20.0" minWidth="600" maxWidth="600"
+                  AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0">
                 <padding>
                     <Insets left="10.0" right="10.0" top="10.0" bottom="10.0"/>
                 </padding>
@@ -59,27 +60,21 @@
                                 <Insets left="10.0"/>
                             </VBox.margin>
                         </MFXTextField>
-                        <MFXTextField floatMode="BORDER" floatingText="Identifiant"
-                                      prefWidth="310"
-                                      maxWidth="310" fx:id="userLogin" textLimit="10">
-                            <VBox.margin>
-                                <Insets left="10.0"/>
-                            </VBox.margin>
-                        </MFXTextField>
                         <MFXPasswordField floatMode="BORDER" floatingText="Mot de passe" prefWidth="310"
                                           maxWidth="310" fx:id="userPassword">
                             <VBox.margin>
                                 <Insets left="10.0"/>
                             </VBox.margin>
                         </MFXPasswordField>
-                        <MFXPasswordField  floatMode="BORDER" floatingText="Confirmation mot de passe" prefWidth="310"
-                                           maxWidth="310" fx:id="userConfirmPassword">
+                        <MFXPasswordField floatMode="BORDER" floatingText="Confirmation mot de passe" prefWidth="310"
+                                          maxWidth="310" fx:id="userConfirmPassword">
                             <VBox.margin>
                                 <Insets left="10.0"/>
                             </VBox.margin>
                         </MFXPasswordField>
                         <HBox prefWidth="310" maxWidth="310" spacing="10">
-                            <Label fx:id="customerName" alignment="CENTER_RIGHT" style="font-weight-absolute: 20;" prefWidth="160"  minHeight="38"/>
+                            <Label fx:id="customerName" alignment="CENTER_RIGHT" style="font-weight-absolute: 20;"
+                                   prefWidth="160" minHeight="38"/>
                             <MFXTextField floatMode="BORDER" floatingText="Id du client"
                                           prefWidth="150"
                                           maxWidth="150" fx:id="userCustomerId" onKeyReleased="#onIdCustomerChanged">

@@ -15,13 +15,11 @@ public class User {
 
     private String mail;
 
-    private String mobileNumber;
-
-    private String login;
-
-    private int thirdPartyId;
-
     private String password;
+
+    private int customerId;
+
+    private String customerName;
 
     private int roleId;
 

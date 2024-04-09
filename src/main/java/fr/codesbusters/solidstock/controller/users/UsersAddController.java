@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.dto.customer.GetCustomerDto;
-import fr.codesbusters.solidstock.dto.product.GetProductDto;
+import fr.codesbusters.solidstock.dto.user.GetUserDto;
 import fr.codesbusters.solidstock.dto.user.PostUserDto;
 import fr.codesbusters.solidstock.listener.CustomerSelectorListener;
 import fr.codesbusters.solidstock.service.IntChecker;
@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -41,8 +42,6 @@ public class UsersAddController extends DefaultController implements Initializab
     @FXML
     public Label customerName;
     @FXML
-    public MFXTextField userLogin;
-    @FXML
     public MFXTextField userMail;
     @FXML
     public MFXTextField userPassword;
@@ -57,40 +56,18 @@ public class UsersAddController extends DefaultController implements Initializab
     }
 
     @FXML
-    public String userLogin() {
-        String nameString = userName.getText();
-        String firstNameString = userFirstName.getText();
-
-        // Vérification que les champs ne sont pas vides
-        if (nameString.isBlank() || nameString.isEmpty() && firstNameString.isBlank() || firstNameString.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner un nom et un prénom", DialogType.ERROR, 0);
-        } else {
-            if (userLogin.getText().isEmpty()) {
-                String loginString = nameString.toLowerCase() + "." + firstNameString.toLowerCase();
-                userLogin.setText(loginString);
-            }
-        }
-        return nameString;
-    }
-
-    @FXML
     public void selectCustomer() {
         openCustomerSelector(stackPane.getScene(), this);
     }
 
     @FXML
     public void addUser() throws NumberFormatException, UnsupportedEncodingException {
-       String userLoginString;
-        if (userLogin.getText().isEmpty() || userLogin.getText().isBlank()) {
-            userLoginString = userLogin();
-        } else {
-            userLoginString = userLogin.getText();
-        }
         String userMailString = userMail.getText();
         String userPasswordString = userPassword.getText();
         String userConfirmPasswordString = userConfirmPassword.getText();
         String nameString = userName.getText();
         String nameFirstString = userFirstName.getText();
+        String customerIdString = userCustomerId.getText();
 
         // Vérification du nom
         if (nameString.isBlank() || nameString.isEmpty()) {
@@ -127,16 +104,24 @@ public class UsersAddController extends DefaultController implements Initializab
             return;
         }
 
-        String customerIdString = userCustomerId.getText();
-
         // Création de l'objet User
         PostUserDto user = new PostUserDto();
-        user.setFirstName(nameString);
-        user.setName(nameString);
-        user.setLogin(userLoginString);
+        if (customerIdString.isEmpty()) {
+            int customerId = 0;
+            user.setCustomerId(customerId);
+        } else {
+            int customerId = Integer.parseInt(customerIdString.trim());
+            user.setCustomerId(customerId);
+        }
+
+
+        user.setFirstName(nameFirstString);
+        user.setLastName(nameString);
         user.setEmail(userMailString);
         user.setPassword(userPasswordString);
+        user.setConfirmPassword(userConfirmPasswordString);
 
+        log.info("User to add : {}", user);
         // Envoie de la requête
         RequestAPI requestAPI = new RequestAPI();
 
@@ -147,21 +132,36 @@ public class UsersAddController extends DefaultController implements Initializab
         } catch (Exception e) {
             log.error("Error while parsing user list", e);
         }
-        ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("user/add/", user, String.class, true, true);
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            log.info("User added successfully : {}", user);
-            ObjectMapper mapperResponse = new ObjectMapper();
-            GetProductDto userResponse = null;
-            try {
-                userResponse = mapperResponse.readValue(responseEntity.getBody(), new TypeReference<>() {
-                });
-            } catch (Exception e) {
-                log.error("Error while parsing supplier list", e);
+        try {
+            ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/user/add", user, String.class, true, true);
+            if (responseEntity.getStatusCode().is2xxSuccessful()) {
+                log.info("User added successfully : {}", user);
+                ObjectMapper mapperResponse = new ObjectMapper();
+                GetUserDto userResponse = null;
+                try {
+                    userResponse = mapperResponse.readValue(responseEntity.getBody(), new TypeReference<>() {
+                    });
+                } catch (Exception e) {
+                    log.error("Error while parsing user list", e);
+                }
+                cancel();
+                openDialog(stackPane.getScene(), "Utilisateur " + user.getFirstName().toLowerCase() + " " + user.getLastName().toUpperCase() + " créé avec succès", DialogType.INFORMATION, 0);
+            } else {
+                openDialog(stackPane.getScene(), "Erreur lors de l'ajout de l'utilisateur " + user.getFirstName().toLowerCase() + " " + user.getLastName().toUpperCase(), DialogType.ERROR, 0);
             }
-            openDialog(stackPane.getScene(), "Utilisateur " + user.getLogin() + " créé avec succès", DialogType.INFORMATION, 0);
-        } else {
-            openDialog(stackPane.getScene(), "Erreur lors de l'ajout de l'utilisateur " + user.getLogin(), DialogType.ERROR, 0);
+        } catch (HttpClientErrorException.BadRequest ex) {
+            String responseBody = ex.getResponseBodyAsString();
+            if (responseBody.contains("Customer already has a user")) {
+                openDialog(stackPane.getScene(), "Le client a déjà un utilisateur associé", DialogType.ERROR, 0);
+            } else if (responseBody.contains("Email is already in use")) {
+                openDialog(stackPane.getScene(), "L'adresse e-mail est déjà utilisée", DialogType.ERROR, 0);
+            } else {
+                openDialog(stackPane.getScene(), "Une erreur inattendue est survenue", DialogType.ERROR, 0);
+            }
+        } catch (Exception ex) {
+            openDialog(stackPane.getScene(), "Une erreur inattendue est survenue", DialogType.ERROR, 0);
         }
+
     }
 
     @FXML
@@ -179,7 +179,7 @@ public class UsersAddController extends DefaultController implements Initializab
                 int customerId = Integer.parseInt(text);
                 String customerName = getCustomerNameById(customerId);
                 this.customerName.setText(customerName);
-            } else if (!IntChecker.isValidIntegerInput(text)){
+            } else if (!IntChecker.isValidIntegerInput(text)) {
                 textField.setText(text.substring(0, text.length() - 1));
             } else {
                 this.customerName.setText("");

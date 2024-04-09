@@ -15,17 +15,12 @@ import java.util.List;
 @AllArgsConstructor
 public class GetUserDto {
     private int id;
-    private String name;
-    private String firstName;
     private String lastName;
-    private String userName;
+    private String firstName;
     private String email;
     private String password;
-    private String confirmPassword;
-    private String phone;
     private GetCustomerDto customer;
-    private GetRoleDto role;
-    private List<Integer> customers;
+    private List<GetRoleDto> roles;
     private boolean isDeleted;
     private String createdAt;
     private String updatedAt;

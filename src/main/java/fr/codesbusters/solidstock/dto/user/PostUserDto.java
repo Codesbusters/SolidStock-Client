@@ -1,6 +1,5 @@
 package fr.codesbusters.solidstock.dto.user;
 
-import fr.codesbusters.solidstock.dto.customer.GetCustomerDto;
 import fr.codesbusters.solidstock.dto.role.GetRoleDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,14 +14,12 @@ import java.util.List;
 @AllArgsConstructor
 public class PostUserDto {
     private int id;
-    private String name;
+    private String lastName;
     private String firstName;
-    private String userName;
-    private String login;
     private String email;
     private String password;
     private String confirmPassword;
-    private GetCustomerDto customer;
+    private int customerId;
     private GetRoleDto role;
     private List<Integer> customers;
     private boolean isDeleted;
