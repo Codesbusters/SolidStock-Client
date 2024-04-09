@@ -20,7 +20,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -34,10 +33,9 @@ import java.io.IOException;
 @Slf4j
 public class LoginController extends DefaultController {
 
+    RequestAPI requestAPI = new RequestAPI();
     @FXML
     private MFXCheckbox rememberMe;
-    RequestAPI requestAPI = new RequestAPI();
-
     @FXML
     private AnchorPane anchorPane;
 
@@ -66,8 +64,8 @@ public class LoginController extends DefaultController {
         anchorPane.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
                 try {
-                    username.setText("dorian5");
-                    password.setText("test");
+                    username.setText("admin.admin@admin.admin");
+                    password.setText("admin");
                     handleLoginButtonClick();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
