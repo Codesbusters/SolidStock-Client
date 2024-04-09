@@ -119,7 +119,6 @@ public class UsersAddController extends DefaultController implements Initializab
         user.setLastName(nameString);
         user.setEmail(userMailString);
         user.setPassword(userPasswordString);
-        user.setConfirmPassword(userConfirmPasswordString);
 
         log.info("User to add : {}", user);
         // Envoie de la requête

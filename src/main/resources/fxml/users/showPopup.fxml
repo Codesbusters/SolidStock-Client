@@ -47,7 +47,14 @@
                         </MFXTextField>
                         <MFXTextField floatMode="BORDER" floatingText="Nom"
                                       prefWidth="310"
-                                      maxWidth="310" fx:id="userName">
+                                      maxWidth="310" fx:id="lastName">
+                            <VBox.margin>
+                                <Insets left="10.0"/>
+                            </VBox.margin>
+                        </MFXTextField>
+                        <MFXTextField floatMode="BORDER" floatingText="Prénom"
+                                      prefWidth="310"
+                                      maxWidth="310" fx:id="firstName">
                             <VBox.margin>
                                 <Insets left="10.0"/>
                             </VBox.margin>
@@ -55,14 +62,6 @@
                         <MFXTextField floatMode="BORDER" floatingText="Email"
                                       prefWidth="310"
                                       maxWidth="310" fx:id="userMail">
-                            <VBox.margin>
-                                <Insets left="10.0"/>
-                            </VBox.margin>
-                        </MFXTextField>
-                        <MFXTextField floatMode="BORDER" floatingText="Identifiant"
-                                      prefWidth="310"
-                                      maxWidth="310" fx:id="userLogin" textLimit="10"
-                                      disable="true">
                             <VBox.margin>
                                 <Insets left="10.0"/>
                             </VBox.margin>

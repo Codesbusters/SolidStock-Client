@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.role.GetRoleDto;
-import fr.codesbusters.solidstock.dto.user.GetUserDto;
-import fr.codesbusters.solidstock.dto.user.PostUserDto;
 import fr.codesbusters.solidstock.model.RoleModel;
 import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
@@ -25,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
@@ -48,7 +45,7 @@ public class UserRoleAddController extends DefaultShowController implements Init
     }
 
     @FXML
-    public void addNewRole() throws NumberFormatException, UnsupportedEncodingException {
+    public void addNewRole() throws NumberFormatException {
         RoleModel selectedValue = table.getSelectionModel().getSelectedValue();
         if (selectedValue == null) {
             openDialog(stackPane.getScene(), "Veuillez sélectionner un rôle", DialogType.ERROR, 0);
@@ -58,40 +55,14 @@ public class UserRoleAddController extends DefaultShowController implements Init
 
         int roleId = selectedValue.getID();
 
-        // Récupérer l'utilisateur existant
         RequestAPI requestAPI = new RequestAPI();
-        ResponseEntity<String> responseEntityUser = requestAPI.sendGetRequest("/user/" + getId(), String.class, true, true);
-        ObjectMapper mapper = new ObjectMapper();
-        GetUserDto user = null;
-        try {
-            user = mapper.readValue(responseEntityUser.getBody(), new TypeReference<>() {
-            });
-        } catch (Exception e) {
-            log.error("Error while parsing user list", e);
-            openDialog(stackPane.getScene(), "Erreur lors de la récupération de l'utilisateur", DialogType.ERROR, 0);
-            return;
-        }
-        if (user != null) {
-            GetRoleDto newRole = new GetRoleDto();
-            newRole.setId(roleId);
-            PostUserDto updateUser = new PostUserDto();
-            updateUser.setRole(newRole);
 
-            String json = null;
-            try {
-                json = mapper.writeValueAsString(updateUser);
-            } catch (Exception e) {
-                log.error("Error while converting object to json", e);
-                openDialog(stackPane.getScene(), "Erreur lors de la conversion de l'objet en JSON", DialogType.ERROR, 0);
-                return;
-            }
-
-            ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/user/" + user.getId() + "/role/" + roleId, json, String.class, true, true);
-            if (responseEntity.getStatusCode().is2xxSuccessful()) {
-                cancel();
-            } else {
-                openDialog(stackPane.getScene(), "Erreur lors de l'ajout d'un rôle à l'utilisateur", DialogType.ERROR, 0);
-            }
+        ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/user/" + getId() + "/role/" + roleId, null, String.class, true, true);
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            openDialog(stackPane.getScene(), "Le role à été ajouter à l'utilisateur", DialogType.INFORMATION, 0);
+            cancel();
+        } else {
+            openDialog(stackPane.getScene(), "Erreur lors de l'ajout d'un rôle à l'utilisateur", DialogType.ERROR, 0);
         }
     }
 

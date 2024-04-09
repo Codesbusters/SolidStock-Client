@@ -4,11 +4,11 @@ package fr.codesbusters.solidstock.controller.users;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
-import fr.codesbusters.solidstock.business.User;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.customer.GetCustomerDto;
 import fr.codesbusters.solidstock.dto.role.GetRoleDto;
 import fr.codesbusters.solidstock.dto.user.GetUserDto;
+import fr.codesbusters.solidstock.dto.user.PostUserDto;
 import fr.codesbusters.solidstock.listener.CustomerSelectorListener;
 import fr.codesbusters.solidstock.model.RoleModel;
 import fr.codesbusters.solidstock.service.IntChecker;
@@ -152,19 +152,19 @@ public class UsersEditController extends DefaultShowController implements Initia
         String firstNameString = userFirstName.getText();
 
         // Vérification du nom
-        if (lastNameString.isBlank() || lastNameString.isEmpty()) {
+        if (lastNameString.isEmpty()) {
             openDialog(stackPane.getScene(), "Veuillez renseigner un nom", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du prénom
-        if (firstNameString.isBlank() || firstNameString.isEmpty()) {
+        if (firstNameString.isEmpty()) {
             openDialog(stackPane.getScene(), "Veuillez renseigner un prénom", DialogType.ERROR, 0);
             return;
         }
 
         // Vérification du mail
-        if (userMailString.isBlank() || userMailString.isEmpty()) {
+        if (userMailString.isEmpty()) {
             openDialog(stackPane.getScene(), "Veuillez renseigner un mail", DialogType.ERROR, 0);
             return;
         }
@@ -179,22 +179,11 @@ public class UsersEditController extends DefaultShowController implements Initia
 
 
         // Création de l'objet User
-        User user = new User();
-        user.setFirstName(firstNameString);
-        user.setLastName(lastNameString);
-        user.setMail(userMailString);
-        user.setPassword(userPasswordString);
-
-        if (firstNameString.equals(user.getFirstName()) &&
-                lastNameString.equals(user.getLastName()) &&
-                userMailString.equals(user.getMail())) {
-            assert userPasswordString != null;
-            if (userPasswordString.equals(user.getPassword())) {
-                cancel();
-                openDialog(stackPane.getScene(), "Aucun champ modifié. L'utilisateur n'a pas été mis à jour.", DialogType.INFORMATION, 0);
-                return;
-            }
-        }
+        PostUserDto userDto = new PostUserDto();
+        userDto.setFirstName(firstNameString);
+        userDto.setLastName(lastNameString);
+        userDto.setEmail(userMailString);
+        userDto.setPassword(userPasswordString);
 
         // Envoie de la requête
         RequestAPI requestAPI = new RequestAPI();
@@ -202,14 +191,14 @@ public class UsersEditController extends DefaultShowController implements Initia
         ObjectMapper mapper = new ObjectMapper();
         String json = null;
         try {
-            json = mapper.writeValueAsString(user);
+            json = mapper.writeValueAsString(userDto);
         } catch (Exception e) {
             log.error("Error while parsing user list", e);
         }
         try {
-            ResponseEntity<String> responseEntity = requestAPI.sendPutRequest("/user/" + userId, user, String.class, true);
+            ResponseEntity<String> responseEntity = requestAPI.sendPutRequest("/user/" + getId(), userDto, String.class, true);
             if (responseEntity.getStatusCode().is2xxSuccessful()) {
-                log.info("User modified successfully : {}", user);
+                log.info("User modified successfully : {}", userDto);
                 ObjectMapper mapperResponse = new ObjectMapper();
                 GetUserDto userResponse = null;
                 try {
@@ -219,9 +208,9 @@ public class UsersEditController extends DefaultShowController implements Initia
                     log.error("Error while parsing user list", e);
                 }
                 cancel();
-                openDialog(stackPane.getScene(), "Utilisateur " + user.getFirstName().toLowerCase() + " " + user.getLastName().toUpperCase() + " modifié avec succès", DialogType.INFORMATION, 0);
+                openDialog(stackPane.getScene(), "Utilisateur " + userDto.getFirstName().toLowerCase() + " " + userDto.getLastName().toUpperCase() + " modifié avec succès", DialogType.INFORMATION, 0);
             } else {
-                openDialog(stackPane.getScene(), "Erreur lors de la modification de l'utilisateur " + user.getFirstName().toLowerCase() + " " + user.getLastName().toUpperCase(), DialogType.ERROR, 0);
+                openDialog(stackPane.getScene(), "Erreur lors de la modification de l'utilisateur " + userDto.getFirstName().toLowerCase() + " " + userDto.getLastName().toUpperCase(), DialogType.ERROR, 0);
             }
         } catch (HttpClientErrorException.BadRequest ex) {
             String responseBody = ex.getResponseBodyAsString();
@@ -238,7 +227,7 @@ public class UsersEditController extends DefaultShowController implements Initia
 
         cancel();
 
-        openDialog(stackPane.getScene(), "Utilisateur " + user.getFirstName().toLowerCase() + " " + user.getLastName().toUpperCase() + " modifié avec succès", DialogType.INFORMATION, 0);
+        openDialog(stackPane.getScene(), "Utilisateur " + userDto.getFirstName().toLowerCase() + " " + userDto.getLastName().toUpperCase() + " modifié avec succès", DialogType.INFORMATION, 0);
     }
 
     @FXML

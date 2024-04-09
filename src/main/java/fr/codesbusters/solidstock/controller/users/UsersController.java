@@ -111,6 +111,13 @@ public class UsersController extends DefaultShowController implements Initializa
         }
 
         openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer l'utilisateur " + user.getFirstName() + " " + user.getLastName() + " ?", DialogType.CONFIRMATION, 0);
+        RequestAPI requestAPI = new RequestAPI();
+        ResponseEntity<String> responseEntity = requestAPI.sendDeleteRequest("/user/" + user.getID(), String.class, true);
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            openDialog(stackPane.getScene(), "Utilisateur " + user.getFirstName() + " " + user.getLastName().toUpperCase() + " supprimé avec succès", DialogType.INFORMATION, 0);
+        } else {
+            openDialog(stackPane.getScene(), "Erreur lors de la suppression de l'utilisateur", DialogType.ERROR, 0);
+        }
         reloadUser();
     }
 
