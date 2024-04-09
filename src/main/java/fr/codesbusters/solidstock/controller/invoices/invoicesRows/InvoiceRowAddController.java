@@ -55,7 +55,7 @@ public class InvoiceRowAddController extends DefaultShowController implements In
         }
 
         try {
-            Integer.parseInt(productQuantity);
+            Double.parseDouble(productQuantity);
         } catch (NumberFormatException e) {
             openDialog(stackPane.getScene(), "La quantité doit être un nombre.", DialogType.ERROR, 0);
             return;
@@ -83,7 +83,7 @@ public class InvoiceRowAddController extends DefaultShowController implements In
         }
 
         RequestAPI requestAPI = new RequestAPI();
-        ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/invoice/"+ getId() + "/row/add", json, String.class, true, true);
+        ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/invoice/" + getId() + "/row/add", json, String.class, true, true);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             cancel();
         } else {

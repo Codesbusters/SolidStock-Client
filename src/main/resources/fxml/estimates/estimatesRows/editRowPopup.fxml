@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.*?>
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.control.TextArea?>
-<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
-           fx:controller="fr.codesbusters.solidstock.controller.invoices.invoicesRows.InvoiceRowAddController" fx:id="stackPane"
-           stylesheets="@../../../../css/MFXColors.css">
+           fx:controller="fr.codesbusters.solidstock.controller.estimate.estimateRows.EstimateRowEditController"
+           fx:id="stackPane"
+           stylesheets="@../../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
@@ -21,12 +21,12 @@
                 <padding>
                     <Insets left="10.0"/>
                 </padding>
-                <Label text="Ajouter une ligne à la facture">
+                <Label text="Modifier une ligne au devis">
                     <font>
                         <Font name="System Bold" size="22.0"/>
                     </font>
                 </Label>
-                <Label text="Enregistrer une nouvelle ligne à la facture"/>
+                <Label text="Ajouter une nouvelle ligne au devis"/>
             </VBox>
         </AnchorPane>
 
@@ -41,10 +41,16 @@
                     </padding>
                     <HBox alignment="CENTER">
                         <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS">
+                            <MFXTextField floatMode="BORDER" floatingText="Identifiant"
+                                          prefWidth="310"
+                                          maxWidth="310" fx:id="estimateRowId" disable="true">
+                            </MFXTextField>
                             <HBox VBox.vgrow="ALWAYS" spacing="6" prefWidth="280.0" maxWidth="280.0" minWidth="280.0">
-                                <Label fx:id="productName" style="font-weight-absolute: 20;" alignment="CENTER_RIGHT" prefWidth="150" maxWidth="150" minWidth="150" minHeight="38"/>
+                                <Label fx:id="productName" style="font-weight-absolute: 20;" alignment="CENTER_RIGHT"
+                                       prefWidth="150" maxWidth="150" minWidth="150" minHeight="38"/>
                                 <MFXTextField floatMode="BORDER" floatingText="Référence Produit"
-                                              prefWidth="114" maxWidth="114" minWidth="114" fx:id="productId" disable="true">
+                                              prefWidth="114" maxWidth="114" minWidth="114" fx:id="productId"
+                                              disable="true">
                                 </MFXTextField>
                                 <MFXButton id="accept" minHeight="27.0" minWidth="34.0" prefWidth="34.0"
                                            prefHeight="38"
@@ -96,7 +102,7 @@
                            prefHeight="38" text="AJOUTER"
                            style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
                            buttonType="RAISED" styleClass="mfx-button"
-                           HBox.hgrow="ALWAYS" onAction="#addInvoiceRow" />
+                           HBox.hgrow="ALWAYS" onAction="#editEstimateRow"/>
             </HBox>
 
 

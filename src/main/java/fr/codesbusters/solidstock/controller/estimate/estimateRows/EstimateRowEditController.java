@@ -1,10 +1,10 @@
-package fr.codesbusters.solidstock.controller.invoices.invoicesRows;
+package fr.codesbusters.solidstock.controller.estimate.estimateRows;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
-import fr.codesbusters.solidstock.dto.invoice.GetInvoiceRowDto;
-import fr.codesbusters.solidstock.dto.invoice.PostInvoiceRowDto;
+import fr.codesbusters.solidstock.dto.estimates.GetEstimateRowDto;
+import fr.codesbusters.solidstock.dto.estimates.PostEstimateRowDto;
 import fr.codesbusters.solidstock.listener.ProductSelectorListener;
 import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -23,13 +23,12 @@ import java.util.ResourceBundle;
 
 @Slf4j
 @Controller
-public class InvoiceRowEditController extends DefaultShowController implements Initializable, ProductSelectorListener {
-
+public class EstimateRowEditController extends DefaultShowController implements Initializable, ProductSelectorListener {
     @FXML
     public StackPane stackPane;
 
     @FXML
-    public MFXTextField invoiceRowId;
+    public MFXTextField estimateRowId;
 
     @FXML
     public MFXTextField productId;
@@ -45,27 +44,27 @@ public class InvoiceRowEditController extends DefaultShowController implements I
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         RequestAPI requestAPI = new RequestAPI();
-        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/invoice/" + getId() + "/row/" + getIntermediaryId(), String.class, true, true);
+        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/estimate/" + getId() + "/row/" + getIntermediaryId(), String.class, true, true);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        GetInvoiceRowDto getInvoiceRowDto = null;
+        GetEstimateRowDto getEstimateRowDto = null;
         try {
-            getInvoiceRowDto = objectMapper.readValue(responseEntity.getBody(), GetInvoiceRowDto.class);
+            getEstimateRowDto = objectMapper.readValue(responseEntity.getBody(), GetEstimateRowDto.class);
         } catch (Exception e) {
             log.error("Error while converting json to object", e);
         }
 
-        invoiceRowId.setText(String.valueOf(getInvoiceRowDto.getId()));
-        productId.setText(String.valueOf(getInvoiceRowDto.getProduct().getId()));
-        productName.setText(getInvoiceRowDto.getProduct().getName());
-        productQuantity.setText(String.valueOf(getInvoiceRowDto.getQuantity()));
-        productPrice.setText(String.valueOf(getInvoiceRowDto.getSellPrice()));
+        estimateRowId.setText(String.valueOf(getEstimateRowDto.getId()));
+        productId.setText(String.valueOf(getEstimateRowDto.getProduct().getId()));
+        productName.setText(getEstimateRowDto.getProduct().getName());
+        productQuantity.setText(String.valueOf(getEstimateRowDto.getQuantity()));
+        productPrice.setText(String.valueOf(getEstimateRowDto.getSellPrice()));
 
 
     }
 
     @FXML
-    public void editInvoiceRow() {
+    public void editEstimateRow() {
         String productId = this.productId.getText();
         String productName = this.productName.getText();
         String productQuantity = this.productQuantity.getText();
@@ -91,29 +90,28 @@ public class InvoiceRowEditController extends DefaultShowController implements I
         }
 
 
-        PostInvoiceRowDto invoiceRow = new PostInvoiceRowDto();
-        invoiceRow.setQuantity(Double.parseDouble(productQuantity));
-        invoiceRow.setSellPrice(Double.parseDouble(productPrice));
-        invoiceRow.setProductId(Integer.parseInt(productId));
+        PostEstimateRowDto estimateRow = new PostEstimateRowDto();
+        estimateRow.setQuantity(Double.parseDouble(productQuantity));
+        estimateRow.setSellPrice(Double.parseDouble(productPrice));
+        estimateRow.setProductId(Integer.parseInt(productId));
 
         ObjectMapper objectMapper = new ObjectMapper();
         String json = null;
         try {
-            json = objectMapper.writeValueAsString(invoiceRow);
+            json = objectMapper.writeValueAsString(estimateRow);
         } catch (Exception e) {
             log.error("Error while converting object to json", e);
         }
 
         RequestAPI requestAPI = new RequestAPI();
-        ResponseEntity<String> responseEntity = requestAPI.sendPutRequest("/invoice/" + getId() + "/row/" + getIntermediaryId(), json, String.class, true);
+        ResponseEntity<String> responseEntity = requestAPI.sendPutRequest("/estimate/" + getId() + "/row/" + getIntermediaryId(), json, String.class, true);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             cancel();
         } else {
-            openDialog(stackPane.getScene(), "Erreur lors de la création de la ligne de facture.", DialogType.ERROR, 0);
+            openDialog(stackPane.getScene(), "Erreur lors de la création de la ligne de devis.", DialogType.ERROR, 0);
         }
 
     }
-
 
     public void selectProduct(ActionEvent actionEvent) {
         openProductSelector(stackPane.getScene(), this);
