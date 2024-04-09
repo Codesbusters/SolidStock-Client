@@ -211,6 +211,11 @@ public class EstimateEditController extends DefaultShowController implements Ini
     public void removeEstimateRow(ActionEvent actionEvent) {
         EstimateRowModel estimateRowModel = table.getSelectionModel().getSelectedValue();
 
+        if (estimateRowModel == null) {
+            openDialog(stackPane.getScene(), "Veuillez sélectionner une ligne du devis.", DialogType.ERROR, 0);
+            return;
+        }
+
         RequestAPI requestAPI = new RequestAPI();
         ResponseEntity<String> responseEntity = requestAPI.sendDeleteRequest("/estimate/" + getId() + "/row/" + estimateRowModel.getID(), String.class, true);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {

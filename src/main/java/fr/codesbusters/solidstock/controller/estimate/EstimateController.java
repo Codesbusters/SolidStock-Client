@@ -147,7 +147,7 @@ public class EstimateController extends DefaultShowController implements Initial
         EstimateModel estimateModel = table.getSelectionModel().getSelectedValue();
 
         if (estimateModel == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un fournisseur", DialogType.ERROR, 0);
+            openDialog(stackPane.getScene(), "Veuillez sélectionner un devis", DialogType.ERROR, 0);
             return;
         }
         boolean result = openDialog(stackPane.getScene(), "Voulez-vous vraiment supprimer le devis " + estimateModel.getID() + " ?", DialogType.CONFIRMATION, 0);
