@@ -2,10 +2,9 @@ package fr.codesbusters.solidstock.controller;
 
 
 import fr.codesbusters.solidstock.controller.selectors.CustomerSelectorController;
-import fr.codesbusters.solidstock.controller.selectors.EstimateSelectorController;
 import fr.codesbusters.solidstock.controller.selectors.ProductSelectorController;
-import fr.codesbusters.solidstock.controller.selectors.productFamily.ProductFamilySelectorController;
 import fr.codesbusters.solidstock.controller.selectors.SupplierSelectorController;
+import fr.codesbusters.solidstock.controller.selectors.productFamily.ProductFamilySelectorController;
 import fr.codesbusters.solidstock.listener.*;
 import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
 import io.github.palexdev.materialfx.css.themes.Themes;
@@ -317,10 +316,6 @@ public class DefaultController {
                     ScenicView.show(newScene);
                 }
             });
-
-            EstimateSelectorController controller = loader.getController();
-            controller.setStage(popupStage);
-            controller.setListener(listener);
 
             popupStage.initModality(Modality.WINDOW_MODAL);
             popupStage.initOwner(primaryStage);

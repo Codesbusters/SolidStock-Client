@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.invoice.GetInvoiceDto;
-import fr.codesbusters.solidstock.model.SupplierModel;
 import fr.codesbusters.solidstock.model.invoice.InvoiceModel;
 import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -21,15 +20,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import javafx.embed.swing.SwingNode;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -38,10 +33,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
-
-import static java.awt.Desktop.getDesktop;
 
 @Slf4j
 @Controller
@@ -138,7 +130,6 @@ public class InvoiceController extends DefaultShowController implements Initiali
 
         reloadInvoice();
     }
-
 
 
     @FXML
@@ -265,4 +256,3 @@ public class InvoiceController extends DefaultShowController implements Initiali
         }
     }
 }
-

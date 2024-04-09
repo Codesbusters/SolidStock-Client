@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.*?>
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
-           fx:controller="fr.codesbusters.solidstock.controller.invoices.InvoiceEditController" fx:id="stackPane"
+           fx:controller="fr.codesbusters.solidstock.controller.estimate.EstimateEditController" fx:id="stackPane"
            stylesheets="@../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <children>
-            <AnchorPane id="pane1" maxHeight="100.0" minHeight="100.0" minWidth="700.0" prefHeight="100.0" prefWidth="700.0"
+            <AnchorPane id="pane1" maxHeight="100.0" minHeight="100.0" minWidth="700.0" prefHeight="100.0"
+                        prefWidth="700.0"
                         style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                         VBox.vgrow="ALWAYS">
                 <VBox spacing="10.0" style="-fx-padding: 20px">
                     <padding>
                         <Insets left="10.0"/>
                     </padding>
-                    <Label text="Modification de la facture">
+                    <Label text="Modification du devis">
                         <font>
                             <Font name="System Bold" size="22.0"/>
                         </font>
                     </Label>
-                    <Label text="Modifier la facture"/>
+                    <Label text="Modifier le devis"/>
                 </VBox>
             </AnchorPane>
 
@@ -40,20 +41,24 @@
                             <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS">
                                 <MFXTextField floatMode="BORDER" floatingText="Identifiant"
                                               prefWidth="310"
-                                              maxWidth="310" fx:id="invoiceId" disable="true" >
+                                              maxWidth="310" fx:id="estimateId" disable="true">
                                 </MFXTextField>
                                 <MFXTextField floatMode="BORDER" floatingText="Nom"
                                               prefWidth="310"
-                                              maxWidth="310" fx:id="invoiceName">
+                                              maxWidth="310" fx:id="estimateName">
                                 </MFXTextField>
                                 <MFXTextField floatMode="BORDER" floatingText="Description"
                                               prefWidth="310"
-                                              maxWidth="310" fx:id="invoiceDescription">
+                                              maxWidth="310" fx:id="estimateDescription">
                                 </MFXTextField>
-                                <HBox VBox.vgrow="ALWAYS" spacing="6" prefWidth="280.0" maxWidth="280.0" minWidth="280.0">
-                                    <Label fx:id="customerName" style="font-weight-absolute: 20;" alignment="CENTER_RIGHT" prefWidth="150" maxWidth="150" minWidth="150" minHeight="38"/>
+                                <HBox VBox.vgrow="ALWAYS" spacing="6" prefWidth="280.0" maxWidth="280.0"
+                                      minWidth="280.0">
+                                    <Label fx:id="customerName" style="font-weight-absolute: 20;"
+                                           alignment="CENTER_RIGHT" prefWidth="150" maxWidth="150" minWidth="150"
+                                           minHeight="38"/>
                                     <MFXTextField floatMode="BORDER" floatingText="Référence Client"
-                                                  prefWidth="114" maxWidth="114" minWidth="114" fx:id="customerId" disable="true">
+                                                  prefWidth="114" maxWidth="114" minWidth="114" fx:id="customerId"
+                                                  disable="true">
                                     </MFXTextField>
                                     <MFXButton id="accept" minHeight="27.0" minWidth="34.0" prefWidth="34.0"
                                                prefHeight="38"
@@ -90,7 +95,7 @@
                             <HBox spacing="20.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                 <children>
                                     <MFXButton id="custom" minHeight="27.0" minWidth="120.0" prefWidth="150.0"
-                                               prefHeight="38" text="  ACTUALISER" onAction="#reloadInvoiceRow"
+                                               prefHeight="38" text="  ACTUALISER" onAction="#reloadEstimateRow"
                                                style="-fx-background-color: #ffc300; -fx-background-radius: 4; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
                                                buttonType="RAISED"
                                                HBox.hgrow="ALWAYS">
@@ -107,7 +112,7 @@
                             <HBox spacing="10.0" alignment="CENTER_RIGHT">
                                 <children>
                                     <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
-                                               prefHeight="38" text="AJOUTER" onAction="#addInvoiceRow"
+                                               prefHeight="38" text="AJOUTER" onAction="#addEstimateRow"
                                                style="-fx-border-color: black; -fx-font-weight: bold;  -fx-border-radius: 4; -fx-cursor: hand;"
                                                buttonType="RAISED"
                                                styleClass="outline-button" HBox.hgrow="ALWAYS"/>
@@ -115,12 +120,12 @@
                                                text="MODIFIER" prefHeight="38"
                                                buttonType="RAISED"
                                                style="-fx-background-color: #2196F3; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
-                                               HBox.hgrow="ALWAYS" onAction="#editInvoiceRow"/>
+                                               HBox.hgrow="ALWAYS" onAction="#editEstimateRow"/>
                                     <MFXButton fx:id="deleteButton" minHeight="27.0" minWidth="70.0" prefWidth="100"
                                                text="SUPPRIMER" prefHeight="38"
                                                buttonType="RAISED"
                                                style="-fx-background-color: #FF6262; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
-                                               HBox.hgrow="ALWAYS" onAction="#removeInvoiceRow"/>
+                                               HBox.hgrow="ALWAYS" onAction="#removeEstimateRow"/>
                                 </children>
                                 <HBox.margin>
                                     <Insets right="10.0"/>
@@ -160,7 +165,7 @@
                                prefHeight="38" text="MODIFIER"
                                style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
                                buttonType="RAISED" styleClass="mfx-button"
-                               HBox.hgrow="ALWAYS" onAction="#editInvoice"/>
+                               HBox.hgrow="ALWAYS" onAction="#editEstimate"/>
                 </HBox>
             </AnchorPane>
         </children>
