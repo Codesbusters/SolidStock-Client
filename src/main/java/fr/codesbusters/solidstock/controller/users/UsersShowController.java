@@ -29,7 +29,7 @@ public class UsersShowController extends DefaultShowController implements Initia
     @FXML
     public MFXTextField userId;
     @FXML
-    public MFXTextField userName;
+    public MFXTextField lastName;
     @FXML
     public MFXTextField userCustomerId;
     @FXML
@@ -37,19 +37,18 @@ public class UsersShowController extends DefaultShowController implements Initia
     @FXML
     public MFXTextField userMail;
     @FXML
-    public MFXTextField userLogin;
-
-    @FXML
     public MFXListView<String> role;
     @FXML
     public Label roleName;
+    @FXML
+    public MFXTextField firstName;
 
     private void disableTextFields() {
-        userId.setEditable(false);
-        userName.setEditable(false);
+        userId.setDisable(true);
+        lastName.setEditable(false);
+        firstName.setEditable(false);
         userCustomerId.setEditable(false);
         userMail.setEditable(false);
-        userLogin.setEditable(false);
     }
 
     @Override
@@ -68,9 +67,11 @@ public class UsersShowController extends DefaultShowController implements Initia
         }
 
         assert user != null;
+        lastName.setText(user.getLastName());
+        firstName.setText(user.getFirstName());
         if (user.getCustomer() == null) {
             userCustomerId.setText("");
-            customerName.setText("Pas lié à un client");
+            customerName.setText("Non lié à un client");
         } else {
             userCustomerId.setText(String.valueOf(user.getCustomer().getId()));
             customerName.setText(user.getCustomer().getCompanyName());
