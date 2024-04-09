@@ -19,7 +19,6 @@ import java.net.URL;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 
-import static fr.codesbusters.solidstock.model.SolidStockDataIntegration.orders;
 
 @Slf4j
 @Controller
@@ -76,7 +75,7 @@ public class OrdersFormController extends DefaultShowController implements Initi
                 new StringFilter<>("Date de livraison", OrdersModel::getDueDate),
                 new StringFilter<>("Statut", OrdersModel::getStatusName)
         );
-        table.setItems(orders);
+//        table.setItems(orders);
 
 
     }
@@ -119,8 +118,8 @@ public class OrdersFormController extends DefaultShowController implements Initi
             return;
         }
 
-        openDialog(stackPane.getScene(), "Voulez-vous vraiment annuler la commande n° " + orders.getFirst().getID() + " du client " + orders.getFirst().getCustomerName() + " ?", DialogType.CONFIRMATION, 0);
+//        openDialog(stackPane.getScene(), "Voulez-vous vraiment annuler la commande n° " + orders.getFirst().getID() + " du client " + orders.getFirst().getCustomerName() + " ?", DialogType.CONFIRMATION, 0);
 
-        openDialog(stackPane.getScene(), "La suppression de la commande n° " + orders.getFirst().getID() + " du client " + orders.getFirst().getCustomerName() + " a été réalisée avec succès.", DialogType.INFORMATION, 0);
+//        openDialog(stackPane.getScene(), "La suppression de la commande n° " + orders.getFirst().getID() + " du client " + orders.getFirst().getCustomerName() + " a été réalisée avec succès.", DialogType.INFORMATION, 0);
     }
 }

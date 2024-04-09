@@ -49,19 +49,19 @@ public class ProductController extends DefaultShowController implements Initiali
         setupTable();
         table.autosizeColumnsOnInitialization();
 
-        new Thread(() -> {
-            while (true) {
-                    if (table.getSelectionModel().getLastSelectedValue().getIsDisabled()) {
-                        modifyButton.setDisable(true);
-                        deleteButton.setDisable(true);
-                    } else {
-                        modifyButton.setDisable(false);
-                        deleteButton.setDisable(false);
-                    }
+        table.setOnMouseClicked(event -> {
+            ProductModel product = table.getSelectionModel().getSelectedValue();
+
+            if (product != null) {
+                if (product.getIsDisabled()) {
+                    modifyButton.setDisable(true);
+                    deleteButton.setDisable(true);
+                } else {
+                    modifyButton.setDisable(false);
+                    deleteButton.setDisable(false);
+                }
             }
-        }).start();
-
-
+        });
     }
 
 
@@ -91,7 +91,7 @@ public class ProductController extends DefaultShowController implements Initiali
         });
         nameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getName) {
             {
-                setAlignment(Pos.CENTER_RIGHT);
+                setAlignment(Pos.CENTER_LEFT);
                 if (product != null && product.getIsDisabled()) {
                     setStyle("-fx-opacity: 0.5;");
                 }
@@ -141,7 +141,7 @@ public class ProductController extends DefaultShowController implements Initiali
             }
         });
 
-        table.getTableColumns().addAll(idColumn, nameColumn, descriptionColumn, inStockColumn, selledColumn, sellPrice, buyPrice);
+        table.getTableColumns().addAll(idColumn, nameColumn, inStockColumn, selledColumn, sellPrice, buyPrice);
         table.getFilters().addAll(
                 new IntegerFilter<>("Réf.", ProductModel::getID),
                 new StringFilter<>("Libelle", ProductModel::getName),

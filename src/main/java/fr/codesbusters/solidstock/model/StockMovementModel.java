@@ -1,41 +1,49 @@
 package fr.codesbusters.solidstock.model;
 
 import javafx.beans.property.*;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class StockMovementModel {
-
-
-    private final IntegerProperty id = new SimpleIntegerProperty();
+    private final StringProperty type = new SimpleStringProperty("");
+    private final StringProperty dateAction = new SimpleStringProperty("");
+    private final LongProperty id = new SimpleLongProperty();
     private final IntegerProperty refProfuct = new SimpleIntegerProperty();
     private final StringProperty productName = new SimpleStringProperty("");
-    private final StringProperty quantite = new SimpleStringProperty("");
-    private final StringProperty dateAction = new SimpleStringProperty("");
+    private final DoubleProperty quantite = new SimpleDoubleProperty();
+    private final StringProperty expiredDate = new SimpleStringProperty("");
     private final BooleanProperty inOut = new SimpleBooleanProperty();
     private final StringProperty motif = new SimpleStringProperty("");
+    private final StringProperty batchNumber = new SimpleStringProperty("");
+private final StringProperty note = new SimpleStringProperty("");
 
-    public StockMovementModel(int id, int refProfuct, String productName, String quantite, String dateAction, boolean inOut, String motif) {
-        setID(id);
-        setRefProfuct(refProfuct);
-        setProductName(productName);
-        setQuantite(quantite);
-        setDateAction(dateAction);
-        setInOut(inOut);
-        setMotif(motif);
+    public StockMovementModel (String type, String dateAction, long id, int refProfuct, String productName, double quantite, String expiredDate, boolean inOut, String motif, String batchNumber, String note) {
+        this.type.set(type);
+        this.dateAction.set(dateAction);
+        this.id.set(id);
+        this.refProfuct.set(refProfuct);
+        this.productName.set(productName);
+        this.quantite.set(quantite);
+        this.expiredDate.set(expiredDate);
+        this.inOut.set(inOut);
+        this.motif.set(motif);
+        this.batchNumber.set(batchNumber);
+        this.note.set(note);
     }
 
-    public static StockMovementModel ofSplit(int id, int refProfuct, String productName, String quantite, String dateAction, boolean inOut, String motif) {
-        return new StockMovementModel(id, refProfuct, productName, quantite, dateAction, inOut, motif);
+    public static StockMovementModel ofSplit(String type, String dateAction, long id, int refProfuct, String productName, double quantite, String expiredDate, boolean inOut, String motif, String batchNumber, String note) {
+        return new StockMovementModel(type, dateAction, id, refProfuct, productName, quantite, expiredDate, inOut, motif, batchNumber, note);
     }
 
-    public int getID() {
+    public long getID() {
         return id.get();
     }
 
-    public void setID(int id) {
+    public void setID(long id) {
         this.id.set(id);
     }
 
-    public IntegerProperty idProperty() {
+    public LongProperty idProperty() {
         return id;
     }
 
@@ -64,15 +72,15 @@ public class StockMovementModel {
         return productName;
     }
 
-    public String getQuantite() {
+    public double getQuantite() {
         return quantite.get();
     }
 
-    public void setQuantite(String quantite) {
+    public void setQuantite(double quantite) {
         this.quantite.set(quantite);
     }
 
-    public StringProperty quantiteProperty() {
+    public DoubleProperty quantiteProperty() {
         return quantite;
     }
 
@@ -111,5 +119,54 @@ public class StockMovementModel {
     public StringProperty motifProperty() {
         return motif;
     }
+
+    public String getExpiredDate() {
+        return expiredDate.get();
+    }
+
+    public void setExpiredDate(String expiredDate) {
+        this.expiredDate.set(expiredDate);
+    }
+
+    public StringProperty expiredDateProperty() {
+        return expiredDate;
+    }
+
+    public String getBatchNumber() {
+        return batchNumber.get();
+    }
+
+    public void setBatchNumber(String batchNumber) {
+        this.batchNumber.set(batchNumber);
+    }
+
+    public StringProperty batchNumberProperty() {
+        return batchNumber;
+    }
+
+    public String getNote() {
+        return note.get();
+    }
+
+    public void setNote(String note) {
+        this.note.set(note);
+    }
+
+    public StringProperty noteProperty() {
+        return note;
+    }
+
+    public String getType() {
+        return type.get();
+    }
+
+    public void setType(String type) {
+        this.type.set(type);
+    }
+
+    public StringProperty typeProperty() {
+        return type;
+    }
+
 
 }

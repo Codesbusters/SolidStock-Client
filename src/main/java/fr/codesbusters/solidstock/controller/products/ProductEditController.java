@@ -286,6 +286,11 @@ public class ProductEditController extends DefaultShowController implements Init
                 } catch (Exception e) {
                     log.error("Error while parsing supplier list", e);
                 }
+                if (imageSelected == null) {
+                    cancel();
+                    openDialog(stackPane.getScene(), "Produit " + product.getName() + " ajouté avec succès", DialogType.INFORMATION, 0);
+                    return;
+                }
                 // Envoi de la requête pour mettre à jour l'image
                 MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<>();
                 requestBody.add("file", new FileSystemResource(imageSelected));
