@@ -225,7 +225,7 @@ public class InvoiceController extends DefaultShowController implements Initiali
 
     @FXML
     public void downloadInvoice(ActionEvent actionEvent) throws IOException {
-        InvoiceModel invoiceModel = table.getSelectionModel().getSelectedValues().getFirst();
+        InvoiceModel invoiceModel = table.getSelectionModel().getSelectedValue();
 
         if (invoiceModel == null) {
             openDialog(stackPane.getScene(), "Veuillez sélectionner une facture", DialogType.ERROR, 0);

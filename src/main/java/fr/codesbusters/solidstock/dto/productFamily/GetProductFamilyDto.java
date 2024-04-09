@@ -17,14 +17,4 @@ public class GetProductFamilyDto {
     private String createdAt;
     private String updatedAt;
     private boolean isDeleted;
-    private GetProductDto productDto;
-    private List<Integer> products;
-
-    public GetProductFamilyDto(int id) {
-        this.id = id;
-    }
-
-    public static GetProductFamilyDto fromId(int id) {
-        return new GetProductFamilyDto();
-    }
 }

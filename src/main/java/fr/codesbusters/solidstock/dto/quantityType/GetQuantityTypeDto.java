@@ -16,17 +16,5 @@ public class GetQuantityTypeDto {
     private String unit;
     private String createdAt;
     private String updatedAt;
-    private List<Integer> products;
 
-    public GetQuantityTypeDto(int id) {
-        this.id = id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public static  GetQuantityTypeDto fromId(int id) {
-        return new GetQuantityTypeDto(id);
-    }
 }

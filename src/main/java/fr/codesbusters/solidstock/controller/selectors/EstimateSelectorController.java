@@ -71,7 +71,7 @@ public class EstimateSelectorController extends DefaultShowController implements
                 new IntegerFilter<>("ID Client", EstimateModel::getCustomerId),
                 new StringFilter<>("Nom Client", EstimateModel::getCustomerName)
         );
-        table.setItems(SolidStockDataIntegration.estimates);
+//        table.setItems(SolidStockDataIntegration.estimates);
     }
 
     @FXML
