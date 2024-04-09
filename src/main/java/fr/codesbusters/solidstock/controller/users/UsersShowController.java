@@ -3,12 +3,13 @@ package fr.codesbusters.solidstock.controller.users;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
+import fr.codesbusters.solidstock.dto.role.GetRoleDto;
 import fr.codesbusters.solidstock.dto.user.GetUserDto;
-import fr.codesbusters.solidstock.model.RoleModel;
 import fr.codesbusters.solidstock.service.RequestAPI;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
-import io.github.palexdev.materialfx.controls.MFXPasswordField;
+import io.github.palexdev.materialfx.controls.MFXListView;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -37,8 +38,9 @@ public class UsersShowController extends DefaultShowController implements Initia
     public MFXTextField userMail;
     @FXML
     public MFXTextField userLogin;
+
     @FXML
-    public MFXComboBox<RoleModel> role;
+    public MFXListView<String> role;
     @FXML
     public Label roleName;
 
@@ -48,8 +50,8 @@ public class UsersShowController extends DefaultShowController implements Initia
         userCustomerId.setEditable(false);
         userMail.setEditable(false);
         userLogin.setEditable(false);
-        role.setEditable(false);
     }
+
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         userId.setText(String.valueOf(getId()));
@@ -66,19 +68,31 @@ public class UsersShowController extends DefaultShowController implements Initia
         }
 
         assert user != null;
-        userName.setText(user.getName());
         if (user.getCustomer() == null) {
             userCustomerId.setText("");
             customerName.setText("Pas lié à un client");
-        } else
-        {
+        } else {
             userCustomerId.setText(String.valueOf(user.getCustomer().getId()));
             customerName.setText(user.getCustomer().getCompanyName());
         }
         userMail.setText(user.getEmail());
-        userLogin.setText(user.getUserName());
-        role.setText(String.valueOf(user.getRole().getId()));
-        roleName.setText(user.getRole().getName());
+
+        ObservableList<String> roleList = FXCollections.observableArrayList();
+        if (user.getRoles() != null && !user.getRoles().isEmpty()) {
+            for (GetRoleDto roleDto : user.getRoles()) {
+                roleList.add(roleDto.getName());
+            }
+        } else {
+            roleList.add("Aucun rôle attribué");
+        }
+
+        role.setItems(roleList);
+        int roleModelsCount = roleList.size();
+        if (roleModelsCount == 1) {
+            roleName.setText("Rôle");
+        } else {
+            roleName.setText("Rôles");
+        }
         disableTextFields();
     }
 

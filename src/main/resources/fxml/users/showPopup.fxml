@@ -31,7 +31,8 @@
         <AnchorPane id="pane2" minHeight="490.0" minWidth="440.0" prefHeight="130.0" prefWidth="600.0"
                     style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
                     VBox.vgrow="ALWAYS">
-            <VBox alignment="CENTER" VBox.vgrow="ALWAYS" spacing="20.0" minWidth="600" maxWidth="600" AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0">
+            <VBox alignment="CENTER" VBox.vgrow="ALWAYS" spacing="20.0" minWidth="600" maxWidth="600"
+                  AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0">
                 <padding>
                     <Insets left="10.0" right="10.0" top="10.0" bottom="10.0"/>
                 </padding>
@@ -67,7 +68,8 @@
                             </VBox.margin>
                         </MFXTextField>
                         <HBox prefWidth="310" maxWidth="310" spacing="10">
-                            <Label fx:id="customerName" alignment="CENTER_RIGHT" style="font-weight-absolute: 20;" prefWidth="160"  minHeight="38"/>
+                            <Label fx:id="customerName" alignment="CENTER_RIGHT" style="font-weight-absolute: 20;"
+                                   prefWidth="160" minHeight="38"/>
                             <MFXTextField floatMode="BORDER" floatingText="Id du client"
                                           prefWidth="150"
                                           maxWidth="150" fx:id="userCustomerId">
@@ -76,12 +78,14 @@
                                 <Insets left="10.0"/>
                             </VBox.margin>
                         </HBox>
-                        <HBox prefWidth="310" maxWidth="310" spacing="10">
-                            <Label fx:id="roleName"  alignment="CENTER_RIGHT" style="font-weight-absolute: 20;" prefWidth="160" minHeight="38"/>
-                            <MFXComboBox floatMode="BORDER" floatingText="Rôle"
-                                         prefWidth="150"
-                                         maxWidth="150" fx:id="role">
-                            </MFXComboBox>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
+                        <HBox prefWidth="310" maxWidth="310">
+                            <Label fx:id="roleName" alignment="CENTER_RIGHT" style="font-weight-absolute: 20;"
+                                   prefWidth="160" minHeight="38"/>
+                        </HBox>
+                        <HBox prefWidth="310" maxWidth="310">
+                            <MFXListView fx:id="role" prefWidth="310" maxWidth="310"/>
                             <VBox.margin>
                                 <Insets left="10.0"/>
                             </VBox.margin>
