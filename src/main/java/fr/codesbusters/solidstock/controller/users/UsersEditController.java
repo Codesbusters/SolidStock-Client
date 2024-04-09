@@ -13,7 +13,6 @@ import fr.codesbusters.solidstock.listener.CustomerSelectorListener;
 import fr.codesbusters.solidstock.model.RoleModel;
 import fr.codesbusters.solidstock.service.IntChecker;
 import fr.codesbusters.solidstock.service.RequestAPI;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -33,6 +32,7 @@ import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -55,17 +55,11 @@ public class UsersEditController extends DefaultShowController implements Initia
     @FXML
     public MFXTextField userLastName;
     @FXML
-    public MFXTextField userLogin;
-    @FXML
     public MFXTextField userMail;
     @FXML
     public MFXTextField userPassword;
     @FXML
     public MFXTextField userConfirmPassword;
-    @FXML
-    public MFXTextField userMobilePhone;
-    @FXML
-    public MFXComboBox<String> role;
     @FXML
     public Label customerName;
     @FXML
@@ -85,19 +79,13 @@ public class UsersEditController extends DefaultShowController implements Initia
             ObjectMapper mapper = new ObjectMapper();
             try {
 
-                GetUserDto user = mapper.readValue(responseRoleList.getBody(), new TypeReference<GetUserDto>() {
+                GetUserDto user = mapper.readValue(responseRoleList.getBody(), new TypeReference<>() {
                 });
                 userFirstName.setText(user.getFirstName());
                 userLastName.setText(user.getLastName());
-                if (user.getUserName() != null && !user.getUserName().isEmpty()) {
-                    userLogin.setText(user.getUserName());
-                } else {
-                    userLogin.setText(user.getFirstName().toLowerCase() + "." + user.getLastName().toLowerCase());
-                }
                 userMail.setText(user.getEmail());
                 userPassword.setText(user.getPassword());
-                userConfirmPassword.setText(user.getConfirmPassword());
-                userMobilePhone.setText(user.getPhone());
+                userConfirmPassword.setText(user.getPassword());
                 if (user.getCustomer() != null) {
                     userCustomerId.setText(String.valueOf(user.getCustomer().getId()));
                     if (user.getCustomer().getCompanyName() != null) {
@@ -115,7 +103,6 @@ public class UsersEditController extends DefaultShowController implements Initia
         }
 
         setupTable();
-        table.autosizeColumnsOnInitialization();
     }
 
     private void setupTable() {
@@ -157,109 +144,101 @@ public class UsersEditController extends DefaultShowController implements Initia
     }
 
     @FXML
-    public void userLogin() {
-        String firstNameString = userFirstName.getText();
-        String lastNameString = userLastName.getText();
-
-        // Vérification que les champs ne sont pas vides
-        if (firstNameString.isBlank() || firstNameString.isEmpty() || lastNameString.isBlank() || lastNameString.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner un nom et un prénom", DialogType.ERROR, 0);
-        } else {
-            if (userLogin.getText().isEmpty()) {
-                String loginString = firstNameString.toLowerCase() + "." + lastNameString.toLowerCase();
-                userLogin.setText(loginString);
-            }
-        }
-    }
-
-    @FXML
     public void editUser() throws NumberFormatException, UnsupportedEncodingException {
-        String userLoginString = userLogin.getText();
         String userMailString = userMail.getText();
         String userPasswordString = userPassword.getText();
         String userConfirmPasswordString = userConfirmPassword.getText();
-        String userMobilePhoneString = userMobilePhone.getText();
         String lastNameString = userLastName.getText();
         String firstNameString = userFirstName.getText();
 
         // Vérification du nom
         if (lastNameString.isBlank() || lastNameString.isEmpty()) {
-            log.info("lastNameString : {}", lastNameString);
             openDialog(stackPane.getScene(), "Veuillez renseigner un nom", DialogType.ERROR, 0);
             return;
-        } else {
-            log.info("lastNameString : {}", lastNameString);
         }
 
         // Vérification du prénom
         if (firstNameString.isBlank() || firstNameString.isEmpty()) {
-            log.info("firstNameString : {}", firstNameString);
             openDialog(stackPane.getScene(), "Veuillez renseigner un prénom", DialogType.ERROR, 0);
             return;
-        } else {
-            log.info("firstNameString : {}", firstNameString);
-        }
-
-        // Vérification du login
-        if (userLoginString.isBlank() || userLoginString.isEmpty()) {
-            log.info("userLoginString : {}", userLoginString);
-            openDialog(stackPane.getScene(), "Veuillez renseigner un identifiant", DialogType.ERROR, 0);
-            return;
-        } else {
-            log.info("userLoginString : {}", userLoginString);
         }
 
         // Vérification du mail
         if (userMailString.isBlank() || userMailString.isEmpty()) {
-            log.info("userMailString : {}", userMailString);
             openDialog(stackPane.getScene(), "Veuillez renseigner un mail", DialogType.ERROR, 0);
             return;
-        } else {
-            log.info("userMailString : {}", userMailString);
-        }
-
-        // Vérification du numéro de téléphone
-        if (userMobilePhoneString.isBlank() || userMobilePhoneString.isEmpty()) {
-            log.info("userMobilePhoneString : {}", userMobilePhoneString);
-            openDialog(stackPane.getScene(), "Veuillez renseigner un numéro de téléphone", DialogType.ERROR, 0);
-            return;
-        } else {
-            log.info("userMobilePhoneString : {}", userMobilePhoneString);
-        }
-
-        // Vérification du mot de passe
-        if (userPasswordString.isBlank() || userPasswordString.isEmpty()) {
-            log.info("userPasswordString : {}", userPasswordString);
-            openDialog(stackPane.getScene(), "Veuillez renseigner un mot de passe", DialogType.ERROR, 0);
-            return;
-        } else {
-            log.info("userPasswordString : {}", userPasswordString);
         }
 
         // Vérification de la confirmation du mot de passe
-        if (userConfirmPasswordString.isBlank() || userConfirmPasswordString.isEmpty()) {
-            log.info("userConfirmPasswordString : {}", userConfirmPasswordString);
-            openDialog(stackPane.getScene(), "Veuillez confirmer le mot de passe", DialogType.ERROR, 0);
-            return;
-        } else if (!userConfirmPasswordString.equals(userPasswordString)) {
-            log.info("userConfirmPasswordString : {}", userConfirmPasswordString);
-            openDialog(stackPane.getScene(), "Les mots de passe ne correspondent pas", DialogType.ERROR, 0);
-            return;
+        if (userPasswordString != null && !userConfirmPasswordString.equals(userPasswordString)) {
+            if (!userConfirmPasswordString.isBlank() && !userPasswordString.isBlank()) {
+                openDialog(stackPane.getScene(), "Les mots de passe ne correspondent pas", DialogType.ERROR, 0);
+                return;
+            }
         }
+
 
         // Création de l'objet User
         User user = new User();
         user.setFirstName(firstNameString);
         user.setLastName(lastNameString);
-        user.setLogin(userLoginString);
         user.setMail(userMailString);
         user.setPassword(userPasswordString);
 
-        log.info("Utilisateur à modifier : {}", user);
+        if (firstNameString.equals(user.getFirstName()) &&
+                lastNameString.equals(user.getLastName()) &&
+                userMailString.equals(user.getMail())) {
+            assert userPasswordString != null;
+            if (userPasswordString.equals(user.getPassword())) {
+                cancel();
+                openDialog(stackPane.getScene(), "Aucun champ modifié. L'utilisateur n'a pas été mis à jour.", DialogType.INFORMATION, 0);
+                return;
+            }
+        }
+
+        // Envoie de la requête
+        RequestAPI requestAPI = new RequestAPI();
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(user);
+        } catch (Exception e) {
+            log.error("Error while parsing user list", e);
+        }
+        try {
+            ResponseEntity<String> responseEntity = requestAPI.sendPutRequest("/user/" + userId, user, String.class, true);
+            if (responseEntity.getStatusCode().is2xxSuccessful()) {
+                log.info("User modified successfully : {}", user);
+                ObjectMapper mapperResponse = new ObjectMapper();
+                GetUserDto userResponse = null;
+                try {
+                    userResponse = mapperResponse.readValue(responseEntity.getBody(), new TypeReference<>() {
+                    });
+                } catch (Exception e) {
+                    log.error("Error while parsing user list", e);
+                }
+                cancel();
+                openDialog(stackPane.getScene(), "Utilisateur " + user.getFirstName().toLowerCase() + " " + user.getLastName().toUpperCase() + " modifié avec succès", DialogType.INFORMATION, 0);
+            } else {
+                openDialog(stackPane.getScene(), "Erreur lors de la modification de l'utilisateur " + user.getFirstName().toLowerCase() + " " + user.getLastName().toUpperCase(), DialogType.ERROR, 0);
+            }
+        } catch (HttpClientErrorException.BadRequest ex) {
+            String responseBody = ex.getResponseBodyAsString();
+            if (responseBody.contains("Customer already has a user")) {
+                openDialog(stackPane.getScene(), "Le client a déjà un utilisateur associé", DialogType.ERROR, 0);
+            } else if (responseBody.contains("Email is already in use")) {
+                openDialog(stackPane.getScene(), "L'adresse e-mail est déjà utilisée", DialogType.ERROR, 0);
+            } else {
+                openDialog(stackPane.getScene(), "Une erreur inattendue est survenue", DialogType.ERROR, 0);
+            }
+        } catch (Exception ex) {
+            openDialog(stackPane.getScene(), "Une erreur inattendue est survenue", DialogType.ERROR, 0);
+        }
 
         cancel();
 
-        openDialog(stackPane.getScene(), "Utilisateur " + user.getLogin() + " modifié avec succès", DialogType.INFORMATION, 0);
+        openDialog(stackPane.getScene(), "Utilisateur " + user.getFirstName().toLowerCase() + " " + user.getLastName().toUpperCase() + " modifié avec succès", DialogType.INFORMATION, 0);
     }
 
     @FXML
@@ -313,27 +292,47 @@ public class UsersEditController extends DefaultShowController implements Initia
 
         RequestAPI requestAPI = new RequestAPI();
 
-        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/user/" + getId() + "/role/all", String.class, true, true);
+        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/user/" + getId(), String.class, true, true);
         ObjectMapper mapper = new ObjectMapper();
-        List<GetRoleDto> roleList = null;
+        GetUserDto user = null;
         try {
-            roleList = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
+            user = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
             });
         } catch (Exception e) {
             log.error("Error while parsing invoice list", e);
         }
 
-        ObservableList<RoleModel> roleModels = FXCollections.observableArrayList();
-        assert roleList != null;
-        for (GetRoleDto roleDto : roleList) {
-            RoleModel roleModel = new RoleModel();
-            roleModel.setID(roleDto.getId());
-            roleModel.setRoleName(roleDto.getName());
+        assert user != null;
+        if (user.getCustomer() == null) {
+            userCustomerId.setText("");
+            customerName.setText("Pas lié à un client");
+        } else {
+            userCustomerId.setText(String.valueOf(user.getCustomer().getId()));
+            customerName.setText(user.getCustomer().getCompanyName());
+        }
+        userMail.setText(user.getEmail());
 
-            roleModels.add(roleModel);
+        ObservableList<RoleModel> roleModels = FXCollections.observableArrayList();
+        if (user.getRoles() != null && !user.getRoles().isEmpty()) {
+            for (GetRoleDto roleDto : user.getRoles()) {
+                RoleModel roleModel = new RoleModel();
+                roleModel.setID(roleDto.getId());
+                roleModel.setRoleName(roleDto.getName());
+
+                roleModels.add(roleModel);
+            }
+        } else {
+            for (GetRoleDto ignored : user.getRoles()) {
+                RoleModel roleModel = new RoleModel();
+                roleModel.setID(0);
+                roleModel.setRoleName("Aucun rôle attribué");
+
+                roleModels.add(roleModel);
+            }
         }
 
         table.getItems().addAll(roleModels);
+        table.autosizeColumnsOnInitialization();
     }
 
     @FXML
@@ -345,19 +344,6 @@ public class UsersEditController extends DefaultShowController implements Initia
     @FXML
     public void addRole(ActionEvent actionEvent) {
         openPopUp("/users/addRolePopup.fxml", stackPane.getScene(), "Ajouter un rôle à l'utilisateur.");
-        reloadRole();
-    }
-
-    @FXML
-    public void editRole(ActionEvent actionEvent) {
-        RoleModel roleModel = table.getSelectionModel().getSelectedValues().getFirst();
-        if (roleModel == null) {
-            openDialog(stackPane.getScene(), "Veuillez sélectionner un utilisateur.", DialogType.ERROR, 0);
-            return;
-        }
-
-        setIntermediaryId(roleModel.getID());
-        openPopUp("users/editRolePopup.fxml", stackPane.getScene(), "Modifier un utilisateur.");
         reloadRole();
     }
 

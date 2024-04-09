@@ -1,11 +1,8 @@
 package fr.codesbusters.solidstock.controller;
 
 
-import fr.codesbusters.solidstock.controller.selectors.CustomerSelectorController;
-import fr.codesbusters.solidstock.controller.selectors.EstimateSelectorController;
-import fr.codesbusters.solidstock.controller.selectors.ProductSelectorController;
+import fr.codesbusters.solidstock.controller.selectors.*;
 import fr.codesbusters.solidstock.controller.selectors.productFamily.ProductFamilySelectorController;
-import fr.codesbusters.solidstock.controller.selectors.SupplierSelectorController;
 import fr.codesbusters.solidstock.listener.*;
 import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
 import io.github.palexdev.materialfx.css.themes.Themes;
@@ -27,8 +24,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lombok.Getter;
-import lombok.Setter;
 import org.scenicview.ScenicView;
 
 import java.io.File;
@@ -255,6 +250,41 @@ public class DefaultController {
             popupStage.setScene(newScene);
             popupStage.showAndWait();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openRoleSelector(Scene scene, RoleSelectorListener listener) {
+        try {
+            Stage primaryStage = (Stage) scene.getWindow();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/selector/roleSelector.fxml"));
+            Parent root = loader.load();
+            Scene newScene = new Scene(root);
+            MFXThemeManager.addOn(newScene, Themes.DEFAULT, Themes.LEGACY);
+
+            Stage popupStage = new Stage();
+            popupStage.setResizable(false);
+            popupStage.setTitle("Sélectionner un rôle");
+            Image icon = new Image("/img/icon.png");
+            popupStage.getIcons().add(icon);
+
+            KeyCombination keyCombination = new KeyCodeCombination(KeyCode.LESS, KeyCombination.CONTROL_DOWN);
+            newScene.setOnKeyPressed(event -> {
+                if (keyCombination.match(event)) {
+                    ScenicView.show(newScene);
+                }
+            });
+
+            RoleSelectorController controller = loader.getController();
+            controller.setStage(popupStage);
+            controller.setListener(listener);
+
+            popupStage.initModality(Modality.WINDOW_MODAL);
+            popupStage.initOwner(primaryStage);
+            popupStage.setScene(newScene);
+            popupStage.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
         }

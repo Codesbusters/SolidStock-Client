@@ -2,9 +2,7 @@ package fr.codesbusters.solidstock.controller.invoices.invoiceRow;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
-import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
-import fr.codesbusters.solidstock.dto.invoice.PostInvoiceDto;
 import fr.codesbusters.solidstock.dto.invoice.PostInvoiceRowDto;
 import fr.codesbusters.solidstock.listener.ProductSelectorListener;
 import fr.codesbusters.solidstock.service.RequestAPI;
@@ -85,7 +83,7 @@ public class InvoiceRowAddController extends DefaultShowController implements In
         }
 
         RequestAPI requestAPI = new RequestAPI();
-        ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/invoice/"+ getId() + "/row/add", json, String.class, true, true);
+        ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/invoice/" + getId() + "/row/add", json, String.class, true, true);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             cancel();
         } else {
