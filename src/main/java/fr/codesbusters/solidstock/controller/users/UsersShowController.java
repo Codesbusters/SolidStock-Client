@@ -2,10 +2,12 @@ package fr.codesbusters.solidstock.controller.users;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.role.GetRoleDto;
 import fr.codesbusters.solidstock.dto.user.GetUserDto;
 import fr.codesbusters.solidstock.service.RequestAPI;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXListView;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
@@ -42,6 +44,8 @@ public class UsersShowController extends DefaultShowController implements Initia
     public Label roleName;
     @FXML
     public MFXTextField firstName;
+    @FXML
+    public MFXButton enable;
 
     private void disableTextFields() {
         userId.setDisable(true);
@@ -95,11 +99,30 @@ public class UsersShowController extends DefaultShowController implements Initia
             roleName.setText("Rôles");
         }
         disableTextFields();
+        enable.setVisible(user.isDeleted());
     }
 
     @FXML
     public void cancel() {
         Stage stage = (Stage) stackPane.getScene().getWindow();
         stage.close();
+    }
+
+    public void enable() {
+        int idInteger = Integer.parseInt(userId.getText());
+
+        // Création de l'objet User
+        GetUserDto user = new GetUserDto();
+        user.setId(idInteger);
+
+        RequestAPI requestAPI = new RequestAPI();
+        ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/user/" + idInteger, null, String.class, true, true);
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            log.info("User activation successfully : {}", user);
+            openDialog(stackPane.getScene(), "Utilisateur réactivé avec succès.", DialogType.INFORMATION, 0);
+            cancel();
+        } else {
+            openDialog(stackPane.getScene(), "Erreur lors de la réactivation de l'utilisateur.", DialogType.ERROR, 0);
+        }
     }
 }

@@ -98,7 +98,7 @@ public class UsersController extends DefaultShowController implements Initializa
         setId(user.getID());
 
         openPopUp("users/showPopup.fxml", stackPane.getScene(), "Détails de l'utilisateur");
-
+        reloadUser();
     }
 
     @FXML
