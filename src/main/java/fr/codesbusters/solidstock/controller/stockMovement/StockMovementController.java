@@ -2,6 +2,7 @@ package fr.codesbusters.solidstock.controller.stockMovement;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.stockMovement.GetStockMovementDto;
 import fr.codesbusters.solidstock.model.StockMovementModel;
@@ -141,13 +142,20 @@ public class StockMovementController extends DefaultShowController implements In
     @FXML
     public void openConfirmRemove() {
 
-        //get the row selected
-     //   Optional<ButtonType> result = openDialog(stackPane.getScene(), "Êtes-vous sûr de vouloir annuler le mouvement de stock n° " + table.getSelectionModel().getSelectedValue().getID() + " ?", Alert.AlertType.CONFIRMATION);
+       boolean isOk = openDialog(stackPane.getScene(),"Êtes-vous sûr de vouloir supprimer ce mouvement de stock ?", DialogType.CONFIRMATION,  0);
+        if (!isOk) {
+            return;
+        }
+        StockMovementModel stockMovementModel = table.getSelectionModel().getSelectedValue();
+        RequestAPI requestAPI = new RequestAPI();
+        ResponseEntity<String> responseEntity = requestAPI.sendDeleteRequest("/stock-movement/" + stockMovementModel.getID(), String.class, true);
 
-       // if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Set the movement on canceled
-        //}
-
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            openDialog(stackPane.getScene(), "Le mouvement de stock a été supprimé avec succès", DialogType.INFORMATION, 0);
+            reloadStockMovement();
+        } else {
+            openDialog(stackPane.getScene(), "Erreur lors de la suppression du mouvement de stock", DialogType.ERROR, 0);
+        }
     }
 
     @FXML
