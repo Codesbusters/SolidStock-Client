@@ -1,6 +1,5 @@
 package fr.codesbusters.solidstock.controller.products;
 
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
@@ -34,13 +33,10 @@ import java.util.ResourceBundle;
 public class ProductController extends DefaultShowController implements Initializable {
     @FXML
     private StackPane stackPane;
-
     @FXML
     private MFXTableView<ProductModel> table;
-
     @FXML
     private MFXButton modifyButton;
-
     @FXML
     private MFXButton deleteButton;
 
@@ -64,13 +60,11 @@ public class ProductController extends DefaultShowController implements Initiali
         });
     }
 
-
     @FXML
     public void addProduct() {
         openPopUp("products/addPopup.fxml", stackPane.getScene(), "Ajouter un produit");
         reloadProduct();
     }
-
 
     private void setupTable() {
         MFXTableColumn<ProductModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(ProductModel::getID));
@@ -206,7 +200,6 @@ public class ProductController extends DefaultShowController implements Initiali
         reloadProduct();
     }
 
-
     @FXML
     public void reloadProduct() {
         table.getItems().clear();
@@ -217,8 +210,8 @@ public class ProductController extends DefaultShowController implements Initiali
         ObjectMapper mapper = new ObjectMapper();
         List<GetProductDto> productList = null;
         try {
-          productList = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
-          });
+            productList = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
+            });
         } catch (Exception e) {
             log.error("Error while parsing product list", e);
         }
