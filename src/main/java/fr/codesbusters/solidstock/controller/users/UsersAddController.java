@@ -1,183 +1,223 @@
 package fr.codesbusters.solidstock.controller.users;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
-import fr.codesbusters.solidstock.business.User;
 import fr.codesbusters.solidstock.controller.DefaultController;
-import fr.codesbusters.solidstock.model.RoleModel;
-import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
+import fr.codesbusters.solidstock.dto.customer.GetCustomerDto;
+import fr.codesbusters.solidstock.dto.user.GetUserDto;
+import fr.codesbusters.solidstock.dto.user.PostUserDto;
+import fr.codesbusters.solidstock.listener.CustomerSelectorListener;
+import fr.codesbusters.solidstock.service.IntChecker;
+import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 @Slf4j
 @Controller
-public class UsersAddController extends DefaultController implements Initializable {
+public class UsersAddController extends DefaultController implements Initializable, CustomerSelectorListener {
 
     @FXML
-    StackPane stackPane;
+    public StackPane stackPane;
     @FXML
-    MFXTextField userFirstName;
+    public MFXTextField userName;
     @FXML
-    MFXTextField userLastName;
+    public MFXTextField userCustomerId;
     @FXML
-    MFXTextField userLogin;
+    public Label customerName;
     @FXML
-    MFXTextField userMail;
+    public MFXTextField userMail;
     @FXML
-    MFXTextField userPassword;
+    public MFXTextField userPassword;
     @FXML
-    MFXTextField userConfirmPassword;
+    public MFXTextField userConfirmPassword;
     @FXML
-    MFXTextField userMobilePhone;
-    @FXML
-    MFXComboBox<RoleModel> role;
+    public MFXTextField userFirstName;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        ObservableList<RoleModel> roles = SolidStockDataIntegration.roles;
-
-        role.setItems(roles);
     }
 
-
     @FXML
-    public void userLogin() {
-        String firstNameString = userFirstName.getText();
-        String lastNameString = userLastName.getText();
-
-        // Vérification que les champs ne sont pas vides
-        if (firstNameString.isBlank() || firstNameString.isEmpty() || lastNameString.isBlank() || lastNameString.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez renseigner un nom et un prénom", DialogType.ERROR, 0);
-        } else {
-            if (userLogin.getText().isEmpty()) {
-                String loginString = firstNameString.toLowerCase() + "." + lastNameString.toLowerCase();
-                userLogin.setText(loginString);
-            }
-        }
+    public void selectCustomer() {
+        openCustomerSelector(stackPane.getScene(), this);
     }
 
     @FXML
     public void addUser() throws NumberFormatException, UnsupportedEncodingException {
-        String userLoginString = userLogin.getText();
         String userMailString = userMail.getText();
         String userPasswordString = userPassword.getText();
         String userConfirmPasswordString = userConfirmPassword.getText();
-        String userMobilePhoneString = userMobilePhone.getText();
-        String lastNameString = userLastName.getText();
-        String firstNameString = userFirstName.getText();
-        String roleString = null;
-        RoleModel selectedItem = role.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            roleString = selectedItem.getRoleName();
-        }
+        String nameString = userName.getText();
+        String nameFirstString = userFirstName.getText();
+        String customerIdString = userCustomerId.getText();
 
         // Vérification du nom
-        if (lastNameString.isBlank() || lastNameString.isEmpty()) {
-            log.info("lastNameString : {}", lastNameString);
+        if (nameString.isBlank() || nameString.isEmpty()) {
             openDialog(stackPane.getScene(), "Veuillez renseigner un nom", DialogType.ERROR, 0);
             return;
-        } else {
-            log.info("lastNameString : {}", lastNameString);
         }
 
         // Vérification du prénom
-        if (firstNameString.isBlank() || firstNameString.isEmpty()) {
-            log.info("firstNameString : {}", firstNameString);
+        if (nameFirstString.isBlank() || nameFirstString.isEmpty()) {
             openDialog(stackPane.getScene(), "Veuillez renseigner un prénom", DialogType.ERROR, 0);
             return;
-        } else {
-            log.info("firstNameString : {}", firstNameString);
         }
 
-        // Vérification du login
-        if (userLoginString.isBlank() || userLoginString.isEmpty()) {
-            log.info("userLoginString : {}", userLoginString);
-            openDialog(stackPane.getScene(), "Veuillez renseigner un identifiant", DialogType.ERROR, 0);
-            return;
-        } else {
-            log.info("userLoginString : {}", userLoginString);
-        }
 
         // Vérification du mail
         if (userMailString.isBlank() || userMailString.isEmpty()) {
-            log.info("userMailString : {}", userMailString);
             openDialog(stackPane.getScene(), "Veuillez renseigner un mail", DialogType.ERROR, 0);
             return;
-        } else {
-            log.info("userMailString : {}", userMailString);
         }
 
-        // Vérification du numéro de téléphone
-        if (userMobilePhoneString.isBlank() || userMobilePhoneString.isEmpty()) {
-            log.info("userMobilePhoneString : {}", userMobilePhoneString);
-            openDialog(stackPane.getScene(), "Veuillez renseigner un numéro de téléphone", DialogType.ERROR, 0);
-            return;
-        } else {
-            log.info("userMobilePhoneString : {}", userMobilePhoneString);
-        }
 
         // Vérification du mot de passe
         if (userPasswordString.isBlank() || userPasswordString.isEmpty()) {
-            log.info("userPasswordString : {}", userPasswordString);
             openDialog(stackPane.getScene(), "Veuillez renseigner un mot de passe", DialogType.ERROR, 0);
             return;
-        } else {
-            log.info("userPasswordString : {}", userPasswordString);
         }
 
         // Vérification de la confirmation du mot de passe
         if (userConfirmPasswordString.isBlank() || userConfirmPasswordString.isEmpty()) {
-            log.info("userConfirmPasswordString : {}", userConfirmPasswordString);
             openDialog(stackPane.getScene(), "Veuillez confirmer le mot de passe", DialogType.ERROR, 0);
             return;
         } else if (!userConfirmPasswordString.equals(userPasswordString)) {
-            log.info("userConfirmPasswordString : {}", userConfirmPasswordString);
             openDialog(stackPane.getScene(), "Les mots de passe ne correspondent pas", DialogType.ERROR, 0);
             return;
         }
 
-        // Vérification du rôle
-        if (role.getText().isBlank() || role.getText().isEmpty()) {
-            log.info("roleString : {}", roleString);
-            openDialog(stackPane.getScene(), "Veuillez renseigner un rôle", DialogType.ERROR, 0);
-            return;
+        // Création de l'objet User
+        PostUserDto user = new PostUserDto();
+        if (customerIdString.isEmpty()) {
+            int customerId = 0;
+            user.setCustomerId(customerId);
         } else {
-            log.info("roleString : {}", roleString);
+            int customerId = Integer.parseInt(customerIdString.trim());
+            user.setCustomerId(customerId);
         }
 
-        // Création de l'objet User
-        User user = new User();
-        user.setFirstName(firstNameString);
-        user.setLastName(lastNameString);
-        user.setLogin(userLoginString);
-        user.setRoleId(selectedItem.getID());
-        user.setMail(userMailString);
+
+        user.setFirstName(nameFirstString);
+        user.setLastName(nameString);
+        user.setEmail(userMailString);
         user.setPassword(userPasswordString);
-        user.setMobileNumber(userMobilePhoneString);
-        user.setRoleName(roleString);
 
-        log.info("Utilisateur à ajouter : {}", user);
+        log.info("User to add : {}", user);
+        // Envoie de la requête
+        RequestAPI requestAPI = new RequestAPI();
 
-        cancel();
+        ObjectMapper mapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(user);
+        } catch (Exception e) {
+            log.error("Error while parsing user list", e);
+        }
+        try {
+            ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/user/add", user, String.class, true, true);
+            if (responseEntity.getStatusCode().is2xxSuccessful()) {
+                log.info("User added successfully : {}", user);
+                ObjectMapper mapperResponse = new ObjectMapper();
+                GetUserDto userResponse = null;
+                try {
+                    userResponse = mapperResponse.readValue(responseEntity.getBody(), new TypeReference<>() {
+                    });
+                } catch (Exception e) {
+                    log.error("Error while parsing user list", e);
+                }
+                cancel();
+                openDialog(stackPane.getScene(), "Utilisateur " + user.getFirstName().toLowerCase() + " " + user.getLastName().toUpperCase() + " créé avec succès", DialogType.INFORMATION, 0);
+            } else {
+                openDialog(stackPane.getScene(), "Erreur lors de l'ajout de l'utilisateur " + user.getFirstName().toLowerCase() + " " + user.getLastName().toUpperCase(), DialogType.ERROR, 0);
+            }
+        } catch (HttpClientErrorException.BadRequest ex) {
+            String responseBody = ex.getResponseBodyAsString();
+            if (responseBody.contains("Customer already has a user")) {
+                openDialog(stackPane.getScene(), "Le client a déjà un utilisateur associé", DialogType.ERROR, 0);
+            } else if (responseBody.contains("Email is already in use")) {
+                openDialog(stackPane.getScene(), "L'adresse e-mail est déjà utilisée", DialogType.ERROR, 0);
+            } else {
+                openDialog(stackPane.getScene(), "Une erreur inattendue est survenue", DialogType.ERROR, 0);
+            }
+        } catch (Exception ex) {
+            openDialog(stackPane.getScene(), "Une erreur inattendue est survenue", DialogType.ERROR, 0);
+        }
 
-        openDialog(stackPane.getScene(), "Utilisateur " + user.getLogin() + " créé avec succès", DialogType.INFORMATION, 0);
     }
 
     @FXML
     public void cancel() {
         Stage stage = (Stage) stackPane.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    public void onIdCustomerChanged(KeyEvent event) {
+        Object source = event.getSource();
+        if (source instanceof MFXTextField textField && textField == userCustomerId) {
+            String text = textField.getText();
+            if (!text.isEmpty() && IntChecker.isValidIntegerInput(text)) {
+                int customerId = Integer.parseInt(text);
+                String customerName = getCustomerNameById(customerId);
+                this.customerName.setText(customerName);
+            } else if (!IntChecker.isValidIntegerInput(text)) {
+                textField.setText(text.substring(0, text.length() - 1));
+            } else {
+                this.customerName.setText("");
+            }
+        }
+    }
+
+
+    private String getCustomerNameById(int customerId) {
+        String customer = findCustomerById(customerId);
+        this.customerName.setText(Objects.requireNonNullElse(customer, ""));
+        return customer;
+    }
+
+    private String findCustomerById(int customerId) {
+        RequestAPI requestAPI = new RequestAPI();
+        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/customer/all", String.class, true, true);
+        ObjectMapper mapper = new ObjectMapper();
+        List<GetCustomerDto> customerList = null;
+        try {
+            customerList = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
+            });
+        } catch (Exception e) {
+            log.error("Error while parsing customer list", e);
+        }
+
+        assert customerList != null;
+        for (GetCustomerDto customer : customerList) {
+            if (customer.getId() == customerId) {
+                return customer.getCompanyName();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void processCustomerContent(String customerContent) {
+        String[] customer = customerContent.split("-");
+        userCustomerId.setText(customer[0]);
+        customerName.setText(customer[1]);
     }
 }

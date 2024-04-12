@@ -103,7 +103,7 @@ public class ProductAddController extends DefaultController implements Initializ
         try {
             allQuantityTypes = mapper.readValue(responseQuantityTypeList.getBody(), new TypeReference<>() {});
         } catch (Exception e) {
-            log.error("Error while parsing VAT list", e);
+            log.error("Error while parsing quantityType list", e);
         }
 
         ObservableList<String> vatDisplays = FXCollections.observableArrayList();
@@ -118,7 +118,7 @@ public class ProductAddController extends DefaultController implements Initializ
         ObservableList<String> quantityTypesDisplays = FXCollections.observableArrayList();
         if (allQuantityTypes != null) {
             for (GetQuantityTypeDto quantityTypeDto : allQuantityTypes) {
-                String quantityTypeDisplay = quantityTypeDto.getId() + " - " + quantityTypeDto.getUnit();
+                String quantityTypeDisplay = quantityTypeDto.getUnit() + " - " + quantityTypeDto.getName();
                 quantityTypesDisplays.add(quantityTypeDisplay);
             }
         }
@@ -143,6 +143,11 @@ public class ProductAddController extends DefaultController implements Initializ
         String supplierIdString = productSupplierId.getText();
         String productIdFamily = productFamilyID.getText();
         String productBarCodeString = productBarCode.getText();
+        if (!isValidBarCode(productBarCodeString)) {
+            openDialog(stackPane.getScene(), "Veuillez saisir un barCode valide : 13 chiffres", DialogType.ERROR,0);
+            return;
+        }
+        productBarCodeString = formatBarCode(productBarCodeString);
 
         String buyPriceString = productBuyPrice.getText();
         if (!isValidPrice(buyPriceString)) {
@@ -183,7 +188,7 @@ public class ProductAddController extends DefaultController implements Initializ
 
         int supplierId = Integer.parseInt(supplierIdString);
         int productFamilyId = Integer.parseInt(productIdFamily);
-        int quantityTypeId = Integer.parseInt(quantityType.split(" - ")[0]);
+        String quantityTypeUnit = (quantityType.split(" - ")[0]);
         int vatId = Integer.parseInt(vat.split(" - ")[0]);
 
         // Création de l'objet Product
@@ -194,7 +199,7 @@ public class ProductAddController extends DefaultController implements Initializ
         product.setBarCode(productBarCodeString);
         product.setSupplierId(supplierId);
         product.setProductFamilyId(productFamilyId);
-        product.setQuantityTypeId(quantityTypeId);
+        product.setQuantityTypeUnit(quantityTypeUnit);
         product.setMinimumStockQuantity(Integer.parseInt(minimumStockString));
         product.setBuyPrice(buyPriceString);
         product.setSellPrice(sellPriceString);
@@ -373,6 +378,26 @@ public class ProductAddController extends DefaultController implements Initializ
         String regex = "^(\\d+|\\d*\\.\\d{1,2})$";
         return price.matches(regex);
     }
+
+    public String formatBarCode(String barCode) {
+        if (barCode.length() < 13) {
+            int zerosToAdd = 13 - barCode.length();
+            StringBuilder zeros = new StringBuilder();
+            for (int i = 0; i < zerosToAdd; i++) {
+                zeros.append("0");
+            }
+            return  barCode + zeros.toString();
+        } else {
+            return barCode;
+        }
+    }
+    public boolean isValidBarCode(String barCode) {
+        String formattedBarCode = formatBarCode(barCode);
+        String regex = "^\\d{13}$";
+        return formattedBarCode.matches(regex);
+    }
+
+
 
     public boolean isValidQuantity(String value) {
         try {

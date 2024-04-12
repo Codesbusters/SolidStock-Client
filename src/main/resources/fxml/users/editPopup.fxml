@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.*?>
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
@@ -9,137 +10,176 @@
            fx:controller="fr.codesbusters.solidstock.controller.users.UsersEditController" fx:id="stackPane"
            stylesheets="@../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
-        <children>
-            <AnchorPane id="pane1" maxHeight="100.0" minHeight="100.0" minWidth="400.0" prefHeight="100.0"
-                        style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
-                        VBox.vgrow="ALWAYS">
-                <children>
-                    <VBox spacing="10.0" style="-fx-padding: 20px">
-                        <children>
-                            <Label text="Modification de l'utilisateur">
-                                <font>
-                                    <Font name="System Bold" size="22.0"/>
-                                </font>
-                            </Label>
-                            <Label text="Voir un utilisateur"/>
-                        </children>
-                        <padding>
-                            <Insets left="10.0"/>
-                        </padding>
-                    </VBox>
-                </children>
-            </AnchorPane>
-            <AnchorPane id="pane2" minHeight="490.0" minWidth="440.0" prefHeight="130.0" prefWidth="600.0"
-                        style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
-                        VBox.vgrow="ALWAYS">
-                <VBox alignment="CENTER" VBox.vgrow="ALWAYS" spacing="20.0" minWidth="600" maxWidth="600">
-                    <children>
-                        <HBox alignment="CENTER" spacing="10.0">
-                            <children>
-                                <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
-                                    <children>
-                                        <MFXTextField floatMode="BORDER" floatingText="ID"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="userId" disable="true">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Nom"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="userLastName">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Prénom"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="userFirstName">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Nom d'utilisateur"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="userLogin" onMouseClicked="#userLogin">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Email"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="userMail">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXTextField floatMode="BORDER" floatingText="Téléphone"
-                                                      prefWidth="310"
-                                                      maxWidth="310" fx:id="userMobilePhone" textLimit="10">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXPasswordField floatMode="BORDER"
-                                                          floatingText="Mot de passe"
-                                                          prefWidth="310"
-                                                          maxWidth="310" fx:id="userPassword">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXPasswordField>
-                                        <MFXPasswordField floatMode="BORDER" floatingText="Confirmation du mot de passe"
-                                                          prefWidth="310"
-                                                          maxWidth="310" fx:id="userConfirmPassword">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXPasswordField>
-                                        <MFXComboBox floatMode="BORDER" floatingText="Rôle"
-                                                     prefWidth="310"
-                                                     maxWidth="310" fx:id="role">
-                                            <VBox.margin>
-                                                <Insets left="10.0"/>
-                                            </VBox.margin>
-                                        </MFXComboBox>
-                                    </children>
-                                </VBox>
-                            </children>
-                        </HBox>
-                    </children>
-                    <padding>
-                        <Insets left="10.0" right="10.0" top="10.0" bottom="10.0"/>
-                    </padding>
-                </VBox>
-            </AnchorPane>
-            <AnchorPane id="pane3" maxHeight="70.0" minHeight="70.0" minWidth="400.0" prefHeight="70.0"
-                        prefWidth="600.0"
-                        style="-fx-background-color: white; -fx-background-radius: 8;  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
-                        VBox.vgrow="ALWAYS">
-                <HBox AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" spacing="10.0" alignment="CENTER_RIGHT">
-                    <children>
-                        <MFXButton id="cancel" minHeight="27.0" minWidth="70.0" prefWidth="100"
-                                   text="FERMER" prefHeight="38"
-                                   buttonType="RAISED" styleClass="outline-button"
-                                   style="-fx-border-color: black; -fx-background-radius: 8; -fx-border-radius: 8;  -fx-font-weight: bold; -fx-cursor: hand;"
-                                   HBox.hgrow="ALWAYS" onAction="#cancel"/>
-
-                        <MFXButton id="accept" minHeight="27.0" minWidth="70.0" prefWidth="100"
-                                   prefHeight="38" text="Modifier"
-                                   style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
-                                   buttonType="RAISED" styleClass="mfx-button"
-                                   HBox.hgrow="ALWAYS" onAction="#editUser"/>
-                    </children>
-                    <padding>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
-                    </padding>
-                </HBox>
-
-
-            </AnchorPane>
-        </children>
         <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
         </padding>
+        <AnchorPane id="pane1" maxHeight="100.0" minHeight="100.0" minWidth="700.0" prefHeight="100.0" prefWidth="700.0"
+                    style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                    VBox.vgrow="ALWAYS">
+            <VBox spacing="10.0" style="-fx-padding: 20px">
+                <padding>
+                    <Insets left="10.0"/>
+                </padding>
+                <Label text="Modification de l'utilisateur">
+                    <font>
+                        <Font name="System Bold" size="22.0"/>
+                    </font>
+                </Label>
+                <Label text="modifier l'utilisateur"/>
+            </VBox>
+        </AnchorPane>
+        <AnchorPane id="pane2" minHeight="300.0" minWidth="900.0" prefHeight="300.0" prefWidth="900.0"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                    VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER" spacing="15.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+                  AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
+                <VBox alignment="CENTER" minWidth="650" maxWidth="650">
+                    <padding>
+                        <Insets left="10.0" right="10.0" top="10.0" bottom="10.0"/>
+                    </padding>
+                    <HBox alignment="CENTER" spacing="10.0">
+                        <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
+                            <MFXTextField floatMode="BORDER" floatingText="Identifiant"
+                                          prefWidth="310"
+                                          maxWidth="310" fx:id="userId" disable="true">
+                                <VBox.margin>
+                                    <Insets left="10.0"/>
+                                </VBox.margin>
+                            </MFXTextField>
+                            <MFXTextField floatMode="BORDER" floatingText="Nom"
+                                          prefWidth="310"
+                                          maxWidth="310" fx:id="userLastName">
+                                <VBox.margin>
+                                    <Insets left="10.0"/>
+                                </VBox.margin>
+                            </MFXTextField>
+                            <MFXTextField floatMode="BORDER" floatingText="Prénom"
+                                          prefWidth="310"
+                                          maxWidth="310" fx:id="userFirstName">
+                                <VBox.margin>
+                                    <Insets left="10.0"/>
+                                </VBox.margin>
+                            </MFXTextField>
+                            <MFXTextField floatMode="BORDER" floatingText="Email"
+                                          prefWidth="310"
+                                          maxWidth="310" fx:id="userMail">
+                                <VBox.margin>
+                                    <Insets left="10.0"/>
+                                </VBox.margin>
+                            </MFXTextField>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
+                            <MFXPasswordField floatMode="BORDER"
+                                              floatingText="Mot de passe"
+                                              prefWidth="310"
+                                              maxWidth="310" fx:id="userPassword">
+                                <VBox.margin>
+                                    <Insets left="10.0"/>
+                                </VBox.margin>
+                            </MFXPasswordField>
+                            <MFXPasswordField floatMode="BORDER" floatingText="Confirmation du mot de passe"
+                                              prefWidth="310"
+                                              maxWidth="310" fx:id="userConfirmPassword">
+                                <VBox.margin>
+                                    <Insets left="10.0"/>
+                                </VBox.margin>
+                            </MFXPasswordField>
+                            <HBox prefWidth="310" maxWidth="310" spacing="10">
+                                <Label fx:id="customerName" alignment="CENTER_RIGHT" style="font-weight-absolute: 20;"
+                                       prefWidth="160" minHeight="38"/>
+                                <MFXTextField floatMode="BORDER" floatingText="Id du client"
+                                              prefWidth="150"
+                                              maxWidth="150" fx:id="userCustomerId"
+                                              onKeyReleased="#onIdCustomerChanged">
+                                </MFXTextField>
+                                <MFXButton id="accept" minHeight="27.0" minWidth="34.0" prefWidth="34.0"
+                                           prefHeight="38"
+                                           style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;"
+                                           buttonType="RAISED" styleClass="mfx-button"
+                                           HBox.hgrow="ALWAYS" onAction="#selectCustomer">
+                                    <graphic>
+                                        <MFXFontIcon description="fas-ellipsis" size="20" color="WHITE"/>
+                                    </graphic>
+                                </MFXButton>
+                                <VBox.margin>
+                                    <Insets left="10.0"/>
+                                </VBox.margin>
+                            </HBox>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </HBox>
+        </AnchorPane>
+        <AnchorPane id="pane3" maxHeight="60.0" minHeight="30.0" minWidth="400.0" prefHeight="100.0"
+                    prefWidth="600.0"
+                    style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                    VBox.vgrow="ALWAYS">
+            <HBox spacing="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <padding>
+                    <Insets top="10.0"/>
+                </padding>
+                <HBox spacing="20.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                    <MFXButton id="custom" minHeight="27.0" minWidth="120.0" prefWidth="150.0"
+                               prefHeight="38" text="  ACTUALISER" onAction="#reloadRole"
+                               style="-fx-background-color: #ffc300; -fx-background-radius: 4; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
+                               buttonType="RAISED"
+                               HBox.hgrow="ALWAYS">
+                        <graphic>
+                            <MFXFontIcon description="fas-arrows-rotate" color="white"/>
+                        </graphic>
+                    </MFXButton>
+                    <padding>
+                        <Insets left="10.0"/>
+                    </padding>
+                </HBox>
+                <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                    <children>
+                        <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                                   prefHeight="38" text="AJOUTER" onAction="#addRole"
+                                   style="-fx-border-color: black; -fx-font-weight: bold;  -fx-border-radius: 4; -fx-cursor: hand;"
+                                   buttonType="RAISED"
+                                   styleClass="outline-button" HBox.hgrow="ALWAYS"/>
+                        <MFXButton fx:id="deleteButton" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                                   text="SUPPRIMER" prefHeight="38"
+                                   buttonType="RAISED"
+                                   style="-fx-background-color: #FF6262; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
+                                   HBox.hgrow="ALWAYS" onAction="#removeRole"/>
+                    </children>
+                    <HBox.margin>
+                        <Insets right="10.0"/>
+                    </HBox.margin>
+                </HBox>
+            </HBox>
+        </AnchorPane>
+        <AnchorPane id="pane4" minHeight="250.0" minWidth="900.0" prefHeight="250.0" prefWidth="900.0"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                    VBox.vgrow="ALWAYS">
+            <MFXTableView fx:id="table" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="850.0"
+                          GridPane.columnSpan="2147483647" GridPane.rowIndex="2"
+                          AnchorPane.leftAnchor="0.0"
+                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                          AnchorPane.bottomAnchor="0.0"/>
+        </AnchorPane>
+        <AnchorPane id="pane5" maxHeight="70.0" minHeight="70.0" minWidth="900.0" prefHeight="70.0"
+                    prefWidth="900.0"
+                    style="-fx-background-color: white; -fx-background-radius: 8;  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                    VBox.vgrow="ALWAYS">
+            <HBox AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" spacing="10.0" alignment="CENTER_RIGHT">
+                <padding>
+                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                </padding>
+                <MFXButton id="cancel" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                           text="ANNULER" prefHeight="38"
+                           buttonType="RAISED" styleClass="outline-button"
+                           style="-fx-border-color: black; -fx-background-radius: 8; -fx-border-radius: 8;  -fx-font-weight: bold; -fx-cursor: hand;"
+                           HBox.hgrow="ALWAYS" onAction="#cancel"/>
+
+                <MFXButton id="accept" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                           prefHeight="38" text="Modifier"
+                           style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
+                           buttonType="RAISED" styleClass="mfx-button"
+                           HBox.hgrow="ALWAYS" onAction="#editUser"/>
+            </HBox>
+        </AnchorPane>
     </VBox>
 </StackPane>

@@ -103,8 +103,8 @@ public class ProductShowController extends DefaultShowController implements Init
 
         assert  product != null;
         productName.setText(product.getName());
-        productQuantityType.setText(String.valueOf(product.getQuantityType().getId()));
-        quantityTypeDescription.setText(product.getQuantityType().getUnit());
+        productQuantityType.setText(String.valueOf(product.getQuantityType().getUnit()));
+        quantityTypeDescription.setText(product.getQuantityType().getName());
         productFamilyID.setText(String.valueOf(product.getProductFamily().getId()));
         productFamilyName.setText(product.getProductFamily().getName());
         productSupplierID.setText(String.valueOf(product.getSupplier().getId()));

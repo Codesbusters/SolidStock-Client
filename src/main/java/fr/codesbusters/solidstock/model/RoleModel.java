@@ -1,9 +1,6 @@
 package fr.codesbusters.solidstock.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,20 +10,20 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RoleModel {
 
-    private final IntegerProperty id = new SimpleIntegerProperty();
+    public final IntegerProperty id = new SimpleIntegerProperty();
 
-    private final StringProperty roleName = new SimpleStringProperty("");
+    public final StringProperty roleName = new SimpleStringProperty("");
 
-    private final StringProperty roleDescription = new SimpleStringProperty("");
+    public final BooleanProperty isDisabled = new SimpleBooleanProperty(false);
 
-    public RoleModel(int id, String roleName, String roleDescription) {
+    public RoleModel(int id, String roleName, boolean isDisabled) {
         setID(id);
         setRoleName(roleName);
-        setRoleDescription(roleDescription);
+        setIsDisabled(isDisabled);
     }
 
-    public static RoleModel ofSplit(int id, String roleName, String roleDescription) {
-        return new RoleModel(id, roleName, roleDescription);
+    public static RoleModel ofSplit(int id, String roleName, boolean isDisabled) {
+        return new RoleModel(id, roleName, isDisabled);
     }
 
     // Getter
@@ -34,27 +31,26 @@ public class RoleModel {
         return id.get();
     }
 
-    // Setter
-    private void setID(int id) {
-        this.id.set(id);
-    }
-
     public String getRoleName() {
         return roleName.get();
     }
 
-    private void setRoleName(String roleName) {
+    public boolean getIsDisabled() {
+        return isDisabled.get();
+    }
+    // Setter
+
+    public void setID(int id) {
+        this.id.set(id);
+    }
+
+    public void setRoleName(String roleName) {
         this.roleName.set(roleName);
     }
 
-    public String getRoleDescription() {
-        return roleDescription.get();
+    public void setIsDisabled(boolean isDisabled) {
+        this.isDisabled.set(isDisabled);
     }
-
-    private void setRoleDescription(String roleDescription) {
-        this.roleDescription.set(roleDescription);
-    }
-
     // Section Property
     public IntegerProperty idProperty() {
         return id;
@@ -63,14 +59,7 @@ public class RoleModel {
     public StringProperty roleNameProperty() {
         return roleName;
     }
-
-    public StringProperty roleDescriptionProperty() {
-        return roleDescription;
+    public BooleanProperty isDisabledProperty() {
+        return isDisabled;
     }
-
-    @Override
-    public String toString() {
-        return getID() + " - " + getRoleName() + " - " + getRoleDescription();
-    }
-
 }

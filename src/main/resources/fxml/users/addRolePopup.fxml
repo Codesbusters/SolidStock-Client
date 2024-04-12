@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           xmlns="http://javafx.com/javafx"
+           fx:controller="fr.codesbusters.solidstock.controller.users.userRole.UserRoleAddController"
+           stylesheets="@../../css/MFXColors.css"
+           fx:id="stackPane">
+    <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
+        <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        </padding>
+        <AnchorPane id="pane1" maxHeight="100.0" minHeight="100.0" minWidth="300.0" prefHeight="100.0"
+                    style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                    VBox.vgrow="ALWAYS">
+            <VBox spacing="10.0" style="-fx-padding: 20px">
+                <padding>
+                    <Insets left="10.0"/>
+                </padding>
+                <Label text="Ajouter un rôle à l'utilisateur">
+                    <font>
+                        <Font name="System Bold" size="22.0"/>
+                    </font>
+                </Label>
+                <Label text="Enregistrer un nouveau rôle à l'utiisateur"/>
+            </VBox>
+        </AnchorPane>
+        <AnchorPane id="pane2" minHeight="250.0" minWidth="300.0" prefHeight="250.0" prefWidth="300.0"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                    VBox.vgrow="ALWAYS">
+            <MFXTableView fx:id="table" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0"
+                          GridPane.columnSpan="2147483647" GridPane.rowIndex="2"
+                          AnchorPane.leftAnchor="0.0"
+                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                          AnchorPane.bottomAnchor="0.0"/>
+        </AnchorPane>
+        <AnchorPane id="pane3" maxHeight="70.0" minHeight="70.0" minWidth="400.0" prefHeight="70.0"
+                    prefWidth="600.0"
+                    style="-fx-background-color: white; -fx-background-radius: 8;  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                    VBox.vgrow="ALWAYS">
+            <HBox AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" spacing="10.0" alignment="CENTER_RIGHT">
+                <padding>
+                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                </padding>
+                <MFXButton id="cancel" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                           text="ANNULER" prefHeight="38"
+                           buttonType="RAISED" styleClass="outline-button"
+                           style="-fx-border-color: black; -fx-background-radius: 8; -fx-border-radius: 8;  -fx-font-weight: bold; -fx-cursor: hand;"
+                           HBox.hgrow="ALWAYS" onAction="#cancel"/>
+
+                <MFXButton id="accept" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                           prefHeight="38" text="AJOUTER"
+                           style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
+                           buttonType="RAISED" styleClass="mfx-button"
+                           HBox.hgrow="ALWAYS" onAction="#addNewRole"/>
+            </HBox>
+        </AnchorPane>
+    </VBox>
+</StackPane>

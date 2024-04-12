@@ -218,8 +218,8 @@ public class ProductController extends DefaultShowController implements Initiali
         ObjectMapper mapper = new ObjectMapper();
         List<GetProductDto> productList = null;
         try {
-          productList = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
-          });
+            productList = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
+            });
         } catch (Exception e) {
             log.error("Error while parsing product list", e);
         }

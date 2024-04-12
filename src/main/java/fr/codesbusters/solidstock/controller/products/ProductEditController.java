@@ -15,7 +15,6 @@ import fr.codesbusters.solidstock.listener.ProductFamilySelectorListener;
 import fr.codesbusters.solidstock.listener.SupplierSelectorListener;
 import fr.codesbusters.solidstock.service.IntChecker;
 import fr.codesbusters.solidstock.service.RequestAPI;
-import fr.codesbusters.solidstock.utils.Base64Converter;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
@@ -39,8 +38,6 @@ import org.springframework.util.MultiValueMap;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -120,7 +117,7 @@ public class ProductEditController extends DefaultShowController implements Init
         try {
             allQuantityTypes = mapper.readValue(responseQuantityTypeList.getBody(), new TypeReference<>() {});
         } catch (Exception e) {
-            log.error("Error while parsing VAT list", e);
+            log.error("Error while parsing quantityType list", e);
         }
 
         assert  product != null;
@@ -149,13 +146,13 @@ public class ProductEditController extends DefaultShowController implements Init
         ObservableList<String> quantityTypesDisplays = FXCollections.observableArrayList();
         if (allQuantityTypes != null) {
             for (GetQuantityTypeDto quantityTypeDto : allQuantityTypes) {
-                String quantityTypeDisplay = quantityTypeDto.getId() + " - " + quantityTypeDto.getUnit();
+                String quantityTypeDisplay = quantityTypeDto.getUnit() + " - " + quantityTypeDto.getName();
                 quantityTypesDisplays.add(quantityTypeDisplay);
             }
         }
         productQuantityType.setItems(quantityTypesDisplays);
-        productQuantityType.setText(String.valueOf(product.getQuantityType().getId()));
-        quantityTypeDescription.setText(product.getQuantityType().getUnit());
+        productQuantityType.setText(String.valueOf(product.getQuantityType().getUnit()));
+        quantityTypeDescription.setText(product.getQuantityType().getName());
 
         List<GetQuantityTypeDto> finalAllQuantityTypes = allQuantityTypes;
         productQuantityType.setOnAction(event -> {
@@ -208,6 +205,12 @@ public class ProductEditController extends DefaultShowController implements Init
         String supplierIdString = productSupplierId.getText();
         String productIdFamily = productFamilyID.getText();
         String productBarCodeString = productBarCode.getText();
+        if (!isValidBarCode(productBarCodeString)) {
+            openDialog(stackPane.getScene(), "Veuillez saisir un barCode valide : 13 chiffres", DialogType.ERROR,0);
+            return;
+        }
+        productBarCodeString = formatBarCode(productBarCodeString);
+
 
         String buyPriceString = productBuyPrice.getText();
         if (!isValidPrice(buyPriceString)) {
@@ -247,7 +250,7 @@ public class ProductEditController extends DefaultShowController implements Init
 
         int supplierId = Integer.parseInt(supplierIdString);
         int productFamilyId = Integer.parseInt(productIdFamily);
-        int quantityTypeId = Integer.parseInt(quantityType.split(" - ")[0]);
+        String quantityTypeUnit = (quantityType.split(" - ")[0]);
         int vatId = Integer.parseInt(vat.split(" - ")[0]);
 
         // Création de l'objet Product
@@ -258,7 +261,7 @@ public class ProductEditController extends DefaultShowController implements Init
         product.setBarCode(productBarCodeString);
         product.setSupplierId(supplierId);
         product.setProductFamilyId(productFamilyId);
-        product.setQuantityTypeId(quantityTypeId);
+        product.setQuantityTypeUnit(quantityTypeUnit);
         product.setMinimumStockQuantity(Integer.parseInt(minimumStockString));
         product.setBuyPrice(buyPriceString);
         product.setSellPrice(sellPriceString);
@@ -432,6 +435,24 @@ public class ProductEditController extends DefaultShowController implements Init
     public boolean isValidPrice(String price) {
         String regex = "^(\\d+|\\d*\\.\\d{1,2})$";
         return price.matches(regex);
+    }
+
+    public String formatBarCode(String barCode) {
+        if (barCode.length() < 13) {
+            int zerosToAdd = 13 - barCode.length();
+            StringBuilder zeros = new StringBuilder();
+            for (int i = 0; i < zerosToAdd; i++) {
+                zeros.append("0");
+            }
+            return  barCode + zeros.toString();
+        } else {
+            return barCode;
+        }
+    }
+    public boolean isValidBarCode(String barCode) {
+        String formattedBarCode = formatBarCode(barCode);
+        String regex = "^\\d{13}$";
+        return formattedBarCode.matches(regex);
     }
 
     public boolean isValidQuantity(String value) {
