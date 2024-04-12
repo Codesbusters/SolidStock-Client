@@ -1,7 +1,9 @@
-package fr.codesbusters.solidstock.model;
+package fr.codesbusters.solidstock.model.order;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class OrdersModel {
 
     private int id;
@@ -22,28 +24,24 @@ public class OrdersModel {
     private String dueDate;
 
     @Getter
-    private int estimateId;
-
-    @Getter
     private int statusId;
 
     @Getter
     private String statusName;
 
-    public OrdersModel(int id, String subject, String description, int customerId, String customerName, String dueDate, int estimateId, int statusId, String statusName) {
+    public OrdersModel(int id, String subject, String description, int customerId, String customerName, String dueDate, int statusId, String statusName) {
         setID(id);
         setSubject(subject);
         setDescription(description);
         setCustomerId(customerId);
         setCustomerName(customerName);
         setDueDate(dueDate);
-        setEstimateId(estimateId);
         setStatusId(statusId);
         setStatusName(statusName);
     }
 
-    public static OrdersModel ofSplit(int id, String subject, String description, int customerId, String customerName, String dueDate, int estimateId, int statusId, String statusName) {
-        return new OrdersModel(id, subject, description, customerId, customerName, dueDate, estimateId, statusId, statusName);
+    public static OrdersModel ofSplit(int id, String subject, String description, int customerId, String customerName, String dueDate, int statusId, String statusName) {
+        return new OrdersModel(id, subject, description, customerId, customerName, dueDate, statusId, statusName);
     }
 
     public int getID() {
@@ -74,9 +72,6 @@ public class OrdersModel {
         this.dueDate = dueDate;
     }
 
-    public void setEstimateId(int estimateId) {
-        this.estimateId = estimateId;
-    }
 
     public void setStatusId(int statusId) {
         this.statusId = statusId;
