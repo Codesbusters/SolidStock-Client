@@ -5,13 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.invoice.GetInvoiceDto;
-import fr.codesbusters.solidstock.model.SupplierModel;
 import fr.codesbusters.solidstock.model.invoice.InvoiceModel;
 import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
+import io.github.palexdev.materialfx.filter.DoubleFilter;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.collections.FXCollections;
@@ -20,15 +20,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import javafx.embed.swing.SwingNode;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -37,10 +33,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
-
-import static java.awt.Desktop.getDesktop;
 
 @Slf4j
 @Controller
@@ -61,7 +54,7 @@ public class InvoiceController extends DefaultShowController implements Initiali
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupTable();
-        table.autosizeColumnsOnInitialization();
+
     }
 
     @FXML
@@ -73,10 +66,12 @@ public class InvoiceController extends DefaultShowController implements Initiali
 
     private void setupTable() {
         MFXTableColumn<InvoiceModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(InvoiceModel::getID));
+        MFXTableColumn<InvoiceModel> dateColumn = new MFXTableColumn<>("Date", true, Comparator.comparing(InvoiceModel::getDate));
         MFXTableColumn<InvoiceModel> NameColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(InvoiceModel::getName));
         MFXTableColumn<InvoiceModel> descriptionColumn = new MFXTableColumn<>("Description", true, Comparator.comparing(InvoiceModel::getDescription));
         MFXTableColumn<InvoiceModel> customerNameColumn = new MFXTableColumn<>("Client", true, Comparator.comparing(InvoiceModel::getCustomerName));
-        MFXTableColumn<InvoiceModel> dateColumn = new MFXTableColumn<>("Date", true, Comparator.comparing(InvoiceModel::getDate));
+        MFXTableColumn<InvoiceModel> totalHtColumn = new MFXTableColumn<>("Total HT", true, Comparator.comparing(InvoiceModel::getTotalHt));
+        MFXTableColumn<InvoiceModel> totalTtcColumn = new MFXTableColumn<>("Total TTC", true, Comparator.comparing(InvoiceModel::getTotalTtc));
 
 
         idColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(InvoiceModel::getID) {
@@ -109,19 +104,32 @@ public class InvoiceController extends DefaultShowController implements Initiali
             }
         });
 
+        totalHtColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(InvoiceModel::getTotalHt) {
+            {
+                setAlignment(Pos.CENTER_LEFT);
+            }
+        });
 
-        table.getTableColumns().addAll(idColumn, NameColumn, descriptionColumn, customerNameColumn, dateColumn);
+        totalTtcColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(InvoiceModel::getTotalTtc) {
+            {
+                setAlignment(Pos.CENTER_LEFT);
+            }
+        });
+
+
+        table.getTableColumns().addAll(idColumn, dateColumn, NameColumn, descriptionColumn, customerNameColumn,  totalHtColumn, totalTtcColumn);
         table.getFilters().addAll(
                 new IntegerFilter<>("Réf.", InvoiceModel::getID),
+                new StringFilter<>("Date", InvoiceModel::getDate),
                 new StringFilter<>("Nom", InvoiceModel::getName),
                 new StringFilter<>("Description", InvoiceModel::getDescription),
                 new StringFilter<>("Client", InvoiceModel::getCustomerName),
-                new StringFilter<>("Date", InvoiceModel::getDate)
+                new DoubleFilter<>("Total HT", InvoiceModel::getTotalHt),
+                new DoubleFilter<>("Total TTC", InvoiceModel::getTotalTtc)
         );
 
         reloadInvoice();
     }
-
 
 
     @FXML
@@ -196,16 +204,19 @@ public class InvoiceController extends DefaultShowController implements Initiali
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDateTime date = LocalDateTime.parse(invoiceDto.getCreatedAt(), DateTimeFormatter.ISO_DATE_TIME);
             invoiceModel.setDate(date.format(formatter));
+            invoiceModel.setTotalHt(invoiceDto.getTotalHt());
+            invoiceModel.setTotalTtc(invoiceDto.getTotalTtc());
 
             invoicesModels.add(invoiceModel);
         }
 
         table.getItems().addAll(invoicesModels);
+        table.autosizeColumnsOnInitialization();
     }
 
     @FXML
     public void downloadInvoice(ActionEvent actionEvent) throws IOException {
-        InvoiceModel invoiceModel = table.getSelectionModel().getSelectedValues().getFirst();
+        InvoiceModel invoiceModel = table.getSelectionModel().getSelectedValue();
 
         if (invoiceModel == null) {
             openDialog(stackPane.getScene(), "Veuillez sélectionner une facture", DialogType.ERROR, 0);
@@ -245,4 +256,3 @@ public class InvoiceController extends DefaultShowController implements Initiali
         }
     }
 }
-

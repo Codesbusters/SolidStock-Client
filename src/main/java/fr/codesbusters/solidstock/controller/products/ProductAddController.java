@@ -228,6 +228,11 @@ public class ProductAddController extends DefaultController implements Initializ
                 log.error("Error while parsing supplier list", e);
             }
             MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<>();
+            if (imageSelected == null) {
+                cancel();
+                openDialog(stackPane.getScene(), "Produit " + product.getName() + " ajouté avec succès", DialogType.INFORMATION, 0);
+                return;
+            }
             requestBody.add("file", new FileSystemResource(imageSelected));
             assert productResponse != null;
             ResponseEntity<String> responseEntity2 = requestAPI.sendPutRequestWithFile("/product/" + productResponse.getId() + "/image", requestBody, String.class, true);

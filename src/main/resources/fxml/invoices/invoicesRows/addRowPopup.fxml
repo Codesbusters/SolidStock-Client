@@ -8,8 +8,8 @@
 <?import javafx.scene.control.TextArea?>
 <?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
-           fx:controller="fr.codesbusters.solidstock.controller.invoices.invoiceRow.InvoiceRowEditController" fx:id="stackPane"
-           stylesheets="@../../css/MFXColors.css">
+           fx:controller="fr.codesbusters.solidstock.controller.invoices.invoicesRows.InvoiceRowAddController" fx:id="stackPane"
+           stylesheets="@../../../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
@@ -21,7 +21,7 @@
                 <padding>
                     <Insets left="10.0"/>
                 </padding>
-                <Label text="Modifier une ligne à la facture">
+                <Label text="Ajouter une ligne à la facture">
                     <font>
                         <Font name="System Bold" size="22.0"/>
                     </font>
@@ -41,10 +41,6 @@
                     </padding>
                     <HBox alignment="CENTER">
                         <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS">
-                            <MFXTextField floatMode="BORDER" floatingText="Identifiant"
-                                          prefWidth="310"
-                                          maxWidth="310" fx:id="invoiceRowId" disable="true" >
-                            </MFXTextField>
                             <HBox VBox.vgrow="ALWAYS" spacing="6" prefWidth="280.0" maxWidth="280.0" minWidth="280.0">
                                 <Label fx:id="productName" style="font-weight-absolute: 20;" alignment="CENTER_RIGHT" prefWidth="150" maxWidth="150" minWidth="150" minHeight="38"/>
                                 <MFXTextField floatMode="BORDER" floatingText="Référence Produit"
@@ -94,13 +90,13 @@
                            text="ANNULER" prefHeight="38"
                            buttonType="RAISED" styleClass="outline-button"
                            style="-fx-border-color: black; -fx-background-radius: 8; -fx-border-radius: 8;  -fx-font-weight: bold; -fx-cursor: hand;"
-                           HBox.hgrow="ALWAYS" onAction="#cancel" />
+                           HBox.hgrow="ALWAYS" onAction="#cancel"/>
 
                 <MFXButton id="accept" minHeight="27.0" minWidth="70.0" prefWidth="100"
                            prefHeight="38" text="AJOUTER"
                            style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
                            buttonType="RAISED" styleClass="mfx-button"
-                           HBox.hgrow="ALWAYS" onAction="#editInvoiceRow" />
+                           HBox.hgrow="ALWAYS" onAction="#addInvoiceRow" />
             </HBox>
 
 

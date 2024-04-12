@@ -8,7 +8,10 @@ import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.invoice.GetInvoiceDto;
 import fr.codesbusters.solidstock.dto.invoice.GetInvoiceRowDto;
 import fr.codesbusters.solidstock.dto.invoice.PostInvoiceDto;
+import fr.codesbusters.solidstock.dto.supplier.GetSupplierDto;
 import fr.codesbusters.solidstock.listener.CustomerSelectorListener;
+import fr.codesbusters.solidstock.model.ProductModel;
+import fr.codesbusters.solidstock.model.invoice.InvoiceModel;
 import fr.codesbusters.solidstock.model.invoice.InvoiceRowModel;
 import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
@@ -24,6 +27,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +35,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -126,7 +132,7 @@ public class InvoiceEditController extends DefaultShowController implements Init
         }
 
         RequestAPI requestAPI = new RequestAPI();
-        ResponseEntity<String> responseEntity = requestAPI.sendPutRequest("/invoice/" + getId(), invoice, String.class, true);
+        ResponseEntity<String> responseEntity = requestAPI.sendPutRequest("/invoice/"+getId(), invoice, String.class, true);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             cancel();
             openDialog(stackPane.getScene(), "Facture modifiée avec succès.", DialogType.INFORMATION, 0);
@@ -192,14 +198,14 @@ public class InvoiceEditController extends DefaultShowController implements Init
 
     @FXML
     public void addInvoiceRow(ActionEvent actionEvent) {
-        openPopUp("/invoices/addRowPopup.fxml", stackPane.getScene(), "Ajouter une ligne de facture");
+        openPopUp("/invoices/invoicesRows/addRowPopup.fxml", stackPane.getScene(),"Ajouter une ligne de facture");
         reloadInvoiceRow();
 
     }
 
     @FXML
     public void editInvoiceRow(ActionEvent actionEvent) {
-        InvoiceRowModel invoiceRowModel = table.getSelectionModel().getSelectedValues().getFirst();
+        InvoiceRowModel invoiceRowModel =  table.getSelectionModel().getSelectedValues().getFirst();
         if (invoiceRowModel == null) {
             openDialog(stackPane.getScene(), "Veuillez sélectionner une facture.", DialogType.ERROR, 0);
             return;
@@ -207,15 +213,15 @@ public class InvoiceEditController extends DefaultShowController implements Init
 
 
         setIntermediaryId(invoiceRowModel.getID());
-        openPopUp("/invoices/editRowPopup.fxml", stackPane.getScene(), "Modifier une ligne de facture");
+        openPopUp("/invoices/invoicesRows/editRowPopup.fxml", stackPane.getScene(),"Modifier une ligne de facture");
         reloadInvoiceRow();
     }
 
     @FXML
     public void removeInvoiceRow(ActionEvent actionEvent) {
-        InvoiceRowModel invoiceRowModel = table.getSelectionModel().getSelectedValues().getFirst();
+       InvoiceRowModel invoiceRowModel =  table.getSelectionModel().getSelectedValues().getFirst();
 
-        RequestAPI requestAPI = new RequestAPI();
+         RequestAPI requestAPI = new RequestAPI();
         ResponseEntity<String> responseEntity = requestAPI.sendDeleteRequest("/invoice/" + getId() + "/row/" + invoiceRowModel.getID(), String.class, true);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             openDialog(stackPane.getScene(), "Ligne de facture supprimée avec succès.", DialogType.INFORMATION, 0);

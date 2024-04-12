@@ -1,8 +1,11 @@
 package fr.codesbusters.solidstock.controller;
 
 
-import fr.codesbusters.solidstock.controller.selectors.*;
+import fr.codesbusters.solidstock.controller.selectors.CustomerSelectorController;
+import fr.codesbusters.solidstock.controller.selectors.EstimateSelectorController;
+import fr.codesbusters.solidstock.controller.selectors.ProductSelectorController;
 import fr.codesbusters.solidstock.controller.selectors.productFamily.ProductFamilySelectorController;
+import fr.codesbusters.solidstock.controller.selectors.SupplierSelectorController;
 import fr.codesbusters.solidstock.listener.*;
 import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
 import io.github.palexdev.materialfx.css.themes.Themes;
@@ -28,6 +31,7 @@ import org.scenicview.ScenicView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DefaultController {
@@ -148,6 +152,7 @@ public class DefaultController {
             Scene newScene = new Scene(root);
 
             MFXThemeManager.addOn(newScene, Themes.DEFAULT, Themes.LEGACY);
+            newScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
 
             // Créez une nouvelle fenêtre modale pour la pop-up
             Stage popupStage = new Stage();
@@ -347,10 +352,6 @@ public class DefaultController {
                     ScenicView.show(newScene);
                 }
             });
-
-            EstimateSelectorController controller = loader.getController();
-            controller.setStage(popupStage);
-            controller.setListener(listener);
 
             popupStage.initModality(Modality.WINDOW_MODAL);
             popupStage.initOwner(primaryStage);

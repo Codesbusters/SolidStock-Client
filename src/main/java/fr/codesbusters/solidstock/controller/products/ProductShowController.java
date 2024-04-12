@@ -139,11 +139,6 @@ public class ProductShowController extends DefaultShowController implements Init
         String productNameString = productName.getText();
         String productSupplierString = supplierName.getText();
 
-        // Création de l'objet Supplier
-        GetProductDto product = new GetProductDto();
-        product.setId(idInteger);
-        product.setName(productNameString);
-        product.setSupplierName(productSupplierString);
         
         
         // Envoie de la requête
@@ -152,7 +147,7 @@ public class ProductShowController extends DefaultShowController implements Init
         requestAPI.sendPostRequest("/product/" + idInteger, null,  String.class, true, true);
 
         cancel();
-        openDialog(stackPane.getScene(), "Produit " + product.getName() + " réactivé avec succès.", DialogType.INFORMATION, 0);
+        openDialog(stackPane.getScene(), "Produit " + productNameString+ " réactivé avec succès.", DialogType.INFORMATION, 0);
 
     }
 

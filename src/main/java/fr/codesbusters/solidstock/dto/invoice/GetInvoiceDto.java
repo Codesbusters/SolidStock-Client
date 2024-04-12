@@ -1,5 +1,6 @@
 package fr.codesbusters.solidstock.dto.invoice;
 
+import fr.codesbusters.solidstock.dto.admin.GetAdminSettingsDto;
 import fr.codesbusters.solidstock.dto.customer.GetCustomerDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +19,10 @@ public class GetInvoiceDto {
         private String name;
         private String description;
         private GetCustomerDto customer;
+        private GetAdminSettingsDto ownerCompany;
         private List<GetInvoiceRowDto> invoiceRows;
+        private double totalHt;
+        private double totalTtc;
         private String createdAt;
         private String updatedAt;
 }

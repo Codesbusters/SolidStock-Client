@@ -33,7 +33,6 @@ public class GetSupplierDto {
     private int rcs;
     private String note;
     private boolean isDeleted;
-    private List<Integer> products;
     private List<String> deliveries;
     private String createdAt;
     private String updatedAt;

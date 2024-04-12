@@ -1,9 +1,8 @@
-package fr.codesbusters.solidstock.controller.invoices.invoiceRow;
+package fr.codesbusters.solidstock.controller.invoices.invoicesRows;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
-import fr.codesbusters.solidstock.dto.invoice.GetInvoiceRowDto;
 import fr.codesbusters.solidstock.dto.invoice.PostInvoiceRowDto;
 import fr.codesbusters.solidstock.listener.ProductSelectorListener;
 import fr.codesbusters.solidstock.service.RequestAPI;
@@ -23,13 +22,10 @@ import java.util.ResourceBundle;
 
 @Slf4j
 @Controller
-public class InvoiceRowEditController extends DefaultShowController implements Initializable, ProductSelectorListener {
+public class InvoiceRowAddController extends DefaultShowController implements Initializable, ProductSelectorListener {
 
     @FXML
     public StackPane stackPane;
-
-    @FXML
-    public MFXTextField invoiceRowId;
 
     @FXML
     public MFXTextField productId;
@@ -44,28 +40,10 @@ public class InvoiceRowEditController extends DefaultShowController implements I
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        RequestAPI requestAPI = new RequestAPI();
-        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/invoice/" + getId() + "/row/"+getIntermediaryId(), String.class, true, true);
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        GetInvoiceRowDto getInvoiceRowDto = null;
-        try {
-            getInvoiceRowDto = objectMapper.readValue(responseEntity.getBody(), GetInvoiceRowDto.class);
-        } catch (Exception e) {
-            log.error("Error while converting json to object", e);
-        }
-
-        invoiceRowId.setText(String.valueOf(getInvoiceRowDto.getId()));
-        productId.setText(String.valueOf(getInvoiceRowDto.getProduct().getId()));
-        productName.setText(getInvoiceRowDto.getProduct().getName());
-        productQuantity.setText(String.valueOf(getInvoiceRowDto.getQuantity()));
-        productPrice.setText(String.valueOf(getInvoiceRowDto.getSellPrice()));
-
-
     }
 
     @FXML
-    public void editInvoiceRow() {
+    public void addInvoiceRow() {
         String productId = this.productId.getText();
         String productName = this.productName.getText();
         String productQuantity = this.productQuantity.getText();
@@ -77,7 +55,7 @@ public class InvoiceRowEditController extends DefaultShowController implements I
         }
 
         try {
-            Integer.parseInt(productQuantity);
+            Double.parseDouble(productQuantity);
         } catch (NumberFormatException e) {
             openDialog(stackPane.getScene(), "La quantité doit être un nombre.", DialogType.ERROR, 0);
             return;
@@ -105,7 +83,7 @@ public class InvoiceRowEditController extends DefaultShowController implements I
         }
 
         RequestAPI requestAPI = new RequestAPI();
-        ResponseEntity<String> responseEntity = requestAPI.sendPutRequest("/invoice/"+ getId() + "/row/"+getIntermediaryId(), json, String.class, true);
+        ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/invoice/" + getId() + "/row/add", json, String.class, true, true);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             cancel();
         } else {

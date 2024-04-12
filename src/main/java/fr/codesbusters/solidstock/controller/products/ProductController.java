@@ -1,5 +1,6 @@
 package fr.codesbusters.solidstock.controller.products;
 
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
@@ -33,10 +34,13 @@ import java.util.ResourceBundle;
 public class ProductController extends DefaultShowController implements Initializable {
     @FXML
     private StackPane stackPane;
+
     @FXML
     private MFXTableView<ProductModel> table;
+
     @FXML
     private MFXButton modifyButton;
+
     @FXML
     private MFXButton deleteButton;
 
@@ -60,11 +64,13 @@ public class ProductController extends DefaultShowController implements Initiali
         });
     }
 
+
     @FXML
     public void addProduct() {
         openPopUp("products/addPopup.fxml", stackPane.getScene(), "Ajouter un produit");
         reloadProduct();
     }
+
 
     private void setupTable() {
         MFXTableColumn<ProductModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(ProductModel::getID));
@@ -85,7 +91,7 @@ public class ProductController extends DefaultShowController implements Initiali
         });
         nameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(ProductModel::getName) {
             {
-                setAlignment(Pos.CENTER_RIGHT);
+                setAlignment(Pos.CENTER_LEFT);
                 if (product != null && product.getIsDisabled()) {
                     setStyle("-fx-opacity: 0.5;");
                 }
@@ -135,7 +141,7 @@ public class ProductController extends DefaultShowController implements Initiali
             }
         });
 
-        table.getTableColumns().addAll(idColumn, nameColumn, descriptionColumn, inStockColumn, selledColumn, sellPrice, buyPrice);
+        table.getTableColumns().addAll(idColumn, nameColumn, inStockColumn, selledColumn, sellPrice, buyPrice);
         table.getFilters().addAll(
                 new IntegerFilter<>("Réf.", ProductModel::getID),
                 new StringFilter<>("Libelle", ProductModel::getName),
@@ -200,6 +206,8 @@ public class ProductController extends DefaultShowController implements Initiali
         reloadProduct();
     }
 
+
+
     @FXML
     public void reloadProduct() {
         table.getItems().clear();
@@ -238,6 +246,7 @@ public class ProductController extends DefaultShowController implements Initiali
             productModel.setBuyPrice(Double.parseDouble(product.getBuyPrice()));
             productModel.setMinimumStockQuantity(product.getMinimumStockQuantity());
             productModel.setIsDisabled(product.isDeleted());
+
             productModels.add(productModel);
         }
         productModels.sort(Comparator.comparingInt(ProductModel::getID));

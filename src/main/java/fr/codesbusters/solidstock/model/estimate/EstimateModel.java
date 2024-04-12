@@ -1,10 +1,10 @@
-package fr.codesbusters.solidstock.model.invoice;
+package fr.codesbusters.solidstock.model.estimate;
 
 import javafx.beans.property.*;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class InvoiceModel {
+public class EstimateModel {
 
     private final IntegerProperty id = new SimpleIntegerProperty();
     private final StringProperty date = new SimpleStringProperty("");
@@ -14,9 +14,9 @@ public class InvoiceModel {
     private final DoubleProperty totalHt = new SimpleDoubleProperty();
     private final DoubleProperty totalTtc = new SimpleDoubleProperty();
 
+    //TODO: add expiry date
 
-
-    public InvoiceModel(int id, String name, String description, String customerName, String date, double totalHt, double totalTtc) {
+    public EstimateModel(int id, String name, String description, String customerName, String date, double totalHt, double totalTtc) {
         this.id.set(id);
         this.name.set(name);
         this.description.set(description);
@@ -26,10 +26,9 @@ public class InvoiceModel {
         this.totalTtc.set(totalTtc);
     }
 
-    public static InvoiceModel ofSplit(int id, String name, String description, String customerName, String date, double totalHt, double totalTtc) {
-        return new InvoiceModel(id, name, description, customerName, date, totalHt, totalTtc);
+    public static EstimateModel ofSplit(int id, String name, String description, String customerName, String date, double totalHt, double totalTtc) {
+        return new EstimateModel(id, name, description, customerName, date, totalHt, totalTtc);
     }
-
 
     public int getID() {
         return id.get();
@@ -72,26 +71,6 @@ public class InvoiceModel {
         this.date.set(date);
     }
 
-    public IntegerProperty idProperty() {
-        return id;
-    }
-
-    public StringProperty nameProperty() {
-        return name;
-    }
-
-    public StringProperty descriptionProperty() {
-        return description;
-    }
-
-    public StringProperty customerNameProperty() {
-        return customerName;
-    }
-
-    public StringProperty dateProperty() {
-        return date;
-    }
-
     public double getTotalHt() {
         return totalHt.get();
     }
@@ -107,16 +86,4 @@ public class InvoiceModel {
     public void setTotalTtc(double totalTtc) {
         this.totalTtc.set(totalTtc);
     }
-
-    public DoubleProperty totalHtProperty() {
-        return totalHt;
-    }
-
-    public DoubleProperty totalTtcProperty() {
-        return totalTtc;
-    }
-
-
-
-
 }
