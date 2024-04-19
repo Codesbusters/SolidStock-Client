@@ -6,19 +6,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultShowController;
 import fr.codesbusters.solidstock.dto.order.GetOrderDto;
+import fr.codesbusters.solidstock.model.StockMovementModel;
+import fr.codesbusters.solidstock.model.SupplierModel;
 import fr.codesbusters.solidstock.model.order.OrdersModel;
 import fr.codesbusters.solidstock.service.RequestAPI;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
+import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,10 +34,12 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 
@@ -40,6 +49,10 @@ public class OrdersFormController extends DefaultShowController implements Initi
 
     @FXML
     private StackPane stackPane;
+    @FXML
+    public MFXButton modifyButton;
+    @FXML
+    public MFXButton cancelButton;
 
     @FXML
     private MFXTableView<OrdersModel> table;
@@ -48,6 +61,19 @@ public class OrdersFormController extends DefaultShowController implements Initi
     public void initialize(URL location, ResourceBundle resources) {
         setupTable();
         table.autosizeColumnsOnInitialization();
+        table.setOnMouseClicked(event -> {
+            OrdersModel order = table.getSelectionModel().getSelectedValue();
+
+            if (order != null ) {
+                if (Objects.equals(order.getStatusName(), "Annulé")) {
+                    modifyButton.setDisable(true);
+                    cancelButton.setDisable(true);
+                } else {
+                    modifyButton.setDisable(false);
+                    cancelButton.setDisable(false);
+                }
+            }
+        });
     }
 
 
@@ -60,6 +86,7 @@ public class OrdersFormController extends DefaultShowController implements Initi
 
     private void setupTable() {
 
+        MFXTableColumn<OrdersModel> icon = new MFXTableColumn<>("", true, Comparator.comparing(OrdersModel::getStatusName));
         MFXTableColumn<OrdersModel> idColumn = new MFXTableColumn<>("Réf.", true, Comparator.comparing(OrdersModel::getID));
         MFXTableColumn<OrdersModel> subjectColumn = new MFXTableColumn<>("Sujet", true, Comparator.comparing(OrdersModel::getSubject));
         MFXTableColumn<OrdersModel> descriptionColumn = new MFXTableColumn<>("Description", true, Comparator.comparing(OrdersModel::getDescription));
@@ -68,18 +95,92 @@ public class OrdersFormController extends DefaultShowController implements Initi
         MFXTableColumn<OrdersModel> dueDateColumn = new MFXTableColumn<>("Date de livraison", true, Comparator.comparing(OrdersModel::getDueDate));
         MFXTableColumn<OrdersModel> statusNameColumn = new MFXTableColumn<>("Statut", true, Comparator.comparing(OrdersModel::getStatusName));
 
-        idColumn.setRowCellFactory(product -> new MFXTableRowCell<>(OrdersModel::getID));
-        subjectColumn.setRowCellFactory(product -> new MFXTableRowCell<>(OrdersModel::getSubject));
-        descriptionColumn.setRowCellFactory(product -> new MFXTableRowCell<>(OrdersModel::getDescription));
-        customerIdColumn.setRowCellFactory(product -> new MFXTableRowCell<>(OrdersModel::getCustomerId));
-        customerNameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(OrdersModel::getCustomerName));
-        dueDateColumn.setRowCellFactory(product -> new MFXTableRowCell<>(OrdersModel::getDueDate));
-        statusNameColumn.setRowCellFactory(product -> new MFXTableRowCell<>(OrdersModel::getStatusName));
+
+        icon.setRowCellFactory(rowCell -> new MFXTableRowCell<>(OrdersModel::getStatusName) {{
+            MFXFontIcon icon;
+
+            if (rowCell != null) {
+                String statusName = rowCell.getStatusName();
+
+                if (Objects.equals(statusName, "Annulé")) {
+                    icon = new MFXFontIcon("fas-x");
+                    icon.setColor(Color.rgb(255, 0, 0));
+                } else if (Objects.equals(statusName, "En attente de validation")) {
+                    icon = new MFXFontIcon("fas-hourglass-half");
+                    icon.setColor(Color.rgb(255, 130, 20));
+                } else {
+                    icon = new MFXFontIcon("fas-circle-check");
+                    icon.setColor(Color.rgb(0, 255, 0));
+                }
+
+                icon.setSize(20);
+                setGraphic(icon);
+            }
+
+            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            setAlignment(Pos.CENTER);
+        }});
+
+        idColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(OrdersModel::getID) {
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (rowCell != null && Objects.equals(rowCell.getStatusName(), "Annulé")) {
+                    setStyle("-fx-opacity: 0.5");
+                }
+            }
+        });
+        subjectColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(OrdersModel::getSubject) {
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (rowCell != null && Objects.equals(rowCell.getStatusName(), "Annulé")) {
+                    setStyle("-fx-opacity: 0.5");
+                }
+            }
+        });
+        descriptionColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(OrdersModel::getDescription) {
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (rowCell != null && Objects.equals(rowCell.getStatusName(), "Annulé")) {
+                    setStyle("-fx-opacity: 0.5");
+                }
+            }
+        });
+        customerIdColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(OrdersModel::getCustomerId) {
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (rowCell != null && Objects.equals(rowCell.getStatusName(), "Annulé")) {
+                    setStyle("-fx-opacity: 0.5");
+                }
+            }
+        });
+        customerNameColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(OrdersModel::getCustomerName) {
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (rowCell != null && Objects.equals(rowCell.getStatusName(), "Annulé")) {
+                    setStyle("-fx-opacity: 0.5");
+                }
+            }
+        });
+        dueDateColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(OrdersModel::getDueDate) {
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (rowCell != null && Objects.equals(rowCell.getStatusName(), "Annulé")) {
+                    setStyle("-fx-opacity: 0.5");
+                }
+            }
+        });
+        statusNameColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(OrdersModel::getStatusName) {
+            {
+                setAlignment(Pos.CENTER_LEFT);
+                if (rowCell != null && Objects.equals(rowCell.getStatusName(), "Annulé")) {
+                    setStyle("-fx-opacity: 0.5");
+                }
+            }
+        });
 
 
-        table.getTableColumns().addAll(idColumn, subjectColumn, descriptionColumn, customerIdColumn, customerNameColumn, dueDateColumn, statusNameColumn);
+        table.getTableColumns().addAll(icon ,idColumn, subjectColumn, descriptionColumn, customerIdColumn, customerNameColumn, dueDateColumn, statusNameColumn);
         table.getFilters().addAll(
-                new IntegerFilter<>("Réf.", OrdersModel::getID),
                 new StringFilter<>("Sujet", OrdersModel::getSubject),
                 new IntegerFilter<>("ID Client", OrdersModel::getCustomerId),
                 new StringFilter<>("Nom Client", OrdersModel::getCustomerName),
@@ -143,6 +244,7 @@ public class OrdersFormController extends DefaultShowController implements Initi
             log.error("Error while parsing order list", e);
         }
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         ObservableList<OrdersModel> ordersModels = FXCollections.observableArrayList();
         assert orderList != null;
         for (GetOrderDto orderDto : orderList) {
@@ -155,16 +257,16 @@ public class OrdersFormController extends DefaultShowController implements Initi
                 customerName = orderDto.getCustomer().getFirstName() + " " + orderDto.getCustomer().getLastName();
             }
             ordersModel.setCustomerName(customerName);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDateTime date = LocalDateTime.parse(orderDto.getEstimateDate(), DateTimeFormatter.ISO_DATE_TIME);
-            ordersModel.setDueDate(date.format(formatter));
-            ordersModel.setSubject(orderDto.getStatus());
+            ordersModel.setDueDate(orderDto.getEstimateDate() == null ? "" : LocalDate.parse(orderDto.getEstimateDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")).format(formatter));
+            ordersModel.setSubject(orderDto.getName());
+            ordersModel.setStatusName(orderDto.getStatus());
 
             ordersModels.add(ordersModel);
         }
+        log.info("Liste des commandes récupérées depuis l'API : {}", ordersModels);
 
         table.getItems().addAll(ordersModels);
-        table.autosizeColumnsOnInitialization();
+        table.autosizeColumns();
     }
 
     @FXML

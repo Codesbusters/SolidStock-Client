@@ -2,44 +2,42 @@ package fr.codesbusters.solidstock.controller.orders;
 
 
 import fr.codesbusters.solidstock.business.DialogType;
-import fr.codesbusters.solidstock.business.OrderForm;
 import fr.codesbusters.solidstock.controller.DefaultController;
+import fr.codesbusters.solidstock.dto.order.PostOrderDto;
 import fr.codesbusters.solidstock.listener.CustomerSelectorListener;
-import fr.codesbusters.solidstock.listener.EstimateSelectorListener;
+import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Slf4j
 @Controller
-public class OrdersAddController extends DefaultController implements Initializable, CustomerSelectorListener, EstimateSelectorListener {
+public class OrdersAddController extends DefaultController implements Initializable, CustomerSelectorListener {
+
 
     @FXML
-    StackPane stackPane;
+    public StackPane stackPane;
     @FXML
-    MFXTextField subject;
+    public MFXTextField subject;
     @FXML
-    TextArea description;
+    public TextArea description;
     @FXML
-    MFXTextField customerId;
+    public Label customerName;
     @FXML
-    MFXTextField customerName;
+    public MFXTextField customerId;
     @FXML
-    MFXDatePicker dueDate;
-    @FXML
-    MFXTextField estimateId;
-    @FXML
-    MFXTextField statusName;
-
+    public MFXDatePicker dueDate;
     @FXML
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
     }
@@ -47,71 +45,33 @@ public class OrdersAddController extends DefaultController implements Initializa
 
     @FXML
     public void addOrders() throws NumberFormatException {
-        String subjectString = subject.getText();
-        String descriptionString = description.getText();
-        String customerNameString = customerName.getText();
-        LocalDate dueDateValue = dueDate.getValue();
-        String dueDateString = dueDateValue.toString();
-        String statusNameString = statusName.getText();
-
-        // Vérification du sujet
-        if (subjectString.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Le sujet est vide");
-            alert.setContentText("Veuillez saisir un sujet");
-            alert.showAndWait();
-        }
-
-        // Vérification de la description
-        if (descriptionString.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("La description est vide");
-            alert.setContentText("Veuillez saisir une description");
-            alert.showAndWait();
-        }
-
-        // Vérification du nom du client
-        if (customerNameString.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Le nom du client est vide");
-            alert.setContentText("Veuillez saisir un nom de client");
-            alert.showAndWait();
-        }
-
-        // Vérification de la date d'échéance
-        if (dueDateString.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("La date est vide");
-            alert.setContentText("Veuillez saisir une date");
-            alert.showAndWait();
-        }
-
-        // Vérification du nom du statut
-        if (statusNameString.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Le nom du statut est vide");
-            alert.setContentText("Veuillez saisir un nom de statut");
-            alert.showAndWait();
-        }
-
         // Création de l'objet Orders
-        OrderForm order = new OrderForm();
-        order.setSubject(subjectString);
-        order.setDescription(descriptionString);
-        order.setCustomerName(customerNameString);
-        order.setDueDate(dueDateValue);
-        order.setStatusName(statusNameString);
+        PostOrderDto order = new PostOrderDto();
+        order.setName(subject.getText());
+        order.setDescription(description.getText());
+        if (dueDate.getValue() != null) {
+            order.setEstimateDate(dueDate.getValue().toString());
+        }
+        order.setCustomerId(Integer.parseInt(customerId.getText()));
 
-        log.info("Order to add : {}", order);
+        if (order.getName().isEmpty() || order.getDescription().isEmpty() || order.getCustomerId() == 0) {
+            openDialog(stackPane.getScene(), "Veuillez remplir tous les champs.", DialogType.ERROR, 0);
+            return;
+        }
 
-        cancel();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = dueDate.getValue().format(formatter);
+        order.setEstimateDate(formattedDate);
 
-        openDialog(stackPane.getScene(), "Commande " + order.getSubject() + " créée avec succès", DialogType.INFORMATION, 0);
+        RequestAPI requestAPI = new RequestAPI();
+        ResponseEntity<String> responseEntity = requestAPI.sendPostRequest("/orders/add", order, String.class, true, true);
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            cancel();
+            openDialog(stackPane.getScene(), "Commande créée avec succès.", DialogType.INFORMATION, 0);
+
+        } else {
+            openDialog(stackPane.getScene(), "Erreur lors de la création de la commande " + subject.getText() + ".", DialogType.ERROR, 0);
+        }
     }
 
     @FXML
@@ -127,16 +87,8 @@ public class OrdersAddController extends DefaultController implements Initializa
 
     @FXML
     public void processCustomerContent(String customerContent) {
-        customerName.setText(customerContent);
-    }
+        String[] customer = customerContent.split(" - ");
+        customerId.setText(customer[0]);
+        customerName.setText(customer[1]);    }
 
-    @FXML
-    public void selectEstimate() {
-        openEstimateSelector(stackPane.getScene(), this);
-    }
-
-    @FXML
-    public void processEstimateContent(String estimateContent) {
-        estimateId.setText(estimateContent);
-    }
 }

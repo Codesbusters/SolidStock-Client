@@ -15,14 +15,14 @@ import java.util.List;
 @AllArgsConstructor
 public class GetOrderDto {
 
-    private int id;
+    private long id;
     private String name;
     private String description;
     private String estimateDate;
     private String status;
     private GetCustomerDto customer;
     private GetAdminSettingsDto ownerCompany;
-    private List<GetOrderRowDto> orderRowDto;
+    private List<GetOrderRowDto> orderFormRows;
     private String createdAt;
     private String updatedAt;
 
