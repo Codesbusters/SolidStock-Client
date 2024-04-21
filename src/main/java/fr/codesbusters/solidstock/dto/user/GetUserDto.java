@@ -21,7 +21,8 @@ public class GetUserDto {
     private GetCustomerDto customer;
     private List<GetRoleDto> roles;
     private boolean isDeleted;
+    private String defaultPage;
+    private String language;
     private String createdAt;
     private String updatedAt;
-    private String defaultPage;
 }

@@ -4,15 +4,16 @@ package fr.codesbusters.solidstock.controller.userSettings;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
-import fr.codesbusters.solidstock.business.UserSettings;
 import fr.codesbusters.solidstock.controller.DefaultController;
 import fr.codesbusters.solidstock.dto.role.GetRoleDto;
 import fr.codesbusters.solidstock.dto.user.GetUserDto;
+import fr.codesbusters.solidstock.dto.user.PostUserDto;
 import fr.codesbusters.solidstock.model.SolidStockDataIntegration;
 import fr.codesbusters.solidstock.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXListView;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,10 +25,11 @@ import org.springframework.http.ResponseEntity;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 @Slf4j
 public class UserSettingsController extends DefaultController implements Initializable {
 
-
+    private static long userId = 0;
     @FXML
     public StackPane stackPane;
     @FXML
@@ -43,7 +45,7 @@ public class UserSettingsController extends DefaultController implements Initial
     @FXML
     MFXComboBox<String> defaultLoadingPageField;
     @FXML
-    MFXComboBox<String> langageField;
+    MFXComboBox<String> languageField;
     @FXML
     MFXListView<String> roleList;
     @FXML
@@ -51,7 +53,7 @@ public class UserSettingsController extends DefaultController implements Initial
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        reloadUserPreferences();
+        Platform.runLater(this::reloadUserPreferences);
     }
 
     public void saveAction() {
@@ -60,14 +62,20 @@ public class UserSettingsController extends DefaultController implements Initial
             return;
         }
         if (passwordField.getText().equals(confirmPasswordField.getText())) {
-            UserSettings userSettings = new UserSettings();
-            userSettings.setFirstName(firstNameField.getText());
-            userSettings.setLastName(lastNameField.getText());
-            userSettings.setEmail(emailField.getText());
-            userSettings.setPassword(passwordField.getText());
-            userSettings.setLangage(langageField.getText());
-            log.info(userSettings.toString());
-            openDialog(stackPane.getScene(), "Modifications sauvegardée", DialogType.INFORMATION, 0);
+            PostUserDto user = new PostUserDto();
+            user.setLastName(lastNameField.getText());
+            user.setFirstName(firstNameField.getText());
+            user.setEmail(emailField.getText());
+            user.setPassword(passwordField.getText());
+            user.setDefaultPage(defaultLoadingPageField.getSelectedItem());
+            user.setLanguage(languageField.getSelectedItem());
+
+            RequestAPI requestAPI = new RequestAPI();
+            ResponseEntity<String> userResponse = requestAPI.sendPutRequest("/user/" + userId, user, String.class, true);
+            if (userResponse.getStatusCode().is2xxSuccessful()) {
+                log.info(user.toString());
+                openDialog(stackPane.getScene(), "Modifications sauvegardée", DialogType.INFORMATION, 0);
+            }
         } else {
             openDialog(stackPane.getScene(), "Les mots de passe ne correspondent pas", DialogType.ERROR, 0);
         }
@@ -88,6 +96,7 @@ public class UserSettingsController extends DefaultController implements Initial
         }
 
         assert user != null;
+        userId = user.getId();
         lastNameField.setText(user.getLastName());
         firstNameField.setText(user.getFirstName());
         emailField.setText(user.getEmail());
@@ -102,9 +111,14 @@ public class UserSettingsController extends DefaultController implements Initial
 
         roleList.setItems(roles);
         ObservableList<String> pages = SolidStockDataIntegration.pages;
-        defaultLoadingPageField.setItems(pages);
+        defaultLoadingPageField.getItems().addAll(pages);
 
         ObservableList<String> languages = SolidStockDataIntegration.languages;
-        langageField.setItems(languages);
+        languageField.getItems().addAll(languages);
+
+        defaultLoadingPageField.setValue(user.getDefaultPage());
+        languageField.setValue(user.getLanguage());
+
+        lastConnectionField.setText(user.getUpdatedAt().substring(0, 16).replace("T", " "));
     }
 }

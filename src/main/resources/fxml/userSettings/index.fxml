@@ -138,11 +138,11 @@
                                 </VBox>
 
                                 <HBox HBox.hgrow="ALWAYS">
-                                    <MFXComboBox fx:id="langageField" floatingText="Langage" floatMode="BORDER"
+                                    <MFXComboBox fx:id="languageField" floatingText="Langage" floatMode="BORDER"
                                                  prefWidth="1000"/>
                                 </HBox>
                                 <HBox HBox.hgrow="ALWAYS">
-                                    <MFXTextField fx:id="lastConnectionField" floatingText="Dernière connexion"
+                                    <MFXTextField fx:id="lastConnectionField" floatingText="Dernière modification"
                                                   floatMode="BORDER" prefWidth="1000" disable="true"/>
                                 </HBox>
                             </VBox>
