@@ -51,13 +51,7 @@ public class UserSettingsController extends DefaultController implements Initial
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        ObservableList<String> languages = SolidStockDataIntegration.languages;
-
-        langageField.setItems(languages);
-
         reloadUserPreferences();
-
     }
 
     public void saveAction() {
@@ -109,5 +103,8 @@ public class UserSettingsController extends DefaultController implements Initial
         roleList.setItems(roles);
         ObservableList<String> pages = SolidStockDataIntegration.pages;
         defaultLoadingPageField.setItems(pages);
+
+        ObservableList<String> languages = SolidStockDataIntegration.languages;
+        langageField.setItems(languages);
     }
 }
