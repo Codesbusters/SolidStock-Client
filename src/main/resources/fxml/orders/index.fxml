@@ -11,92 +11,87 @@
            fx:controller="fr.codesbusters.solidstock.controller.orders.OrdersFormController"
            stylesheets="@../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
-        <children>
-            <AnchorPane id="pane1" maxHeight="100.0" minHeight="100.0" minWidth="400.0" prefHeight="100.0"
-                        style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
-                        VBox.vgrow="ALWAYS">
-                <children>
-                    <VBox spacing="10.0" style="-fx-padding: 20px">
-                        <children>
-                            <Label text="Commandes">
-                                <font>
-                                    <Font name="System Bold" size="22.0"/>
-                                </font>
-                            </Label>
-                            <Label text="Liste des Commandes avec les actions disponibles"/>
-                        </children>
-                        <padding>
-                            <Insets left="10.0"/>
-                        </padding>
-                    </VBox>
-                </children>
-            </AnchorPane>
-
-            <AnchorPane id="pane2" maxHeight="60.0" minHeight="30.0" minWidth="400.0" prefHeight="100.0"
-                        prefWidth="600.0"
-                        style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
-                        VBox.vgrow="ALWAYS">
-                <children>
-                    <HBox spacing="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                        <padding>
-                            <Insets top="10.0"/>
-                        </padding>
-                        <children>
-                            <HBox spacing="20.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                <children>
-                                    <MFXButton id="custom" minHeight="27.0" minWidth="90.0" prefWidth="120.0"
-                                               prefHeight="38" text="  VISUALISER"
-                                               style="-fx-background-color: #9b9b9b; -fx-background-radius: 4; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
-                                               buttonType="RAISED"
-                                               HBox.hgrow="ALWAYS" onAction="#showOrder">
-                                        <graphic>
-                                            <MFXFontIcon description="fas-eye" color="white"/>
-                                        </graphic>
-                                    </MFXButton>
-                                </children>
-                                <padding>
-                                    <Insets left="10.0"/>
-                                </padding>
-                            </HBox>
-                            <HBox spacing="10.0" alignment="CENTER_RIGHT">
-                                <children>
-                                    <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
-                                               prefHeight="38" text="AJOUTER"
-                                               style="-fx-border-color: black; -fx-font-weight: bold;  -fx-border-radius: 4; -fx-cursor: hand;"
-                                               buttonType="RAISED" onAction="#addOrder"
-                                               styleClass="outline-button" HBox.hgrow="ALWAYS"/>
-                                    <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
-                                               text="MODIFIER" prefHeight="38"
-                                               buttonType="RAISED" onAction="#editOrder"
-                                               style="-fx-background-color: #2196F3; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
-                                               HBox.hgrow="ALWAYS"/>
-                                    <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
-                                               text="SUPPRIMER" prefHeight="38"
-                                               buttonType="RAISED" onAction="#removeOrder"
-                                               style="-fx-background-color: #FF6262; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
-                                               HBox.hgrow="ALWAYS"/>
-                                </children>
-                                <HBox.margin>
-                                    <Insets right="10.0"/>
-                                </HBox.margin>
-                            </HBox>
-                        </children>
-                    </HBox>
-                </children>
-
-            </AnchorPane>
-            <AnchorPane id="pane3" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="600.0"
-                        style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
-                        VBox.vgrow="ALWAYS">
-                <MFXTableView fx:id="table" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="800.0"
-                              GridPane.columnSpan="2147483647" GridPane.rowIndex="2"
-                              AnchorPane.leftAnchor="0.0"
-                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-                              AnchorPane.bottomAnchor="0.0"/>
-            </AnchorPane>
-        </children>
         <padding>
             <Insets bottom="60.0" left="20.0" right="30.0" top="20.0"/>
         </padding>
+        <AnchorPane id="pane1" maxHeight="100.0" minHeight="100.0" minWidth="400.0" prefHeight="100.0"
+                    style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                    VBox.vgrow="ALWAYS">
+            <VBox spacing="10.0" style="-fx-padding: 20px">
+                <padding>
+                    <Insets left="10.0"/>
+                </padding>
+                <Label text="Commande">
+                    <font>
+                        <Font name="System Bold" size="22.0"/>
+                    </font>
+                </Label>
+                <Label text="Liste des Commandes avec les actions disponibles"/>
+            </VBox>
+        </AnchorPane>
+
+        <AnchorPane id="pane2" maxHeight="60.0" minHeight="30.0" minWidth="400.0" prefHeight="100.0"
+                    prefWidth="600.0"
+                    style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                    VBox.vgrow="ALWAYS">
+
+            <HBox spacing="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <padding>
+                    <Insets top="10.0"/>
+                </padding>
+                <HBox spacing="20.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                    <padding>
+                        <Insets left="10.0"/>
+                    </padding>
+                    <MFXButton id="custom" minHeight="27.0" minWidth="120.0" prefWidth="150.0"
+                               prefHeight="38" text="  TÉLÉCHARGER" onAction="#downloadOrder"
+                               style="-fx-background-color: #9b9b9b; -fx-background-radius: 4; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
+                               buttonType="RAISED"
+                               HBox.hgrow="ALWAYS">
+                        <graphic>
+                            <MFXFontIcon description="fas-download" color="white"/>
+                        </graphic>
+                    </MFXButton>
+                    <MFXButton id="custom" minHeight="27.0" minWidth="120.0" prefWidth="150.0"
+                               prefHeight="38" text="  ACTUALISER" onAction="#reloadOrder"
+                               style="-fx-background-color: #ffc300; -fx-background-radius: 4; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
+                               buttonType="RAISED"
+                               HBox.hgrow="ALWAYS">
+                        <graphic>
+                            <MFXFontIcon description="fas-arrows-rotate" color="white"/>
+                        </graphic>
+                    </MFXButton>
+                </HBox>
+                <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                    <HBox.margin>
+                        <Insets right="10.0"/>
+                    </HBox.margin>
+                    <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                               prefHeight="38" text="CRÉER"
+                               style="-fx-border-color: black; -fx-font-weight: bold;  -fx-border-radius: 4; -fx-cursor: hand;"
+                               buttonType="RAISED" onAction="#addOrder"
+                               styleClass="outline-button" HBox.hgrow="ALWAYS"/>
+                    <MFXButton fx:id="modifyButton" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                               text="MODIFIER" prefHeight="38"
+                               buttonType="RAISED" onAction="#editOrder"
+                               style="-fx-background-color: #2196F3; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
+                               HBox.hgrow="ALWAYS"/>
+                    <MFXButton fx:id="cancelButton" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                               text="ANNULER" prefHeight="38"
+                               buttonType="RAISED" onAction="#removeOrder"
+                               style="-fx-background-color: #FF6262; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
+                               HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </HBox>
+        </AnchorPane>
+        <AnchorPane id="pane3" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="600.0"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                    VBox.vgrow="ALWAYS">
+            <MFXTableView fx:id="table" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="800.0"
+                          GridPane.columnSpan="2147483647" GridPane.rowIndex="2"
+                          AnchorPane.leftAnchor="0.0"
+                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                          AnchorPane.bottomAnchor="0.0"/>
+        </AnchorPane>
     </VBox>
 </StackPane>

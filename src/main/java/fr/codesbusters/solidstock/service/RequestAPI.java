@@ -1,24 +1,9 @@
 package fr.codesbusters.solidstock.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.codesbusters.solidstock.SolidStockApplication;
 import fr.codesbusters.solidstock.business.DialogType;
 import fr.codesbusters.solidstock.controller.DefaultController;
-import fr.codesbusters.solidstock.controller.login.LoginController;
 import fr.codesbusters.solidstock.utils.ApplicationPropertiesReader;
 import fr.codesbusters.solidstock.utils.LoginScreen;
-import fr.codesbusters.solidstock.utils.TokenManager;
-import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
-import io.github.palexdev.materialfx.css.themes.Themes;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -28,12 +13,11 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Objects;
 
 
@@ -142,6 +126,7 @@ public class RequestAPI {
     private String getTempDirectory() {
         return System.getProperty("java.io.tmpdir");
     }
+
     //delete
     public <T> ResponseEntity<T> sendDeleteRequest(String url, Class<T> responseType, boolean needLogin) {
         isTokenValid();
@@ -174,9 +159,9 @@ public class RequestAPI {
         } catch (HttpClientErrorException e) {
             if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 log.error("Token is not valid");
-                    LoginScreen loginScreen = new LoginScreen();
-                    loginScreen.showLogin();
-                    defaultController.openDialog(loginScreen.getScene(), "Votre session a expiré, veuillez vous reconnecter", DialogType.ERROR, 0);
+                LoginScreen loginScreen = new LoginScreen();
+                loginScreen.showLogin();
+                defaultController.openDialog(loginScreen.getScene(), "Votre session a expiré, veuillez vous reconnecter", DialogType.ERROR, 0);
 
             }
         } catch (HttpServerErrorException e) {
