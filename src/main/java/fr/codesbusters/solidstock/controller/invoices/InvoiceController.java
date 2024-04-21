@@ -54,7 +54,7 @@ public class InvoiceController extends DefaultShowController implements Initiali
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupTable();
-
+        table.autosizeColumnsOnInitialization();
     }
 
     @FXML
@@ -211,7 +211,6 @@ public class InvoiceController extends DefaultShowController implements Initiali
         }
 
         table.getItems().addAll(invoicesModels);
-        table.autosizeColumnsOnInitialization();
     }
 
     @FXML

@@ -1,106 +1,155 @@
 package fr.codesbusters.solidstock.controller.orders;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.business.DialogType;
-import fr.codesbusters.solidstock.controller.DefaultController;
+import fr.codesbusters.solidstock.business.Status;
+import fr.codesbusters.solidstock.controller.DefaultShowController;
+import fr.codesbusters.solidstock.dto.order.GetOrderDto;
+import fr.codesbusters.solidstock.dto.order.GetOrderRowDto;
+import fr.codesbusters.solidstock.dto.order.PostOrderDto;
 import fr.codesbusters.solidstock.listener.CustomerSelectorListener;
-import fr.codesbusters.solidstock.listener.EstimateSelectorListener;
-import fr.codesbusters.solidstock.model.OrdersModel;
-import io.github.palexdev.materialfx.controls.MFXTextField;
+import fr.codesbusters.solidstock.model.order.OrderRowModel;
+import fr.codesbusters.solidstock.model.order.StatusModel;
+import fr.codesbusters.solidstock.service.RequestAPI;
+import io.github.palexdev.materialfx.controls.*;
+import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
+import io.github.palexdev.materialfx.filter.IntegerFilter;
+import io.github.palexdev.materialfx.filter.StringFilter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
+
 
 @Slf4j
 @Controller
-public class OrdersEditController extends DefaultController implements Initializable, CustomerSelectorListener, EstimateSelectorListener {
+public class OrdersEditController extends DefaultShowController implements Initializable, CustomerSelectorListener {
 
 
     @FXML
-    StackPane stackPane;
+    public StackPane stackPane;
     @FXML
-    MFXTextField orderId;
+    public MFXTextField orderId;
     @FXML
-    MFXTextField subject;
+    public MFXTextField customerId;
     @FXML
-    MFXTextField customerId;
+    public Label customerName;
     @FXML
-    MFXTextField customerName;
+    public MFXTextField orderName;
     @FXML
-    MFXTextField dueDate;
+    public MFXTextField orderDescription;
     @FXML
-    MFXTextField estimateId;
+    public MFXComboBox<Status> orderStatus;
     @FXML
-    MFXTextField statusId;
+    public MFXDatePicker dueDate;
     @FXML
-    MFXTextField statusName;
-    @FXML
-    TextArea description;
+    private MFXTableView<OrderRowModel> table;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        orderId.setText(String.valueOf(getId()));
+        ObservableList<Status> filteredStatuts = StatusModel.getFilteredStatus();
+        orderStatus.setConverter(StatusModel.getStatusStringConverter());
+        RequestAPI requestAPI = new RequestAPI();
+        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/orders/" + getId(), String.class, true, true);
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                GetOrderDto order = objectMapper.readValue(responseEntity.getBody(), new TypeReference<>() {
+                });
+                orderName.setText(order.getName());
+                orderDescription.setText(order.getDescription());
+                orderStatus.setText(order.getStatus());
+                dueDate.setText(order.getEstimateDate());
+                customerId.setText(String.valueOf(order.getCustomer().getId()));
+                orderStatus.setItems(filteredStatuts);
+                if (order.getCustomer().getCompanyName() != null && !order.getCustomer().getCompanyName().isEmpty()) {
+                    customerName.setText(order.getCustomer().getCompanyName());
+                } else {
+                    customerName.setText(order.getCustomer().getFirstName() + " " + order.getCustomer().getLastName());
+                }
+            } catch (Exception e) {
+                log.error("Error while parsing order", e);
+            }
+        }
+
+        setupTable();
+        table.autosizeColumnsOnInitialization();
     }
 
+    private void setupTable() {
+        MFXTableColumn<OrderRowModel> productColumn = new MFXTableColumn<>("Nom du produit", true, Comparator.comparing(OrderRowModel::getProductName));
+        MFXTableColumn<OrderRowModel> quantityColumn = new MFXTableColumn<>("Quantité", true, Comparator.comparing(OrderRowModel::getQuantity));
 
-    @FXML
-    public void editOrder() throws NumberFormatException, UnsupportedEncodingException {
-        String subjectString = subject.getText();
-        String descriptionString = description.getText();
-        String customerNameString = customerName.getText();
-        String dueDadescriptionring = dueDate.getText();
-        String statusNameString = statusName.getText();
+        productColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(OrderRowModel::getProductName));
+        quantityColumn.setRowCellFactory(rowCell -> new MFXTableRowCell<>(OrderRowModel::getQuantity));
 
-        // Vérification du sujet
-        if (subjectString.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez saisir un sujet", DialogType.ERROR, 0);
-        }
-
-        // Vérification de la description
-        if (descriptionString.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez saisir une description", DialogType.ERROR, 0);
-        }
-
-        // Vérification du nom du client
-        if (customerNameString.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez saisir un nom de client", DialogType.ERROR, 0);
-        }
-
-        // Vérification de la date d'échéance
-        if (dueDadescriptionring.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez saisir une date d'échéance", DialogType.ERROR, 0);
-        }
-
-        // Vérification du nom du statut
-        if (statusNameString.isEmpty()) {
-            openDialog(stackPane.getScene(), "Veuillez saisir un nom de statut", DialogType.ERROR, 0);
-        }
-
-        // Modification de l'objet Orders
-        OrdersModel ordersModel = OrdersModel.ofSplit(
-                Integer.parseInt(orderId.getText()),
-                subjectString,
-                descriptionString,
-                Integer.parseInt(customerId.getText()),
-                customerNameString,
-                dueDadescriptionring,
-                Integer.parseInt(estimateId.getText()),
-                Integer.parseInt(statusId.getText()),
-                statusNameString
+        table.getTableColumns().addAll(productColumn, quantityColumn);
+        table.getFilters().addAll(
+                new IntegerFilter<>("ID", OrderRowModel::getID),
+                new StringFilter<>("Nom du produit", OrderRowModel::getProductName)
         );
 
-        log.info("Order to add : {}", ordersModel);
+        reloadOrderRow();
+    }
 
-        cancel();
+    @FXML
+    public void editOrder() throws NumberFormatException {
+        PostOrderDto order = new PostOrderDto();
+        order.setName(orderName.getText());
+        order.setDescription(orderDescription.getText());
+        order.setCustomerId(Integer.parseInt(customerId.getText()));
+        order.setStatus(orderStatus.getText());
 
-        openDialog(stackPane.getScene(), "Commande " + ordersModel.getSubject() + " modifiée avec succès", DialogType.INFORMATION, 0);
+        if (dueDate.getValue() != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String formattedDate = dueDate.getValue().format(formatter);
+            order.setEstimateDate(formattedDate);
+        } else {
+            RequestAPI requestAPI = new RequestAPI();
+            ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/orders/" + getId(), String.class, true, true);
+            if (responseEntity.getStatusCode().is2xxSuccessful()) {
+                ObjectMapper objectMapper = new ObjectMapper();
+                try {
+                    GetOrderDto orderBis = objectMapper.readValue(responseEntity.getBody(), new TypeReference<>() {
+                    });
+                    dueDate.setText(orderBis.getEstimateDate());
+                    LocalDate estimateDate = LocalDate.parse(orderBis.getEstimateDate());
+                    dueDate.setValue(estimateDate);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    String formattedDate = dueDate.getValue().format(formatter);
+                    order.setEstimateDate(formattedDate);
+                } catch (Exception e) {
+                    log.error("Error while parsing order", e);
+                }
+            }
+        }
+
+        RequestAPI requestAPI = new RequestAPI();
+        ResponseEntity<String> responseEntity = requestAPI.sendPutRequest("/orders/" + getId(), order, String.class, true);
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            cancel();
+            openDialog(stackPane.getScene(), "Commande " + orderName.getText() + " modifiée avec succès.", DialogType.INFORMATION, 0);
+
+        } else {
+            openDialog(stackPane.getScene(), "Erreur lors de la modfication de la commande " + orderName.getText() + ".", DialogType.ERROR, 0);
+        }
     }
 
     @FXML
@@ -119,15 +168,63 @@ public class OrdersEditController extends DefaultController implements Initializ
         customerName.setText(customerContent);
     }
 
-    @FXML
-    public void selectEstimate() {
-        openEstimateSelector(stackPane.getScene(), this);
+
+    public void reloadOrderRow() {
+        table.getItems().clear();
+
+        RequestAPI requestAPI = new RequestAPI();
+
+        ResponseEntity<String> responseEntity = requestAPI.sendGetRequest("/orders/" + getId() + "/row/all", String.class, true, true);
+        ObjectMapper mapper = new ObjectMapper();
+        List<GetOrderRowDto> orderList = null;
+        try {
+            orderList = mapper.readValue(responseEntity.getBody(), new TypeReference<>() {
+            });
+        } catch (Exception e) {
+            log.error("Error while parsing order row list", e);
+        }
+
+        ObservableList<OrderRowModel> orderRowModels = FXCollections.observableArrayList();
+        assert orderList != null;
+        for (GetOrderRowDto orderRowDto : orderList) {
+            OrderRowModel orderRowModel = new OrderRowModel();
+            orderRowModel.setID(orderRowDto.getId());
+            orderRowModel.setProductName(orderRowDto.getProduct().getName());
+            orderRowModel.setQuantity(orderRowDto.getQuantity());
+
+            orderRowModels.add(orderRowModel);
+        }
+
+        table.getItems().addAll(orderRowModels);
     }
 
-    @FXML
-    public void processEstimateContent(String estimateContent) {
-        estimateId.setText(estimateContent);
+    public void addOrderRow(ActionEvent actionEvent) {
+        openPopUp("/orders/ordersRows/addRowPopup.fxml", stackPane.getScene(), "Ajouter une ligne à la commande");
+        reloadOrderRow();
     }
 
+    public void editOrderRow(ActionEvent actionEvent) {
+        OrderRowModel orderRowModel = table.getSelectionModel().getSelectedValues().getFirst();
+        if (orderRowModel == null) {
+            openDialog(stackPane.getScene(), "Veuillez sélectionner une commande.", DialogType.ERROR, 0);
+            return;
+        }
 
+        setIntermediaryId(orderRowModel.getID());
+        openPopUp("/orders/ordersRows/editRowPopup.fxml", stackPane.getScene(), "Modifier une ligne de commande");
+        reloadOrderRow();
+    }
+
+    public void removeOrderRow(ActionEvent actionEvent) {
+        OrderRowModel orderRowModel = table.getSelectionModel().getSelectedValues().getFirst();
+
+        RequestAPI requestAPI = new RequestAPI();
+        ResponseEntity<String> responseEntity = requestAPI.sendDeleteRequest("/orders/" + getId() + "/row/" + orderRowModel.getID(), String.class, true);
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            openDialog(stackPane.getScene(), "Ligne de commande supprimée avec succès.", DialogType.INFORMATION, 0);
+            reloadOrderRow();
+        } else {
+             openDialog(stackPane.getScene(), "Erreur lors de la suppression de la ligne de commande.", DialogType.INFORMATION, 0);
+        }
+    }
 }
