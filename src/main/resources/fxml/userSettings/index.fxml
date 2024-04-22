@@ -9,7 +9,7 @@
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:id="stackPane"
            stylesheets="@../../css/MFXColors.css"
-           fx:controller="fr.codesbusters.solidstock.controller.userSettings.UserSettingsController">
+           fx:controller="fr.codesbusters.solidstock.client.controller.userSettings.UserSettingsController">
     <VBox alignment="TOP_CENTER" spacing="30.0" style="-fx-background-color: white;">
         <children>
             <AnchorPane id="pane2" maxHeight="-Infinity" minHeight="30.0" minWidth="400.0" prefHeight="100.0"

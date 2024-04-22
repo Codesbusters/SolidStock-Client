@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
-           fx:controller="fr.codesbusters.solidstock.controller.dashboard.DashboardController" fx:id="stackPane"
+           fx:controller="fr.codesbusters.solidstock.client.controller.dashboard.DashboardController" fx:id="stackPane"
            stylesheets="@../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <children>

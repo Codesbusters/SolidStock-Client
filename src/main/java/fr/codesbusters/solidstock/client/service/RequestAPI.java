@@ -26,7 +26,7 @@ import java.util.Objects;
 public class RequestAPI {
     private static final RestTemplate restTemplate = new RestTemplate();
     ApplicationPropertiesReader applicationPropertiesReader = new ApplicationPropertiesReader();
-    String apiUrl = applicationPropertiesReader.getProperty("fr.codesbusters.solidstock.api.url");
+    String apiUrl = applicationPropertiesReader.getProperty("fr.codesbusters.solidstock.client.api.url");
 
     public <T> ResponseEntity<T> sendPostRequest(String url, Object requestBody, Class<T> responseType, boolean needLogin, boolean needCheckToken) {
         if (needCheckToken) {
