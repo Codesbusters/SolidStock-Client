@@ -22,5 +22,7 @@ public class GetSupplierOrderDto {
     private GetSupplierDto supplier;
     private GetSupplierOrderRowDto[] supplierOrderRows;
     private double total;
+    private String createdAt;
+    private String updatedAt;
 
 }

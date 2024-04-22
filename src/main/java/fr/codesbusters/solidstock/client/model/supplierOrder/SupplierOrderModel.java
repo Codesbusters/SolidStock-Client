@@ -12,20 +12,22 @@ public class SupplierOrderModel {
     private final StringProperty orderNumber = new SimpleStringProperty("");
     private final StringProperty orderDate = new SimpleStringProperty("");
     private final StringProperty deliveryDate = new SimpleStringProperty("");
+    private final StringProperty supplier = new SimpleStringProperty("");
     private final StringProperty status = new SimpleStringProperty("");
 
     private final BooleanProperty isDisabled = new SimpleBooleanProperty(false);
 
-    public SupplierOrderModel(int id, String orderNumber, String orderDate, String deliveryDate, String status) {
+    public SupplierOrderModel(int id, String orderNumber, String orderDate, String deliveryDate, String status, String supplier) {
         setID(id);
         setOrderNumber(orderNumber);
         setOrderDate(orderDate);
         setDeliveryDate(deliveryDate);
         setStatus(status);
+        setSupplier(supplier);
     }
 
-    public static SupplierOrderModel ofSplit(int id, String orderNumber, String orderDate, String deliveryDate, String status) {
-        return new SupplierOrderModel(id, orderNumber, orderDate, deliveryDate, status);
+    public static SupplierOrderModel ofSplit(int id, String orderNumber, String orderDate, String deliveryDate, String status,  String supplier) {
+        return new SupplierOrderModel(id, orderNumber, orderDate, deliveryDate, status, supplier);
     }
 
     public int getID() {
@@ -98,5 +100,17 @@ public class SupplierOrderModel {
 
     public IntegerProperty idProperty() {
         return id;
+    }
+
+    public String getSupplier() {
+        return supplier.get();
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier.set(supplier);
+    }
+
+    public StringProperty supplierProperty() {
+        return supplier;
     }
 }

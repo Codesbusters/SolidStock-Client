@@ -5,8 +5,9 @@
 <?import javafx.scene.text.Font?>
 <?import io.github.palexdev.materialfx.controls.*?>
 <?import javafx.geometry.Insets?>
-<StackPane xmlns:fx="http://javafx.com/fxml"
-           fx:controller="fr.codesbusters.solidstock.client.controller.supplierOrders." fx:id="stackPane"
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="fr.codesbusters.solidstock.client.controller.supplierOrders.SupplierOrdersAddController" fx:id="anchorPane"
            stylesheets="@../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <children>
@@ -21,7 +22,7 @@
                                     <Font name="System Bold" size="22.0"/>
                                 </font>
                             </Label>
-                            <Label text="Enregistrer une nouvelle famille de produit"/>
+                            <Label text="Enregistrer une nouvelle commande fournisseur"/>
                         </children>
                         <padding>
                             <Insets left="10.0"/>
@@ -41,19 +42,47 @@
                                 <children>
                                     <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
                                         <children>
-                                            <MFXTextField floatMode="BORDER" floatingText="Libelle de famille de produit"
+                                            <MFXTextField floatMode="BORDER" floatingText="Numéro de commande"
                                                           prefWidth="310"
-                                                          maxWidth="310" fx:id="productFamilyName">
+                                                          maxWidth="310" fx:id="orderNumber">
                                                 <VBox.margin>
                                                     <Insets left="10.0"/>
                                                 </VBox.margin>
                                             </MFXTextField>
-                                            <VBox spacing="5" VBox.vgrow="ALWAYS" style="-fx-padding: 10.0;">
-                                                <Label text="Descrition :"></Label>
-                                                <TextArea maxWidth="290" minWidth="290" minHeight="200" maxHeight="200"
-                                                          VBox.vgrow="ALWAYS" fx:id="productFamilyDescription">
-                                                </TextArea>
-                                            </VBox>
+                                            <MFXDatePicker floatMode="BORDER" floatingText="Date de commande"
+                                                           prefWidth="310"
+                                                           maxWidth="310" fx:id="orderDate">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXDatePicker>
+                                            <MFXDatePicker floatMode="BORDER" floatingText="Date de livraison estimée"
+                                                           prefWidth="310"
+                                                           maxWidth="310" fx:id="deliveryDate">
+                                                <VBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </VBox.margin>
+                                            </MFXDatePicker>
+
+                                            <HBox VBox.vgrow="ALWAYS" spacing="5" alignment="CENTER">
+                                                <Label fx:id="supplierName" style="font-weight-absolute: 20;" alignment="CENTER_RIGHT" prefWidth="150" maxWidth="150" minWidth="150" minHeight="38"/>
+                                                <MFXTextField floatMode="BORDER" floatingText="Référence Client"
+                                                              prefWidth="114" maxWidth="114" minWidth="114" fx:id="supplierId" disable="true">
+                                                </MFXTextField>
+                                                <MFXButton id="accept" minHeight="27.0" minWidth="38.0" prefWidth="38.0"
+                                                           prefHeight="38"
+                                                           style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
+                                                           buttonType="RAISED" styleClass="mfx-button"
+                                                           HBox.hgrow="ALWAYS" onAction="#selectSupplier">
+                                                    <graphic>
+                                                        <MFXFontIcon description="fas-ellipsis" size="20" color="WHITE"/>
+                                                    </graphic>
+                                                </MFXButton>
+                                                <padding>
+                                                    <Insets left="10.0"/>
+                                                </padding>
+                                            </HBox>
+
                                         </children>
                                     </VBox>
                                 </children>
@@ -84,7 +113,7 @@
                                    prefHeight="38" text="Modifier"
                                    style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
                                    buttonType="RAISED" styleClass="mfx-button"
-                                   HBox.hgrow="ALWAYS" onAction="#addProductFamily"/>
+                                   HBox.hgrow="ALWAYS" onAction="#save"/>
                     </children>
                     <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
@@ -96,5 +125,5 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
         </padding>
     </VBox>
-</StackPane>
+</AnchorPane>
 

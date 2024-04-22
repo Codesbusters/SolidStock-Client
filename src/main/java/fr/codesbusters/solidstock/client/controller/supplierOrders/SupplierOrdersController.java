@@ -4,19 +4,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.client.business.DialogType;
 import fr.codesbusters.solidstock.client.controller.DefaultShowController;
-import fr.codesbusters.solidstock.client.dto.stockMovement.GetStockMovementDto;
 import fr.codesbusters.solidstock.client.dto.supplierOrder.GetSupplierOrderDto;
-import fr.codesbusters.solidstock.client.model.StockMovementModel;
 import fr.codesbusters.solidstock.client.model.supplierOrder.SupplierOrderModel;
 import fr.codesbusters.solidstock.client.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
-import io.github.palexdev.materialfx.filter.BooleanFilter;
-import io.github.palexdev.materialfx.filter.DoubleFilter;
-import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
-import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,8 +18,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -55,9 +47,10 @@ public class SupplierOrdersController extends DefaultShowController implements I
 
     private void setupTable() {
         MFXTableColumn<SupplierOrderModel> orderNumberColumn = new MFXTableColumn<>("Numéro de commande");
+        MFXTableColumn<SupplierOrderModel> supplierColumn = new MFXTableColumn<>("Fournisseur");
         MFXTableColumn<SupplierOrderModel> orderDateColumn = new MFXTableColumn<>("Date de commande");
         MFXTableColumn<SupplierOrderModel> deliveryDateColumn = new MFXTableColumn<>("Date de livraison");
-        MFXTableColumn<SupplierOrderModel> statusColumn = new MFXTableColumn<>("Statut");
+        MFXTableColumn<SupplierOrderModel> statusColumn = new MFXTableColumn<>("Status");
 
 
         orderNumberColumn.setRowCellFactory(supplierOrderModel -> new MFXTableRowCell<>(SupplierOrderModel::getOrderNumber) {{
@@ -92,17 +85,33 @@ public class SupplierOrdersController extends DefaultShowController implements I
             }
         }});
 
-        table.getTableColumns().addAll(orderNumberColumn, orderDateColumn, deliveryDateColumn, statusColumn);
+        supplierColumn.setRowCellFactory(supplierOrderModel -> new MFXTableRowCell<>(SupplierOrderModel::getSupplier) {{
+            setContentDisplay(ContentDisplay.TEXT_ONLY);
+            setAlignment(Pos.CENTER);
+            if (supplierOrderModel != null && supplierOrderModel.getIsDisabled()) {
+                setStyle("-fx-opacity: 0.5;");
+            }
+        }});
+
+        table.getTableColumns().addAll(orderNumberColumn, supplierColumn,  orderDateColumn, deliveryDateColumn, statusColumn);
         table.getFilters().addAll(
                 new StringFilter<>("Numéro de commande", SupplierOrderModel::getOrderNumber),
+                new StringFilter<>("Fournisseur", SupplierOrderModel::getSupplier),
                 new StringFilter<>("Date de commande", SupplierOrderModel::getOrderDate),
                 new StringFilter<>("Date de livraison", SupplierOrderModel::getDeliveryDate),
                 new StringFilter<>("Statut", SupplierOrderModel::getStatus)
         );
 
 
-        reloadStockMovement();
+        reloadSupplierOrder();
+        table.autosizeColumnsOnInitialization();
 
+    }
+
+    @FXML
+    public void addSupplierOrder() {
+        openPopUp("supplierOrders/addPopup.fxml", anchorPane.getScene(),  "Ajouter une commande fournisseur");
+        reloadSupplierOrder();
     }
 
     @FXML
@@ -118,7 +127,7 @@ public class SupplierOrdersController extends DefaultShowController implements I
 
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             openDialog(anchorPane.getScene(), "Le mouvement de stock a été supprimé avec succès", DialogType.INFORMATION, 0);
-            reloadStockMovement();
+            reloadSupplierOrder();
         } else {
             openDialog(anchorPane.getScene(), "Erreur lors de la suppression du mouvement de stock", DialogType.ERROR, 0);
         }
@@ -131,7 +140,7 @@ public class SupplierOrdersController extends DefaultShowController implements I
     }
 
     @FXML
-    public void reloadStockMovement() {
+    public void reloadSupplierOrder() {
         table.getItems().clear();
 
         RequestAPI requestAPI = new RequestAPI();
@@ -153,9 +162,11 @@ public class SupplierOrdersController extends DefaultShowController implements I
             SupplierOrderModel supplierOrderModel = new SupplierOrderModel();
             supplierOrderModel.setID((int) supplierOrderDto.getId());
             supplierOrderModel.setOrderNumber(supplierOrderDto.getOrderNumber());
-            supplierOrderModel.setOrderDate(LocalDate.parse(supplierOrderDto.getOrderDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")).format(formatters));
-            supplierOrderModel.setDeliveryDate(LocalDate.parse(supplierOrderDto.getDeliveryDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")).format(formatters));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+            supplierOrderModel.setOrderDate(LocalDate.parse(supplierOrderDto.getOrderDate(), formatter).format(formatters));
+            supplierOrderModel.setDeliveryDate(LocalDate.parse(supplierOrderDto.getDeliveryDate(), formatter).format(formatters));
             supplierOrderModel.setStatus(supplierOrderDto.getStatus());
+            supplierOrderModel.setSupplier(supplierOrderDto.getSupplier().getCompanyName());
             supplierOrderModels.add(supplierOrderModel);
         }
 
@@ -163,6 +174,6 @@ public class SupplierOrdersController extends DefaultShowController implements I
 
         supplierOrderModels.sort(Comparator.comparingLong(SupplierOrderModel::getID));
         table.getItems().addAll(supplierOrderModels);
-        table.autosizeColumnsOnInitialization();
+
     }
 }
