@@ -11,174 +11,156 @@
            fx:controller="fr.codesbusters.solidstock.client.controller.dashboard.DashboardController" fx:id="stackPane"
            stylesheets="@../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
-        <children>
-            <GridPane xmlns:fx="http://javafx.com/fxml/1"
-                      xmlns="http://javafx.com/javafx/21" minHeight="345.0"
-                      style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
-                      hgap="30" vgap="30" VBox.vgrow="ALWAYS">
-                <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                </columnConstraints>
-                <rowConstraints>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                </rowConstraints>
-                <children>
-                    <StackPane prefHeight="-Infinity" prefWidth="-Infinity" GridPane.columnIndex="0"
-                               style=" -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);">
-                        <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: #3309AA; -fx-background-radius: 10;">
-                            <children>
-                                <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
-                                      alignment="CENTER">
-                                    <Label text="8" textFill="white"
-                                           style="-fx-font-weight: bold; -fx-font-size: 65" alignment="CENTER"/>
-                                </VBox>
-                                <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
-                                      style="-fx-background-color: #2F15CE; -fx-background-radius: 10"
-                                      alignment="CENTER_LEFT">
-                                    <Label text="Valeur du stock" textFill="white"
-                                           style="-fx-font-weight: bold; -fx-padding: 8; -fx-font-size: 15;"
-                                           GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"/>
-                                </VBox>
-
-                            </children>
-                        </VBox>
-                    </StackPane>
-                    <StackPane prefHeight="-Infinity" prefWidth="-Infinity" GridPane.columnIndex="1"
-                               style="-fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);">
-                        <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: #41A96A; -fx-background-radius: 10;">
-                            <children>
-                                <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
-                                      alignment="CENTER">
-                                    <Label text="9" textFill="white"
-                                           style="-fx-font-weight: bold; -fx-font-size: 65" alignment="CENTER"/>
-                                </VBox>
-                                <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
-                                      style="-fx-background-color: #54DD7A; -fx-background-radius: 10"
-                                      alignment="CENTER_LEFT">
-                                    <Label text="Articles en commandes" textFill="white"
-                                           style="-fx-font-weight: bold; -fx-padding: 8; -fx-font-size: 15;"
-                                           GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"/>
-                                </VBox>
-
-                            </children>
-                        </VBox>
-                    </StackPane>
-                    <StackPane prefHeight="-Infinity" prefWidth="-Infinity" GridPane.columnIndex="2"
-                               style=" -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);">
-                        <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: #9E2525; -fx-background-radius: 10;">
-                            <children>
-                                <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
-                                      alignment="CENTER">
-                                    <Label text="10" textFill="white"
-                                           style="-fx-font-weight: bold; -fx-font-size: 65" alignment="CENTER"/>
-                                </VBox>
-                                <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
-                                      style="-fx-background-color: #E12828; -fx-background-radius: 10"
-                                      alignment="CENTER_LEFT">
-                                    <Label text="Articles en rupture de stock" textFill="white"
-                                           style="-fx-font-weight: bold; -fx-padding: 8; -fx-font-size: 15;"
-                                           GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"/>
-                                </VBox>
-
-                            </children>
-                        </VBox>
-                    </StackPane>
-                    <StackPane prefHeight="-Infinity" prefWidth="-Infinity" GridPane.columnIndex="0"
-                               GridPane.rowIndex="1"
-                               style="-fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);">
-                        <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: #D9610B; -fx-background-radius: 10;">
-                            <children>
-                                <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
-                                      alignment="CENTER">
-                                    <Label text="11" textFill="white"
-                                           style="-fx-font-weight: bold; -fx-font-size: 65" alignment="CENTER"/>
-                                </VBox>
-                                <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
-                                      style="-fx-background-color: #D88658; -fx-background-radius: 10"
-                                      alignment="CENTER_LEFT">
-                                    <Label text="Nombre d'articles actifs" textFill="white"
-                                           style="-fx-font-weight: bold; -fx-padding: 8; -fx-font-size: 15;"
-                                           GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"/>
-                                </VBox>
-
-                            </children>
-                        </VBox>
-                    </StackPane>
-                    <StackPane prefHeight="-Infinity" prefWidth="-Infinity" GridPane.columnIndex="1"
-                               GridPane.rowIndex="1"
-                               style=" -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);">
-                        <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: #2E2832; -fx-background-radius: 10;">
-                            <children>
-                                <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
-                                      alignment="CENTER">
-                                    <Label text="12" textFill="white"
-                                           style="-fx-font-weight: bold; -fx-font-size: 65" alignment="CENTER"/>
-                                </VBox>
-                                <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
-                                      style="-fx-background-color: #494A50; -fx-background-radius: 10"
-                                      alignment="CENTER_LEFT">
-                                    <Label text="Top 3 - Articles Vendu" textFill="white"
-                                           style="-fx-font-weight: bold; -fx-padding: 8; -fx-font-size: 15;"
-                                           GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"/>
-                                </VBox>
-
-                            </children>
-                        </VBox>
-                    </StackPane>
-                    <StackPane prefHeight="-Infinity" prefWidth="-Infinity" GridPane.columnIndex="2"
-                               GridPane.rowIndex="1"
-                               style="-fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);">
-                        <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: #2795C3; -fx-background-radius: 10;">
-                            <children>
-                                <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
-                                      alignment="CENTER">
-                                    <Label text="13" textFill="white"
-                                           style="-fx-font-weight: bold; -fx-font-size: 65" alignment="CENTER"/>
-                                </VBox>
-                                <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
-                                      style="-fx-background-color: #5DBAD8; -fx-background-radius: 10"
-                                      alignment="CENTER_LEFT">
-                                    <Label text="Volume du stock" textFill="white"
-                                           style="-fx-font-weight: bold; -fx-padding: 8; -fx-font-size: 15;"
-                                           GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"/>
-                                </VBox>
-
-                            </children>
-                        </VBox>
-                    </StackPane>
-                </children>
-                <padding>
-                    <Insets left="30.0" bottom="30.0" top="30.0" right="30.0"/>
-                </padding>
-            </GridPane>
-            <AnchorPane id="pane2" maxHeight="400.0" minHeight="300.0" minWidth="400.0" prefHeight="100.0"
-                        style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
-                        VBox.vgrow="ALWAYS">
-                <children>
-                    <HBox spacing="20" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                        <PieChart fx:id="pieChart" HBox.hgrow="ALWAYS">
-                            <labelsVisible>false</labelsVisible>
-                        </PieChart>
-
-                        <BarChart fx:id="barChart" HBox.hgrow="ALWAYS">
-                            <xAxis>
-                                <CategoryAxis fx:id="barXAxis"/>
-                            </xAxis>
-                            <yAxis>
-                                <NumberAxis fx:id="barYAxis"/>
-                            </yAxis>
-                        </BarChart>
-                    </HBox>
-                </children>
-            </AnchorPane>
-
-        </children>
         <padding>
             <Insets bottom="60.0" left="20.0" right="30.0" top="20.0"/>
         </padding>
+        <GridPane xmlns:fx="http://javafx.com/fxml/1"
+                  xmlns="http://javafx.com/javafx/21" minHeight="345.0"
+                  style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                  hgap="30" vgap="30" VBox.vgrow="ALWAYS">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <padding>
+                <Insets left="30.0" bottom="30.0" top="30.0" right="30.0"/>
+            </padding>
+            <StackPane prefHeight="-Infinity" prefWidth="-Infinity" GridPane.columnIndex="0"
+                       style=" -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);">
+                <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: #3309AA; -fx-background-radius: 10;">
+                    <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
+                          alignment="CENTER">
+                        <Label fx:id="stockValue" textFill="white"
+                               style="-fx-font-weight: bold; -fx-font-size: 65" alignment="CENTER"/>
+                    </VBox>
+                    <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
+                          style="-fx-background-color: #2F15CE; -fx-background-radius: 10"
+                          alignment="CENTER_LEFT">
+                        <Label text="Valeur du stock" textFill="white"
+                               style="-fx-font-weight: bold; -fx-padding: 8; -fx-font-size: 15;"
+                               GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"/>
+                    </VBox>
+
+                </VBox>
+            </StackPane>
+            <StackPane prefHeight="-Infinity" prefWidth="-Infinity" GridPane.columnIndex="1"
+                       style="-fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);">
+                <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: #41A96A; -fx-background-radius: 10;">
+                    <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
+                          alignment="CENTER">
+                        <Label fx:id="suppliersOrdersInProgress" textFill="white"
+                               style="-fx-font-weight: bold; -fx-font-size: 65" alignment="CENTER"/>
+                    </VBox>
+                    <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
+                          style="-fx-background-color: #54DD7A; -fx-background-radius: 10"
+                          alignment="CENTER_LEFT">
+                        <Label text="Commandes fournisseur en cours" textFill="white"
+                               style="-fx-font-weight: bold; -fx-padding: 8; -fx-font-size: 15;"
+                               GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"/>
+                    </VBox>
+
+                </VBox>
+            </StackPane>
+            <StackPane prefHeight="-Infinity" prefWidth="-Infinity" GridPane.columnIndex="2"
+                       style=" -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);">
+                <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: #9E2525; -fx-background-radius: 10;">
+                    <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
+                          alignment="CENTER">
+                        <Label fx:id="negativeStockItems" textFill="white"
+                               style="-fx-font-weight: bold; -fx-font-size: 65" alignment="CENTER"/>
+                    </VBox>
+                    <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
+                          style="-fx-background-color: #E12828; -fx-background-radius: 10"
+                          alignment="CENTER_LEFT">
+                        <Label text="Articles en rupture de stock" textFill="white"
+                               style="-fx-font-weight: bold; -fx-padding: 8; -fx-font-size: 15;"
+                               GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"/>
+                    </VBox>
+
+                </VBox>
+            </StackPane>
+            <StackPane prefHeight="-Infinity" prefWidth="-Infinity" GridPane.columnIndex="0"
+                       GridPane.rowIndex="1"
+                       style="-fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);">
+                <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: #D9610B; -fx-background-radius: 10;">
+                    <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
+                          alignment="CENTER">
+                        <Label fx:id="numberOfActiveItems" textFill="white"
+                               style="-fx-font-weight: bold; -fx-font-size: 65" alignment="CENTER"/>
+                    </VBox>
+                    <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
+                          style="-fx-background-color: #D88658; -fx-background-radius: 10"
+                          alignment="CENTER_LEFT">
+                        <Label text="Nombre d'articles actifs" textFill="white"
+                               style="-fx-font-weight: bold; -fx-padding: 8; -fx-font-size: 15;"
+                               GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"/>
+                    </VBox>
+
+                </VBox>
+            </StackPane>
+            <StackPane prefHeight="-Infinity" prefWidth="-Infinity" GridPane.columnIndex="1"
+                       GridPane.rowIndex="1"
+                       style=" -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);">
+                <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: #2E2832; -fx-background-radius: 10;">
+                    <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
+                          alignment="CENTER">
+                        <Label fx:id="itemsUnderMinimumQuantity" textFill="white"
+                               style="-fx-font-weight: bold; -fx-font-size: 65" alignment="CENTER"/>
+                    </VBox>
+                    <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
+                          style="-fx-background-color: #494A50; -fx-background-radius: 10"
+                          alignment="CENTER_LEFT">
+                        <Label text="Nombre d'articles sous seuil minimum de stock" textFill="white"
+                               style="-fx-font-weight: bold; -fx-padding: 8; -fx-font-size: 15;"
+                               GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"/>
+                    </VBox>
+
+                </VBox>
+            </StackPane>
+            <StackPane prefHeight="-Infinity" prefWidth="-Infinity" GridPane.columnIndex="2"
+                       GridPane.rowIndex="1"
+                       style="-fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);">
+                <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: #2795C3; -fx-background-radius: 10;">
+                    <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
+                          alignment="CENTER">
+                        <Label fx:id="customersOrdersInProgress" textFill="white"
+                               style="-fx-font-weight: bold; -fx-font-size: 65" alignment="CENTER"/>
+                    </VBox>
+                    <VBox GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="30"
+                          style="-fx-background-color: #5DBAD8; -fx-background-radius: 10"
+                          alignment="CENTER_LEFT">
+                        <Label text="Commandes client en cours" textFill="white"
+                               style="-fx-font-weight: bold; -fx-padding: 8; -fx-font-size: 15;"
+                               GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"/>
+                    </VBox>
+
+                </VBox>
+            </StackPane>
+        </GridPane>
+        <AnchorPane id="pane2" maxHeight="400.0" minHeight="300.0" minWidth="400.0" prefHeight="100.0"
+                    style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);"
+                    VBox.vgrow="ALWAYS">
+            <HBox spacing="20" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <PieChart fx:id="pieChart" HBox.hgrow="ALWAYS">
+                    <labelsVisible>false</labelsVisible>
+                </PieChart>
+
+                <BarChart fx:id="barChart" HBox.hgrow="ALWAYS">
+                    <xAxis>
+                        <CategoryAxis fx:id="barXAxis"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="barYAxis"/>
+                    </yAxis>
+                </BarChart>
+            </HBox>
+        </AnchorPane>
+
     </VBox>
 </StackPane>

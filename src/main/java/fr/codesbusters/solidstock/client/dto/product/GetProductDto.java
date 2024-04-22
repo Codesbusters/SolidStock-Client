@@ -26,6 +26,8 @@ public class GetProductDto {
     private String barCode;
     private String sellPrice;
     private String buyPrice;
+    private double inStock;
+    private double selled;
     private boolean isDeleted;
     private int minimumStockQuantity;
     private String createdAt;

@@ -13,15 +13,15 @@ public class ProductModel {
 
     private final DoubleProperty buyPrice = new SimpleDoubleProperty();
 
-    private final IntegerProperty inStock = new SimpleIntegerProperty();
+    private final DoubleProperty inStock = new SimpleDoubleProperty();
     private final StringProperty productFamily = new SimpleStringProperty("");
 
     private final DoubleProperty minimumStockQuantity = new SimpleDoubleProperty();
 
-    private final IntegerProperty selled = new SimpleIntegerProperty();
+    private final DoubleProperty selled = new SimpleDoubleProperty();
     private final BooleanProperty isDisabled = new SimpleBooleanProperty(false);
 
-    public ProductModel(int id, String name, String description, String productFamily, double sellPrice, double buyPrice, int inStock, int selled, boolean isDisabled) {
+    public ProductModel(int id, String name, String description, String productFamily, double sellPrice, double buyPrice, double inStock, double selled, boolean isDisabled) {
         setID(id);
         setName(name);
         setDescription(description);
@@ -33,7 +33,7 @@ public class ProductModel {
         setIsDisabled(isDisabled);
     }
 
-    public static ProductModel ofSplit(int id, String name, String description, String productFamily, double sellPrice, double buyPrice, int inStock, int selled, boolean isDisabled) {
+    public static ProductModel ofSplit(int id, String name, String description, String productFamily, double sellPrice, double buyPrice, double inStock, double selled, boolean isDisabled) {
         return new ProductModel(id, name, description, productFamily, sellPrice, buyPrice, inStock, selled, isDisabled);
     }
 
@@ -109,27 +109,27 @@ public class ProductModel {
         return buyPrice;
     }
 
-    public int getInStock() {
+    public double getInStock() {
         return inStock.get();
     }
 
-    public void setInStock(int inStock) {
+    public void setInStock(double inStock) {
         this.inStock.set(inStock);
     }
 
-    public IntegerProperty inStockProperty() {
+    public DoubleProperty inStockProperty() {
         return inStock;
     }
 
-    public int getSelled() {
+    public double getSelled() {
         return selled.get();
     }
 
-    public void setSelled(int selled) {
+    public void setSelled(double selled) {
         this.selled.set(selled);
     }
 
-    public IntegerProperty selledProperty() {
+    public DoubleProperty selledProperty() {
         return selled;
     }
 

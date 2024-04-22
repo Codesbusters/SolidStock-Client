@@ -257,16 +257,15 @@ public class OrdersFormController extends DefaultShowController implements Initi
                 customerName = orderDto.getCustomer().getFirstName() + " " + orderDto.getCustomer().getLastName();
             }
             ordersModel.setCustomerName(customerName);
+            ordersModel.setCustomerId(orderDto.getCustomer().getId());
             ordersModel.setDueDate(orderDto.getEstimateDate() == null ? "" : LocalDate.parse(orderDto.getEstimateDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")).format(formatter));
             ordersModel.setSubject(orderDto.getName());
             ordersModel.setStatusName(orderDto.getStatus());
 
             ordersModels.add(ordersModel);
         }
-        log.info("Liste des commandes récupérées depuis l'API : {}", ordersModels);
 
         table.getItems().addAll(ordersModels);
-        table.autosizeColumns();
     }
 
     @FXML
