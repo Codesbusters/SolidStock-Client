@@ -1,12 +1,23 @@
 package fr.codesbusters.solidstock.client.controller.dashboard;
 
-import fr.codesbusters.solidstock.client.service.SessionManager;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.codesbusters.solidstock.client.dto.order.GetOrderDto;
+import fr.codesbusters.solidstock.client.dto.product.GetProductDto;
+import fr.codesbusters.solidstock.client.dto.productFamily.GetProductFamilyDto;
+import fr.codesbusters.solidstock.client.dto.stockMovement.GetStockMovementDto;
+import fr.codesbusters.solidstock.client.dto.supplierOrder.GetSupplierOrderDto;
+import fr.codesbusters.solidstock.client.service.RequestAPI;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cglib.core.Local;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
@@ -18,7 +29,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -181,7 +191,6 @@ public class DashboardController implements Initializable {
         if (productFamilyList != null && stockMovementChartSelledList != null) {
             LocalDate today = LocalDate.now();
             LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-
             LocalDate endOfWeek = startOfWeek.plusDays(6);
 
             List<GetStockMovementDto> currentWeekStockMovements = stockMovementChartSelledList.stream()
@@ -189,33 +198,57 @@ public class DashboardController implements Initializable {
                         LocalDate movementDate = LocalDate.parse(stockMovement.getExpiredDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                         return !movementDate.isBefore(startOfWeek) && !movementDate.isAfter(endOfWeek);
                     })
-                    .collect(Collectors.toList());
+                    .toList();
 
-            double totalSales = currentWeekStockMovements.stream()
-                    .mapToDouble(GetStockMovementDto::getQuantity)
-                    .sum();
+            if (currentWeekStockMovements.isEmpty()) {
+                pieChart.getData().add(new PieChart.Data("Aucune vente cette semaine", 100));
+            } else {
+                Map<Integer, Double> salesByFamily = new HashMap<>();
+                Map<Integer, String> familyNameMap = new HashMap<>();
+                for (GetProductFamilyDto productFamily : productFamilyList) {
+                    boolean hasSales = currentWeekStockMovements.stream()
+                            .anyMatch(stockMovement -> stockMovement.getProduct().getProductFamily().getId() == productFamily.getId());
+                    if (hasSales) {
+                        familyNameMap.put(productFamily.getId(), productFamily.getName());
+                        double familySales = currentWeekStockMovements.stream()
+                                .filter(stockMovement -> stockMovement.getProduct().getProductFamily().getId() == productFamily.getId())
+                                .mapToDouble(GetStockMovementDto::getQuantity)
+                                .sum();
+                        salesByFamily.put(productFamily.getId(), familySales);
+                    }
+                }
 
-            Map<Integer, Double> salesByFamily = new HashMap<>();
-            Map<Integer, String> familyNameMap = new HashMap<>();
-            for (GetProductFamilyDto productFamily : productFamilyList) {
-                familyNameMap.put(productFamily.getId(), productFamily.getName());
-                double familySales = currentWeekStockMovements.stream()
-                        .filter(stockMovement -> stockMovement.getProduct().getProductFamily().getId() == productFamily.getId())
-                        .mapToDouble(GetStockMovementDto::getQuantity)
-                        .sum();
-                if (familySales > 0) {
-                    salesByFamily.put(productFamily.getId(), familySales);
+                if (salesByFamily.isEmpty()) {
+                    pieChart.getData().add(new PieChart.Data("Aucune vente cette semaine", 100));
+                } else {
+                    double totalSales = salesByFamily.values().stream().mapToDouble(Double::doubleValue).sum();
+
+                    ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+                    for (Map.Entry<Integer, Double> entry : salesByFamily.entrySet()) {
+                        double percentage = (entry.getValue() / totalSales) * 100;
+                        String label = String.format("%s (%.1f%%)", familyNameMap.get(entry.getKey()), percentage);
+                        PieChart.Data data = new PieChart.Data(label, entry.getValue());
+                        pieChartData.add(data);
+                    }
+
+                    for (PieChart.Data data : pieChartData) {
+                        Node node = data.getNode();
+                        if (node != null) {
+                            node.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> Tooltip.install(node, new Tooltip(String.valueOf(data.getPieValue()))));
+                        } else {
+                            data.nodeProperty().addListener((obs, oldNode, newNode) -> {
+                                if (newNode != null) {
+                                    newNode.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> Tooltip.install(newNode, new Tooltip(String.valueOf(data.getPieValue()))));
+                                }
+                            });
+                        }
+                    }
+
+                    pieChart.getData().addAll(pieChartData);
                 }
             }
-
-            ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-            for (Map.Entry<Integer, Double> entry : salesByFamily.entrySet()) {
-                double percentage = (entry.getValue() / totalSales) * 100;
-                pieChartData.add(new PieChart.Data(familyNameMap.get(entry.getKey()), percentage));
-            }
-
-            pieChart.getData().addAll(pieChartData);
         }
+
 
 
 
