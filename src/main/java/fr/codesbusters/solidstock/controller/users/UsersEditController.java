@@ -84,8 +84,6 @@ public class UsersEditController extends DefaultShowController implements Initia
                 userFirstName.setText(user.getFirstName());
                 userLastName.setText(user.getLastName());
                 userMail.setText(user.getEmail());
-                userPassword.setText(user.getPassword());
-                userConfirmPassword.setText(user.getPassword());
                 if (user.getCustomer() != null) {
                     userCustomerId.setText(String.valueOf(user.getCustomer().getId()));
                     if (user.getCustomer().getCompanyName() != null) {

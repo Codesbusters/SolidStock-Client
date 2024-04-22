@@ -18,10 +18,11 @@ public class GetUserDto {
     private String lastName;
     private String firstName;
     private String email;
-    private String password;
     private GetCustomerDto customer;
     private List<GetRoleDto> roles;
     private boolean isDeleted;
+    private String defaultPage;
+    private String language;
     private String createdAt;
     private String updatedAt;
 }
