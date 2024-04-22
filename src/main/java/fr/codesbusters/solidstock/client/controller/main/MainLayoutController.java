@@ -2,6 +2,7 @@ package fr.codesbusters.solidstock.client.controller.main;
 
 
 import fr.codesbusters.solidstock.client.utils.TokenManager;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
@@ -72,15 +74,32 @@ public class MainLayoutController implements Initializable {
 
     public void loadPage(String pageFXML) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + pageFXML));
-        Node page = loader.load();
+        Node newPage = loader.load();
 
-        // Set constraints to make the StackPane fill the Pane
-        StackPane stackPane = new StackPane(page);
-        stackPane.prefWidthProperty().bind(mainContent.widthProperty());
-        stackPane.prefHeightProperty().bind(mainContent.heightProperty());
+        if (!mainContent.getChildren().isEmpty() && mainContent.getChildren().get(0).equals(newPage)) {
+            return;
+        }
 
-        mainContent.getChildren().setAll(stackPane);
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(100), mainContent);
+        fadeOut.setFromValue(1.0);
+        fadeOut.setToValue(0.0);
+
+        fadeOut.setOnFinished(event -> {
+            mainContent.getChildren().clear();
+
+            StackPane stackPane = new StackPane(newPage);
+            stackPane.prefWidthProperty().bind(mainContent.widthProperty());
+            stackPane.prefHeightProperty().bind(mainContent.heightProperty());
+            mainContent.getChildren().add(stackPane);
+
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(250), mainContent);
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+            fadeIn.play();
+        });
+        fadeOut.play();
     }
+
 
     @FXML
     private void toggleMenu() {
