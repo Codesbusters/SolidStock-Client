@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:id="stackPane"
-           fx:controller="fr.codesbusters.solidstock.controller.orders.OrdersFormController"
+           fx:controller="fr.codesbusters.solidstock.client.controller.orders.OrdersFormController"
            stylesheets="@../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <padding>

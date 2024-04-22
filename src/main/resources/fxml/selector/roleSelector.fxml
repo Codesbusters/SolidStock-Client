@@ -14,7 +14,7 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             xmlns="http://javafx.com/javafx"
             prefHeight="400.0" prefWidth="1000.0"
-            fx:controller="fr.codesbusters.solidstock.controller.selectors.RoleSelectorController"
+            fx:controller="fr.codesbusters.solidstock.client.controller.selectors.RoleSelectorController"
             fx:id="anchorPane">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <padding>

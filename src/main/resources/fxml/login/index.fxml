@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import java.net.URL?>
-<AnchorPane fx:id="anchorPane" stylesheets="@../../css/MFXColors.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.codesbusters.solidstock.controller.login.LoginController">
+<AnchorPane fx:id="anchorPane" stylesheets="@../../css/MFXColors.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.codesbusters.solidstock.client.controller.login.LoginController">
     <stylesheets>
         <URL value="@../../css/ChecksRadiosToggles.css" />
     </stylesheets>

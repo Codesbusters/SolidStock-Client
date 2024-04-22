@@ -1,7 +1,7 @@
 package fr.codesbusters.solidstock;
 
-import fr.codesbusters.solidstock.utils.LoginScreen;
-import fr.codesbusters.solidstock.utils.SplashScreen;
+import fr.codesbusters.solidstock.client.utils.LoginScreen;
+import fr.codesbusters.solidstock.client.utils.SplashScreen;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
