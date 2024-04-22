@@ -246,6 +246,8 @@ public class ProductController extends DefaultShowController implements Initiali
             productModel.setBuyPrice(Double.parseDouble(product.getBuyPrice()));
             productModel.setMinimumStockQuantity(product.getMinimumStockQuantity());
             productModel.setIsDisabled(product.isDeleted());
+            productModel.setInStock(product.getInStock());
+            productModel.setSelled(product.getSelled());
 
             productModels.add(productModel);
         }
