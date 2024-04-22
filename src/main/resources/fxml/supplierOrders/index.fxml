@@ -9,7 +9,8 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             xmlns="http://javafx.com/javafx"
             prefHeight="400.0" prefWidth="1000.0"
-            fx:controller="fr.codesbusters.solidstock.controller.selectors.productFamily.ProductFamilySelectorController">
+            fx:id="anchorPane"
+            fx:controller="fr.codesbusters.solidstock.controller.supplierOrders.SupplierOrdersController">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <children>
             <AnchorPane id="pane1" maxHeight="100.0" minHeight="100.0" minWidth="1000.0" prefHeight="100.0"
@@ -18,12 +19,12 @@
                 <children>
                     <VBox spacing="10.0" style="-fx-padding: 20px">
                         <children>
-                            <Label text="Sélctionner une famille de produit">
+                            <Label text="Commandes Fournisseurs">
                                 <font>
                                     <Font name="System Bold" size="22.0"/>
                                 </font>
                             </Label>
-                            <Label text="Veuillez choisir une famille de produit"/>
+                            <Label text="Voici la liste des commandes fournisseurs"/>
                         </children>
                         <padding>
                             <Insets left="10.0"/>
@@ -42,22 +43,6 @@
                             <Insets top="10.0"/>
                         </padding>
                         <children>
-                            <HBox spacing="20.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                <children>
-                                    <MFXButton id="custom" minHeight="27.0" minWidth="90.0" prefWidth="120.0"
-                                               prefHeight="38" text="  VISUALISER"
-                                               style="-fx-background-color: #9b9b9b; -fx-background-radius: 4; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
-                                               buttonType="RAISED"
-                                               HBox.hgrow="ALWAYS">
-                                        <graphic>
-                                            <MFXFontIcon description="fas-eye" color="white"/>
-                                        </graphic>
-                                    </MFXButton>
-                                </children>
-                                <padding>
-                                    <Insets left="10.0"/>
-                                </padding>
-                            </HBox>
                             <HBox spacing="10.0" alignment="CENTER_RIGHT">
                                 <children>
                                     <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
@@ -74,7 +59,7 @@
                                                text="SUPPRIMER" prefHeight="38"
                                                buttonType="RAISED"
                                                style="-fx-background-color: #FF6262; -fx-font-weight: bold; -fx-text-fill: white; -fx-cursor: hand;"
-                                               HBox.hgrow="ALWAYS"/>
+                                               HBox.hgrow="ALWAYS" onAction="#openConfirmRemove"/>
                                 </children>
                                 <HBox.margin>
                                     <Insets right="10.0"/>
@@ -108,16 +93,10 @@
                 <HBox AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" spacing="10.0" alignment="CENTER_RIGHT">
                     <children>
                         <MFXButton id="cancel" minHeight="27.0" minWidth="70.0" prefWidth="100"
-                                   text="ANNULER" prefHeight="38"
+                                   text="FERMER" prefHeight="38"
                                    buttonType="RAISED" styleClass="outline-button"
                                    style="-fx-border-color: black; -fx-background-radius: 8; -fx-border-radius: 8;  -fx-font-weight: bold; -fx-cursor: hand;"
                                    HBox.hgrow="ALWAYS" onAction="#cancel"/>
-
-                        <MFXButton id="accept" minHeight="27.0" minWidth="70.0" prefWidth="150"
-                                   prefHeight="38" text="SÉLECTIONNER"
-                                   style="-fx-background-color: #2196F3; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-text-fill: white;"
-                                   buttonType="RAISED" styleClass="mfx-button"
-                                   HBox.hgrow="ALWAYS" onAction="#submitAction"/>
                     </children>
                     <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>

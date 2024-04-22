@@ -15,9 +15,11 @@ public class StockMovementModel {
     private final BooleanProperty inOut = new SimpleBooleanProperty();
     private final StringProperty motif = new SimpleStringProperty("");
     private final StringProperty batchNumber = new SimpleStringProperty("");
+    private final BooleanProperty isDisabled = new SimpleBooleanProperty();
+
 private final StringProperty note = new SimpleStringProperty("");
 
-    public StockMovementModel (String type, String dateAction, long id, int refProfuct, String productName, double quantite, String expiredDate, boolean inOut, String motif, String batchNumber, String note) {
+    public StockMovementModel (String type, String dateAction, long id, int refProfuct, String productName, double quantite, String expiredDate, boolean inOut, String motif, String batchNumber, String note, boolean isDisabled) {
         this.type.set(type);
         this.dateAction.set(dateAction);
         this.id.set(id);
@@ -29,10 +31,11 @@ private final StringProperty note = new SimpleStringProperty("");
         this.motif.set(motif);
         this.batchNumber.set(batchNumber);
         this.note.set(note);
+        this.isDisabled.set(isDisabled);
     }
 
-    public static StockMovementModel ofSplit(String type, String dateAction, long id, int refProfuct, String productName, double quantite, String expiredDate, boolean inOut, String motif, String batchNumber, String note) {
-        return new StockMovementModel(type, dateAction, id, refProfuct, productName, quantite, expiredDate, inOut, motif, batchNumber, note);
+    public static StockMovementModel ofSplit(String type, String dateAction, long id, int refProfuct, String productName, double quantite, String expiredDate, boolean inOut, String motif, String batchNumber, String note, boolean booleanProperty) {
+        return new StockMovementModel(type, dateAction, id, refProfuct, productName, quantite, expiredDate, inOut, motif, batchNumber, note, booleanProperty);
     }
 
     public long getID() {
@@ -168,5 +171,15 @@ private final StringProperty note = new SimpleStringProperty("");
         return type;
     }
 
+    public boolean getIsDisabled() {
+        return isDisabled.get();
+    }
 
+    public void setIsDisabled(boolean isDisabled) {
+        this.isDisabled.set(isDisabled);
+    }
+
+    public BooleanProperty isDisabledProperty() {
+        return isDisabled;
+    }
 }

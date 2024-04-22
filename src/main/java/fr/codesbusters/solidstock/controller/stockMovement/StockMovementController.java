@@ -74,51 +74,91 @@ public class StockMovementController extends DefaultShowController implements In
             setGraphic(stockMovementModel.getInOut() ? iconPlus : iconMinus);
 
 
+            if (stockMovementModel != null && stockMovementModel.getIsDisabled()) {
+                setStyle("-fx-opacity: 0.5;");
+            }
+
         }});
 
         typeColumn.setRowCellFactory(stockMovementModel -> new MFXTableRowCell<>(StockMovementModel::getType) {{
             setContentDisplay(ContentDisplay.TEXT_ONLY);
             setAlignment(Pos.CENTER);
+            if (stockMovementModel != null && stockMovementModel.getIsDisabled()) {
+                setStyle("-fx-opacity: 0.5;");
+            }
+
         }});
 
         actionDate.setRowCellFactory(stockMovementModel -> new MFXTableRowCell<>(StockMovementModel::getDateAction) {{
             setContentDisplay(ContentDisplay.TEXT_ONLY);
             setAlignment(Pos.CENTER);
+            if (stockMovementModel != null && stockMovementModel.getIsDisabled()) {
+                setStyle("-fx-opacity: 0.5;");
+            }
+
         }});
 
         idColumn.setRowCellFactory(stockMovementModel -> new MFXTableRowCell<>(StockMovementModel::getID) {{
             setContentDisplay(ContentDisplay.TEXT_ONLY);
             setAlignment(Pos.CENTER);
+            if (stockMovementModel != null && stockMovementModel.getIsDisabled()) {
+                setStyle("-fx-opacity: 0.5;");
+            }
+
         }});
 
         refProductColumn.setRowCellFactory(stockMovementModel -> new MFXTableRowCell<>(StockMovementModel::getRefProfuct) {{
             setContentDisplay(ContentDisplay.TEXT_ONLY);
             setAlignment(Pos.CENTER);
+            if (stockMovementModel != null && stockMovementModel.getIsDisabled()) {
+                setStyle("-fx-opacity: 0.5;");
+            }
+
         }});
 
         productNameColumn.setRowCellFactory(stockMovementModel -> new MFXTableRowCell<>(StockMovementModel::getProductName) {{
             setContentDisplay(ContentDisplay.TEXT_ONLY);
             setAlignment(Pos.CENTER);
+            if (stockMovementModel != null && stockMovementModel.getIsDisabled()) {
+                setStyle("-fx-opacity: 0.5;");
+            }
+
         }});
 
         quantityColumn.setRowCellFactory(stockMovementModel -> new MFXTableRowCell<>(StockMovementModel::getQuantite) {{
             setContentDisplay(ContentDisplay.TEXT_ONLY);
             setAlignment(Pos.CENTER);
+            if (stockMovementModel != null && stockMovementModel.getIsDisabled()) {
+                setStyle("-fx-opacity: 0.5;");
+            }
+
         }});
 
         expiredDateColumn.setRowCellFactory(stockMovementModel -> new MFXTableRowCell<>(StockMovementModel::getExpiredDate) {{
             setContentDisplay(ContentDisplay.TEXT_ONLY);
             setAlignment(Pos.CENTER);
+            if (stockMovementModel != null && stockMovementModel.getIsDisabled()) {
+                setStyle("-fx-opacity: 0.5;");
+            }
+
         }});
 
         batchNumberColumn.setRowCellFactory(stockMovementModel -> new MFXTableRowCell<>(StockMovementModel::getBatchNumber) {{
             setContentDisplay(ContentDisplay.TEXT_ONLY);
             setAlignment(Pos.CENTER);
+            if (stockMovementModel != null && stockMovementModel.getIsDisabled()) {
+                setStyle("-fx-opacity: 0.5;");
+            }
+
         }});
 
         noteColumn.setRowCellFactory(stockMovementModel -> new MFXTableRowCell<>(StockMovementModel::getMotif) {{
             setContentDisplay(ContentDisplay.TEXT_ONLY);
             setAlignment(Pos.CENTER);
+            if (stockMovementModel != null && stockMovementModel.getIsDisabled()) {
+                setStyle("-fx-opacity: 0.5;");
+            }
+
         }});
 
         table.getTableColumns().addAll(icon, typeColumn, actionDate,  refProductColumn, productNameColumn, quantityColumn, expiredDateColumn, batchNumberColumn, noteColumn);
@@ -160,7 +200,7 @@ public class StockMovementController extends DefaultShowController implements In
 
     @FXML
     public void openDeliveryPopup() {
-        openPopUp("stockMovement/deliveryPopup.fxml", stackPane.getScene(), "Nouvelle livraison");
+        openPopUp("supplierOrders/index.fxml", stackPane.getScene(), "Livraisons");
     }
 
     @FXML
@@ -193,6 +233,7 @@ public class StockMovementController extends DefaultShowController implements In
             stockMovementModel.setInOut(stockMovementDto.getType().startsWith("IN"));
             stockMovementModel.setExpiredDate(stockMovementDto.getExpiredDate() == null ? "" : LocalDate.parse(stockMovementDto.getExpiredDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")).format(formatters));
             stockMovementModel.setBatchNumber(stockMovementDto.getBatchNumber() == null ? "" : stockMovementDto.getBatchNumber());
+            stockMovementModel.setIsDisabled(stockMovementDto.isDeleted());
             stockMovementModels.add(stockMovementModel);
         }
         stockMovementModels.sort(Comparator.comparingLong(StockMovementModel::getID));
