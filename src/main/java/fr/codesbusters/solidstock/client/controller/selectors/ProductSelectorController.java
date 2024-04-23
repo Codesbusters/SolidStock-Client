@@ -6,11 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.codesbusters.solidstock.client.business.DialogType;
 import fr.codesbusters.solidstock.client.controller.DefaultShowController;
 import fr.codesbusters.solidstock.client.dto.product.GetProductDto;
-import fr.codesbusters.solidstock.client.dto.supplier.GetSupplierDto;
 import fr.codesbusters.solidstock.client.listener.ProductSelectorListener;
-import fr.codesbusters.solidstock.client.listener.SupplierSelectorListener;
 import fr.codesbusters.solidstock.client.model.ProductModel;
-import fr.codesbusters.solidstock.client.model.SupplierModel;
 import fr.codesbusters.solidstock.client.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
@@ -37,11 +34,9 @@ import java.util.List;
 public class ProductSelectorController extends DefaultShowController implements Initializable {
 
     @FXML
-    private AnchorPane stackPane;
-
-    @FXML
     MFXTableView<ProductModel> table;
-
+    @FXML
+    private AnchorPane stackPane;
     private Stage parentStage;
 
     private ProductSelectorListener listener;
@@ -235,6 +230,8 @@ public class ProductSelectorController extends DefaultShowController implements 
             productModel.setBuyPrice(Double.parseDouble(product.getBuyPrice()));
             productModel.setMinimumStockQuantity(product.getMinimumStockQuantity());
             productModel.setIsDisabled(product.isDeleted());
+            productModel.setInStock(product.getInStock());
+            productModel.setSelled(product.getSelled());
             productModels.add(productModel);
         }
         productModels.sort(Comparator.comparingInt(ProductModel::getID));
