@@ -202,7 +202,8 @@ public class StockMovementController extends DefaultShowController implements In
 
     @FXML
     public void openDeliveryPopup() {
-        openPopUp("supplierOrders/index.fxml", stackPane.getScene(), "Livraisons");
+        openPopUp("supplierOrders/index.fxml", stackPane.getScene(), "Commandes fournisseurs");
+        reloadStockMovement();
     }
 
     @FXML

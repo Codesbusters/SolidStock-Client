@@ -114,6 +114,34 @@ public class SupplierOrdersController extends DefaultShowController implements I
         reloadSupplierOrder();
     }
 
+    public void validate() {
+        SupplierOrderModel supplierOrderModel = table.getSelectionModel().getSelectedValue();
+        if (supplierOrderModel == null) {
+            openDialog(anchorPane.getScene(), "Veuillez sélectionner une commande fournisseur", DialogType.ERROR, 0);
+            return;
+        }
+        RequestAPI requestAPI = new RequestAPI();
+        ResponseEntity<String> responseEntity = requestAPI.sendPutRequest("/supplier-order/" + supplierOrderModel.getID() + "/validate", null, String.class, true);
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            openDialog(anchorPane.getScene(), "La commande fournisseur a été validée avec succès", DialogType.INFORMATION, 0);
+            reloadSupplierOrder();
+        } else {
+            openDialog(anchorPane.getScene(), "Erreur lors de la validation de la commande fournisseur", DialogType.ERROR, 0);
+        }
+    }
+
+    @FXML
+    public void editSupplierOrder() {
+        SupplierOrderModel supplierOrderModel = table.getSelectionModel().getSelectedValue();
+        if (supplierOrderModel == null) {
+            openDialog(anchorPane.getScene(), "Veuillez sélectionner une commande fournisseur", DialogType.ERROR, 0);
+            return;
+        }
+        setId(supplierOrderModel.getID());
+        openPopUp("supplierOrders/editPopup.fxml", anchorPane.getScene(), "Modifier une commande fournisseur");
+        reloadSupplierOrder();
+    }
+
     @FXML
     public void openConfirmRemove() {
 

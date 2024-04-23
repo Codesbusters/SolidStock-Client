@@ -26,6 +26,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
@@ -195,7 +196,8 @@ public class DashboardController implements Initializable {
 
             List<GetStockMovementDto> currentWeekStockMovements = stockMovementChartSelledList.stream()
                     .filter(stockMovement -> {
-                        LocalDate movementDate = LocalDate.parse(stockMovement.getExpiredDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        LocalDateTime movementDateTime = LocalDateTime.parse(stockMovement.getCreatedAt(), DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+                        LocalDate movementDate = movementDateTime.toLocalDate();
                         return !movementDate.isBefore(startOfWeek) && !movementDate.isAfter(endOfWeek);
                     })
                     .toList();
@@ -274,7 +276,8 @@ public class DashboardController implements Initializable {
                 assert stockMovementChartSelledList != null;
                 for (GetStockMovementDto stockMovement : stockMovementChartSelledList) {
                     if (stockMovement.getProduct().getProductFamily().getId() == productFamily.getId()) {
-                        LocalDate movementDate = LocalDate.parse(stockMovement.getExpiredDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        LocalDateTime movementDateTime = LocalDateTime.parse(stockMovement.getCreatedAt(), DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+                        LocalDate movementDate = movementDateTime.toLocalDate();
                         String monthYear = movementDate.format(DateTimeFormatter.ofPattern("MM/yyyy"));
                         if (soldQuantitiesByMonth.containsKey(monthYear)) {
                             soldQuantitiesByMonth.put(monthYear, (int) (soldQuantitiesByMonth.get(monthYear) + stockMovement.getQuantity()));

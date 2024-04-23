@@ -53,9 +53,7 @@ public class SupplierOrdersAddController extends DefaultShowController implement
 
     @FXML
     public void selectSupplier() {
-        Platform.runLater(() -> {
             openSupplierSelector(anchorPane.getScene(), this);
-        });
     }
 
     @Override

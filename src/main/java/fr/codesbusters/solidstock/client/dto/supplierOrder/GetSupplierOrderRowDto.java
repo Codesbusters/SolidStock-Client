@@ -17,4 +17,5 @@ public class GetSupplierOrderRowDto {
     private double quantity;
     private String status;
     private String note;
+    private String total;
 }
