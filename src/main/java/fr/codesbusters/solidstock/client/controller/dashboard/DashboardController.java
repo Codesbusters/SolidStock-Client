@@ -111,7 +111,7 @@ public class DashboardController implements Initializable {
 
         if (productList != null) {
             for (GetProductDto productDto : productList) {
-                if (productDto.getInStock() < productDto.getMinimumStockQuantity()) {
+                if (productDto.getInStock() < 0) {
                     totalItemsOutOfStock += 1;
                 }
             }
@@ -248,8 +248,6 @@ public class DashboardController implements Initializable {
                 }
             }
         }
-
-
 
 
         pieChart.setTitle("Répartition des ventes de la semaine");
