@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
-           fx:controller="fr.codesbusters.solidstock.client.controller.stockMovement.StockMovementController" fx:id="stackPane"
+           fx:controller="fr.codesbusters.solidstock.client.controller.stockMovement.StockMovementController"
+           fx:id="stackPane"
            stylesheets="@../../css/MFXColors.css">
     <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: white;">
         <children>
@@ -67,6 +68,11 @@
                                             <MFXFontIcon description="fas-truck-ramp-box" color="white"/>
                                         </graphic>
                                     </MFXButton>
+                                    <MFXButton id="custom" minHeight="27.0" minWidth="70.0" prefWidth="100"
+                                               prefHeight="38" text="AJOUTER" onAction="#addMovement"
+                                               style="-fx-border-color: black; -fx-font-weight: bold;  -fx-border-radius: 4; -fx-cursor: hand;"
+                                               buttonType="RAISED"
+                                               styleClass="outline-button" HBox.hgrow="ALWAYS"/>
                                 </children>
                                 <HBox.margin>
                                     <Insets right="10.0"/>

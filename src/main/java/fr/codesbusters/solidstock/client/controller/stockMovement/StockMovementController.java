@@ -10,16 +10,17 @@ import fr.codesbusters.solidstock.client.service.RequestAPI;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
-import io.github.palexdev.materialfx.filter.*;
+import io.github.palexdev.materialfx.filter.BooleanFilter;
+import io.github.palexdev.materialfx.filter.DoubleFilter;
+import io.github.palexdev.materialfx.filter.IntegerFilter;
+import io.github.palexdev.materialfx.filter.StringFilter;
 import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.TableColumn;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +42,7 @@ public class StockMovementController extends DefaultShowController implements In
 
     @FXML
     private MFXTableView<StockMovementModel> table;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -161,7 +163,7 @@ public class StockMovementController extends DefaultShowController implements In
 
         }});
 
-        table.getTableColumns().addAll(icon, typeColumn, actionDate,  refProductColumn, productNameColumn, quantityColumn, expiredDateColumn, batchNumberColumn, noteColumn);
+        table.getTableColumns().addAll(icon, typeColumn, actionDate, refProductColumn, productNameColumn, quantityColumn, expiredDateColumn, batchNumberColumn, noteColumn);
         table.getFilters().addAll(
                 new BooleanFilter<>("Entrée", StockMovementModel::getInOut),
                 new BooleanFilter<>("Sortie", stockMovementModel -> !stockMovementModel.getInOut()),
@@ -182,7 +184,7 @@ public class StockMovementController extends DefaultShowController implements In
     @FXML
     public void openConfirmRemove() {
 
-       boolean isOk = openDialog(stackPane.getScene(),"Êtes-vous sûr de vouloir supprimer ce mouvement de stock ?", DialogType.CONFIRMATION,  0);
+        boolean isOk = openDialog(stackPane.getScene(), "Êtes-vous sûr de vouloir supprimer ce mouvement de stock ?", DialogType.CONFIRMATION, 0);
         if (!isOk) {
             return;
         }
@@ -239,5 +241,11 @@ public class StockMovementController extends DefaultShowController implements In
         stockMovementModels.sort(Comparator.comparingLong(StockMovementModel::getID));
         table.getItems().addAll(stockMovementModels);
         table.autosizeColumnsOnInitialization();
+    }
+
+    @FXML
+    public void addMovement() {
+        openPopUp("stockMovement/addPopup.fxml", stackPane.getScene(), "Ajouter un mouvement de stock");
+        reloadStockMovement();
     }
 }
