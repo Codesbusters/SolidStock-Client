@@ -100,7 +100,7 @@ public class DashboardController implements Initializable {
 
         if (productList != null) {
             for (GetProductDto productDto : productList) {
-                if (productDto.getInStock() < productDto.getMinimumStockQuantity()) {
+                if (productDto.getInStock() < productDto.getMinimumStockQuantity() && productDto.getInStock() > 0) {
                     totalItemUnderStockMinimum += 1;
                 }
             }
